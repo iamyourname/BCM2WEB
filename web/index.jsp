@@ -134,7 +134,7 @@ body {
 	
 	<div style="border-top-left-radius:  25px; border-top-right-radius:  25px;" class=" w3-light-blue  w3-padding">
         <a href = "profile" > <img  src="img/1486564402-settings_81520.png" align = "right" /></a>
-        <h4 align="right">Test auto6 TEST! TEST! TEST! TEST! TEST! TEST! TEST! TEST! Привет <% out.println(NTLMUserFilter.getUserName()); %>!</h4>
+        <h4 align="right">Test auto7 TEST! TEST! TEST! TEST! TEST! TEST! TEST! TEST! Привет <% out.println(NTLMUserFilter.getUserName()); %>!</h4>
 
 	</div>
 
