@@ -104,10 +104,12 @@ public class ViewResult {
                 "and bo.bout_transactionid = '" + godbuff + "'\n" +
                 "and co.codv_code = '" + godSAP + "'\n" +
                 "and ewp.ewbp_identity in ( ";
+
         String[] positions = pos.split(" ");
         for(int p=0; p < positions.length; p++){
             sqlstring += "'" + positions[p] + "',";
         }
+
         sqlstring +=")";
 
         System.out.println(sqlstring.replace("',)","')"));
