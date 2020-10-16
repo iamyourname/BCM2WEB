@@ -219,7 +219,7 @@ function godBacchus(){
                     "Ошибка в буфере</button>" +
                     "<div id=\"Demo3\" class=\"w3-hide w3-card w3-padding-16\" style = \"height: 100px\">" +
                         "<p id=\"textOfError\">" + errorOfGod + "</p>" +
-                            "<button onclick=\"myFunction2('Demo33')\" class=\"w3-btn w3-block w3-light-blue w3-left-align\">"+
+                            "<button onclick=\"myFunction2('Demo3')\" class=\"w3-btn w3-block w3-light-blue w3-left-align\">"+
                             "Ответ для пользователя</button>" +
                                 "<div id=\"Demo33\" class=\"w3-hide w3-card w3-padding-16\" style = \"height: 100px\">" +
                                     "<p id=\"textToUserError\">" + TableBufParsed[7] + "</p>" +
