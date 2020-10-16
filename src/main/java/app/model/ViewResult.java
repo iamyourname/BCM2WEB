@@ -103,14 +103,18 @@ public class ViewResult {
                 "and bo.doc_adddate > sysdate -10 " +
                 "and bo.bout_transactionid = '" + godbuff + "'\n" +
                 "and co.codv_code = '" + godSAP + "'\n" +
-                "and ewp.ewbp_identity = '" + pos + "'\n"
-                ;
+                "and ewp.ewbp_identity in ( ";
+        String[] positions = pos.split(" ");
+        for(int p=0; p < positions.length; p++){
+            sqlstring += "'" + positions[p] + "',";
+        }
+        sqlstring +=")";
 
-        System.out.println(sqlstring);
+        System.out.println(sqlstring.replace("',)","')"));
         Connection pullConn = ConnectionPool.getInstance().getConnection(godagent);
         Statement stmtPullB = pullConn.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        ResultSet rsPullB = stmtPullB.executeQuery(sqlstring);
+        ResultSet rsPullB = stmtPullB.executeQuery(sqlstring.replace("',)","')"));
         ConnectionPool.getInstance().getConnection(godagent).close();
         //System.out.println("Find");
         ResultSetMetaData rsdata = rsPullB.getMetaData();
@@ -151,7 +155,7 @@ public class ViewResult {
                     .append(rsPullB.getString((String) colNames[2]))
                     .append(". В документе содержится ")
                     .append(rsPullB.getString((String) colNames[3]))
-                    .append("шт. данной АП, но доступно для отгрузки: ")
+                    .append(" шт. данной АП, но доступно для отгрузки: ")
                     .append(rsPullB.getString((String) colNames[4]))
                     .append(" шт. \n");
         }
