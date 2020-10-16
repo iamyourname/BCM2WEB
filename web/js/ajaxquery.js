@@ -223,7 +223,7 @@ function godBacchus(){
                             "Ответ для пользователя</button>" +
                                 "<div id=\"Demo33\" class=\"w3-hide w3-card w3-padding-16\" style = \"height: 100px\">" +
                                     "<p id=\"textToUserError\">" + TableBufParsed[7] + "</p>" +
-                                "</div>"
+                                "</div>" +
                     "</div>";
 
             }
