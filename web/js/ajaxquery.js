@@ -211,7 +211,13 @@ function godBacchus(){
 
 
             printTable +="</table><br>";
-            printTable +="<button onclick=\"myFunction2('Demo3')\" class=\"w3-btn w3-block w3-red\">"+
+
+            if(TableBufParsed[1].includes("Ошибка")){
+
+
+            }
+
+                printTable +="<button onclick=\"myFunction2('Demo3')\" class=\"w3-btn w3-block w3-red\">"+
                 "Ошибка в буфере</button>" +
                 "<div id=\"Demo3\" class=\"w3-hide w3-card w3-padding-16\" style = \"height: 100px\">" +
                 "<p id=\"textOfError\">" + errorOfGod + "</p>" +
