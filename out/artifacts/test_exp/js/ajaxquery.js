@@ -224,7 +224,7 @@ function godBacchus(){
                         "<button onclick=\"myFunction2('Demo1')\" class=\"w3-btn w3-block w3-light-blue w3-left-align\">"+
                         "Ответ для пользователя</button>" +
                         "<div id=\"Demo1\" class=\"w3-hide w3-card\">" +
-                        "<p id=\"textToUserError\">" + TableBufParsed[7] + "</p>" +
+                        "<p id=\"textToUserError\">" + TableBufParsed[7].replace("X",",") + "</p>" +
                         "</div>" +
 
                     "</div>";
