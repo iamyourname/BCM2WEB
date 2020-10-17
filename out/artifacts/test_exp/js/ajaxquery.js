@@ -220,13 +220,14 @@ function godBacchus(){
 
                     "<div id=\"Demo3\" class=\"w3-hide w3-card w3-padding-16\" style = \"height: 100px\">" +
                     "<p id=\"textOfError\">" + errorOfGod + "</p>" +
-                    "</div>" +
 
-                "<button onclick=\"myFunction2('Demo1')\" class=\"w3-btn w3-block w3-light-blue w3-left-align\">"+
-                "Ответ для пользователя</button>" +
-                "<div id=\"Demo1\" class=\"w3-hide w3-card w3-padding-16\" style = \"height: 100px\">" +
-                "<p id=\"textToUserError\">" + TableBufParsed[7] + "</p>" +
-                "</div>";
+                        "<button onclick=\"myFunction2('Demo1')\" class=\"w3-btn w3-block w3-light-blue w3-left-align\">"+
+                        "Ответ для пользователя</button>" +
+                        "<div id=\"Demo1\" class=\"w3-hide w3-card w3-padding-16\" style = \"height: 100px\">" +
+                        "<p id=\"textToUserError\">" + TableBufParsed[7] + "</p>" +
+                        "</div>" +
+
+                    "</div>";
 
             }
 
