@@ -143,8 +143,8 @@ public class ViewResult {
 
         }
 
-        StringBuilder startMes = new StringBuilder("Добрый день!\n" +
-                "В буфере " + godbuff + " имеется необеспеченный расход.\n");
+        StringBuilder startMes = new StringBuilder("Добрый день!<br>" +
+                "В буфере " + godbuff + " имеется необеспеченный расход. <br>");
 
         //System.out.println(startMes);
 
@@ -159,7 +159,7 @@ public class ViewResult {
                     .append(rsPullB.getString((String) colNames[3]))
                     .append(" шт. данной АПX но доступно для отгрузки: ")
                     .append(rsPullB.getString((String) colNames[4]))
-                    .append(" шт. \n");
+                    .append(" шт. <br>");
         }
         startMes.append("Просьба запросить у ГУТЗ корректные остатки и отгружать согласно количеству продукции на вашем РЦ.\n" + "Вы также можете отгрузить изъяв данную продукцию из отгрузки.");
         pullConn.close();
