@@ -63,6 +63,8 @@ public class ViewResult {
                 "and co.codv_code = '" + godSAP + "'\n";
 
 
+
+
         Connection pullConn = ConnectionPool.getInstance().getConnection(godagent);
         Statement stmtPullB = pullConn.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -84,20 +86,15 @@ public class ViewResult {
             siz = rsdata.getColumnCount();
             rsPullB.last();
             countrows = rsPullB.getRow();
-
-            Object[][] data = new Object[countrows][siz+1];
-
             Object[] colNames = new String[siz];
-
+            Object[][] data = new Object[countrows][siz+1];
             rsPullB.beforeFirst();
-
             for (int i=0; i<siz; i++) {
                 colNames[i] = rsdata.getColumnName(i+1);
             }
             int id=0;
             while (rsPullB.next()){
                 for (int iii=0;iii<siz;iii++) {
-
                     if(rsPullB.getString((String) colNames[iii])==null){
                         data[id][iii]="null";
                     }else{
@@ -107,19 +104,13 @@ public class ViewResult {
                 id++;
             }
             ConnectionPool.getInstance().getConnection(godagent).close();
-
             pullConn.close();
             return data;
         }else{
-
             System.out.println("not incom it is out");
-
             Object[][] data = new Object[countrows][siz+1];
-
             Object[] colNames = new String[siz];
-
             rsPullB.beforeFirst();
-
             for (int i=0; i<siz; i++) {
                 colNames[i] = rsdata.getColumnName(i+1);
             }
@@ -291,38 +282,89 @@ public class ViewResult {
                 "order by 1 ";
 
 
+        String sqlstringIn = "select ats.* from a_tasks ats\n" +
+                "left join b_incoming bi on bi.binc_id = ats.c_doc_id \n" +
+                "left join c_org_divisions co on co.codv_id = bi.codv_id\n" +
+                "where 1=1 \n" +
+                "and bi.doc_adddate > sysdate -10 \n"+
+                "and bi.binc_transactionid = '" + godbuff + "'\n" +
+                "and co.codv_code = '" + godSAP + "'\n" +
+                "order by 1 ";
+
+
         Connection pullConn = ConnectionPool.getInstance().getConnection(godagent);
         Statement stmtPullB = pullConn.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rsPullB = stmtPullB.executeQuery(sqlstring);
-        ConnectionPool.getInstance().getConnection(godagent).close();
+        //ConnectionPool.getInstance().getConnection(godagent).close();
         //System.out.println("Find");
         ResultSetMetaData rsdata = rsPullB.getMetaData();
         int siz = rsdata.getColumnCount();
         rsPullB.last();
         int countrows = rsPullB.getRow();
-        Object[] colNames = new String[siz];
-        Object[][] data = new Object[countrows][siz];
-        if(countrows == 0){data[0][0]="empty";return data;} // если не отгрузка
-        rsPullB.beforeFirst();
+        // Object[] colNames = new String[siz];
+        // Object[][] data = new Object[countrows][siz];
 
-        for (int i=0; i<siz; i++) {
-            colNames[i] = rsdata.getColumnName(i+1);
-        }
-        int id=0;
-        while (rsPullB.next()){
-            for (int iii=0;iii<siz;iii++) {
-
-                if(rsPullB.getString((String) colNames[iii])==null){
-                    data[id][iii]="null$$";
-                }else{
-                    data[id][iii] = rsPullB.getString((String) colNames[iii]) + "$$";
-                }
+        if(countrows == 0){
+            System.out.println("not out it is incom on tasks");
+            rsPullB = stmtPullB.executeQuery(sqlstringIn);
+            rsdata = rsPullB.getMetaData();
+            siz = rsdata.getColumnCount();
+            rsPullB.last();
+            countrows = rsPullB.getRow();
+            Object[] colNames = new String[siz];
+            Object[][] data = new Object[countrows][siz+1];
+            rsPullB.beforeFirst();
+            for (int i=0; i<siz; i++) {
+                colNames[i] = rsdata.getColumnName(i+1);
             }
-            id++;
+            int id=0;
+            while (rsPullB.next()){
+                for (int iii=0;iii<siz;iii++) {
+                    if(rsPullB.getString((String) colNames[iii])==null){
+                        data[id][iii]="null";
+                    }else{
+                        data[id][iii] = rsPullB.getString((String) colNames[iii]);
+                    }
+                }
+                id++;
+            }
+            ConnectionPool.getInstance().getConnection(godagent).close();
+            pullConn.close();
+            return data;
+        } else{
+
+            System.out.println("not in it is out on tasks");
+            rsPullB.beforeFirst();
+            rsPullB = stmtPullB.executeQuery(sqlstringIn);
+            rsdata = rsPullB.getMetaData();
+            siz = rsdata.getColumnCount();
+            rsPullB.last();
+            countrows = rsPullB.getRow();
+            Object[] colNames = new String[siz];
+            Object[][] data = new Object[countrows][siz+1];
+            rsPullB.beforeFirst();
+            for (int i=0; i<siz; i++) {
+                colNames[i] = rsdata.getColumnName(i+1);
+            }
+            int id=0;
+            while (rsPullB.next()){
+                for (int iii=0;iii<siz;iii++) {
+                    if(rsPullB.getString((String) colNames[iii])==null){
+                        data[id][iii]="null";
+                    }else{
+                        data[id][iii] = rsPullB.getString((String) colNames[iii]);
+                    }
+                }
+                id++;
+            }
+            ConnectionPool.getInstance().getConnection(godagent).close();
+            pullConn.close();
+            return data;
+
         }
-        pullConn.close();
-        return data;
+
+
     }
 
     public Object[][] ViewUTMFromBD(String godbuff, String godSAP, String godagent) throws SQLException {
@@ -339,39 +381,86 @@ public class ViewResult {
                 "and co.codv_code = '" + godSAP + "'\n" +
                 "order by 1 ";
 
+        String sqlstringIn = "select bu.* from b_incoming bi\n" +
+                "left join c_org_divisions co on co.codv_id = bi.codv_id\n" +
+                "left join e_waybill ew on ew.ewbh_id = bi.ewbh_id\n" +
+                "left join b_utmdocs bu on bu.bud_utm_reply_id = ew.ewbh_utmwaybill_replyid \n"+
+                "where 1=1 \n" +
+                "and bi.doc_adddate > sysdate -10 \n"+
+                "and bi.binc_transactionid = '" + godbuff + "'\n" +
+                "and co.codv_code = '" + godSAP + "'\n" +
+                "order by 1 ";
+
 
         Connection pullConn = ConnectionPool.getInstance().getConnection(godagent);
         Statement stmtPullB = pullConn.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rsPullB = stmtPullB.executeQuery(sqlstring);
-        ConnectionPool.getInstance().getConnection(godagent).close();
+        //ConnectionPool.getInstance().getConnection(godagent).close();
         //System.out.println("Find");
         ResultSetMetaData rsdata = rsPullB.getMetaData();
         int siz = rsdata.getColumnCount();
         rsPullB.last();
         int countrows = rsPullB.getRow();
-        Object[] colNames = new String[siz];
-        Object[][] data = new Object[countrows][siz];
-        if(countrows == 0){data[0][0]="empty";return data;} // если не отгрузка
-        rsPullB.beforeFirst();
-
-        for (int i=0; i<siz; i++) {
-            colNames[i] = rsdata.getColumnName(i+1);
-        }
-        int id=0;
-        while (rsPullB.next()){
-            for (int iii=0;iii<siz;iii++) {
-
-                if(rsPullB.getString((String) colNames[iii])==null){
-                    data[id][iii]="null$$";
-                }else{
-                    data[id][iii] = rsPullB.getString((String) colNames[iii]) + "$$";
-                }
+        //Object[] colNames = new String[siz];
+        //Object[][] data = new Object[countrows][siz];
+        if(countrows == 0){
+            System.out.println("not out it is incom on utm");
+            rsPullB = stmtPullB.executeQuery(sqlstringIn);
+            rsdata = rsPullB.getMetaData();
+            siz = rsdata.getColumnCount();
+            rsPullB.last();
+            countrows = rsPullB.getRow();
+            Object[] colNames = new String[siz];
+            Object[][] data = new Object[countrows][siz+1];
+            rsPullB.beforeFirst();
+            for (int i=0; i<siz; i++) {
+                colNames[i] = rsdata.getColumnName(i+1);
             }
-            id++;
-        }
-        pullConn.close();
-        return data;
+            int id=0;
+            while (rsPullB.next()){
+                for (int iii=0;iii<siz;iii++) {
+                    if(rsPullB.getString((String) colNames[iii])==null){
+                        data[id][iii]="null";
+                    }else{
+                        data[id][iii] = rsPullB.getString((String) colNames[iii]);
+                    }
+                }
+                id++;
+            }
+            ConnectionPool.getInstance().getConnection(godagent).close();
+            pullConn.close();
+            return data;
+        }else{
+            System.out.println("not in it is out on utm");
+            rsPullB.beforeFirst();
+            rsPullB = stmtPullB.executeQuery(sqlstringIn);
+            rsdata = rsPullB.getMetaData();
+            siz = rsdata.getColumnCount();
+            rsPullB.last();
+            countrows = rsPullB.getRow();
+            Object[] colNames = new String[siz];
+            Object[][] data = new Object[countrows][siz+1];
+            rsPullB.beforeFirst();
+            for (int i=0; i<siz; i++) {
+                colNames[i] = rsdata.getColumnName(i+1);
+            }
+            int id=0;
+            while (rsPullB.next()){
+                for (int iii=0;iii<siz;iii++) {
+                    if(rsPullB.getString((String) colNames[iii])==null){
+                        data[id][iii]="null";
+                    }else{
+                        data[id][iii] = rsPullB.getString((String) colNames[iii]);
+                    }
+                }
+                id++;
+            }
+            ConnectionPool.getInstance().getConnection(godagent).close();
+            pullConn.close();
+            return data;
+        } // если не отгрузка
+
     }
 
 
