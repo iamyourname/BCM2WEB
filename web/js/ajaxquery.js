@@ -178,6 +178,7 @@ function godBacchus(){
                         utms[xx] = utms[xx].replace(/</g,'&lt');
                         utms[xx] = utms[xx].replace(/</g,'&lt');
                         utms[xx] = utms[xx].replace(']','');
+                        utms[xx] = utms[xx].replace(/></g,'>\n<');
                         printUtm += "<td onclick=\"document.getElementById('idu"+iii+"').style.display='block'\">" + utms[xx].substr(0,80) +
                             //"<span style=\"display:none\" id=\"fullvalueTask"+x+"\">" + tasks[x] + "</span>"+
                             "...</td>";
