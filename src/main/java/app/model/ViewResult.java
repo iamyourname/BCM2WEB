@@ -74,23 +74,78 @@ public class ViewResult {
         rsPullB.last();
         int countrows = rsPullB.getRow();
         // Object[] colNames = new String[siz];
-        Object[] colNames = new Object[0];
+        //Object[] colNames = new Object[0];
         // Object[][] data = new Object[countrows][siz+1];
-        Object[][] data = new Object[0][];
+        //Object[][] data = new Object[0][];
         if(countrows == 0){ // если не отгрузка, ищем в приемке
 
             rsPullB = stmtPullB.executeQuery(sqlstringIn);
-
-            //System.out.println("Find");
             rsdata = rsPullB.getMetaData();
             siz = rsdata.getColumnCount();
             rsPullB.last();
             countrows = rsPullB.getRow();
-            colNames = new String[siz];
-            data = new Object[countrows][siz+1];
+
+            Object[][] data = new Object[countrows][siz+1];
+
+            Object[] colNames = new String[siz];
+
+            rsPullB.beforeFirst();
+
+            for (int i=0; i<siz; i++) {
+                colNames[i] = rsdata.getColumnName(i+1);
+            }
+            int id=0;
+            while (rsPullB.next()){
+                for (int iii=0;iii<siz;iii++) {
+
+                    if(rsPullB.getString((String) colNames[iii])==null){
+                        data[id][iii]="null";
+                    }else{
+                        data[id][iii] = rsPullB.getString((String) colNames[iii]);
+                    }
+                }
+                id++;
+            }
+            ConnectionPool.getInstance().getConnection(godagent).close();
+
+            pullConn.close();
+            return data;
+        }else{
+
+            Object[][] data = new Object[countrows][siz+1];
+
+            Object[] colNames = new String[siz];
+
+            rsPullB.beforeFirst();
+
+            for (int i=0; i<siz; i++) {
+                colNames[i] = rsdata.getColumnName(i+1);
+            }
+            int id=0;
+            while (rsPullB.next()){
+                for (int iii=0;iii<siz;iii++) {
+
+                    if(rsPullB.getString((String) colNames[iii])==null){
+                        data[id][iii]="null";
+                    }else{
+                        data[id][iii] = rsPullB.getString((String) colNames[iii]);
+                    }
+                }
+                id++;
+            }
+
+            if(data[0][6].toString().contains("необеспеченный")){
+                String posFix = data[0][6].toString().replace("  имеют необеспеченный расход.","");
+                String[] posFixList = posFix.split("позиции ");
+                //System.out.println(posFixList[1]);
+                data[0][7]=ViewFixOfNeob(godbuff,godSAP,godagent,posFixList[1]);
+            }
+            ConnectionPool.getInstance().getConnection(godagent).close();
+            pullConn.close();
+            return data;
 
         }
-
+/*
         ConnectionPool.getInstance().getConnection(godagent).close();
 
         rsPullB.beforeFirst();
@@ -118,6 +173,7 @@ public class ViewResult {
         }
         pullConn.close();
         return data;
+        */
     }
 
     public String ViewFixOfNeob(String godbuff, String godSAP, String godagent, String pos) throws SQLException {
