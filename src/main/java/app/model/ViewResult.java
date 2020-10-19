@@ -157,7 +157,7 @@ public class ViewResult {
                     .append(rsPullB.getString((String) colNames[2]))
                     .append(". В документе содержится ")
                     .append(rsPullB.getString((String) colNames[3]))
-                    .append(" шт. данной АП | но доступно для отгрузки: ")
+                    .append(" шт. данной АП| но доступно для отгрузки: ")
                     .append(rsPullB.getString((String) colNames[4]))
                     .append(" шт.<br>");
         }
