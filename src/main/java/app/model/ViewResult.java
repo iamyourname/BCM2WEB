@@ -78,7 +78,7 @@ public class ViewResult {
         // Object[][] data = new Object[countrows][siz+1];
         //Object[][] data = new Object[0][];
         if(countrows == 0){ // если не отгрузка, ищем в приемке
-
+            System.out.println("not out it is incom");
             rsPullB = stmtPullB.executeQuery(sqlstringIn);
             rsdata = rsPullB.getMetaData();
             siz = rsdata.getColumnCount();
@@ -111,6 +111,8 @@ public class ViewResult {
             pullConn.close();
             return data;
         }else{
+
+            System.out.println("not incom it is out");
 
             Object[][] data = new Object[countrows][siz+1];
 
