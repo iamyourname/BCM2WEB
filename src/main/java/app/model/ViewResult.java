@@ -155,11 +155,25 @@ public class ViewResult {
                     .append(rsPullB.getString((String) colNames[1]))
                     .append(" для PLU ")
                     .append(rsPullB.getString((String) colNames[2]))
-                    .append(". В документе содержится ")
-                    .append(rsPullB.getString((String) colNames[3]))
-                    .append(" шт. данной АП| но доступно для отгрузки: ")
-                    .append(rsPullB.getString((String) colNames[4]))
-                    .append(" шт.<br>");
+                    .append("<br>");
+            /*
+
+
+            Для запроса справки через утм нужно воспользоваться запросами
+            https://bacchus.x5.ru/bacchus_agent_1/bacchus/list_fb_movements.php?e_fb_movements_grid_fb=FB-000003460252830 - GET
+            https://bacchus.x5.ru/bacchus_agent_1/bacchus/card.php?p_ent=E_FB_MOVEMENTS  - POST
+            p_submit: go
+            e_fb_movements_grid_fb: FB-000003476228582
+            p_ap_selTabId: tp_crud
+            p_action: efb_get_history
+
+
+             */
+                   // .append(". В документе содержится ")
+                   // .append(rsPullB.getString((String) colNames[3]))
+                   // .append(" шт. данной АП| но доступно для отгрузки: ")
+                   // .append(rsPullB.getString((String) colNames[4]))
+                   // .append(" шт.<br>");
         }
         startMes.append("Просьба запросить у ГУТЗ корректные остатки и отгружать согласно количеству продукции на вашем РЦ.\n" + "Вы также можете отгрузить изъяв данную продукцию из отгрузки.");
         pullConn.close();
