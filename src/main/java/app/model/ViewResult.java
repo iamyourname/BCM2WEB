@@ -322,9 +322,9 @@ public class ViewResult {
             while (rsPullB.next()){
                 for (int iii=0;iii<siz;iii++) {
                     if(rsPullB.getString((String) colNames[iii])==null){
-                        data[id][iii]="null";
+                        data[id][iii]="null$$";
                     }else{
-                        data[id][iii] = rsPullB.getString((String) colNames[iii]);
+                        data[id][iii] = rsPullB.getString((String) colNames[iii]) + "$$";
                     }
                 }
                 id++;
@@ -351,9 +351,9 @@ public class ViewResult {
             while (rsPullB.next()){
                 for (int iii=0;iii<siz;iii++) {
                     if(rsPullB.getString((String) colNames[iii])==null){
-                        data[id][iii]="null";
+                        data[id][iii]="null$$";
                     }else{
-                        data[id][iii] = rsPullB.getString((String) colNames[iii]);
+                        data[id][iii] = rsPullB.getString((String) colNames[iii]) + "$$";
                     }
                 }
                 id++;
@@ -421,9 +421,9 @@ public class ViewResult {
             while (rsPullB.next()){
                 for (int iii=0;iii<siz;iii++) {
                     if(rsPullB.getString((String) colNames[iii])==null){
-                        data[id][iii]="null";
+                        data[id][iii]="null$$";
                     }else{
-                        data[id][iii] = rsPullB.getString((String) colNames[iii]);
+                        data[id][iii] = rsPullB.getString((String) colNames[iii]) + "$$";
                     }
                 }
                 id++;
@@ -449,9 +449,9 @@ public class ViewResult {
             while (rsPullB.next()){
                 for (int iii=0;iii<siz;iii++) {
                     if(rsPullB.getString((String) colNames[iii])==null){
-                        data[id][iii]="null";
+                        data[id][iii]="null$$";
                     }else{
-                        data[id][iii] = rsPullB.getString((String) colNames[iii]);
+                        data[id][iii] = rsPullB.getString((String) colNames[iii]) + "$$";
                     }
                 }
                 id++;
