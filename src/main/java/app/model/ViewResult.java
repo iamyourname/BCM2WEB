@@ -25,6 +25,25 @@ public class ViewResult {
 
 
         String result="";
+
+        String sqlstringIn = "select \n" +
+                "                bi.binc_transactionid \"Номер буфера\" \n" +
+                "                , sd.sdss_name || ' (' || bi.doc_status || ')'  \"Статус буфера\" \n" +
+                "                , bi.binc_transactiondate \"Дата\" \n" +
+                "                , bi.binc_waybillnumber \"Номер АП\" \n" +
+                "                , ew.ewbh_wbregid \"ТТН ЕГАИС\" \n" +
+                "                , ews.ewbs_name \"Статус ТТН ЕГАИС в Бахус\" \n" +
+                "                , ew.ewbh_egais_response \"Ошибка\" \n" +
+                "                from b_incoming bi \n" +
+                "                left join c_org_divisions co on co.codv_id = bi.codv_id \n" +
+                "                left join e_waybill ew on ew.ewbh_id = bi.ewbh_id \n" +
+                "                left join e_waybill_statuses ews on ews.ewbs_code = ew.ewbh_status \n" +
+                "                left join s_docstatuses sd on sd.sdss_id = bi.doc_status \n" +
+                "                where 1=1 \n" +
+                "                and bi.doc_adddate > sysdate -10 \n" +
+                "                and bi.binc_transactionid = '" + godbuff + "' \n" +
+                "                and co.codv_code = '" + godSAP + "' \n";
+
         String sqlstring = "select \n" +
                 "bo.bout_transactionid \"Номер буфера\" \n" +
                 ", sd.sdss_name || ' (' || bo.doc_status || ')'  \"Статус буфера\"\n" +
@@ -48,7 +67,7 @@ public class ViewResult {
         Statement stmtPullB = pullConn.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rsPullB = stmtPullB.executeQuery(sqlstring);
-        ConnectionPool.getInstance().getConnection(godagent).close();
+
         //System.out.println("Find");
         ResultSetMetaData rsdata = rsPullB.getMetaData();
         int siz = rsdata.getColumnCount();
@@ -56,7 +75,22 @@ public class ViewResult {
         int countrows = rsPullB.getRow();
         Object[] colNames = new String[siz];
         Object[][] data = new Object[countrows][siz+1];
-        if(countrows == 0){data[0][0]="empty";return data;} // если не отгрузка
+        if(countrows == 0){ // если не отгрузка, ищем в приемке
+
+            rsPullB = stmtPullB.executeQuery(sqlstringIn);
+
+            //System.out.println("Find");
+            rsdata = rsPullB.getMetaData();
+            siz = rsdata.getColumnCount();
+            rsPullB.last();
+            countrows = rsPullB.getRow();
+            colNames = new String[siz];
+            data = new Object[countrows][siz+1];
+
+        }
+
+        ConnectionPool.getInstance().getConnection(godagent).close();
+
         rsPullB.beforeFirst();
 
         for (int i=0; i<siz; i++) {
