@@ -73,8 +73,10 @@ public class ViewResult {
         int siz = rsdata.getColumnCount();
         rsPullB.last();
         int countrows = rsPullB.getRow();
-        Object[] colNames = new String[siz];
-        Object[][] data = new Object[countrows][siz+1];
+        // Object[] colNames = new String[siz];
+        Object[] colNames = new Object[0];
+        // Object[][] data = new Object[countrows][siz+1];
+        Object[][] data = new Object[0][];
         if(countrows == 0){ // если не отгрузка, ищем в приемке
 
             rsPullB = stmtPullB.executeQuery(sqlstringIn);
