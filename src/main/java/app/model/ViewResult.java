@@ -383,8 +383,8 @@ public class ViewResult {
 
         String sqlstringIn = "select bu.* from b_incoming bi\n" +
                 "left join c_org_divisions co on co.codv_id = bi.codv_id\n" +
-                "left join e_waybill ew on ew.ewbh_id = bi.ewbh_id\n" +
-                "left join b_utmdocs bu on bu.bud_utm_reply_id = ew.ewbh_utmwaybill_replyid \n"+
+                "--left join e_waybill ew on ew.ewbh_id = bi.ewbh_id \n" +
+                "left join b_utmdocs bu on bu.bud_reg_id = bi.binc_waybillseries \n"+
                 "where 1=1 \n" +
                 "and bi.doc_adddate > sysdate -10 \n"+
                 "and bi.binc_transactionid = '" + godbuff + "'\n" +
