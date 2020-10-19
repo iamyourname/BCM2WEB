@@ -178,7 +178,7 @@ function godBacchus(){
                         utms[xx] = utms[xx].replace(/</g,'&lt');
                         utms[xx] = utms[xx].replace(/</g,'&lt');
                         utms[xx] = utms[xx].replace(']','');
-                        utms[xx] = utms[xx].replace(/></g,'>\n<');
+                        //utms[xx] = utms[xx].replace(/></g,'>\n<');
                         printUtm += "<td onclick=\"document.getElementById('idu"+iii+"').style.display='block'\">" + utms[xx].substr(0,80) +
                             //"<span style=\"display:none\" id=\"fullvalueTask"+x+"\">" + tasks[x] + "</span>"+
                             "...</td>";
@@ -233,14 +233,14 @@ function godBacchus(){
 
 
 
-            printTable +="<button onclick=\"myFunction2('Demo4')\" class=\"w3-btn w3-block w3-green\">"+
+            printTable +="<br><button onclick=\"myFunction2('Demo4')\" class=\"w3-btn w3-block w3-green\">"+
                 "Таски</button>" +
 
                 "<div id=\"Demo4\" class=\"w3-hide w3-card w3-padding-16\" style = \"overflow-x:scroll\">" +
                 "<p id=\"tableOfTasks\">" + printTask + "</p>" +
                 "</div>";
 
-            printTable +="<button onclick=\"myFunction2('Demo2')\" class=\"w3-btn w3-block w3-green\">"+
+            printTable +="<br><button onclick=\"myFunction2('Demo2')\" class=\"w3-btn w3-block w3-green\">"+
                 "Тикеты из УТМ</button>" +
 
                 "<div id=\"Demo2\" class=\"w3-hide w3-card w3-padding-16\" style = \"overflow-x:scroll\">" +
