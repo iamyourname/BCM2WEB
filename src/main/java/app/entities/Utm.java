@@ -95,7 +95,7 @@ public class Utm {
 
             FileWriter waybillIn = new FileWriter(waybillReject, true);
             waybillIn.write(hat+data[0][3].toString()+wbody);
-            waybillIn.flush();waybillIn.close();
+            waybillIn.close();
 
             String textWay = hat+data[0][3].toString()+wbody;
             /*
@@ -105,7 +105,7 @@ public class Utm {
             //con.setRequestProperty("xml_file", Bi File("E:\\Progs\\TomCat_9\\waybills\\reject\\"+data[0][4].toString()+".xml"));
             con.setRequestProperty("xml_file", String.valueOf(new File("E:\\Progs\\TomCat_9\\waybills\\reject\\"+data[0][4].toString()+".xml")));
                 */
-
+            /*
             HttpRequest request = HttpRequest.post("http://"+ipUtm+"/opt/in/QueryHistoryFormB");
             request.parameter("Content-Type", "text/xml");
             request.parameter("Accept", "text/xml");
@@ -116,6 +116,8 @@ public class Utm {
                 reply_id = request.body();
             }
             request.closeOutput();
+
+            */
 
 
         }
