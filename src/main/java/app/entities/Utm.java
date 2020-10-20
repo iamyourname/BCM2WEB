@@ -112,7 +112,7 @@ public class Utm {
             request.part("xml_file", waybillReject);
             int status = request.code();
             if(status == 200) {
-                System.out.println(request.body());
+                //System.out.println(request.body());
                 reply_id = request.body();
                 return reply_id;
             }
