@@ -105,6 +105,7 @@ public class ViewResult {
             }
             ConnectionPool.getInstance().getConnection(godagent).close();
             pullConn.close();
+            System.out.println("end");
             return data;
         }else{
             System.out.println("not incom it is out");
@@ -135,6 +136,7 @@ public class ViewResult {
             }
             ConnectionPool.getInstance().getConnection(godagent).close();
             pullConn.close();
+            System.out.println("view buf end");
             return data;
 
         }
@@ -167,6 +169,7 @@ public class ViewResult {
         pullConn.close();
         return data;
         */
+
     }
 
     public String ViewFixOfNeob(String godbuff, String godSAP, String godagent, String pos) throws SQLException {

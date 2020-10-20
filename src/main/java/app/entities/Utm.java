@@ -45,7 +45,7 @@ public class Utm {
                 "and bo.doc_adddate > sysdate -3\n" +
                 "and co.codv_code = '" + WRSap + "'\n" +
                 "and bout_transactionid = '" + WRBuf + "'";
-
+        System.out.println("48 in utm");
         Connection pullConn = ConnectionPool.getInstance().getConnection("02");
         Statement stmtPullB = pullConn.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -86,7 +86,7 @@ public class Utm {
 
 
 
-
+        System.out.println("before created");
         try
         {
             boolean created = waybillReject.createNewFile();
@@ -115,7 +115,7 @@ public class Utm {
                 System.out.println(request.body());
                 reply_id = request.body();
             }
-
+            request.closeOutput();
 
 
         }

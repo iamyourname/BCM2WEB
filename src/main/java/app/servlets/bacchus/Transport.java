@@ -49,9 +49,14 @@ public class Transport extends HttpServlet {
             System.out.println("Transport");
 
             if(TW.equals("1")){
+                System.out.println("Transport waybill");
+
                 tResponse = Utm.WaybillReject(TBuf,TSap);
+                out.append(tResponse);
 
             }else{
+                System.out.println("Transport buff");
+
                 Object[][] outT31 = viewResult.ViewBuffGodOutFromBD(TBuf,TSap, agent); // ошибка
 
                 for (Object[] out31Datum : outT31) {
@@ -66,7 +71,7 @@ public class Transport extends HttpServlet {
 
 
         }catch (Exception sq){
-            out.append(""+sq.toString());
+            out.append("Transport.java"+sq.toString());
             System.out.println(""+sq.toString());
         }
 
