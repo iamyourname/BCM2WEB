@@ -1,13 +1,13 @@
 package app.entities;
 
 import java.io.*;
-import java.net.HttpURLConnection;
+//import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.sql.*;
 import java.util.function.IntBinaryOperator;
-//import HttpRequest.
+import app.entities.HttpRequest;
 
 public class Utm {
 
@@ -80,13 +80,10 @@ public class Utm {
         if(data[0][2].toString().equals("2"))ipUtm = data[0][1].toString();
 
 
-        URL obj = new URL("http://"+ipUtm+"/opt/in/QueryHistoryFormB");
+        //URL obj = new URL("http://"+ipUtm+"/opt/in/QueryHistoryFormB");
 
         File waybillReject = new File("E:\\Progs\\TomCat_9\\waybills\\reject"+data[0][4].toString()+".xml");
 
-        HttpURLConnection  con = (HttpURLConnection) obj.openConnection();
-
-        //System.out.println(url);
 
 
 
@@ -100,31 +97,26 @@ public class Utm {
             waybillIn.write(hat+data[0][3].toString()+wbody);
             waybillIn.flush();waybillIn.close();
 
-            con.setDoOutput(true);
-
-            OutputStream os = con.getOutputStream();
             String textWay = hat+data[0][3].toString()+wbody;
-            byte[] waybillb = textWay.getBytes();
-            os.write(waybillb);
-            os.flush();os.close();
-
+            /*
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "text/xml");
             con.setRequestProperty("Accept", "text/xml");
             //con.setRequestProperty("xml_file", Bi File("E:\\Progs\\TomCat_9\\waybills\\reject\\"+data[0][4].toString()+".xml"));
             con.setRequestProperty("xml_file", String.valueOf(new File("E:\\Progs\\TomCat_9\\waybills\\reject\\"+data[0][4].toString()+".xml")));
+                */
 
-            InputStream inputStream = con.getInputStream();
-            byte[] res = new byte[2048];
-            int i = 0;
-            StringBuilder response = new StringBuilder();
-            while ((i = inputStream.read(res)) != -1) {
-                response.append(new String(res, 0, i));
+            HttpRequest request = HttpRequest.post("http://"+ipUtm+"/opt/in/QueryHistoryFormB");
+            request.parameter("Content-Type", "text/xml");
+            request.parameter("Accept", "text/xml");
+            request.part("xml_file", waybillReject);
+            int status = request.code();
+            if(status == 200) {
+                System.out.println(request.body());
+                reply_id = request.body();
             }
-            inputStream.close();
 
-            System.out.println("Response= " + response.toString());
-            reply_id = response.toString();
+
 
         }
         catch(IOException ex){
