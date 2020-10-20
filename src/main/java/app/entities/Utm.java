@@ -114,8 +114,9 @@ public class Utm {
             if(status == 200) {
                 System.out.println(request.body());
                 reply_id = request.body();
+                return reply_id;
             }
-            request.closeOutput();
+            //request.closeOutput();
 
 
 
