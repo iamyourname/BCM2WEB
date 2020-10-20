@@ -29,6 +29,73 @@ function showChnage() {
 
 }
 
+function tranpGo(){
+
+    var tranpbutton = document.getElementById('transBut');
+    var tBuf = document.getElementById('transB').value.replace(/\s/g, '');;
+    var tSap = document.getElementById('transB').value.replace(/\s/g, '');;
+    var output = document.getElementById('outputTrans');
+    var outputText = document.getElementById('textTrans');
+    output.innerHTML =  "";outputText.innerHTML="";
+    //var checkConfirm = document.getElementById("confirmCheck");
+
+    var body="";
+
+
+    let xhrB = new XMLHttpRequest();
+
+    xhrB.onreadystatechange = function() {
+        if (xhrB.readyState !== 4) return;
+        if (xhrB.status == 200) {
+
+            var respTransp = xhrB.responseText.split(",");
+
+            var printTable = "<table class=\"w3-table-all w3-card-4 w3-border \">" +
+                "                <tr class = 'w3-light-blue'>\n" +
+                "                   <th>Номер Буфера</th>"+
+                "                   <th>Статус Буфера</th>"+
+                "                   <th>Дата ТТН</th>"+
+                "                   <th>Номер АП</th>"+
+                "                   <th>ТТН ЕГАИС</th>"+
+                "                   <th>Статус ТТН ЕГАИС в БАХУС</th>"+
+                "                </tr>";
+            for(var l=0;l <respTransp.length;l++){
+                if(respTransp[l] !=''){
+                    //
+                    printTable += "<tr><td>" + respTransp[0].replace("[","") + "</td>" +
+                        "<td>" + respTransp[1] + "</td>" +
+                        "<td>" + respTransp[2] + "</td>" +
+                        "<td>" + respTransp[3] + "</td>" +
+                        "<td>" + respTransp[4] + "</td>" +
+                        "<td>" + respTransp[5] + "</td>" +
+                        "</tr>";
+                    //errorOfGod = TableBufParsed[6];
+
+                }
+            }
+
+
+            printTable + = "</table>";
+
+            output.innerHTML = printTable;
+
+
+        }
+    }
+
+    var body = 'TBuf=' + tBuf+
+        '&TSap='+ tSap;
+
+    xhrB.open('POST', '/test/transport', true);
+    xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrB.send(body);
+
+}
+
+
+
+
+
 function godBacchus(){
     var Godbuff = document.getElementById('Godbuff').value.replace(/\s/g, '');
     var GodSAP = document.getElementById('GodSAP').value.replace(/\s/g, '');
