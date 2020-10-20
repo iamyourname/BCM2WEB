@@ -161,6 +161,7 @@ body {
       <ul>
          <li ><a href='#' onClick="openSystem('BacchusOut')"><span >Переотправка 31 потока</span></a></li>
           <li ><a href='#' onClick="openSystem('BacchusBuf')"><span >Действия с буфером</span></a></li>
+          <li ><a href='#' onClick="openSystem('BacchusTransport')"><span >Возврат с трасп. разделом</span></a></li>
 
     </ul>
          </li>
@@ -320,6 +321,39 @@ body {
 
         </div>
     </div>
+
+    <!--
+    BacchusTransport
+    -->
+
+    <div id = "BacchusTransport" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">
+        <div class=" w3-light-blue">
+            <h4 >Возврат с заполнением транспортного раздела</h4>
+        </div>
+        <!--method="GET" action="" target = "my_frame" -->
+        <form  class = "auth-info"  >
+            <label>Номер буфера:
+                <input  id="transB" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+            </label>
+            <label>Код РЦ:
+                <input id="transS" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+            </label><br>
+
+        </form>
+        <button id="transBut"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="tranpGo()" >Отправить</button>
+
+
+
+        <div id="outputTrans">
+        </div>
+        <div id="textTrans" >
+            <!-- Trigger/Open the Modal -->
+            <!-- The Modal -->
+
+        </div>
+    </div>
+
+
     <div id = "BacchusBuf" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">
         <div class=" w3-light-blue">
             <h4 >Действия с буфером</h4>

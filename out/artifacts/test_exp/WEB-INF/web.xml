@@ -14,6 +14,11 @@
     </servlet>
 
     <servlet>
+        <servlet-name>Transport</servlet-name>
+        <servlet-class>app.servlets.bacchus.Transport</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>InsertCerts</servlet-name>
         <servlet-class>app.servlets.caduceus.CertsToInsert</servlet-class>
     </servlet>
@@ -40,6 +45,11 @@
     <servlet-mapping>
         <servlet-name>GodBacchus</servlet-name>
         <url-pattern>/togod</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Transport</servlet-name>
+        <url-pattern>/transport</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
