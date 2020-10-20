@@ -59,8 +59,8 @@ function tranpGo(){
                 "                   <th>ТТН ЕГАИС</th>"+
                 "                   <th>Статус ТТН ЕГАИС в БАХУС</th>"+
                 "                </tr>";
-            for(var l=0;l <respTransp.length;l++){
-                if(respTransp[l] !=''){
+        //    for(var l=0;l <respTransp.length;l++){
+       //         if(respTransp[l] !=''){
                     //
                     printTable += "<tr><td>" + respTransp[0].replace("[","") + "</td>" +
                         "<td>" + respTransp[1] + "</td>" +
@@ -71,8 +71,8 @@ function tranpGo(){
                         "</tr>";
                     //errorOfGod = TableBufParsed[6];
 
-                }
-            }
+         //       }
+       //     }
 
 
             printTable += "</table>";
