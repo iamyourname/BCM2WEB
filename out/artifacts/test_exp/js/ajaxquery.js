@@ -78,7 +78,7 @@ function tranpGo(){
             printTable += "</table>";
 
             printTable +="<button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large w3-margin-bottom\" " +
-                " onclick=\"WRGo('" + tBuf,tSap + "')\>Распровести накладную</button>";
+                " onclick=\"WRGo('" + tBuf,tSap + "')\>" + Распровести накладную+"</button>";
 
             printTable += "<input id=\"replyWay\" type=\"text\"  class=\"w3-input w3-input w3-border w3-round-medium\" >";
 
