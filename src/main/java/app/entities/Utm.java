@@ -106,6 +106,8 @@ public class Utm {
                     waybillIn.write(hat+data[0][3].toString()+wbody);
                     waybillIn.close();
                     File waybillRejectResp =  new File("E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][4].toString() + "\\"+ data[0][4] + "_resp.xml");
+                    boolean fresp = waybillRejectResp.createNewFile();
+                            if(fresp)System.out.println("tip-top");
                     HttpRequest request = HttpRequest.post("http://"+ipUtm+"/opt/in/QueryHistoryFormB").send(waybillRejectResp);
                     //request.parameter("Content-Type", "text/xml");
                     //request.parameter("Accept", "text/xml");
