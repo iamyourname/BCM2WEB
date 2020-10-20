@@ -82,20 +82,46 @@ public class Utm {
 
         //URL obj = new URL("http://"+ipUtm+"/opt/in/QueryHistoryFormB");
 
-        File waybillReject = new File("E:\\Progs\\TomCat_9\\waybills\\reject"+data[0][4].toString()+".xml");
+
+
+
+         //= new File("E:\\Progs\\TomCat_9\\waybills\\reject"+data[0][4].toString()+".xml");
 
 
 
         System.out.println("before created");
         try
         {
-            boolean created = waybillReject.createNewFile();
-            if(created)
-                System.out.println("File has been created");
 
-            FileWriter waybillIn = new FileWriter(waybillReject, true);
-            waybillIn.write(hat+data[0][3].toString()+wbody);
-            waybillIn.close();
+            File TTNDir = new File("E:\\Progs\\TomCat_9\\waybills\\"+ data[0][4].toString());
+
+            boolean crdir =  TTNDir.mkdir();
+            if(crdir){
+
+                File waybillReject =  new File(TTNDir.getPath() + data[0][4].toString() + ".xml");
+                boolean created = waybillReject.createNewFile();
+                if(created){
+
+                    FileWriter waybillIn = new FileWriter(waybillReject, false);
+                    waybillIn.write(hat+data[0][3].toString()+wbody);
+                    waybillIn.close();
+
+                    HttpRequest request = HttpRequest.post("http://"+ipUtm+"/opt/in/QueryHistoryFormB");
+                    //request.parameter("Content-Type", "text/xml");
+                    //request.parameter("Accept", "text/xml");
+                    request.part("xml_file", waybillReject);
+                    int status = request.code();
+                    if(status == 200) {
+                        //System.out.println(request.body());
+                        reply_id = request.body();
+                        return reply_id;
+                    }
+
+                }
+                    //System.out.println("File has been created");
+            }
+
+
 
             String textWay = hat+data[0][3].toString()+wbody;
             /*
@@ -106,16 +132,7 @@ public class Utm {
             con.setRequestProperty("xml_file", String.valueOf(new File("E:\\Progs\\TomCat_9\\waybills\\reject\\"+data[0][4].toString()+".xml")));
                 */
 
-            HttpRequest request = HttpRequest.post("http://"+ipUtm+"/opt/in/QueryHistoryFormB");
-            //request.parameter("Content-Type", "text/xml");
-            //request.parameter("Accept", "text/xml");
-            request.part("xml_file", waybillReject);
-            int status = request.code();
-            if(status == 200) {
-                //System.out.println(request.body());
-                reply_id = request.body();
-                return reply_id;
-            }
+
             //request.closeOutput();
 
 
