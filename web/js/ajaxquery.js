@@ -32,8 +32,8 @@ function showChnage() {
 function tranpGo(){
 
     var tranpbutton = document.getElementById('transBut');
-    var tBuf = document.getElementById('transB').value.replace(/\s/g, '');;
-    var tSap = document.getElementById('transS').value.replace(/\s/g, '');;
+    var tBuf = document.getElementById('transB').value.replace(/\s/g, '');
+    var tSap = document.getElementById('transS').value.replace(/\s/g, '');
     var output = document.getElementById('outputTrans');
     var outputText = document.getElementById('textTrans');
     output.innerHTML =  "";outputText.innerHTML="";
@@ -76,6 +76,12 @@ function tranpGo(){
 
 
             printTable += "</table>";
+
+            printTable +="<button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large w3-margin-bottom\" " +
+                " onclick=\"WRGo('" + tBuf,tSap + "')\>Распровести накладную</button>";
+
+            printTable += "<input id=\"replyWay\" type=\"text\"  class=\"w3-input w3-input w3-border w3-round-medium\" >";
+
             //debug
 
             output.innerHTML = printTable;
@@ -85,6 +91,7 @@ function tranpGo(){
     }
 
     var body = 'TBuf=' + tBuf+
+        '&TW=0' +
         '&TSap='+ tSap;
 
     xhrB.open('POST', '/test/transport', true);
@@ -93,7 +100,32 @@ function tranpGo(){
 
 }
 
+function WRGo(Buf,Sap){
 
+
+    var reply_output = document.getElementById('replyWay');
+
+
+
+
+    let xhrB = new XMLHttpRequest();
+
+    xhrB.onreadystatechange = function() {
+        if (xhrB.readyState !== 4) return;
+        if (xhrB.status == 200) {
+            reply_output.innerText = xhrB.responseText;
+        }
+    }
+
+    var body = 'TBuf=' + Buf+
+        '&TW=1'
+        '&TSap='+ Sap;
+
+    xhrB.open('POST', '/test/transport', true);
+    xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrB.send(body);
+
+}
 
 
 

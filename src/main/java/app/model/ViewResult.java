@@ -336,7 +336,7 @@ public class ViewResult {
 
             System.out.println("not in it is out on tasks");
             rsPullB.beforeFirst();
-            rsPullB = stmtPullB.executeQuery(sqlstringIn);
+            rsPullB = stmtPullB.executeQuery(sqlstring);
             rsdata = rsPullB.getMetaData();
             siz = rsdata.getColumnCount();
             rsPullB.last();
@@ -434,7 +434,7 @@ public class ViewResult {
         }else{
             System.out.println("not in it is out on utm");
             rsPullB.beforeFirst();
-            rsPullB = stmtPullB.executeQuery(sqlstringIn);
+            rsPullB = stmtPullB.executeQuery(sqlstring);
             rsdata = rsPullB.getMetaData();
             siz = rsdata.getColumnCount();
             rsPullB.last();

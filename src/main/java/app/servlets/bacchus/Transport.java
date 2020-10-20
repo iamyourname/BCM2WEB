@@ -1,6 +1,7 @@
 package app.servlets.bacchus;
 
 import app.entities.RcToAgent;
+import app.entities.Utm;
 import app.model.ViewResult;
 
 import javax.servlet.ServletException;
@@ -30,6 +31,7 @@ public class Transport extends HttpServlet {
 
         String TBuf = req.getParameter("TBuf");
         String TSap = req.getParameter("TSap");
+        String TW = req.getParameter("TW");
 
         ViewResult viewResult = ViewResult.getInstance();
 
@@ -41,18 +43,30 @@ public class Transport extends HttpServlet {
         }
         if(Integer.parseInt(agent)<9)agent="0"+agent;
 
+
+
         try {
             System.out.println("Transport");
 
-            Object[][] outT31 = viewResult.ViewBuffGodOutFromBD(TBuf,TSap, agent); // ошибка
+            if(TW.equals("1")){
+                tResponse = Utm.WaybillReject(TBuf,TSap);
 
-            for (Object[] out31Datum : outT31) {
-                tResponse += Arrays.toString(out31Datum);
-                //out.append(Arrays.toString(out31Datum));
+            }else{
+                Object[][] outT31 = viewResult.ViewBuffGodOutFromBD(TBuf,TSap, agent); // ошибка
+
+                for (Object[] out31Datum : outT31) {
+                    tResponse += Arrays.toString(out31Datum);
+                    //out.append(Arrays.toString(out31Datum));
+                }
+
+                out.append(tResponse);
             }
 
-            out.append(tResponse);
+
+
+
         }catch (Exception sq){
+            out.append(""+sq.toString());
             System.out.println(""+sq.toString());
         }
 
