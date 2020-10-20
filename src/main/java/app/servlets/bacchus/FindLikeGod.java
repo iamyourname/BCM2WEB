@@ -13,12 +13,12 @@ public class FindLikeGod {
         String GodResponse="";
 
         //нашли агент
-        String agent = "";
-        for(int i = 0; i < RcToAgent.rcAgent.length; i++){
-            if (RcToAgent.rcAgent[i][0].equals(GodSAP)){
-                agent = RcToAgent.rcAgent[i][2];
+            String agent = "";
+            for(int i = 0; i < RcToAgent.rcAgent.length; i++){
+                if (RcToAgent.rcAgent[i][0].equals(GodSAP)){
+                    agent = RcToAgent.rcAgent[i][2];
+                }
             }
-        }
         //------------
 
         if(Integer.parseInt(agent)<9)agent="0"+agent;
