@@ -98,14 +98,14 @@ public class Utm {
             boolean crdir =  TTNDir.mkdir();
             if(crdir){
 
-                File waybillReject =  new File(TTNDir.getPath() + "\\"+data[0][4].toString() + "req_.xml");
+                File waybillReject =  new File("E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][4].toString() + "req_.xml");
                 boolean created = waybillReject.createNewFile();
                 if(created){
 
                     FileWriter waybillIn = new FileWriter(waybillReject, false);
                     waybillIn.write(hat+data[0][3].toString()+wbody);
                     waybillIn.close();
-                    File waybillRejectResp =  new File(TTNDir.getPath() + "\\"+data[0][4].toString() + "_resp.xml");
+                    File waybillRejectResp =  new File("E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][4].toString() + "_resp.xml");
                     HttpRequest request = HttpRequest.post("http://"+ipUtm+"/opt/in/QueryHistoryFormB");
                     //request.parameter("Content-Type", "text/xml");
                     //request.parameter("Accept", "text/xml");
@@ -116,7 +116,7 @@ public class Utm {
                         reply_id = request.body();
                         return reply_id;
                     }
-                    
+
                 }
                     //System.out.println("File has been created");
             }
