@@ -105,10 +105,10 @@ public class Utm {
             //con.setRequestProperty("xml_file", Bi File("E:\\Progs\\TomCat_9\\waybills\\reject\\"+data[0][4].toString()+".xml"));
             con.setRequestProperty("xml_file", String.valueOf(new File("E:\\Progs\\TomCat_9\\waybills\\reject\\"+data[0][4].toString()+".xml")));
                 */
-            /*
+
             HttpRequest request = HttpRequest.post("http://"+ipUtm+"/opt/in/QueryHistoryFormB");
-            request.parameter("Content-Type", "text/xml");
-            request.parameter("Accept", "text/xml");
+            //request.parameter("Content-Type", "text/xml");
+            //request.parameter("Accept", "text/xml");
             request.part("xml_file", waybillReject);
             int status = request.code();
             if(status == 200) {
@@ -117,7 +117,7 @@ public class Utm {
             }
             request.closeOutput();
 
-            */
+
 
 
         }
