@@ -6,6 +6,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.sql.*;
+import java.util.function.IntBinaryOperator;
+//import HttpRequest.
 
 public class Utm {
 
@@ -79,13 +81,14 @@ public class Utm {
 
 
         URL obj = new URL("http://"+ipUtm+"/opt/in/QueryHistoryFormB");
+
+        File waybillReject = new File("E:\\Progs\\TomCat_9\\waybills\\reject"+data[0][4].toString()+".xml");
+
         HttpURLConnection  con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "text/xml");
-        con.setRequestProperty("Accept", "text/xml");
+
         //System.out.println(url);
-        String textWay = hat+data[0][3].toString()+wbody;
-        File waybillReject = new File("E:\\Progs\\TomCat_9\\webapps\\waybills\\reject"+data[0][4].toString()+".xml");
+
+
 
         try
         {
@@ -100,9 +103,16 @@ public class Utm {
             con.setDoOutput(true);
 
             OutputStream os = con.getOutputStream();
+            String textWay = hat+data[0][3].toString()+wbody;
             byte[] waybillb = textWay.getBytes();
             os.write(waybillb);
             os.flush();os.close();
+
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "text/xml");
+            con.setRequestProperty("Accept", "text/xml");
+            //con.setRequestProperty("xml_file", Bi File("E:\\Progs\\TomCat_9\\waybills\\reject\\"+data[0][4].toString()+".xml"));
+            con.setRequestProperty("xml_file", String.valueOf(new File("E:\\Progs\\TomCat_9\\waybills\\reject\\"+data[0][4].toString()+".xml")));
 
             InputStream inputStream = con.getInputStream();
             byte[] res = new byte[2048];
