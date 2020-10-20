@@ -75,7 +75,8 @@ function tranpGo(){
             }
 
 
-            printTable + = "</table>";
+            printTable += "</table>";
+            //debug
 
             output.innerHTML = printTable;
 
