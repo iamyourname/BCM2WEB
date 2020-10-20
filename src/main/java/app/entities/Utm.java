@@ -44,7 +44,7 @@ public class Utm {
                 "and co.codv_code = '" + WRSap + "'\n" +
                 "and bout_transactionid = '" + WRBuf + "'";
 
-        Connection pullConn = ConnectionPool.getInstance().getConnection("2");
+        Connection pullConn = ConnectionPool.getInstance().getConnection("02");
         Statement stmtPullB = pullConn.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rsPullB = stmtPullB.executeQuery(findUtm);
