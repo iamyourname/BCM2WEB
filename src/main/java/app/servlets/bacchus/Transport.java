@@ -39,6 +39,7 @@ public class Transport extends HttpServlet {
                 agent = RcToAgent.rcAgent[i][2];
             }
         }
+        if(Integer.parseInt(agent)<9)agent="0"+agent;
 
         try {
             System.out.println("Transport");
