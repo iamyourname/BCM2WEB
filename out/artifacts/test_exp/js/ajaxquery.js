@@ -33,7 +33,7 @@ function tranpGo(){
 
     var tranpbutton = document.getElementById('transBut');
     var tBuf = document.getElementById('transB').value.replace(/\s/g, '');;
-    var tSap = document.getElementById('transB').value.replace(/\s/g, '');;
+    var tSap = document.getElementById('transS').value.replace(/\s/g, '');;
     var output = document.getElementById('outputTrans');
     var outputText = document.getElementById('textTrans');
     output.innerHTML =  "";outputText.innerHTML="";
