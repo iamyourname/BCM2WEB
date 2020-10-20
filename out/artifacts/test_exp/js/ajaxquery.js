@@ -118,7 +118,7 @@ function WRGo(Buf,Sap){
     }
 
     var body = 'TBuf=' + Buf+
-        '&TW=1'
+        '&TW=1' +
         '&TSap='+ Sap;
 
     xhrB.open('POST', '/test/transport', true);
