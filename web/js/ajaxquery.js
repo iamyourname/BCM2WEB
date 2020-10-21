@@ -77,9 +77,9 @@ function tranpGo(){
 
             printTable += "</table>";
 
-            printTable += "<div class=\"w3-cell-row\">";
+            printTable += "<br><div class=\"w3-cell-row\">";
 
-            printTable +="<br><div class=\"w3-container w3-cell\"><button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large\" " +
+            printTable +="<div class=\"w3-container w3-cell\"><button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"WRGo('" + tBuf + "','"+ tSap + "')\">Распровести накладную</button></div>";
 
             printTable +="<div class=\"w3-container w3-cell\"><h4> reply_id </h4></div>";
@@ -111,6 +111,10 @@ function WRGo(Buf,Sap){
 
     var reply_text = document.getElementById('respWR');
 
+    var outputCheck = document.getElementById('outputTrans');
+
+    var printTableCheck="";
+
 
 
     let xhrB = new XMLHttpRequest();
@@ -120,7 +124,18 @@ function WRGo(Buf,Sap){
         if (xhrB.status == 200) {
             reply_output.value += xhrB.responseText;
 
-            //reply_text.innerText += "reply_id тикетов"
+            printTableCheck += "<br><div class=\"w3-cell-row\">";
+
+            printTableCheck +="<div class=\"w3-container w3-cell\"><button id=\"checkTicket\"  class=\"w3-btn w3-green w3-round-large\" " +
+                " onclick=\"checkGo('" + Buf + "','"+ Sap + "')\"> Проверить ответ от ЕГАИС </button></div>";
+
+            printTableCheck +="<div class=\"w3-container w3-cell\"><h4> Статус </h4></div>";
+
+            printTableCheck += "<div class=\"w3-container w3-cell\"><input disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
+
+            printTableCheck += "</div>";
+
+            output.innerHTML += printTableCheck;
         }
     }
 
