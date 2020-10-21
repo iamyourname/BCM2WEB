@@ -113,7 +113,7 @@ function WRGo(Buf,Sap){
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
-            reply_output = xhrB.responseText;
+            reply_output += xhrB.responseText;
         }
     }
 
