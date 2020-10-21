@@ -8,6 +8,14 @@ import java.net.URL;
 import java.sql.*;
 import java.util.function.IntBinaryOperator;
 import app.entities.HttpRequest;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 public class Utm {
 
@@ -95,10 +103,13 @@ public class Utm {
 
             File TTNDir = new File("E:\\Progs\\TomCat_9\\waybills\\"+ data[0][4].toString());
 
+
+
             boolean crdir =  TTNDir.mkdir();
             if(crdir){
 
                 File waybillReject =  new File("E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][4].toString() + "\\"+data[0][4].toString() + "_req.xml");
+
                 boolean created = waybillReject.createNewFile();
                 if(created){
 
@@ -118,6 +129,35 @@ public class Utm {
                         reply_id = request.body();
                         FileWriter waybillRespIn = new FileWriter(waybillRejectResp, false);
                         waybillRespIn.write(reply_id);waybillRespIn.close();
+
+                        // Создается построитель документа
+                        DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+                        // Создается дерево DOM документа из файла
+                        Document document = documentBuilder.parse("E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][4].toString() + "\\"+ data[0][4] + "_resp.xml");
+
+                        // Получаем корневой элемент
+                        Node root = document.getDocumentElement();
+
+                        // Просматриваем все подэлементы корневого - т.е. теги
+                        NodeList utm_respS = root.getChildNodes();
+
+                        for (int i = 0; i < utm_respS.getLength(); i++) {
+                            Node utm_resp = utm_respS.item(i);
+                            // Если нода не текст, то это книга - заходим внутрь
+                            if (utm_resp.getNodeType() != Node.TEXT_NODE) {
+                                NodeList utm_resp_Props = utm_resp.getChildNodes();
+                                for(int j = 0; j < utm_resp_Props.getLength(); j++) {
+                                    Node utm_resp_Prop = utm_resp_Props.item(j);
+                                    // Если нода не текст, то это один из параметров книги - печатаем
+                                    if (utm_resp_Prop.getNodeType() != Node.TEXT_NODE) {
+                                        System.out.println(utm_resp_Prop.getNodeName() + ":" + utm_resp_Prop.getChildNodes().item(0).getTextContent());
+                                    }
+                                }
+                                System.out.println("===========>>>>");
+                            }
+                        }
+
+
                         return reply_id;
                     }
 
@@ -143,7 +183,7 @@ public class Utm {
 
 
         }
-        catch(IOException ex){
+        catch(IOException | ParserConfigurationException | SAXException ex){
             reply_id=ex.getMessage();
             System.out.println(ex.getMessage());
         }
