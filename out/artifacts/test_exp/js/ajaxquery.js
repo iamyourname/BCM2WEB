@@ -79,12 +79,12 @@ function tranpGo(){
 
             printTable += "<br><div class=\"w3-cell-row\">";
 
-            printTable +="<div class=\"w3-container w3-cell\"><button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large\" " +
+            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 33%\"><button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"WRGo('" + tBuf + "','"+ tSap + "')\">Распровести накладную</button></div>";
 
-            printTable +="<div class=\"w3-container w3-cell\"><h4> reply_id </h4></div>";
+            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 33%\"><h4> reply_id </h4></div>";
 
-            printTable += "<div class=\"w3-container w3-cell\"><input disabled id=\"replyWay\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
+            printTable += "<div class=\"w3-container w3-cell\" style=\"width: 33%\"><input disabled id=\"replyWay\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
 
             printTable += "</div>";
 
@@ -107,7 +107,7 @@ function tranpGo(){
 function WRGo(Buf,Sap){
 
 
-    var reply_output = document.getElementById('replyWay');
+
 
     var reply_text = document.getElementById('respWR');
 
@@ -123,21 +123,22 @@ function WRGo(Buf,Sap){
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
 
-            reply_output.value += xhrB.responseText;
-            /*
             printTableCheck += "<div class=\"w3-cell-row\">";
 
-            printTableCheck +="<div class=\"w3-container w3-cell\"><button id=\"checkTicket\"  class=\"w3-btn w3-green w3-round-large\" " +
+            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 33%\"><button id=\"checkTicket\"  class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"checkGo('" + Buf + "','"+ Sap + "')\"> Проверить ответ от ЕГАИС </button></div>";
 
-            printTableCheck +="<div class=\"w3-container w3-cell\"><h4> Статус </h4></div>";
+            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 33%\"><h4> Статус </h4></div>";
 
-            printTableCheck += "<div class=\"w3-container w3-cell\"><input disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
+            printTableCheck += "<div class=\"w3-container w3-cell\" style=\"width: 33%\"><input disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
 
             printTableCheck += "</div>";
 
             outputCheck.innerHTML += printTableCheck;
-            */
+
+            var reply_output = document.getElementById('replyWay');
+
+            reply_output.value += xhrB.responseText;
 
         }
     }
