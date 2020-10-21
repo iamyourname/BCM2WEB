@@ -143,7 +143,7 @@ public class Utm {
 
                         for (int i = 0; i < utm_respS.getLength(); i++) {
                             Node utm_resp = utm_respS.item(i);
-                            System.out.println(utm_resp);
+                            System.out.println(utm_resp.getNodeValue());
                             // Если нода не текст, то это книга - заходим внутрь
                             if (utm_resp.getNodeType() != Node.TEXT_NODE) {
                                 NodeList utm_resp_Props = utm_resp.getChildNodes();
