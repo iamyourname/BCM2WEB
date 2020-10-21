@@ -78,7 +78,7 @@ function tranpGo(){
             printTable += "</table>";
 
             printTable += "<br><div class=\"w3-cell-row\">";
-            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"></div>";
+            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"></div>";
 
             printTable +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"><button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"WRGo('" + tBuf + "','"+ tSap + "')\">Распровести накладную</button></div>";
