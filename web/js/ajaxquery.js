@@ -122,7 +122,7 @@ function WRGo(Buf,Sap){
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
-            reply_output.value += xhrB.responseText;
+
 
             printTableCheck += "<br><div class=\"w3-cell-row\">";
 
@@ -136,6 +136,8 @@ function WRGo(Buf,Sap){
             printTableCheck += "</div>";
 
             outputCheck.innerHTML += printTableCheck;
+
+            reply_output.value += xhrB.responseText;
         }
     }
 
