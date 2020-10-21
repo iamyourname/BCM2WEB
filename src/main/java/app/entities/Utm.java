@@ -139,23 +139,20 @@ public class Utm {
                         Node root = document.getDocumentElement();
 
                         // Просматриваем все подэлементы корневого - т.е. теги
-                        NodeList utm_respS = root.getChildNodes();
-
-                        for (int i = 0; i < utm_respS.getLength(); i++) {
-                            Node utm_resp = utm_respS.item(i);
-                            System.out.println(utm_resp.getNodeValue());
+                        NodeList books = root.getChildNodes();
+                        for (int i = 0; i < books.getLength(); i++) {
+                            Node book = books.item(i);
                             // Если нода не текст, то это книга - заходим внутрь
-                            if (utm_resp.getNodeType() != Node.TEXT_NODE) {
-                                NodeList utm_resp_Props = utm_resp.getChildNodes();
-                                System.out.println("===========>>>>");
-                                for(int j = 0; j < utm_resp_Props.getLength(); j++) {
-                                    Node utm_resp_Prop = utm_resp_Props.item(j);
+                            if (book.getNodeType() != Node.TEXT_NODE) {
+                                NodeList bookProps = book.getChildNodes();
+                                for(int j = 0; j < bookProps.getLength(); j++) {
+                                    Node bookProp = bookProps.item(j);
                                     // Если нода не текст, то это один из параметров книги - печатаем
-                                    if (utm_resp_Prop.getNodeType() != Node.TEXT_NODE) {
-                                        System.out.println(utm_resp_Prop.getNodeName() + ":" + utm_resp_Prop.getChildNodes().item(0).getTextContent());
+                                    if (bookProp.getNodeType() != Node.TEXT_NODE) {
+                                        System.out.println(bookProp.getNodeName() + ":" + bookProp.getChildNodes().item(0).getTextContent());
                                     }
                                 }
-
+                                System.out.println("===========>>>>");
                             }
                         }
 
