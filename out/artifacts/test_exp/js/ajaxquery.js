@@ -80,7 +80,7 @@ function tranpGo(){
             printTable +="<button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large w3-margin-left\" " +
                 " onclick=\"WRGo('" + tBuf + "','"+ tSap + "')\">Распровести накладную</button>";
 
-            printTable += "<input id=\"replyWay\" type=\"text\"  class=\"w3-input w3-input w3-border w3-round-medium\" style=\"width: 50%\">";
+            printTable += "<input disabled id=\"replyWay\" type=\"text\"  class=\"w3-input w3-input w3-border w3-round-medium\" style=\"width: 50%\">";
 
             //debug
 
@@ -103,7 +103,7 @@ function tranpGo(){
 function WRGo(Buf,Sap){
 
 
-    var reply_output = document.getElementById('replyWay');
+    var reply_output = document.getElementById('replyWay').value;
 
 
 
@@ -113,7 +113,7 @@ function WRGo(Buf,Sap){
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
-            reply_output.innerText = xhrB.responseText;
+            reply_output = xhrB.responseText;
         }
     }
 
