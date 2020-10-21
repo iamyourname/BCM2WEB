@@ -123,8 +123,9 @@ function WRGo(Buf,Sap){
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
 
-
-            printTableCheck += "<br><div class=\"w3-cell-row\">";
+            reply_output.value += xhrB.responseText;
+            /*
+            printTableCheck += "<div class=\"w3-cell-row\">";
 
             printTableCheck +="<div class=\"w3-container w3-cell\"><button id=\"checkTicket\"  class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"checkGo('" + Buf + "','"+ Sap + "')\"> Проверить ответ от ЕГАИС </button></div>";
@@ -136,8 +137,8 @@ function WRGo(Buf,Sap){
             printTableCheck += "</div>";
 
             outputCheck.innerHTML += printTableCheck;
+            */
 
-            reply_output.value += xhrB.responseText;
         }
     }
 
