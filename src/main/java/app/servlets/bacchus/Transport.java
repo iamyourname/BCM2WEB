@@ -32,6 +32,7 @@ public class Transport extends HttpServlet {
         String TBuf = req.getParameter("TBuf");
         String TSap = req.getParameter("TSap");
         String TW = req.getParameter("TW");
+        String RPL = req.getParameter("RPL");
 
         ViewResult viewResult = ViewResult.getInstance();
 
@@ -49,10 +50,20 @@ public class Transport extends HttpServlet {
             System.out.println("Transport");
 
             if(TW.equals("1")){
-                System.out.println("Transport waybill");
 
-                tResponse = Utm.WaybillReject(TBuf,TSap);
-                out.append(tResponse);
+                if(RPL.equals("0")){
+                    System.out.println("Transport waybill");
+
+                    tResponse = Utm.WaybillReject(TBuf,TSap);
+                    out.append(tResponse);
+                }else{
+
+                    tResponse = Utm.CheckTicket(TBuf,TSap,RPL);
+                    out.append(tResponse);
+
+                }
+
+
 
             }else{
                 System.out.println("Transport buff");

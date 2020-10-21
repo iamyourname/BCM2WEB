@@ -83,7 +83,7 @@ public class Utm {
             id++;
         }
         //co.codv_iputm, co.codv_iputm2, co.codv_iputmindex, co.fsrar_id, ew.ewbh_wbregid
-
+        pullConn.close();
         String ipUtm = data[0][0].toString();
         if(data[0][2].toString().equals("2"))ipUtm = data[0][1].toString();
 
@@ -158,7 +158,6 @@ public class Utm {
                                 //System.out.println("===========>>>>");
                             }
                         }
-
                         */
                         return reply_id;
                     }
@@ -195,7 +194,63 @@ public class Utm {
         return reply_id;
     }
 
+    public static String CheckTicket (String TiBuf, String TiSap, String TiReply) throws SQLException {
 
+        String checkTicketSql = "select * from b_utmdocs where bud_utm_reply_id = '" + TiReply + "'";
+
+        String TiResponse = "";
+
+        //нашли агент
+        String agent = "";
+        for(int i = 0; i < RcToAgent.rcAgent.length; i++){
+            if (RcToAgent.rcAgent[i][0].equals(TiSap)){
+                agent = RcToAgent.rcAgent[i][2];
+            }
+        }
+        //------------
+
+        if(Integer.parseInt(agent)<9)agent="0"+agent;
+
+        Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
+        Statement stmtPullB = pullConn.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rsPullB = stmtPullB.executeQuery(checkTicketSql);
+        //ConnectionPool.getInstance().getConnection(godagent).close();
+        //System.out.println("Find");
+        ResultSetMetaData rsdata = rsPullB.getMetaData();
+        int siz = rsdata.getColumnCount();
+        rsPullB.last();
+        int countrows = rsPullB.getRow();
+
+        if(countrows ==0){
+            TiResponse="Тикеты не найдены. Попробуйте позже";
+            return TiResponse;
+        }else{
+
+            Object[] colNames = new String[siz];
+            Object[][] data = new Object[countrows][siz];
+
+            rsPullB.beforeFirst();
+            for (int i=0; i<siz; i++) {
+                colNames[i] = rsdata.getColumnName(i+1);
+            }
+            int id=0;
+            while (rsPullB.next()){
+                for (int iii=0;iii<siz;iii++) {
+                    if(rsPullB.getString((String) colNames[iii])==null){
+                        data[id][iii]="null";
+                    }else{
+                        data[id][iii] = rsPullB.getString((String) colNames[iii]);
+                    }
+                }
+                id++;
+            }
+
+            TiResponse = data[0][8].toString();
+        }
+        pullConn.close();
+    return TiResponse;
+    }
 
 
 

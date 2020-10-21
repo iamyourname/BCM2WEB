@@ -145,6 +145,7 @@ function WRGo(Buf,Sap){
 
     var body = 'TBuf=' + Buf+
         '&TW=1' +
+        '&RPL=0' +
         '&TSap='+ Sap;
 
     xhrB.open('POST', '/test/transport', true);
@@ -153,7 +154,45 @@ function WRGo(Buf,Sap){
 
 }
 
+function checkGo(Buf,Sap){
 
+
+
+
+    var reply_text = document.getElementById('respWR');
+
+    var outputCheck = document.getElementById('outputTrans');
+
+    var replyTi = document.getElementById('replyWay').value;
+
+    var printTableCheck="";
+
+
+
+    let xhrB = new XMLHttpRequest();
+
+    xhrB.onreadystatechange = function() {
+        if (xhrB.readyState !== 4) return;
+        if (xhrB.status == 200) {
+
+            var replyCh = document.getElementById('respEg');
+
+            replyCh.value += xhrB.responseText;
+
+
+        }
+    }
+
+    var body = 'TBuf=' + Buf+
+        '&TW=1' +
+        '&RPL=' + replyTi +
+        '&TSap='+ Sap;
+
+    xhrB.open('POST', '/test/transport', true);
+    xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrB.send(body);
+
+}
 
 function godBacchus(){
     var Godbuff = document.getElementById('Godbuff').value.replace(/\s/g, '');
