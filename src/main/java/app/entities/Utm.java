@@ -143,9 +143,11 @@ public class Utm {
 
                         for (int i = 0; i < utm_respS.getLength(); i++) {
                             Node utm_resp = utm_respS.item(i);
+                            System.out.println(utm_resp);
                             // Если нода не текст, то это книга - заходим внутрь
                             if (utm_resp.getNodeType() != Node.TEXT_NODE) {
                                 NodeList utm_resp_Props = utm_resp.getChildNodes();
+                                System.out.println("===========>>>>");
                                 for(int j = 0; j < utm_resp_Props.getLength(); j++) {
                                     Node utm_resp_Prop = utm_resp_Props.item(j);
                                     // Если нода не текст, то это один из параметров книги - печатаем
@@ -153,7 +155,7 @@ public class Utm {
                                         System.out.println(utm_resp_Prop.getNodeName() + ":" + utm_resp_Prop.getChildNodes().item(0).getTextContent());
                                     }
                                 }
-                                System.out.println("===========>>>>");
+
                             }
                         }
 
