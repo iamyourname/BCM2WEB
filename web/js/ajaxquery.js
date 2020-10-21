@@ -77,10 +77,10 @@ function tranpGo(){
 
             printTable += "</table>";
 
-            printTable +="<button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large w3-margin-left\" " +
+            printTable +="<button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large w3-cell\" " +
                 " onclick=\"WRGo('" + tBuf + "','"+ tSap + "')\">Распровести накладную</button>";
 
-            printTable += "<input disabled id=\"replyWay\" type=\"text\"  class=\"w3-input w3-input w3-border w3-round-medium\" style=\"width: 50%\">";
+            printTable += "<input disabled id=\"replyWay\" type=\"text\"  class=\"w3-cell w3-input w3-border w3-round-medium\">";
 
             //debug
 
