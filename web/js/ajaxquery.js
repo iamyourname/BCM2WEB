@@ -80,7 +80,7 @@ function tranpGo(){
             printTable +="<br><div class=\"w3-container w3-cell\"><button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"WRGo('" + tBuf + "','"+ tSap + "')\">Распровести накладную</button></div>";
 
-            printTable += "<div class=\"w3-container w3-cell\"><p id=\"respWR\"></p><input disabled id=\"replyWay\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\" style=\"width: 37%\"></div>";
+            printTable += "<div class=\"w3-container w3-cell\"><p id=\"respWR\"></p><input disabled id=\"replyWay\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
 
             //debug
 
