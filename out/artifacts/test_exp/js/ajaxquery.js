@@ -135,7 +135,7 @@ function WRGo(Buf,Sap){
 
             printTableCheck += "</div>";
 
-            output.innerHTML += printTableCheck;
+            outputCheck.innerHTML += printTableCheck;
         }
     }
 
