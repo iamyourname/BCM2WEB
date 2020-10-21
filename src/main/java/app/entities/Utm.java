@@ -140,9 +140,11 @@ public class Utm {
 
                         // Просматриваем все подэлементы корневого - т.е. теги
                         NodeList books = root.getChildNodes();
+                        reply_id = books.item(0).getTextContent();
+                        /*
                         for (int i = 0; i < books.getLength(); i++) {
                             Node book = books.item(i);
-                            System.out.println(book.getNodeName() + "reply " + book.getTextContent());
+                             //System.out.println(book.getNodeName() + "reply " + book.getTextContent());
                             // Если нода не текст, то это книга - заходим внутрь
                             if (book.getNodeType() != Node.TEXT_NODE) {
                                 NodeList bookProps = book.getChildNodes();
@@ -150,14 +152,14 @@ public class Utm {
                                     Node bookProp = bookProps.item(j);
                                     // Если нода не текст, то это один из параметров книги - печатаем
                                     if (bookProp.getNodeType() != Node.TEXT_NODE) {
-                                        System.out.println(bookProp.getNodeName() + ":" + bookProp.getChildNodes().item(0).getTextContent());
+                                       // System.out.println(bookProp.getNodeName() + ":" + bookProp.getChildNodes().item(0).getTextContent());
                                     }
                                 }
                                 //System.out.println("===========>>>>");
                             }
                         }
 
-
+                        */
                         return reply_id;
                     }
 
