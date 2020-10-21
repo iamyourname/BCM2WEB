@@ -78,7 +78,7 @@ function tranpGo(){
             printTable += "</table>";
 
             printTable += "<br><div class=\"w3-cell-row\">";
-            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"></div>";
+            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 35%\"></div>";
 
             printTable +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"><button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"WRGo('" + tBuf + "','"+ tSap + "')\">Распровести накладную</button></div>";
@@ -126,14 +126,14 @@ function WRGo(Buf,Sap){
 
             printTableCheck += "<div class=\"w3-cell-row\">";
 
-            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"></div>";
+            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 35%\"></div>";
 
-            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"><button id=\"checkTicket\"  class=\"w3-btn w3-green w3-round-large\" " +
+            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 20%\"><button id=\"checkTicket\"  class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"checkGo('" + Buf + "','"+ Sap + "')\"> Проверить ответ от ЕГАИС </button></div>";
 
-            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"><h4> Статус </h4></div>";
+            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 10%\"><h4> Статус </h4></div>";
 
-            printTableCheck += "<div class=\"w3-container w3-cell\" style=\"width: 25%\"><input disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
+            printTableCheck += "<div class=\"w3-container w3-cell\" style=\"width: 35%\"><input disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
 
             printTableCheck += "</div>";
 
@@ -168,6 +168,8 @@ function checkGo(Buf,Sap){
 
     var replyTi = document.getElementById('replyWay').value;
 
+    var btnCh = document.getElementById('checkTicket')
+
     var printTableCheck="";
 
 
@@ -181,6 +183,8 @@ function checkGo(Buf,Sap){
             var replyCh = document.getElementById('respEg');
 
             replyCh.value = xhrB.responseText;
+
+
 
 
         }

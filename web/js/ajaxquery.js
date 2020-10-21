@@ -78,14 +78,14 @@ function tranpGo(){
             printTable += "</table>";
 
             printTable += "<br><div class=\"w3-cell-row\">";
-            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"></div>";
+            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 35%\"></div>";
 
-            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"><button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large\" " +
+            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 20%\"><button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"WRGo('" + tBuf + "','"+ tSap + "')\">Распровести накладную</button></div>";
 
-            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"><h4> reply_id </h4></div>";
+            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 10%\"><h4> reply_id </h4></div>";
 
-            printTable += "<div class=\"w3-container w3-cell\" style=\"width: 25%\"><input disabled id=\"replyWay\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
+            printTable += "<div class=\"w3-container w3-cell\" style=\"width: 35%\"><input disabled id=\"replyWay\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
 
             printTable += "</div>";
 
@@ -126,14 +126,14 @@ function WRGo(Buf,Sap){
 
             printTableCheck += "<div class=\"w3-cell-row\">";
 
-            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"></div>";
+            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 35%\"></div>";
 
-            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"><button id=\"checkTicket\"  class=\"w3-btn w3-green w3-round-large\" " +
+            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 20%\"><button id=\"checkTicket\"  class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"checkGo('" + Buf + "','"+ Sap + "')\"> Проверить ответ от ЕГАИС </button></div>";
 
-            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"><h4> Статус </h4></div>";
+            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 10%\"><h4> Статус </h4></div>";
 
-            printTableCheck += "<div class=\"w3-container w3-cell\" style=\"width: 25%\"><input disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
+            printTableCheck += "<div class=\"w3-container w3-cell\" style=\"width: 35%\"><input disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
 
             printTableCheck += "</div>";
 
@@ -159,17 +159,13 @@ function WRGo(Buf,Sap){
 
 function checkGo(Buf,Sap){
 
-
-
-
     var reply_text = document.getElementById('respWR');
-
     var outputCheck = document.getElementById('outputTrans');
-
     var replyTi = document.getElementById('replyWay').value;
+    var btnCh = document.getElementById('checkTicket')
+
 
     var printTableCheck="";
-
 
 
     let xhrB = new XMLHttpRequest();
@@ -179,10 +175,15 @@ function checkGo(Buf,Sap){
         if (xhrB.status == 200) {
 
             var replyCh = document.getElementById('respEg');
+            if(xhrB.responseText.contains("Тикеты не найдены")){
 
-            replyCh.value = xhrB.responseText;
+                replyCh.value = xhrB.responseText;
 
+            }else{
 
+                replyCh.value = "Тикет найден. Кликни чтобы посмотреть";
+
+            }
         }
     }
 
@@ -194,6 +195,13 @@ function checkGo(Buf,Sap){
     xhrB.open('POST', '/test/transport', true);
     xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     xhrB.send(body);
+
+}
+
+
+function ticketView(){
+
+
 
 }
 
