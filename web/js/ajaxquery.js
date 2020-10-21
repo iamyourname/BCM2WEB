@@ -103,7 +103,7 @@ function tranpGo(){
 function WRGo(Buf,Sap){
 
 
-    var reply_output = document.getElementById('replyWay').value;
+    var reply_output = document.getElementById('replyWay');
 
 
 
