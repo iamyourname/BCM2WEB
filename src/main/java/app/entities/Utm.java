@@ -142,7 +142,7 @@ public class Utm {
                         NodeList books = root.getChildNodes();
                         for (int i = 0; i < books.getLength(); i++) {
                             Node book = books.item(i);
-                            System.out.println("URL " + book.getNodeName() + "reply " + book.getNodeValue());
+                            System.out.println(book.getNodeName() + "reply " + book.getTextContent());
                             // Если нода не текст, то это книга - заходим внутрь
                             if (book.getNodeType() != Node.TEXT_NODE) {
                                 NodeList bookProps = book.getChildNodes();
