@@ -77,10 +77,11 @@ function tranpGo(){
 
             printTable += "</table>";
 
-            printTable += "<br><div class=\"w3-cell-row\">";
+            printTable += "<div class=\"w3-cell-row\">";
             printTable +="<div class=\"w3-container w3-cell\" style=\"width: 35%\"></div>";
 
-            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 20%\"><button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large\" " +
+            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 20%\"><button id=\"transBut\" " +
+                " class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"WRGo('" + tBuf + "','"+ tSap + "')\">Распровести накладную</button></div>";
 
             printTable +="<div class=\"w3-container w3-cell\" style=\"width: 10%\"><h4> reply_id </h4></div>";
@@ -128,7 +129,8 @@ function WRGo(Buf,Sap){
 
             printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 35%\"></div>";
 
-            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 20%\"><button id=\"checkTicket\"  class=\"w3-btn w3-green w3-round-large\" " +
+            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 20%\"><button id=\"checkTicket\" " +
+                " class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"checkGo('" + Buf + "','"+ Sap + "')\"> Проверить ответ от ЕГАИС </button></div>";
 
             printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 10%\"><h4> Статус </h4></div>";
