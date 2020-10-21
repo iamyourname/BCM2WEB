@@ -78,13 +78,14 @@ function tranpGo(){
             printTable += "</table>";
 
             printTable += "<br><div class=\"w3-cell-row\">";
+            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"></div>";
 
-            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 33%\"><button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large\" " +
+            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"><button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"WRGo('" + tBuf + "','"+ tSap + "')\">Распровести накладную</button></div>";
 
-            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 33%\"><h4> reply_id </h4></div>";
+            printTable +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"><h4> reply_id </h4></div>";
 
-            printTable += "<div class=\"w3-container w3-cell\" style=\"width: 33%\"><input disabled id=\"replyWay\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
+            printTable += "<div class=\"w3-container w3-cell\" style=\"width: 25%\"><input disabled id=\"replyWay\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
 
             printTable += "</div>";
 
@@ -125,12 +126,14 @@ function WRGo(Buf,Sap){
 
             printTableCheck += "<div class=\"w3-cell-row\">";
 
-            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 33%\"><button id=\"checkTicket\"  class=\"w3-btn w3-green w3-round-large\" " +
+            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"></div>";
+
+            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"><button id=\"checkTicket\"  class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"checkGo('" + Buf + "','"+ Sap + "')\"> Проверить ответ от ЕГАИС </button></div>";
 
-            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 33%\"><h4> Статус </h4></div>";
+            printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 25%\"><h4> Статус </h4></div>";
 
-            printTableCheck += "<div class=\"w3-container w3-cell\" style=\"width: 33%\"><input disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
+            printTableCheck += "<div class=\"w3-container w3-cell\" style=\"width: 25%\"><input disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
 
             printTableCheck += "</div>";
 
@@ -138,7 +141,7 @@ function WRGo(Buf,Sap){
 
             var reply_output = document.getElementById('replyWay');
 
-            reply_output.value += xhrB.responseText;
+            reply_output.value = xhrB.responseText;
 
         }
     }
@@ -177,7 +180,7 @@ function checkGo(Buf,Sap){
 
             var replyCh = document.getElementById('respEg');
 
-            replyCh.value += xhrB.responseText;
+            replyCh.value = xhrB.responseText;
 
 
         }
