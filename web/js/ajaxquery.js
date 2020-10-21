@@ -176,10 +176,12 @@ function checkGo(Buf,Sap){
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
 
-            var replyCh = document.getElementById('respEg');
-            if((xhrB.responseText).contains("Тикеты не найдены")){
+            tresp = xhrB.responseText;
 
-                replyCh.value = xhrB.responseText;
+            var replyCh = document.getElementById('respEg');
+            if(tresp.contains("Тикеты не найдены")){
+
+                replyCh.value = tresp;
 
             }else{
 
