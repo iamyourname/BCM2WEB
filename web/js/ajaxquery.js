@@ -77,10 +77,10 @@ function tranpGo(){
 
             printTable += "</table>";
 
-            printTable +="<div class=\"w3-container w3-cell\"><button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large\" " +
+            printTable +="<br><div class=\"w3-container w3-cell\"><button id=\"transBut\"  class=\"w3-btn w3-green w3-round-large\" " +
                 " onclick=\"WRGo('" + tBuf + "','"+ tSap + "')\">Распровести накладную</button></div>";
 
-            printTable += "<div class=\"w3-container w3-cell\"><input disabled id=\"replyWay\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
+            printTable += "<div class=\"w3-container w3-cell\"><p id=\"respWR\"></p><input disabled id=\"replyWay\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\" style=\"width: 37%\"></div>";
 
             //debug
 
@@ -105,6 +105,7 @@ function WRGo(Buf,Sap){
 
     var reply_output = document.getElementById('replyWay');
 
+    var reply_text = document.getElementById('respWR');
 
 
 
@@ -114,6 +115,8 @@ function WRGo(Buf,Sap){
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
             reply_output.value += xhrB.responseText;
+
+            reply_text.innerText += "reply_id тикетов"
         }
     }
 
