@@ -177,7 +177,7 @@ function checkGo(Buf,Sap){
         if (xhrB.status == 200) {
 
             var replyCh = document.getElementById('respEg');
-            if(xhrB.responseText.contains("Тикеты не найдены")){
+            if((xhrB.responseText).contains("Тикеты не найдены")){
 
                 replyCh.value = xhrB.responseText;
 
