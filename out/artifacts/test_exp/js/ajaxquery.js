@@ -168,7 +168,11 @@ function checkGo(Buf,Sap){
 
     btnCh.disabled = true;
 
-    setTimeout(() => btnCh.disabled = false, 31000);
+    for (var t = 31; t > 1; t - 1){
+        setTimeout(() => btnCh.value="доступно через.."+t , 1000);
+        if(t==1)btnCh.disabled = false;
+    }
+
 
 
 
@@ -217,6 +221,8 @@ function ticketView(xmlTi){
 
 var showTicket = document.getElementById("ticketModal");
 var ticketText = document.getElementById("xmlContent");
+
+    ticketText.style.display = "block"
 
     ticketText.innerHTML += xmlTi;
 
