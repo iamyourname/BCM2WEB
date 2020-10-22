@@ -135,7 +135,7 @@ function WRGo(Buf,Sap){
 
             printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 10%\"><h4> Статус </h4></div>";
 
-            printTableCheck += "<div class=\"w3-container w3-cell\" style=\"width: 35%\"><input onclick=\"document.getElementById('ticketModal').style.display='block'\" disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
+            printTableCheck += "<div class=\"w3-container w3-cell\" style=\"width: 35%\"><input onclick=\"document.getElementById(\'ticketModal\').style.display=\'block\'\" disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
 
             printTableCheck += "</div>";
 
@@ -225,7 +225,7 @@ function ticketView(xmlTi){
     var modaldiv = document.getElementById("textTrans");
 
 
-    var printShowTicket = "<div id=\"ticketModal\" class=\"w3-modal\">\n" +
+    var printShowTicket = "<div id=\"ticketModal\" class=\"w3-modal\" style=\"z-index: 999\">\n" +
         "                <div class=\"w3-modal-content w3-card-4\">\n" +
         "                    <header class=\"w3-container w3-teal\">\n" +
         "                        <span onclick=\"document.getElementById('ticketModal').style.display='none'\" class=\"w3-button w3-display-topright\">&times;</span>\n" +
@@ -242,7 +242,7 @@ function ticketView(xmlTi){
     var showTicket = document.getElementById("ticketModal");
     var ticketText = document.getElementById("xmlContent");
     //modaldiv.style.display = "block";
-    ticketText.innerHTML += xmlTi;
+    ticketText.innerText += xmlTi;
     showTicket.style.display = "block";
 
 
