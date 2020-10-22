@@ -194,7 +194,7 @@ function checkGo(Buf,Sap){
 
             }else{
 
-                var
+
 
 
                 ticketView('xhrB.responseText');
@@ -240,7 +240,7 @@ var showTicket = document.getElementById("ticketModal");
         "                    </div>\n" +
         "                </div>\n" +
         "            </div>"
-
+    modaldiv.innerHTML +=printShowTicket;
     var ticketText = document.getElementById("xmlContent");
     ticketText.innerHTML += xmlTi;
     modaldiv.style.display = "block";

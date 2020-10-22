@@ -223,7 +223,7 @@ public class Utm {
         int countrows = rsPullB.getRow();
 
         if(countrows ==0){
-            TiResponse="Тикеты не найдены. Попробуйте позже";
+            TiResponse="Тикеты не найдены. Попробуйте через 30 сек.";
             return TiResponse;
         }else{
 
