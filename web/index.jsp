@@ -404,7 +404,7 @@ body {
 
 
         </div>
-    </div>
+        </div>
 
 
     <div id = "BacchusBuf" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">

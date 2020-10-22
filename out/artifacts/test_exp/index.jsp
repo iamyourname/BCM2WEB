@@ -399,23 +399,12 @@ body {
             </div>
             <!-- Trigger/Open the Modal -->
             <!-- The Modal -->
-            <div id="ticketModal" class="w3-modal">
-                <div class="w3-modal-content w3-card-4">
-                    <header class="w3-container w3-teal">
-                        <span onclick="document.getElementById('ticketModal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                        <h4>Ticket</h4>
-                    </header>
 
-                    <div id="xmlContent" class="w3-container">
-
-                    </div>
-                </div>
-            </div>
 
 
 
         </div>
-    </div>
+        </div>
 
 
     <div id = "BacchusBuf" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">
