@@ -168,8 +168,8 @@ function checkGo(Buf,Sap){
 
     btnCh.disabled = true;
 
-        btnCh.value = "Следующая проверка через 30 сек."
-        setTimeout(() => btnCh.disabled = false, 31000);
+        //btnCh.value = "Следующая проверка через 30 сек."
+        //setTimeout(() => btnCh.disabled = false, 31000);
 
     var printTableCheck="";
 
@@ -194,7 +194,7 @@ function checkGo(Buf,Sap){
 
                 ticketView(xhrB.responseText);
                 replyCh.value = "Тикет найден. Кликни чтобы посмотреть";
-
+                btnCh.disabled = true;
                 //var modalWr = document.getElementById("transModal").style.display="block";
 
 
@@ -217,7 +217,7 @@ function checkGo(Buf,Sap){
 
 function ticketView(xmlTi){
 
-var showTicket = document.getElementById("ticketModal");
+
 
     //ticketText.style.display = "block";
     var modaldiv = document.getElementById("textTrans");
@@ -236,11 +236,12 @@ var showTicket = document.getElementById("ticketModal");
         "                </div>\n" +
         "            </div>"
 
-    modaldiv.innerHTML= printShowTicket;
+    modaldiv.innerHTML += printShowTicket;
+    var showTicket = document.getElementById("ticketModal");
     var ticketText = document.getElementById("xmlContent");
-    modaldiv.style.display = "block";
-    ticketText.innerHTML = xmlTi;
-
+    //modaldiv.style.display = "block";
+    ticketText.innerHTML += xmlTi;
+    showTicket.style.display = "block";
 
 
 }
