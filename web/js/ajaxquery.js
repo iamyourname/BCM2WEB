@@ -222,6 +222,7 @@ var showTicket = document.getElementById("ticketModal");
     //ticketText.style.display = "block";
     var modaldiv = document.getElementById("textTrans");
 
+
     var printShowTicket = "<div id=\"ticketModal\" class=\"w3-modal\">\n" +
         "                <div class=\"w3-modal-content w3-card-4\">\n" +
         "                    <header class=\"w3-container w3-teal\">\n" +
@@ -234,7 +235,8 @@ var showTicket = document.getElementById("ticketModal");
         "                    </div>\n" +
         "                </div>\n" +
         "            </div>"
-    modaldiv.innerHTML +=printShowTicket;
+
+    modaldiv.innerHTML= printShowTicket;
     var ticketText = document.getElementById("xmlContent");
     modaldiv.style.display = "block";
     ticketText.innerHTML = xmlTi;
