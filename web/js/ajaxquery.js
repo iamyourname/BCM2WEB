@@ -135,7 +135,10 @@ function WRGo(Buf,Sap){
 
             printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 10%\"><h4> Статус </h4></div>";
 
-            printTableCheck += "<input class=\"w3-container w3-cell\" style=\"width: 35%\"><input onclick=\"document.getElementById('ticketModal').style.display='block'\" disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></input></div>";
+            printTableCheck += "<div class=\"w3-container w3-cell\" style=\"width: 35%\">" +
+                "<span onclick=\"document.getElementById('ticketModal').style.display='block'\">" +
+                "<input onclick=\"document.getElementById('ticketModal').style.display='block'\" " +
+                "disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></span></div>";
 
             printTableCheck += "</div>";
 
@@ -195,7 +198,7 @@ function checkGo(Buf,Sap){
 
 
                 ticketView(xhrB.responseText);
-                replyCh.value = "<p onclick=\"document.getElementById('ticketModal').style.display='block'\"> Тикет найден. Кликни чтобы посмотреть</p>";
+                replyCh.value = "Тикет найден. Кликни чтобы посмотреть";
                 btnCh.disabled = true;
                 //var modalWr = document.getElementById("transModal").style.display="block";
 
