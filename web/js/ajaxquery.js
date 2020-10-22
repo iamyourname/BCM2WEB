@@ -171,11 +171,6 @@ function checkGo(Buf,Sap){
         btnCh.value = "Следующая проверка через 30 сек."
         setTimeout(() => btnCh.disabled = false, 31000);
 
-
-
-
-
-
     var printTableCheck="";
 
 
