@@ -188,7 +188,7 @@ function checkGo(Buf,Sap){
                 ticketView(xhrB.responseText);
                 replyCh.value = "Тикет найден. Кликни чтобы посмотреть";
 
-                /var modalWr = document.getElementById("transModal").style.display="block";
+                //var modalWr = document.getElementById("transModal").style.display="block";
 
 
 
