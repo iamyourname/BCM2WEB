@@ -179,7 +179,7 @@ function checkGo(Buf,Sap){
             tresp = xhrB.responseText;
 
             var replyCh = document.getElementById('respEg');
-            if(tresp.contains("Тикеты не найдены")){
+            if(tresp.includes("Тикеты не найдены")){
 
                 replyCh.value = tresp;
 
