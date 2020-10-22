@@ -194,6 +194,9 @@ function checkGo(Buf,Sap){
 
             }else{
 
+                var
+
+
                 ticketView('xhrB.responseText');
                 replyCh.value = "Тикет найден. Кликни чтобы посмотреть";
 
@@ -220,11 +223,27 @@ function checkGo(Buf,Sap){
 function ticketView(xmlTi){
 
 var showTicket = document.getElementById("ticketModal");
-var ticketText = document.getElementById("xmlContent");
 
-    ticketText.style.display = "block";
 
+    //ticketText.style.display = "block";
+    var modaldiv = document.getElementById("textTrans");
+
+    var printShowTicket = "<div id=\"ticketModal\" class=\"w3-modal\">\n" +
+        "                <div class=\"w3-modal-content w3-card-4\">\n" +
+        "                    <header class=\"w3-container w3-teal\">\n" +
+        "                        <span onclick=\"document.getElementById('ticketModal').style.display='none'\" class=\"w3-button w3-display-topright\">&times;</span>\n" +
+        "                        <h4>Ticket</h4>\n" +
+        "                    </header>\n" +
+        "\n" +
+        "                    <div id=\"xmlContent\" class=\"w3-container\">\n" +
+        "\n" +
+        "                    </div>\n" +
+        "                </div>\n" +
+        "            </div>"
+
+    var ticketText = document.getElementById("xmlContent");
     ticketText.innerHTML += xmlTi;
+    modaldiv.style.display = "block";
 
 
 }
