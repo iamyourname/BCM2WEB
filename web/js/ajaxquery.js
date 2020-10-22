@@ -169,7 +169,7 @@ function checkGo(Buf,Sap){
     btnCh.disabled = true;
 
         btnCh.value = "Следующая проверка через 30 сек."
-        setTimeout(() => btnCh.disabled = false; btnCh.value = "Проверить ответ от ЕГАИС", 1000);
+        setTimeout(() => btnCh.disabled = false, 31000);
 
 
 
