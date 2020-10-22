@@ -185,6 +185,8 @@ function checkGo(Buf,Sap){
             var replyCh = document.getElementById('respEg');
             if(tresp.includes("Тикеты не найдены")){
 
+                btnCh.disabled = false;
+
                 replyCh.value = tresp;
 
             }else{
