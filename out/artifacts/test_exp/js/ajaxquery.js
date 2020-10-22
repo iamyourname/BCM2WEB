@@ -245,7 +245,7 @@ function ticketView(xmlTi){
     var showTicket = document.getElementById("ticketModal");
     var ticketText = document.getElementById("xmlContent");
     //modaldiv.style.display = "block";
-    ticketText.innerText = xmlTi;
+    ticketText.innerText = xmlTi.replace(/></g,">\n<");
     showTicket.style.display = "block";
 
 
