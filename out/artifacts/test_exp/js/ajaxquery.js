@@ -135,7 +135,7 @@ function WRGo(Buf,Sap){
 
             printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 10%\"><h4> Статус </h4></div>";
 
-            printTableCheck += "<div class=\"w3-container w3-cell\" style=\"width: 35%\"><input disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
+            printTableCheck += "<div class=\"w3-container w3-cell\" style=\"width: 35%\"><input onclick=\"document.getElementById('ticketModal').style.display='block'\" disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
 
             printTableCheck += "</div>";
 
@@ -185,7 +185,12 @@ function checkGo(Buf,Sap){
 
             }else{
 
+                ticketView(xhrB.responseText);
                 replyCh.value = "Тикет найден. Кликни чтобы посмотреть";
+
+                var modalWr = document.getElementById("transModal").style.display="block";
+
+
 
             }
         }
@@ -203,8 +208,12 @@ function checkGo(Buf,Sap){
 }
 
 
-function ticketView(){
+function ticketView(xmlTi){
 
+var showTicket = document.getElementById("ticketModal");
+var ticketText = document.getElementById("xmlContent");
+
+    ticketText.innerText = xmlTi;
 
 
 }

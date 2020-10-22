@@ -347,8 +347,72 @@ body {
         <div id="outputTrans">
         </div>
         <div id="textTrans" >
+
+            <div id="transModal" class="w3-modal">
+                <div class="w3-modal-content w3-card-4">
+                    <header class="w3-container w3-teal">
+                    <span onclick="document.getElementById('transModal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                        <h4>Траспортный раздел</h4>
+                    </header>
+
+                    <div class="w3-container">
+                        <form class="w3-container">
+                            <label class="w3-text-blue"><b>TRAN_TYPE</b></label>
+                            <input class="w3-input w3-border" type="text">
+
+                            <label class="w3-text-blue"><b>TRAN_COMPANY</b></label>
+                            <input class="w3-input w3-border" type="text">
+
+                            <label class="w3-text-blue"><b>TRAN_CAR</b></label>
+                            <input class="w3-input w3-border" type="text">
+
+                            <label class="w3-text-blue"><b>TRAN_TRAILER</b></label>
+                            <input class="w3-input w3-border" type="text">
+
+                            <label class="w3-text-blue"><b>TRAN_CUSTOMER</b></label>
+                            <input class="w3-input w3-border" type="text">
+
+                            <label class="w3-text-blue"><b>TRAN_DRIVER</b></label>
+                            <input class="w3-input w3-border" type="text">
+
+                            <label class="w3-text-blue"><b>TRAN_LOADPOINT</b></label>
+                            <input class="w3-input w3-border" type="text">
+
+                            <label class="w3-text-blue"><b>TRAN_UNLOADPOINT</b></label>
+                            <input class="w3-input w3-border" type="text">
+
+                            <label class="w3-text-blue"><b>TRAN_REDIRECT</b></label>
+                            <input class="w3-input w3-border" type="text">
+
+                            <label class="w3-text-blue"><b>TRAN_FORWARDER</b></label>
+                            <input class="w3-input w3-border" type="text">
+
+                            <button class="w3-btn w3-blue">Register</button>
+
+
+
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
             <!-- Trigger/Open the Modal -->
             <!-- The Modal -->
+            <div id="ticketModal" class="w3-modal">
+                <div class="w3-modal-content w3-card-4">
+                    <header class="w3-container w3-teal">
+                        <span onclick="document.getElementById('ticketModal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                        <h4>Ticket</h4>
+                    </header>
+
+                    <div id="xmlContent" class="w3-container">
+
+                    </div>
+                </div>
+            </div>
+
+
 
         </div>
     </div>
