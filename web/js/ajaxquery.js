@@ -166,6 +166,11 @@ function checkGo(Buf,Sap){
     var replyTi = document.getElementById('replyWay').value;
     var btnCh = document.getElementById('checkTicket')
 
+    btnCh.disabled = true;
+
+    setTimeout(() => btnCh.disabled = false, 31000);
+
+
 
     var printTableCheck="";
 
@@ -185,7 +190,7 @@ function checkGo(Buf,Sap){
 
             }else{
 
-                ticketView(xhrB.responseText);
+                ticketView('xhrB.responseText');
                 replyCh.value = "Тикет найден. Кликни чтобы посмотреть";
 
                 //var modalWr = document.getElementById("transModal").style.display="block";
