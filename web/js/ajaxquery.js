@@ -135,7 +135,7 @@ function WRGo(Buf,Sap){
 
             printTableCheck +="<div class=\"w3-container w3-cell\" style=\"width: 10%\"><h4> Статус </h4></div>";
 
-            printTableCheck += "<div class=\"w3-container w3-cell\" style=\"width: 35%\"><input onclick=\"document.getElementById(\'ticketModal\').style.display=\'block\'\" disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
+            printTableCheck += "<div class=\"w3-container w3-cell\" style=\"width: 35%\"><input onclick=\"document.getElementById('ticketModal').style.display='block'\" disabled id=\"respEg\" type=\"text\"  class=\"w3-input w3-border w3-round-medium\"></div>";
 
             printTableCheck += "</div>";
 
@@ -242,7 +242,7 @@ function ticketView(xmlTi){
     var showTicket = document.getElementById("ticketModal");
     var ticketText = document.getElementById("xmlContent");
     //modaldiv.style.display = "block";
-    ticketText.innerText += xmlTi;
+    ticketText.innerText = xmlTi;
     showTicket.style.display = "block";
 
 
