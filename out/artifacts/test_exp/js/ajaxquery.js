@@ -247,6 +247,9 @@ function ticketView(xmlTi){
     //modaldiv.style.display = "block";
     ticketText.innerText = xmlTi.replace(/></g,">\n<");
     showTicket.style.display = "block";
+    modaldiv.innerHTML +="<button id=\"checkTicket\" " +
+        " class=\"w3-btn w3-green w3-round-large\" " +
+        " onclick=\"document.getElementById('transModal').style.display='block'\"> Заполнить транспортный раздел </button>";
 
 
 }
