@@ -245,16 +245,16 @@ function ticketView(xmlTi){
     var showTicket = document.getElementById("ticketModal");
     var ticketText = document.getElementById("xmlContent");
     //modaldiv.style.display = "block";
-    xmlTi=xmlTi.replace(/</g,"&lt;")
-    ticketText.innerHTML = "<pre class=\"xml\"> ";
-    ticketText.innerText += xmlTi.replace(/>/g,"&gt;");
-    ticketText.innerHTML += "</pre>";
+    xmlTi=xmlTi.replace(/</g,"&lt;"); xmlTi= xmlTi.replace(/>/g,"&gt;"); xmlTi= xmlTi.replace(/&gt;&lt/g,"&gt\n&lt");
+    ticketText.innerHTML = "<pre id=\"xmlstyle\" class=\"xml\">"+xmlTi+"</pre> ";
+    var xmlText = document.getElementById("xmlstyle");
+    //xmlstyle.innerText +=
+
     showTicket.style.display = "block";//--
     //добавить модальную форму для заполнения траспортного раздела!!!
     modaldiv.innerHTML +="<button id=\"checkTicket\" " +
         " class=\"w3-btn w3-green w3-round-large\" " +
         " onclick=\"document.getElementById('transModal').style.display='block'\"> Заполнить транспортный раздел </button>";
-
 
 }
 

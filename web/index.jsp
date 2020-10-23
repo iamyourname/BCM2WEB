@@ -99,10 +99,10 @@ body {
     <script src="js/bootstrap-datetimepicker.js"></script>
 
     <link href="styles/style.css" rel="stylesheet" type="text/css">
+    <link href="styles/xml/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="styles/bootstrap-datetimepicker.css">
 
-    <link rel="stylesheet" href="styles/xml/stylexml.css" media="all">
 
     <script src="styles/xml/my.js"></script>
     <link rel="stylesheet" href="styles/xml/bind.css"/>
