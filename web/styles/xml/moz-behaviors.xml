@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<bindings xmlns="http://www.mozilla.org/xbl" xmlns:html="http://www.w3.org/1999/xhtml">
+<!--
+	moz-behaviors.xml - version 1.1.2 (2010-04-02)
+	Copyright 2004-2010, Dean Edwards
+	http://www.opensource.org/licenses/mit-license.php
+-->
+<!--
+=======================================================================
+ TO DO
+=======================================================================
+
+hideFocus
+fix CSSStyleDeclaration pixel*.__defineGetter__
+behaviors FAQ
+test Event.returnValue
+http://developer-test.mozilla.org/docs/Working_around_the_Firefox_1.0.3_DHTML_regression
+-->
+
+<!-- add a behavior through css -->
+<binding id="behavior" extends="#-moz-behaviors">
+<implementation><constructor>
+<![CDATA[
+addBehavior(0);
+]]></constructor></implementation>
+</binding>
+
+<!-- manually attach behaviors to child elements of <table>s -->
+<binding id="table" extends="#-moz-behaviors">
+<implementation><constructor><![CDATA[
+	var i, j;
+	if (tHead) tHead.addBehavior(0);
+	for (i = 0; i < tBodies.length; i++) tBodies[i].addBehavior(0);
+	for (i = 0; i < rows.length; i++) {
+		rows[i].addBehavior(0);
+		for (j = 0; j < rows[i].cells.length; j++) {
+			rows[i].cells[j].addBehavior(0);
+		}
+	}
+	if (tFoot) tFoot.addBehavior(0);
+]]></constructor></implementation>
+</binding>
+
+<binding id="-moz-behaviors">
+<implementation><constructor>
+<![CDATA[if(!this.addBehavior){
+var _0=-1;Element.prototype.addBehavior=function(i){try{if(i===0){var k=getComputedStyle(this,null).getPropertyValue("-moz-binding");k=k.replace(/^url\(([^)]*)\)$/,"$1").split("#");if(k){var x=k[0].replace(/[^\/]+$/,"");var r=k[1].split("|");var j=r.length;while(j--)this.addBehavior(x+r[j])}}if(!i)return;if(!document.behaviorUrns[i]){var s=";";function o(b){var a=b.tagName.toLowerCase();return a.slice(a.indexOf(":")+1)};function d(b,a){return b.getAttribute(a)||b.getAttribute(a.toUpperCase())};function y(f){switch(o(f)){case"event":var l=d(f,"id");return(l)?"var "+l+"={fire:function(event){element.fireEvent('"+d(f,"name")+"',event)}}":"";case"property":var m=d(f,"name");var e=d(f,"get")||"";if(e)e="__defineGetter__('"+m+"',"+e+")";var h=d(f,"put")||"";if(h)h=";__defineSetter__('"+m+"',"+h+")";return e+h;case"method":return"element."+d(f,"name")+"="+d(f,"name");case"attach":var b=d(f,"handler")||"";b+=(b)?"()":d(f,"onevent");b="function(event){window.event=event;return "+b+"}";var a=d(f,"event");switch(a){case"oncontentready":return"window.setTimeout("+b+",1)";case"ondocumentready":return"document.behaviorUrns.__private.push("+b+")"}return(d(f,"for")||"element")+".addEventListener('"+a.slice(2)+"',"+b+",false)";case"defaults":default:return""}};function z(a){return(d(a,"put"))?";var __tmp=getAttribute('"+d(a,"name")+"')||"+(d(a,"value")||"null")+";if(__tmp!=null)element['"+d(a,"name")+"']=__tmp":""};function B(a){with(String(a))return slice(indexOf("{")+1,lastIndexOf("}"))};var p=new XMLHttpRequest;function t(a){try{if(a.indexOf('"')===0)a=a.slice(1,-1);p.open("GET",a,false);p.send(null);return p.responseText}catch($ignore){}};var u=[];var q="";var c="";function C(){var l=(new DOMParser).parseFromString(t(i),"text/xml"),m=l.documentElement.childNodes,e;for(var h=0;(e=m[h]);h++){if(e.nodeType==Node.ELEMENT_NODE){if(o(e)=="script"){var b=d(e,"src");if(b){c+=t(b)}else{for(var a=0;a<e.childNodes.length;a++)c+=e.childNodes[a].nodeValue}}else{u.push(y(e));if(o(e)=="property"){q+=z(e)}}}}q+=";delete __tmp"};C();c=B(new Function(c));var D=/\bnew\s+ActiveXObject\s*\(\s*(["'])\w\.XMLHTTP\1\s*\)/gi;c=c.replace(D,"new XMLHttpRequest()");c=c.replace(/#/g,"\\x23");var n=[u.join(s)];var v=/(\"[^\"\n]+\")|(\/[^\/\n]+\/)|(\{[^\{\}]*\})/g;var G=/#(\d+)\b/g;function E(a){return"#"+n.push(a)};function H(b,a){return n[a-1]};while(v.test(c)){c=c.replace(v,E)}var w=/\n\s*function[^\n]*\n/g;var F=c.match(w)||[];c=c.replace(w,"");c=F.concat("#1",c).join(s);var j=n.length;do c=c.replace("#"+j,n[--j]);while(j);c+=q;document.behaviorUrns[i]=new Function("element","with(this){"+c+"}")}document.behaviorUrns[i].call(this,this);return _0}catch($error){return 0}};Element.prototype.removeBehavior=function(a){};document.behaviorUrns={__private:[]};window.addEventListener("load",function(){try{var b=document.behaviorUrns.__private;var a=b.length;while(a)b[--a]();delete document.behaviorUrns.__private}catch($ignore){}},false)}]]></constructor></implementation></binding><binding id="-moz-ie"><implementation><constructor><![CDATA[if(!this.attachEvent){CSSStyleDeclaration.prototype.__defineGetter__("styleFloat",function(){return this.cssFloat});CSSStyleDeclaration.prototype.__defineSetter__("styleFloat",function($value){this.cssFloat=$value});CSSStyleDeclaration.prototype.__defineGetter__("pixelLeft",function(){return parseInt(this.left)||0});CSSStyleDeclaration.prototype.__defineSetter__("pixelLeft",function($value){this.left=$value+"px"});CSSStyleDeclaration.prototype.__defineGetter__("pixelHeight",function(){return parseInt(this.height)||0});CSSStyleDeclaration.prototype.__defineSetter__("pixelHeight",function($value){this.height=$value+"px"});CSSStyleDeclaration.prototype.__defineGetter__("pixelTop",function(){return parseInt(this.top)||0});CSSStyleDeclaration.prototype.__defineSetter__("pixelTop",function($value){this.top=$value+"px"});CSSStyleDeclaration.prototype.__defineGetter__("pixelWidth",function(){return parseInt(this.width)||0});CSSStyleDeclaration.prototype.__defineSetter__("pixelWidth",function($value){this.width=$value+"px"});try{var $computedStyle=getComputedStyle(this,null);var $test=$computedStyle.display}catch($ignore){}finally{if(!$test){var $UPPER=/[A-Z]/g;function _1(a){return"-"+a.toLowerCase()};function _2(a){return a.replace($UPPER,_1)};for(var $propertyName in this.style){if(typeof this.style[$propertyName]=="string"){CSSStyleDeclaration.prototype.__defineGetter__($propertyName,function(){return this.getPropertyValue(_2($propertyName))})}}}}HTMLDocument.prototype.__defineGetter__("all",function(){return this.getElementsByTagName("*")});HTMLDocument.prototype.createEventObject=function(){return document.createEvent("Events")};HTMLElement.prototype.__defineGetter__("all",function(){return this.getElementsByTagName("*")});HTMLElement.prototype.__defineGetter__("parentElement",function(){return(this.parentNode==this.ownerDocument)?null:this.parentNode});HTMLElement.prototype.__defineGetter__("uniqueID",function(){if(!arguments.callee.count)arguments.callee.count=0;var a="moz_id"+arguments.callee.count++;window[a]=this;this.__defineGetter__("uniqueID",function(){return a});return a});HTMLElement.prototype.__defineGetter__("currentStyle",function(){return getComputedStyle(this,null)});HTMLElement.prototype.__defineGetter__("runtimeStyle",function(){return this.style});HTMLElement.prototype.__defineGetter__("innerText",function(){return this.textContent});HTMLElement.prototype.__defineSetter__("innerText",function(a){this.textContent=a});HTMLElement.prototype.attachEvent=function(b,a){this.addEventListener(b.slice(2),a,false)};HTMLElement.prototype.removeEvent=function(b,a){this.removeEventListener(b.slice(2),a,false)};HTMLElement.prototype.createEventObject=function(){return this.ownerDocument.createEventObject()};HTMLElement.prototype.fireEvent=function(b,a){if(!a)a=this.ownerDocument.createEventObject();a.initEvent(b.slice(2),false,false);this.dispatchEvent(a);if(typeof this[b]=="function")this[b]();else if(this.getAttribute(b))eval(this.getAttribute(b))};HTMLElement.prototype.contains=function(a){return Boolean(a==this||(a&&this.contains(a.parentElement)))};Event.prototype.__defineGetter__("srcElement",function(){return(this.target.nodeType==Node.ELEMENT_NODE)?this.target:this.target.parentNode});Event.prototype.__defineGetter__("fromElement",function(){return(this.type=="mouseover")?this.relatedTarget:(this.type=="mouseout")?this.srcElement:null});Event.prototype.__defineGetter__("toElement",function(){return(this.type=="mouseout")?this.relatedTarget:(this.type=="mouseover")?this.srcElement:null});Event.prototype.__defineGetter__("button",function(){return(this.which==1)?1:(this.which==2)?4:2});Event.prototype.__defineGetter__("returnValue",function(){return true});Event.prototype.__defineSetter__("returnValue",function(a){if(this.cancelable&&!a){this.preventDefault();this.__defineGetter__("returnValue",function(){return false})}});Event.prototype.__defineSetter__("cancelBubble",function(a){if(a)this.stopPropagation()});Event.prototype.__defineGetter__("offsetX",function(){return this.layerX});Event.prototype.__defineGetter__("offsetY",function(){return this.layerY});
+}]]></constructor></implementation>
+</binding>
+
+<binding id="block-netscape6">
+<content>
+<html:script type="text/javascript"><![CDATA[
+// netscape6 does not retain the -moz-binding css property value
+//  so we disable moz-behaviors
+if (/netscape6/i.test(navigator.userAgent)) {
+	document.styleSheets[0].insertRule("*{-moz-binding:none!important}", 0);
+}
+]]></html:script>
+<children/>
+</content>
+</binding>
+
+</bindings>
+

@@ -162,6 +162,24 @@ function WRGo(Buf,Sap){
 
 }
 
+function changeTrans(idd){
+
+    var usInput = document.getElementById(idd).value;
+    var toTrans = document.getElementById(idd.replace("tran_",""));
+    //alert(usInput);
+    var defValue = "<ns71:"+ idd.toUpperCase()+"/>";
+
+    if(usInput ===''){
+        toTrans.value = ""+defValue;
+        //alert(toTrans)
+    }else{
+        //alert('else')
+        toTrans.value ="<ns71:"+ idd.toUpperCase()+">"+usInput+"</ns71:"+ idd.toUpperCase()+">";
+    }
+
+}
+
+
 function checkGo(Buf,Sap){
 
     var reply_text = document.getElementById('respWR');
@@ -240,6 +258,70 @@ function ticketView(xmlTi){
         "                    </div>\n" +
         "                </div>\n" +
         "            </div>"
+
+    printShowTicket += "            <div id=\"transModal\" class=\"w3-modal\" style=\"z-index: 999\">\n" +
+        "                <div class=\"w3-modal-content w3-card-4\">\n" +
+        "                    <header class=\"w3-container w3-teal\">\n" +
+        "                    <span onclick=\"document.getElementById('transModal').style.display='none'\" class=\"w3-button w3-display-topright\">&times;</span>\n" +
+        "                        <h4>Траспортный раздел</h4>\n" +
+        "                    </header>\n" +
+        "\n" +
+        "\n" +
+        "\n" +
+        "                    <div class=\"w3-cell-row\">\n" +
+        "                    \t<div class=\"w3-cell\" style=\"width: 40%\">\n" +
+        "                            <form class=\"w3-container\">\n" +
+        "                              <label class=\"w3-text-blue\">TRAN_TYPE</label>\n" +
+        "                            <input id = \"tran_type\" oninput=\"changeTrans(this.id)\" class=\"w3-input w3-border\" type=\"text\">\n" +
+        "\n" +
+        "                            <label class=\"w3-text-blue\">TRAN_COMPANY</label>\n" +
+        "                            <input id = \"tran_company\" oninput=\"changeTrans(this.id)\" class=\"w3-input w3-border\" type=\"text\">\n" +
+        "\n" +
+        "                            <label class=\"w3-text-blue\">TRAN_CAR</label>\n" +
+        "                            <input id = \"tran_car\" oninput=\"changeTrans(this.id)\" class=\"w3-input w3-border\" type=\"text\">\n" +
+        "\n" +
+        "                            <label class=\"w3-text-blue\">TRAN_TRAILER</label>\n" +
+        "                            <input id = \"tran_trailer\" oninput=\"changeTrans(this.id)\" class=\"w3-input w3-border\" type=\"text\">\n" +
+        "\n" +
+        "                            <label class=\"w3-text-blue\">TRAN_CUSTOMER</label>\n" +
+        "                            <input id = \"tran_customer\" oninput=\"changeTrans(this.id)\" class=\"w3-input w3-border\" type=\"text\">\n" +
+        "\n" +
+        "                            <label class=\"w3-text-blue\">TRAN_DRIVER</label>\n" +
+        "                            <input id = \"tran_driver\" oninput=\"changeTrans(this.id)\" class=\"w3-input w3-border\" type=\"text\">\n" +
+        "\n" +
+        "                            <label class=\"w3-text-blue\">TRAN_LOADPOINT</label>\n" +
+        "                            <input id = \"tran_loadpoint\" oninput=\"changeTrans(this.id)\" class=\"w3-input w3-border\" type=\"text\">\n" +
+        "\n" +
+        "                            <label class=\"w3-text-blue\">TRAN_UNLOADPOINT</label>\n" +
+        "                            <input id = \"tran_unloadpoint\" oninput=\"changeTrans(this.id)\" class=\"w3-input w3-border\" type=\"text\">\n" +
+        "\n" +
+        "                            <label class=\"w3-text-blue\">TRAN_REDIRECT</label>\n" +
+        "                            <input id = \"tran_redirect\" oninput=\"changeTrans(this.id)\" class=\"w3-input w3-border\" type=\"text\">\n" +
+        "\n" +
+        "                            <label class=\"w3-text-blue\">TRAN_FORWARDER</label>\n" +
+        "                            <input id = \"tran_forwarder\" oninput=\"changeTrans(this.id)\" class=\"w3-input w3-border\" type=\"text\">\t\t\t\t\t\t\t<br>\n" +
+        "                            <button class=\"w3-btn w3-blue\">Сохранить</button>\n" +
+        "\n" +
+        "                        </form>\n" +
+        "</div>\n" +
+        "                    \t<div class=\"w3-cell\" style=\"width: 60%\">\n" +
+        "                    \t <br>\n" +
+        "                            <input value=\"<ns71:Transport>\" disabled class=\"w3-input \" type=\"text\" style=\"border: none;outline: none;\">\n" +
+        "                            <input id=\"type\" value=\"<ns71:TRAN_TYPE/>\" disabled class=\"w3-input \" type=\"text\" style=\"border: none;outline: none;\">\n" +
+        "                            <input id=\"company\" value=\"<ns71:TRAN_COMPANY/>\" disabled class=\"w3-input \" type=\"text\" style=\"border: none;outline: none;\">\n" +
+        "                            <input id=\"car\" value=\"<ns71:TRAN_CAR/>\" disabled class=\"w3-input \" type=\"text\" style=\"border: none;outline: none;\">\n" +
+        "                            <input id=\"trailer\" value=\"<ns71:TRAN_TRAILER/>\" disabled class=\"w3-input \" type=\"text\" style=\"border: none;outline: none;\">\n" +
+        "                            <input id=\"customer\" value=\"<ns71:TRAN_CUSTOMER/>\" disabled class=\"w3-input \" type=\"text\" style=\"border: none;outline: none;\">\n" +
+        "                            <input id=\"driver\" value=\"<ns71:TRAN_DRIVER/>\" disabled class=\"w3-input \" type=\"text\" style=\"border: none;outline: none;\">\n" +
+        "                            <input id=\"loadpoint\" value=\"<ns71:TRAN_LOADPOINT/>\" disabled class=\"w3-input \" type=\"text\" style=\"border: none;outline: none;\">\n" +
+        "                            <input id=\"unloadpoint\" value=\"<ns71:TRAN_UNLOADPOINT/>\" disabled class=\"w3-input \" type=\"text\" style=\"border: none;outline: none;\">\n" +
+        "                            <input id=\"redirect\" value=\"<ns71:TRAN_REDIRECT/>\" disabled class=\"w3-input \" type=\"text\" style=\"border: none;outline: none;\">\n" +
+        "                            <input id=\"forwarder\" value=\"<ns71:TRAN_FORWARDER/>\" disabled class=\"w3-input \" type=\"text\" style=\"border: none;outline: none;\">\n" +
+        "                            <input value=\"</ns71:Transport>\" disabled class=\"w3-input \" type=\"text\" style=\"border: none;outline: none;\">\n" +
+        "                        </div>\n" +
+        "                    </div>\n" +
+        "                </div>\n" +
+        "            </div>";
 
     modaldiv.innerHTML += printShowTicket;
     var showTicket = document.getElementById("ticketModal");

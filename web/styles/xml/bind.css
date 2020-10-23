@@ -33,7 +33,7 @@ pre.php {
 	-moz-binding: url(/my/behaviors/bindings.xml#star-php.htc|star-light.htc);
 }
 pre.xml {
-	behavior: url(/my/behaviors/star-xml.htc) url(/my/behaviors/star-light.htc);
+	behavior: url(style/xml/star-xml.htc) url(style/xml/star-light.htc);
 	-moz-binding: url(/my/behaviors/bindings.xml#star-xml.htc|star-light.htc);
 }
 pre.vbs, pre.vbscript {

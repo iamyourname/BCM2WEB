@@ -99,7 +99,7 @@ body {
     <script src="js/bootstrap-datetimepicker.js"></script>
 
     <link href="styles/style.css" rel="stylesheet" type="text/css">
-    <link href="styles/xml/style.css" rel="stylesheet" type="text/css">
+    <link href="styles/xml/stylexml.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="styles/bootstrap-datetimepicker.css">
 
@@ -353,7 +353,7 @@ body {
         <div id="outputTrans">
         </div>
         <div id="textTrans" >
-
+            <!--
             <div id="transModal" class="w3-modal">
                 <div class="w3-modal-content w3-card-4">
                     <header class="w3-container w3-teal">
@@ -403,9 +403,9 @@ body {
                     </div>
                 </div>
             </div>
-            <!-- Trigger/Open the Modal -->
+             Trigger/Open the Modal -->
             <!-- The Modal -->
-
+            -->
 
 
 
