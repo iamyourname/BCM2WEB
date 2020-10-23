@@ -249,7 +249,7 @@ function ticketView(xmlTi){
     ticketText.innerHTML = "<pre class=\"xml\"> ";
     ticketText.innerText += xmlTi.replace(/>/g,"&gt;");
     ticketText.innerHTML += "</pre>";
-    showTicket.style.display = "block";
+    showTicket.style.display = "block";//--
     //добавить модальную форму для заполнения траспортного раздела!!!
     modaldiv.innerHTML +="<button id=\"checkTicket\" " +
         " class=\"w3-btn w3-green w3-round-large\" " +
