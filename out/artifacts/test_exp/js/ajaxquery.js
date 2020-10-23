@@ -246,7 +246,7 @@ function ticketView(xmlTi){
     var ticketText = document.getElementById("xmlContent");
     //modaldiv.style.display = "block";
     xmlTi=xmlTi.replace(/</g,"&lt;")
-    ticketText.innerText = xmlTi.replace(/>/g,"&gt;");
+    ticketText.innerHTML = "<pre class=\"xml\"> " + xmlTi.replace(/>/g,"&gt;") + "</pre>";
     showTicket.style.display = "block";
     //добавить модальную форму для заполнения траспортного раздела!!!
     modaldiv.innerHTML +="<button id=\"checkTicket\" " +
