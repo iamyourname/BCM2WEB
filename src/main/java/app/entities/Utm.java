@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.function.IntBinaryOperator;
 import app.entities.HttpRequest;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -252,7 +253,104 @@ public class Utm {
     return TiResponse;
     }
 
+    public static String WaybillChange (String WRBuf, String WRSap) throws SQLException, IOException, ParserConfigurationException, SAXException {
+        String oldWaybill="";
 
+        String oldWaybillSql = "select bu.*, co.fsrar_id from b_outgoing bo\n" +
+                "                left join c_org_divisions co on co.codv_id = bo.codv_id\n" +
+                "                left join e_waybill ew on ew.ewbh_id = bo.ewbh_id\n" +
+                "                left join b_utmdocs bu on bu.bud_utm_reply_id = ew.ewbh_utmwaybill_replyid \n" +
+                "                where 1=1 \n" +
+                "                and bo.doc_adddate > sysdate -3\n" +
+                "                and bo.bout_transactionid = '" + WRBuf + "'\n" +
+                "                and co.codv_code = '" + WRSap + "'\n" +
+                "                and bu.bud_url = 'opt/in/WayBill_v3'\n" +
+                "                order by 1";
+
+        String agent = "";
+        for(int i = 0; i < RcToAgent.rcAgent.length; i++){
+            if (RcToAgent.rcAgent[i][0].equals(WRSap)){
+                agent = RcToAgent.rcAgent[i][2];
+            }
+        }
+        //------------
+
+        if(Integer.parseInt(agent)<9)agent="0"+agent;
+
+        Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
+        Statement stmtPullB = pullConn.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rsPullB = stmtPullB.executeQuery(oldWaybillSql);
+        //ConnectionPool.getInstance().getConnection(godagent).close();
+        //System.out.println("Find");
+        ResultSetMetaData rsdata = rsPullB.getMetaData();
+        int siz = rsdata.getColumnCount();
+        rsPullB.last();
+        int countrows = rsPullB.getRow();
+
+        if(countrows ==0){
+            oldWaybill="Первоначальный waybill не найден.";
+            return oldWaybill;
+        }else{
+
+            Object[] colNames = new String[siz];
+            Object[][] data = new Object[countrows][siz];
+
+            rsPullB.beforeFirst();
+            for (int i=0; i<siz; i++) {
+                colNames[i] = rsdata.getColumnName(i+1);
+            }
+            int id=0;
+            while (rsPullB.next()){
+                for (int iii=0;iii<siz;iii++) {
+                    if(rsPullB.getString((String) colNames[iii])==null){
+                        data[id][iii]="null";
+                    }else{
+                        data[id][iii] = rsPullB.getString((String) colNames[iii]);
+                    }
+                }
+                id++;
+            }
+
+            oldWaybill = data[0][8].toString();
+
+            //8 - waybill
+            //16 - reg_id
+
+            File oldWay = new File("E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][16].toString() + "\\"+ data[0][16] + "_old.xml");
+
+            boolean oldWayF = oldWay.createNewFile();
+
+            if(oldWayF){FileWriter wOldWay = new FileWriter(oldWay,false);wOldWay.write(data[0][16].toString());wOldWay.close();}
+
+            String filePath = "E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][16].toString() + "\\"+ data[0][16] + "_old.xml";
+            File xmlFile = new File(filePath);
+
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder;
+
+            builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(xmlFile);
+            doc.getDocumentElement().normalize();
+
+            NodeList languages = doc.getElementsByTagName("ns71:Header");
+            Element lang = null;
+
+            lang = (Element) languages.item(0);
+            Element paradigmElement = doc.createElement("ns71:Transport");
+            paradigmElement.appendChild(doc.createTextNode("oop"));
+            lang.appendChild(paradigmElement);
+
+
+
+
+        }
+        pullConn.close();
+
+
+
+        return oldWaybill;
+    }
 
 
 }

@@ -300,7 +300,7 @@ function ticketView(xmlTi){
         "\n" +
         "                            <label class=\"w3-text-blue\">TRAN_FORWARDER</label>\n" +
         "                            <input id = \"tran_forwarder\" oninput=\"changeTrans(this.id)\" class=\"w3-input w3-border\" type=\"text\">\t\t\t\t\t\t\t<br>\n" +
-        "                            <button class=\"w3-btn w3-blue\">Сохранить</button>\n" +
+        "                            <button onclick=\"sendChange()\" class=\"w3-btn w3-blue\">Сохранить</button>\n" +
         "\n" +
         "                        </form>\n" +
         "</div>\n" +
@@ -339,6 +339,14 @@ function ticketView(xmlTi){
         " onclick=\"document.getElementById('transModal').style.display='block'\"> Заполнить транспортный раздел </button>";
 
 }
+
+function sendChange(){
+
+    //документ xml создан, добавил тест тэг. Функция для передачи измененных данных
+
+
+}
+
 
 function godBacchus(){
     var Godbuff = document.getElementById('Godbuff').value.replace(/\s/g, '');
