@@ -23,6 +23,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.Base64;
@@ -99,18 +100,17 @@ public  class Bcm2WebMain extends HttpServlet {
                     jsonOptions,"LOADING","");
             if(countrows!=0){
                 String[] infoLine = new String[12];
+                Charset cs = StandardCharsets.UTF_8;
                 File commonIncInfo = new File("E:\\Progs\\TomCat_9\\webapps\\BaccRcStat.txt");
-//создаем объект FileReader для объекта File
-                FileReader fr = new FileReader(commonIncInfo);
-                //создаем BufferedReader с существующего FileReader для построчного считывания
-                BufferedReader reader = new BufferedReader(fr);
-                // считаем сначала первую строку
-                String line = reader.readLine();
-                while (line != null) {
+                FileInputStream fis = new FileInputStream(commonIncInfo);
+                InputStreamReader isr = new InputStreamReader(fis, cs);
+                BufferedReader br = new BufferedReader(isr);
+                String line; int i=0;
+                while((line = br.readLine()) != null){
                     System.out.println(line);
-                    // считываем остальные строки в цикле
-                    line = reader.readLine();
+                    infoLine[i]=line;i++;
                 }
+                br.close();
 
                 ViewUserSettings viewUserSettings = new ViewUserSettings();
 
