@@ -5,6 +5,8 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.function.IntBinaryOperator;
 import app.entities.HttpRequest;
@@ -324,7 +326,16 @@ public class Utm {
 
             boolean oldWayF = oldWay.createNewFile();
 
-            if(oldWayF){FileWriter wOldWay = new FileWriter(oldWay,false);wOldWay.write(data[0][8].toString());wOldWay.close();}
+            Charset cs = StandardCharsets.UTF_8;
+
+            if(oldWayF){
+                OutputStreamWriter writerOldWay = new OutputStreamWriter(new FileOutputStream(oldWay,false),cs);
+                //FileWriter wOldWay = new FileWriter(oldWay,cs,false);
+                writerOldWay.append(data[0][8].toString());
+                writerOldWay.close();
+                //wOldWay.write(data[0][8].toString());
+                //wOldWay.close();
+            }
 
             String filePath = "E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][16].toString() + "\\"+ data[0][16].toString() + "_old.xml";
             File xmlFile = new File(filePath);
