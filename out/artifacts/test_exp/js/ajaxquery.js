@@ -363,7 +363,7 @@ function confirmChangeWay(){
 
 
 
-    btnCh.disabled = true;
+    //btnCh.disabled = true;
 
     //btnCh.value = "Следующая проверка через 30 сек."
     //setTimeout(() => btnCh.disabled = false, 31000);
