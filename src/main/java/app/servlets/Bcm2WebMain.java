@@ -10,6 +10,7 @@ import app.servlets.bacchus.Out31;
 import app.servlets.caduceus.AutoGas;
 import com.sun.net.httpserver.HttpContext;
 import jcifs.ntlmssp.Type3Message;
+
 //import oracle.net.ns.Message;
 
 import javax.servlet.RequestDispatcher;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.*;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.Base64;
@@ -41,9 +43,6 @@ import static jcifs.util.Base64.decode;
 
 
 public  class Bcm2WebMain extends HttpServlet {
-
-
-
 
 
 
@@ -102,7 +101,7 @@ public  class Bcm2WebMain extends HttpServlet {
                 String[] infoLine = new String[12];
                 File commonIncInfo = new File("E:\\Progs\\TomCat_9\\webapps\\BaccRcStat.txt");
 //создаем объект FileReader для объекта File
-                FileReader fr = new FileReader(commonIncInfo);
+                FileReader fr = new FileReader(commonIncInfo, Charset.defaultCharset());
                 //создаем BufferedReader с существующего FileReader для построчного считывания
                 BufferedReader reader = new BufferedReader(fr);
                 // считаем сначала первую строку
