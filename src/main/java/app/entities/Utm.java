@@ -195,7 +195,7 @@ public class Utm {
         return reply_id;
     }
 
-    public static String CheckTicket (String TiBuf, String TiSap, String TiReply) throws SQLException {
+    public static String CheckTicket (String TiBuf, String TiSap, String TiReply) throws SQLException, ParserConfigurationException, SAXException, IOException {
 
         String checkTicketSql = "select * from b_utmdocs where bud_utm_reply_id = '" + TiReply + "'";
 
@@ -225,6 +225,7 @@ public class Utm {
 
         if(countrows ==0){
             TiResponse="Тикеты не найдены. Попробуйте через 30 сек.";
+            WaybillChange(TiBuf,TiSap);
             return TiResponse;
         }else{
 

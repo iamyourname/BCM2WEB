@@ -156,13 +156,13 @@ body {
                 <img class="w3-bar-item w3-button"  src="img/wine-bottle_icon-icons.com_60728 (2).png"
                      onClick="openCity('London')"  />
             </div>
-            <div class="w3-container w3-left-align w3-cell" style="width: 10%">
+            <div class="w3-container w3-left-align w3-cell" style="width: 15%">
                 <% out.println(Bcm2WebMain.infoLine[0]); %><br>
                 <% out.println(Bcm2WebMain.infoLine[1]); %><br>
                 <% out.println(Bcm2WebMain.infoLine[2]); %><br>
                 <% out.println(Bcm2WebMain.infoLine[3]); %><br>
             </div>
-            <div class="w3-container w3-left-align w3-cell"  style="width: 10%">
+            <div class="w3-container w3-left-align w3-cell"  style="width: 15%">
                 <% out.println(Bcm2WebMain.infoLine[5]); %><br>
                 <% out.println(Bcm2WebMain.infoLine[6]); %><br>
                 <% out.println(Bcm2WebMain.infoLine[7]); %><br>
