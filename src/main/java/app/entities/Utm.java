@@ -324,7 +324,7 @@ public class Utm {
 
             if(oldWayF){FileWriter wOldWay = new FileWriter(oldWay,false);wOldWay.write(data[0][15].toString());wOldWay.close();}
 
-            String filePath = "E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][16].toString() + "\\"+ data[0][15] + "_old.xml";
+            String filePath = "E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][15].toString() + "\\"+ data[0][15] + "_old.xml";
             File xmlFile = new File(filePath);
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
