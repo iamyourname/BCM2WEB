@@ -101,17 +101,14 @@ public  class Bcm2WebMain extends HttpServlet {
             if(countrows!=0){
                 String[] infoLine = new String[12];
                 File commonIncInfo = new File("E:\\Progs\\TomCat_9\\webapps\\BaccRcStat.txt");
-
-                FileReader commonReader = new FileReader(commonIncInfo);
+//создаем объект FileReader для объекта File
+                FileReader fr = new FileReader(commonIncInfo);
                 //создаем BufferedReader с существующего FileReader для построчного считывания
-                BufferedReader reader = new BufferedReader(commonReader);
+                BufferedReader reader = new BufferedReader(fr);
                 // считаем сначала первую строку
-                int l=0;
                 String line = reader.readLine();
                 while (line != null) {
-                    infoLine[l]=line;
-                    l++;
-                    System.out.println(infoLine[l]);
+                    System.out.println(line);
                     // считываем остальные строки в цикле
                     line = reader.readLine();
                 }
