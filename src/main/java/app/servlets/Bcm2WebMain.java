@@ -48,6 +48,7 @@ public  class Bcm2WebMain extends HttpServlet {
    public static String[] infoLine = new String[12];
 
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

@@ -1,7 +1,6 @@
 package app.servlets;
 
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -15,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import jcifs.ntlmssp.Type3Message;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Base64.Decoder;
@@ -27,9 +28,29 @@ public class NTLMUserFilter implements Filter{
     private FilterConfig filterConfig = null;
     private String userDomain = null;
     private static String userName = "";
+    private static int incPerMonth=0;
 
     public static String getUserName(){
         return userName;
+    }
+
+    public static int getIncPerMonth(String nameOfAssigne) throws IOException {
+
+
+        Charset cs = StandardCharsets.UTF_8;
+        File commonIncInfo = new File("E:\\Progs\\TomCat_9\\webapps\\BaccRcUserStat.txt");
+        FileInputStream fis = new FileInputStream(commonIncInfo);
+        InputStreamReader isr = new InputStreamReader(fis, cs);
+        BufferedReader br = new BufferedReader(isr);
+        String line; int i=0;
+        while((line = br.readLine()) != null){
+            //System.out.println(line);
+            String[] userToIncs=line.split(";");
+            if(userToIncs[i].equals(nameOfAssigne))incPerMonth=Integer.parseInt(userToIncs[1]);
+        }
+        br.close();
+
+        return incPerMonth;
     }
 
     public void init(FilterConfig filterConfig) throws ServletException {
