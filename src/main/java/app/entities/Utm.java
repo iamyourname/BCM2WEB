@@ -19,6 +19,9 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 public class Utm {
 
@@ -197,7 +200,7 @@ public class Utm {
         return reply_id;
     }
 
-    public static String CheckTicket (String TiBuf, String TiSap, String TiReply) throws SQLException, ParserConfigurationException, SAXException, IOException {
+    public static String CheckTicket (String TiBuf, String TiSap, String TiReply) throws SQLException, ParserConfigurationException, SAXException, IOException, TransformerException {
 
         String checkTicketSql = "select * from b_utmdocs where bud_utm_reply_id = '" + TiReply + "'";
 
@@ -256,7 +259,7 @@ public class Utm {
     return TiResponse;
     }
 
-    public static String WaybillChange (String WRBuf, String WRSap) throws SQLException, IOException, ParserConfigurationException, SAXException {
+    public static String WaybillChange (String WRBuf, String WRSap) throws SQLException, IOException, ParserConfigurationException, SAXException, TransformerException {
         String oldWaybill="";
 
         String oldWaybillSql = "select bu.*, co.fsrar_id, ew.ewbh_wbregid from b_outgoing bo\n" +
@@ -350,11 +353,22 @@ public class Utm {
             NodeList languages = doc.getElementsByTagName("ns71:Header");
             Element lang = null;
 
-            lang = (Element) languages.item(0);
-            Element paradigmElement = doc.createElement("ns71:Transport");
-            paradigmElement.appendChild(doc.createTextNode("oop"));
-            lang.appendChild(paradigmElement);
+            //проходим по каждому элементу Language
+            for(int i=0; i<languages.getLength(); i++){
+                lang = (Element) languages.item(i);
+                Element paradigmElement = doc.createElement("paradigm");
+                paradigmElement.appendChild(doc.createTextNode("oop"));
+                lang.appendChild(paradigmElement);
+            }
 
+            doc.getDocumentElement().normalize();
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File("E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][16].toString() + "\\"+ data[0][16].toString() + "_new.xml"));
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.transform(source, result);
+            System.out.println("XML успешно изменен!");
 
 
 
