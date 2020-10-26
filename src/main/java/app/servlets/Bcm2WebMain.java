@@ -57,16 +57,7 @@ public  class Bcm2WebMain extends HttpServlet {
 
 
 
-        //УДАЛИ
-        try {
-            WaybillChange("2651227","0121");
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        }
+
 
 
         Object[] colUsers;
