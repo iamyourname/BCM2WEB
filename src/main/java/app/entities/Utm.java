@@ -230,7 +230,7 @@ public class Utm {
 
         if(countrows ==0){
             TiResponse="Тикеты не найдены. Попробуйте через 30 сек.";
-            WaybillChange("2651227","0121");
+            //WaybillChange("2651227","0121");
             return TiResponse;
         }else{
 
