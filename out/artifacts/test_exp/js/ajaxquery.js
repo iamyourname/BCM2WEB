@@ -98,6 +98,7 @@ function tranpGo(){
 
     var body = 'TBuf=' + tBuf+
         '&TW=0' +
+        '&chpar=0'+
         '&TSap='+ tSap;
 
     xhrB.open('POST', '/test/transport', true);
@@ -384,7 +385,7 @@ function confirmChangeWay(){
     var body = 'TBuf=' + bbuf+
         '&TW=0' +
         '&RPL=' + replyTi +
-        '&chpar=' + tran_type +','+tran_company +','+tran_trailer +','+tran_customer +','+tran_loadpoint +','+tran_unloadpoint +','+tran_redirect+','+tran_forwarder+
+        '&chpar={' + tran_type +','+tran_company +','+tran_trailer +','+tran_customer +','+tran_loadpoint +','+tran_unloadpoint +','+tran_redirect+','+tran_forwarder+'}'+
         '&TSap='+ ssap;
 
     xhrB.open('POST', '/test/transport', true);
