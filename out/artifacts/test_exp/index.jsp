@@ -160,7 +160,12 @@ body {
                 <% out.println(Bcm2WebMain.infoLine[1]); %><br>
                 <% out.println(Bcm2WebMain.infoLine[2]); %><br>
                 <% out.println(Bcm2WebMain.infoLine[3]); %><br>
-
+            </div>
+            <div class="w3-container w3-left-align w3-cell" >
+                <% out.println(Bcm2WebMain.infoLine[5]); %><br>
+                <% out.println(Bcm2WebMain.infoLine[6]); %><br>
+                <% out.println(Bcm2WebMain.infoLine[7]); %><br>
+                <% out.println(Bcm2WebMain.infoLine[8]); %><br>
             </div>
             <div class="w3-container w3-centered w3-cell">
                 <img class="w3-bar-item w3-button" src="img/32380cutofmeat_98860 (1).png" alt=""   onClick="openCity('Paris')"   />
@@ -172,6 +177,27 @@ body {
 
 
         </div>
+        <div class="w3-container w3-card-4 w3-light-gray w3-cell-row">
+            <div class="w3-container w3-left-align w3-cell" >
+                <
+            </div>
+            <div class="w3-container w3-left-align w3-cell" >
+                <% out.println(Bcm2WebMain.infoLine[10]); %><br>
+
+            </div>
+            <div class="w3-container w3-left-align w3-cell" >
+
+            </div>
+            <div class="w3-container w3-centered w3-cell">
+
+            </div>
+            <div class="w3-container w3-right-align w3-cell">
+
+            </div>
+
+
+        </div>
+
 					<div id="London" class="city" style="display:none">
 						
   						<div id='cssmenu' style="z-index: 0">
