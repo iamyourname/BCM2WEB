@@ -257,7 +257,7 @@ public class Utm {
     public static String WaybillChange (String WRBuf, String WRSap) throws SQLException, IOException, ParserConfigurationException, SAXException {
         String oldWaybill="";
 
-        String oldWaybillSql = "select bu.*, co.fsrar_id from b_outgoing bo\n" +
+        String oldWaybillSql = "select bu.*, co.fsrar_id, , ew.ewbh_wbregid from b_outgoing bo\n" +
                 "                left join c_org_divisions co on co.codv_id = bo.codv_id\n" +
                 "                left join e_waybill ew on ew.ewbh_id = bo.ewbh_id\n" +
                 "                left join b_utmdocs bu on bu.bud_utm_reply_id = ew.ewbh_utmwaybill_replyid \n" +
@@ -309,7 +309,7 @@ public class Utm {
                     }else{
                         data[id][iii] = rsPullB.getString((String) colNames[iii]);
                     }
-                    System.out.println("id "+id+" "+data[id][iii].toString());
+                    //System.out.println("id "+id+" "+data[id][iii].toString());
                 }
 
                 id++;
