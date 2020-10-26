@@ -154,6 +154,7 @@ function WRGo(Buf,Sap){
     var body = 'TBuf=' + Buf+
         '&TW=1' +
         '&RPL=0' +
+        '&chpar=0'+
         '&TSap='+ Sap;
 
     xhrB.open('POST', '/test/transport', true);
@@ -229,6 +230,7 @@ function checkGo(Buf,Sap){
     var body = 'TBuf=' + Buf+
         '&TW=1' +
         '&RPL=' + replyTi +
+        '&chpar=0'+
         '&TSap='+ Sap;
 
     xhrB.open('POST', '/test/transport', true);
@@ -300,7 +302,7 @@ function ticketView(xmlTi){
         "\n" +
         "                            <label class=\"w3-text-blue\">TRAN_FORWARDER</label>\n" +
         "                            <input id = \"tran_forwarder\" oninput=\"changeTrans(this.id)\" class=\"w3-input w3-border\" type=\"text\">\t\t\t\t\t\t\t<br>\n" +
-        "                            <button onclick=\"sendChange()\" class=\"w3-btn w3-blue\">Сохранить</button>\n" +
+        "                            <button onclick=\"confirmChangeWay()\" class=\"w3-btn w3-blue\">Сохранить</button>\n" +
         "\n" +
         "                        </form>\n" +
         "</div>\n" +
@@ -340,10 +342,54 @@ function ticketView(xmlTi){
 
 }
 
-function sendChange(){
 
-    //документ xml создан, добавил тест тэг. Функция для передачи измененных данных
+function confirmChangeWay(){
 
+
+
+    var tran_type = document.getElementById("tran_type").value;
+    var tran_company = document.getElementById("tran_company").value;
+    var tran_trailer = document.getElementById("tran_trailer").value;
+    var tran_customer = document.getElementById("tran_customer").value;
+    var tran_driver = document.getElementById("tran_driver").value;
+    var tran_loadpoint = document.getElementById("tran_loadpoint").value;
+    var tran_unloadpoint = document.getElementById("tran_unloadpoint").value;
+    var tran_redirect = document.getElementById("tran_redirect").value;
+    var tran_forwarder = document.getElementById("tran_forwarder").value;
+
+    var bbuf = document.getElementById("transB").value;
+    var ssap = document.getElementById("transS").value;
+
+
+
+    btnCh.disabled = true;
+
+    //btnCh.value = "Следующая проверка через 30 сек."
+    //setTimeout(() => btnCh.disabled = false, 31000);
+
+    var printTableCheck="";
+
+
+    let xhrB = new XMLHttpRequest();
+
+    xhrB.onreadystatechange = function() {
+        if (xhrB.readyState !== 4) return;
+        if (xhrB.status == 200) {
+
+            tresp = xhrB.responseText;
+
+        }
+    }
+
+    var body = 'TBuf=' + bbuf+
+        '&TW=0' +
+        '&RPL=' + replyTi +
+        '&chpar=' + tran_type +','+tran_company +','+tran_trailer +','+tran_customer +','+tran_loadpoint +','+tran_unloadpoint +','+tran_redirect+','+tran_forwarder+
+        '&TSap='+ ssap;
+
+    xhrB.open('POST', '/test/transport', true);
+    xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrB.send(body);
 
 }
 

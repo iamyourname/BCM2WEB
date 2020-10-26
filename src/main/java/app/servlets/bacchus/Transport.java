@@ -33,6 +33,7 @@ public class Transport extends HttpServlet {
         String TSap = req.getParameter("TSap");
         String TW = req.getParameter("TW");
         String RPL = req.getParameter("RPL");
+        String chpar = req.getParameter("chpar");
 
         ViewResult viewResult = ViewResult.getInstance();
 
@@ -42,39 +43,38 @@ public class Transport extends HttpServlet {
                 agent = RcToAgent.rcAgent[i][2];
             }
         }
+
         if(Integer.parseInt(agent)<9)agent="0"+agent;
 
-
+        try{
+            if(!chpar.equals("0")){
+                out.append(Utm.WaybillChange(TBuf,TSap));
+                return;
+            }
+        }catch (Exception ee){
+            out.append(""+ee.toString());
+        }
 
         try {
             System.out.println("Transport");
 
             if(TW.equals("1")){
-
                 if(RPL.equals("0")){
                     System.out.println("Transport waybill");
 
                     tResponse = Utm.WaybillReject(TBuf,TSap);
                     out.append(tResponse);
                 }else{
-
                     tResponse = Utm.CheckTicket(TBuf,TSap,RPL);
                     out.append(tResponse);
-
                 }
-
-
-
             }else{
                 System.out.println("Transport buff");
-
                 Object[][] outT31 = viewResult.ViewBuffGodOutFromBD(TBuf,TSap, agent); // ошибка
-
                 for (Object[] out31Datum : outT31) {
                     tResponse += Arrays.toString(out31Datum);
                     //out.append(Arrays.toString(out31Datum));
                 }
-
                 out.append(tResponse);
             }
 
