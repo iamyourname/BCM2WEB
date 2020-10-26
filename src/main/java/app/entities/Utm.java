@@ -356,10 +356,17 @@ public class Utm {
             //проходим по каждому элементу Language
             for(int i=0; i<languages.getLength(); i++){
                 lang = (Element) languages.item(i);
-                Element paradigmElement = doc.createElement("paradigm");
-                paradigmElement.appendChild(doc.createTextNode("oop"));
+                Element paradigmElement = doc.createElement("ns71:Transport");
+                //paradigmElement.appendChild(doc.createTextNode("oop"));
                 lang.appendChild(paradigmElement);
             }
+            NodeList transp = doc.getElementsByTagName("ns71:Transport");
+
+            Element elTrans = null;
+            elTrans = (Element) transp.item(0);
+            Element addTransp = doc.createElement("ns71:TRAN_TYPE");
+            elTrans.appendChild(addTransp);
+
 
             doc.getDocumentElement().normalize();
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
