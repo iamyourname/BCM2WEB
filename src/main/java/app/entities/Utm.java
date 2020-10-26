@@ -309,7 +309,9 @@ public class Utm {
                     }else{
                         data[id][iii] = rsPullB.getString((String) colNames[iii]);
                     }
+                    System.out.println("id "+id+" "+data[id][iii].toString());
                 }
+
                 id++;
             }
 
@@ -317,7 +319,7 @@ public class Utm {
 
             //8 - waybill
             //16 - reg_id
-            System.out.println("reg_id "+data[0][16]);
+
             File oldWay = new File("E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][16].toString() + "\\"+ data[0][16].toString() + "_old.xml");
 
             boolean oldWayF = oldWay.createNewFile();
