@@ -101,7 +101,7 @@ public  class Bcm2WebMain extends HttpServlet {
                 String[] infoLine = new String[12];
                 File commonIncInfo = new File("E:\\Progs\\TomCat_9\\webapps\\BaccRcStat.txt");
 //создаем объект FileReader для объекта File
-                FileReader fr = new FileReader(commonIncInfo, Charset.defaultCharset());
+                FileReader fr = new FileReader(commonIncInfo);
                 //создаем BufferedReader с существующего FileReader для построчного считывания
                 BufferedReader reader = new BufferedReader(fr);
                 // считаем сначала первую строку
