@@ -99,7 +99,7 @@ public  class Bcm2WebMain extends HttpServlet {
                     "BCM",
                     jsonOptions,"LOADING","");
             if(countrows!=0){
-                String[] infoLine = new String[0];
+                String[] infoLine = new String[12];
                 File commonIncInfo = new File("E:\\Progs\\TomCat_9\\webapps\\BaccRcStat.txt");
 
                 FileReader commonReader = new FileReader(commonIncInfo);
@@ -111,7 +111,7 @@ public  class Bcm2WebMain extends HttpServlet {
                 while (line != null) {
                     infoLine[l]=line;
                     l++;
-                    //System.out.println(line);
+                    System.out.println(infoLine[l]);
                     // считываем остальные строки в цикле
                     line = reader.readLine();
                 }
