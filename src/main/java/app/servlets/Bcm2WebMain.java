@@ -10,6 +10,7 @@ import app.servlets.bacchus.Out31;
 import app.servlets.caduceus.AutoGas;
 import com.sun.net.httpserver.HttpContext;
 import jcifs.ntlmssp.Type3Message;
+import org.xml.sax.SAXException;
 
 //import oracle.net.ns.Message;
 
@@ -18,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
 
 import java.awt.*;
 import java.io.*;
@@ -34,6 +36,7 @@ import static app.entities.ConnectToBD.stmtLog;
 import static app.entities.Logs.writeLogMain;
 import static app.entities.Logs.writeLogParent;
 import static app.entities.MassOut.searchErrorsFromNQ;
+import static app.entities.Utm.WaybillChange;
 import static java.util.Base64.Decoder;
 import static java.util.Base64.Encoder;
 
@@ -52,7 +55,21 @@ public  class Bcm2WebMain extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-         Object[] colUsers;
+
+
+        //УДАЛИ
+        try {
+            WaybillChange("2651227","0121");
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+
+
+        Object[] colUsers;
          Object[][] dataUser;
 
 

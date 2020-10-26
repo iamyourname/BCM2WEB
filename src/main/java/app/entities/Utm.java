@@ -225,7 +225,7 @@ public class Utm {
 
         if(countrows ==0){
             TiResponse="Тикеты не найдены. Попробуйте через 30 сек.";
-            WaybillChange(TiBuf,TiSap);
+
             return TiResponse;
         }else{
 
@@ -317,14 +317,14 @@ public class Utm {
 
             //8 - waybill
             //16 - reg_id
-
-            File oldWay = new File("E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][15].toString() + "\\"+ data[0][15].toString() + "_old.xml");
+            System.out.println("reg_id "+data[0][16]);
+            File oldWay = new File("E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][16].toString() + "\\"+ data[0][16].toString() + "_old.xml");
 
             boolean oldWayF = oldWay.createNewFile();
 
-            if(oldWayF){FileWriter wOldWay = new FileWriter(oldWay,false);wOldWay.write(data[0][15].toString());wOldWay.close();}
+            if(oldWayF){FileWriter wOldWay = new FileWriter(oldWay,false);wOldWay.write(data[0][8].toString());wOldWay.close();}
 
-            String filePath = "E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][15].toString() + "\\"+ data[0][15].toString() + "_old.xml";
+            String filePath = "E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][16].toString() + "\\"+ data[0][16].toString() + "_old.xml";
             File xmlFile = new File(filePath);
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
