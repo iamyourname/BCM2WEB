@@ -19,8 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.awt.*;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.Arrays;
@@ -100,6 +99,22 @@ public  class Bcm2WebMain extends HttpServlet {
                     "BCM",
                     jsonOptions,"LOADING","");
             if(countrows!=0){
+                String[] infoLine = new String[0];
+                File commonIncInfo = new File("E:\\Progs\\TomCat_9\\webapps\\BaccRcStat.txt");
+
+                FileReader commonReader = new FileReader(commonIncInfo);
+                //создаем BufferedReader с существующего FileReader для построчного считывания
+                BufferedReader reader = new BufferedReader(commonReader);
+                // считаем сначала первую строку
+                int l=0;
+                String line = reader.readLine();
+                while (line != null) {
+                    infoLine[l]=line;
+                    l++;
+                    //System.out.println(line);
+                    // считываем остальные строки в цикле
+                    line = reader.readLine();
+                }
 
                 ViewUserSettings viewUserSettings = new ViewUserSettings();
 
