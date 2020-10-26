@@ -45,7 +45,7 @@ import static jcifs.util.Base64.decode;
 
 public  class Bcm2WebMain extends HttpServlet {
 
-
+   public static String[] infoLine = new String[12];
 
 
     @Override
@@ -99,7 +99,7 @@ public  class Bcm2WebMain extends HttpServlet {
                     "BCM",
                     jsonOptions,"LOADING","");
             if(countrows!=0){
-                String[] infoLine = new String[12];
+
                 Charset cs = StandardCharsets.UTF_8;
                 File commonIncInfo = new File("E:\\Progs\\TomCat_9\\webapps\\BaccRcStat.txt");
                 FileInputStream fis = new FileInputStream(commonIncInfo);

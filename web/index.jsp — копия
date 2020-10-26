@@ -145,33 +145,19 @@ body {
 	</div>
 
 	<div class ="w3-card-4 w3-image "  style = "width: 100%; margin-top: 7px;">
-
-
-
-
-
-        <div class="w3-container w3-card-4 w3-light-gray w3-cell-row">
-            <div class="w3-container w3-left-align w3-cell" >
-                <img class="w3-bar-item w3-button"  src="img/wine-bottle_icon-icons.com_60728 (2).png"
-                     onClick="openCity('London')"  />
-            </div>
-            <div class="w3-container w3-left-align w3-cell" >
-                <% out.println(Bcm2WebMain.infoLine[0]); %><br>
-                <% out.println(Bcm2WebMain.infoLine[1]); %><br>
-                <% out.println(Bcm2WebMain.infoLine[2]); %><br>
-                <% out.println(Bcm2WebMain.infoLine[3]); %><br>
-
-            </div>
-            <div class="w3-container w3-centered w3-cell">
-                <img class="w3-bar-item w3-button" src="img/32380cutofmeat_98860 (1).png" alt=""   onClick="openCity('Paris')"   />
-            </div>
-            <div class="w3-container w3-right-align w3-cell">
-                <img class="w3-bar-item w3-button" src="img/741cigarette_100764 (1).png"   alt=""
-                     onClick="openCity('Tokyo')"   />
-            </div>
-
-
-        </div>
+		
+			      	
+					
+  
+		
+		<div class="w3-card-4 w3-light-gray" style = "width: 100%;">
+			<img class="w3-bar-item w3-button"  src="img/wine-bottle_icon-icons.com_60728 (2).png"
+				 style = " margin-top: 8px; margin-bottom: 8px;" onClick="openCity('London')" align = "left"  />	 
+  			<img class="w3-bar-item w3-button" src="img/32380cutofmeat_98860 (1).png" alt=""  style = "   margin-top: 8px; margin-bottom: 8px;" onClick="openCity('Paris')" lign="absmiddle"  />
+			<img class="w3-bar-item w3-button" src="img/741cigarette_100764 (1).png"   alt=""   style = "margin-top: 8px; margin-bottom: 8px;" onClick="openCity('Tokyo')" align="right"   />
+  
+  
+</div>
 					<div id="London" class="city" style="display:none">
 						
   						<div id='cssmenu' style="z-index: 0">
