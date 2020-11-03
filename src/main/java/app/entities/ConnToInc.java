@@ -16,7 +16,7 @@ public class ConnToInc {
         Statement stmt = conn.createStatement();
         String sqlDayInfo = "SELECT * FROM RC_DAY_INFO";
         ResultSet rsDay = stmt.executeQuery(sqlDayInfo);
-        for(int i=2;i<11;i++){
+        for(int i=2;i<10;i++){
             infoLine[i]=rsDay.getString(i);
         }
 
