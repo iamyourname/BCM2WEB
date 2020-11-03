@@ -163,7 +163,7 @@ body {
                 Не в работе: <% out.println(Bcm2WebMain.infoLine[5]); %><br>
             </div>
             <div class="w3-container w3-left-align w3-cell"  style="width: 15%">
-                За сегодня:
+                За сегодня:<br>
                 Новых: <% out.println(Bcm2WebMain.infoLine[6]); %><br>
                 Решено: <% out.println(Bcm2WebMain.infoLine[7]); %><br>
                 В ожидании: <% out.println(Bcm2WebMain.infoLine[8]); %><br>

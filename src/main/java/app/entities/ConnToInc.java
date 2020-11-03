@@ -17,14 +17,30 @@ public class ConnToInc {
         String sqlDayInfo = "SELECT * FROM RC_DAY_INFO";
         ResultSet rsDay = stmt.executeQuery(sqlDayInfo);
         rsDay.last();
-        for(int i=2;i<10;i++){
+        for(int i=2;i<11;i++){
             infoLine[i]=rsDay.getString(i);
         }
+        stmt.close();
+        conn.close();
 
+    }
 
+    public static void ShowUserTimeInc() throws ClassNotFoundException, SQLException {
 
-
-
+        Class.forName("org.h2.Driver");
+        // Connection conn = DriverManager.getConnection("jdbc:h2:./ok_usersinc;DATABASE_TO_UPPER=true;FILE_LOCK=NO",
+        //        "ui", "123456");
+        Connection conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/IdeaProjects/rbd/ok_usersinc;DATABASE_TO_UPPER=true;FILE_LOCK=NO",
+                "ui", "123456");
+        Statement stmt = conn.createStatement();
+        String sqlDayInfo = "SELECT * FROM RC_DAY_INFO";
+        ResultSet rsDay = stmt.executeQuery(sqlDayInfo);
+        rsDay.last();
+        for(int i=2;i<11;i++){
+            infoLine[i]=rsDay.getString(i);
+        }
+        stmt.close();
+        conn.close();
 
     }
 
