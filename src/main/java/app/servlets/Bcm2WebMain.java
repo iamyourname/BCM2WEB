@@ -109,6 +109,7 @@ public  class Bcm2WebMain extends HttpServlet {
                     jsonOptions,"LOADING","");
             if(countrows!=0){
 
+                ConnToInc.ShowDayInc();
                 /*
                 Charset cs = StandardCharsets.UTF_8;
                 File commonIncInfo = new File("E:\\Progs\\TomCat_9\\webapps\\BaccRcStat.txt");
@@ -153,7 +154,7 @@ public  class Bcm2WebMain extends HttpServlet {
 
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
