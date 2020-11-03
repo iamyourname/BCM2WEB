@@ -141,8 +141,8 @@ body {
 	
 	<div style="border-top-left-radius:  25px; border-top-right-radius:  25px;" class=" w3-light-blue  w3-padding">
         <a href = "profile" > <img  src="img/1486564402-settings_81520.png" align = "right" /></a>
-        <h4 align="right">!!!TEST!!! Привет <% out.println(NTLMUserFilter.getUserName()); %>! Выполнено инцидентов/трудозатраты за месяц:
-            <% out.println(ConnToInc.ShowUserInc(NTLMUserFilter.getUserName())); %> инцидентов/<% out.println(ConnToInc.ShowUserTime(NTLMUserFilter.getUserName())); %> минут </h4>
+        <h4 align="right">!!!TEST!!! Привет <% out.println(NTLMUserFilter.getUserName()); %>! Выполнено инцидентов\трудозатраты за месяц:
+            <% out.println(ConnToInc.ShowUserInc(NTLMUserFilter.getUserName())); %> инцидентов\ <% out.println(ConnToInc.ShowUserTime(NTLMUserFilter.getUserName())); %> минут </h4>
 
 	</div>
 
