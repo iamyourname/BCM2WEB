@@ -46,7 +46,8 @@ public class ConnToInc {
 
         String sqlAllInfo = "SELECT " +
                 "SUM(B_RC_INC + B_RC_TINC + B_RC_ZNO + B_RC_TZNO) \"INC\"" +
-                " FROM USERS_INC where MY='"+dateFormat.format(date)+"' and USER like ('%"+user+"'%)";
+                " FROM USERS_INC where MY='"+dateFormat.format(date)+"' and USER like ('%"+user+"%')";
+        System.out.println(sqlAllInfo);
         ResultSet rsDay = stmt.executeQuery(sqlAllInfo);
         rsDay.last();
         String AllUserInc = rsDay.getString(1);
@@ -73,10 +74,11 @@ public class ConnToInc {
 
         String sqlAllInfo = "SELECT " +
                 " SUM(B_RC_INC_TIME + B_RC_TINC_TIME + B_RC_ZNO_TIME + B_RC_TZNO_TIME) \"TIME\""+
-                "FROM USERS_INC where MY='"+dateFormat.format(date)+"' and USER like ('%"+user+"'%)";
-        ResultSet rsDay = stmt.executeQuery(sqlAllInfo);
-        rsDay.last();
-        String allUserTime = rsDay.getString(1);
+                "FROM USERS_INC where MY='"+dateFormat.format(date)+"' and USER like ('%"+user+"%')";
+        System.out.println(sqlAllInfo);
+        ResultSet rsDayTime = stmt.executeQuery(sqlAllInfo);
+        rsDayTime.last();
+        String allUserTime = rsDayTime.getString(1);
         stmt.close();
         conn.close();
         return allUserTime;
