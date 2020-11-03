@@ -6,6 +6,7 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="lib">
           <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/ojdbc8.jar" />
+          <element id="library" level="project" name="h2-1.4.200" />
         </element>
       </element>
     </root>
