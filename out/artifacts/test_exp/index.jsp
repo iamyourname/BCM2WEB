@@ -1,6 +1,7 @@
 <%@ page import="app.servlets.Bcm2WebMain" %>
 <%@ page import="app.model.ViewUserSettings" %>
 <%@ page import="app.servlets.NTLMUserFilter" %>
+<%@ page import="app.entities.ConnToInc" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -140,8 +141,8 @@ body {
 	
 	<div style="border-top-left-radius:  25px; border-top-right-radius:  25px;" class=" w3-light-blue  w3-padding">
         <a href = "profile" > <img  src="img/1486564402-settings_81520.png" align = "right" /></a>
-        <h4 align="right">!!!TEST!!! Привет <% out.println(NTLMUserFilter.getUserName()); %>! Выполнено инцидентов за месяц:
-            <% out.println(NTLMUserFilter.getIncPerMonth(NTLMUserFilter.getUserName())); %> инцидентов</h4>
+        <h4 align="right">!!!TEST!!! Привет <% out.println(NTLMUserFilter.getUserName()); %>! Выполнено инцидентов/трудозатраты за месяц:
+            <% out.println(ConnToInc.ShowUserInc(NTLMUserFilter.getUserName())); %> инцидентов/<% out.println(ConnToInc.ShowUserTime(NTLMUserFilter.getUserName())); %> минут </h4>
 
 	</div>
 
