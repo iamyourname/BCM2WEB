@@ -109,6 +109,7 @@ public  class Bcm2WebMain extends HttpServlet {
                     jsonOptions,"LOADING","");
             if(countrows!=0){
 
+                /*
                 Charset cs = StandardCharsets.UTF_8;
                 File commonIncInfo = new File("E:\\Progs\\TomCat_9\\webapps\\BaccRcStat.txt");
                 FileInputStream fis = new FileInputStream(commonIncInfo);
@@ -120,6 +121,8 @@ public  class Bcm2WebMain extends HttpServlet {
                     infoLine[i]=line;i++;
                 }
                 br.close();
+                */
+
 
                 ViewUserSettings viewUserSettings = new ViewUserSettings();
 

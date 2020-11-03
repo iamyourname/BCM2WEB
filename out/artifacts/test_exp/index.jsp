@@ -157,16 +157,16 @@ body {
                      onClick="openCity('London')"  />
             </div>
             <div class="w3-container w3-left-align w3-cell" style="width: 15%">
-                <% out.println(Bcm2WebMain.infoLine[0]); %><br>
-                <% out.println(Bcm2WebMain.infoLine[1]); %><br>
-                <% out.println(Bcm2WebMain.infoLine[2]); %><br>
-                <% out.println(Bcm2WebMain.infoLine[3]); %><br>
+                БАХУС РЦ: <% out.println(Bcm2WebMain.infoLine[2]); %><br>
+                В ожидании: <% out.println(Bcm2WebMain.infoLine[3]); %><br>
+                В работе: <% out.println(Bcm2WebMain.infoLine[4]); %><br>
+                Не в работе: <% out.println(Bcm2WebMain.infoLine[5]); %><br>
             </div>
             <div class="w3-container w3-left-align w3-cell"  style="width: 15%">
-                <% out.println(Bcm2WebMain.infoLine[5]); %><br>
-                <% out.println(Bcm2WebMain.infoLine[6]); %><br>
-                <% out.println(Bcm2WebMain.infoLine[7]); %><br>
-                <% out.println(Bcm2WebMain.infoLine[8]); %><br>
+                За сегодня:
+                Новых: <% out.println(Bcm2WebMain.infoLine[6]); %><br>
+                Решено: <% out.println(Bcm2WebMain.infoLine[7]); %><br>
+                В ожидании: <% out.println(Bcm2WebMain.infoLine[8]); %><br>
             </div>
             <div class="w3-container w3-centered w3-cell">
                 <img class="w3-bar-item w3-button" src="img/32380cutofmeat_98860 (1).png" alt=""   onClick="openCity('Paris')"   />
@@ -183,7 +183,7 @@ body {
 
             </div>
             <div class="w3-container w3-left-align w3-cell" >
-                <% out.println(Bcm2WebMain.infoLine[10]); %><br>
+                Дата последнего обновления: <% out.println(Bcm2WebMain.infoLine[10]); %><br>
 
             </div>
             <div class="w3-container w3-left-align w3-cell" >
