@@ -1,7 +1,8 @@
 package app.entities;
 
 public class RcToAgent {
-    public static String[][]  rcAgent = {{"0140","РЦ Видное","1"},
+    public static String[][]  rcAgent = {
+            {"0140","РЦ Видное","1"},
             {"0187","РЦ СПб Алкоголь","1"},
             {"0121","РЦ СЛК","2"},
             {"0123","РЦ Нон-Фуд","1"},

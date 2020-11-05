@@ -135,7 +135,30 @@ body {
 
 <body>
 
-<div id="RightBar"></div>
+<div id="RightBar">
+    <div >
+        <br>
+        <br>
+        <br>
+        <table class="w3-table-all w3-border w3-small">
+            <tr class = 'w3-light-blue'>
+                <th>№</th>
+                <th>Имя</th>
+                <th>Количество</th>
+            </tr>
+            <% int i=0;
+            for(int ii=0; ii<ConnToInc.tableTop.length; ii++){
+                out.println("<tr>");
+                out.println("<td>" + ConnToInc.tableTop[i][0]+"</td>";
+                out.println("<td>" + ConnToInc.tableTop[i][1]+"</td>";
+                i++;
+                out.println("</tr");
+            }
+            %>
+        </table>
+
+    </div>
+</div>
 <div id="LeftBar"></div>
 <div  class ="w3-light-gray w3-center">
 	

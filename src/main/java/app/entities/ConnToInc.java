@@ -9,6 +9,36 @@ import static app.servlets.Bcm2WebMain.infoLine;
 
 public class ConnToInc {
 
+    public static String[][] tableTop;
+
+    public static void TableOfTop() throws SQLException, ClassNotFoundException {
+
+
+        Class.forName("org.h2.Driver");
+        // Connection conn = DriverManager.getConnection("jdbc:h2:./ok_usersinc;DATABASE_TO_UPPER=true;FILE_LOCK=NO",
+        //        "ui", "123456");
+        Connection conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/IdeaProjects/rbd/ok_usersinc;DATABASE_TO_UPPER=true;FILE_LOCK=NO",
+                "ui", "123456");
+        Statement stmt = conn.createStatement();
+        String sqlTableOfTop = "SELECT " +
+                "NAME " +
+                " , SUM(B_RC_INC + B_RC_TINC + B_RC_ZNO + B_RC_TZNO) \"INC\""+
+                " FROM RC_DAY_INFO"+
+                " ORDER BY 2";
+        ResultSet rsTop = stmt.executeQuery(sqlTableOfTop);
+
+        int t=0;
+        while(rsTop.next()){
+            tableTop[t][0]= rsTop.getString(1);
+            tableTop[t][1]= rsTop.getString(2);
+        }
+
+        stmt.close();
+        conn.close();
+
+    }
+
+
     public static void ShowDayInc() throws ClassNotFoundException, SQLException {
 
         Class.forName("org.h2.Driver");
