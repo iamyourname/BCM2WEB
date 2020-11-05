@@ -31,6 +31,11 @@ public class ConnToInc {
         while(rsTop.next()){
             tableTop[t][0]= rsTop.getString(1);
             tableTop[t][1]= rsTop.getString(2);
+
+            System.out.print(" "+rsTop.getString(1));
+            System.out.print(" "+rsTop.getString(2));
+            System.out.println(" ");
+
         }
 
         stmt.close();
