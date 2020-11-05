@@ -151,8 +151,8 @@ body {
                 if(ConnToInc.tableTop[ii][0]!=""){
                     out.println("<tr>");
                     out.println("<td>"+(i+1)+"</td>");
-                    out.println("<td>" + ConnToInc.tableTop[ii][0]+"</td>";
-                    out.println("<td>" + ConnToInc.tableTop[ii][1]+"</td>";
+                    out.println("<td>" + ConnToInc.tableTop[ii][0]+"</td>");
+                    out.println("<td>" + ConnToInc.tableTop[ii][1]+"</td>");
                     i++;
                     out.println("</tr");
                 }
