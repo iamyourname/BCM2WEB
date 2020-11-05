@@ -56,11 +56,7 @@ public  class Bcm2WebMain extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        try {
-            ConnToInc.TableOfTop();
-        } catch (SQLException | ClassNotFoundException sqlException) {
-            sqlException.printStackTrace();
-        }
+
 
         Object[] colUsers;
          Object[][] dataUser;
@@ -125,6 +121,8 @@ public  class Bcm2WebMain extends HttpServlet {
                 }
                 br.close();
                 */
+
+                ConnToInc.TableOfTop();
 
 
                 ViewUserSettings viewUserSettings = new ViewUserSettings();
