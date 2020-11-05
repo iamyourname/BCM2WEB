@@ -24,7 +24,8 @@ public class ConnToInc {
                 "USER " +
                 " , SUM(B_RC_INC + B_RC_TINC + B_RC_ZNO + B_RC_TZNO) \"INC\""+
                 " FROM USERS_INC "+
-                " ORDER BY 2";
+                "group by USER "+
+                " ORDER BY 2 desc";
         ResultSet rsTop = stmt.executeQuery(sqlTableOfTop);
 
         int t=0;
