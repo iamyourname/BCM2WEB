@@ -9,7 +9,7 @@ import static app.servlets.Bcm2WebMain.infoLine;
 
 public class ConnToInc {
 
-    public static String[][] tableTop;
+    public static String[][] tableTop = new String[35][2];
 
     public static void TableOfTop() throws SQLException, ClassNotFoundException {
 
