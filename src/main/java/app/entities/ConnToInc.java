@@ -23,7 +23,7 @@ public class ConnToInc {
         String sqlTableOfTop = "SELECT " +
                 "NAME " +
                 " , SUM(B_RC_INC + B_RC_TINC + B_RC_ZNO + B_RC_TZNO) \"INC\""+
-                " FROM RC_DAY_INFO"+
+                " FROM USERS_INC "+
                 " ORDER BY 2";
         ResultSet rsTop = stmt.executeQuery(sqlTableOfTop);
 
