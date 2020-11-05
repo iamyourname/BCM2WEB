@@ -56,8 +56,13 @@ public  class Bcm2WebMain extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-
-
+        try {
+            System.out.println("call");
+            ConnToInc.UpdateUserInc();
+            System.out.println("after_call");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
         Object[] colUsers;

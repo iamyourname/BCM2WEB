@@ -84,6 +84,11 @@ public class ConnToInc {
         return allUserTime;
     }
 
+    public static void UpdateUserInc() throws InterruptedException {
+        System.out.println("SLEEP");
+        Thread.sleep(5000);
+        System.out.println("AFTER_SLEEP");
 
+    }
 
 }
