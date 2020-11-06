@@ -33,7 +33,6 @@ public class ConnToInc {
         ResultSet rsTop = stmt.executeQuery(sqlTableOfTop);
         int t=0;
         while(rsTop.next()){
-            String[] nameRus = rsTop.getString(1).split("(");
             tableTop[t][0]= rsTop.getString(1);
             tableTop[t][1]= rsTop.getString(2);
 

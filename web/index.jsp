@@ -241,7 +241,7 @@ body {
       <ul>
          <li ><a href='#' onClick="openSystem('BacchusOut')"><span >Переотправка 31 потока</span></a></li>
           <li ><a href='#' onClick="openSystem('BacchusBuf')"><span >Действия с буфером</span></a></li>
-          <li ><a href='#' onClick="openSystem('BacchusTransport')"><span >Возврат с трасп. разделом</span></a></li>
+          <li ><a href='#' disabled="true" onClick="openSystem('BacchusTransport')"><span >Возврат с трасп. разделом</span></a></li>
 
     </ul>
          </li>
@@ -259,7 +259,7 @@ body {
             <li ><a href='#' onClick="openSystem('inform')"><span >Поиск марок</span></a></li>
         </ul>
     </li>
-    <li ><a href='#' onClick="openSystem('BacchusGod')"><span >God Mode</span></a></li>
+    <li ><a href='#' onClick="openSystem('BacchusGod')"><span >Авто Поиск</span></a></li>
 </ul>
 </div>
 					</div>
