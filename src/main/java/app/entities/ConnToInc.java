@@ -13,6 +13,10 @@ public class ConnToInc {
 
     public static void TableOfTop() throws SQLException, ClassNotFoundException {
 
+        for(int l=0; l < tableTop.length; l++){
+            tableTop[l][0]="emp";
+            tableTop[l][1]="emp";
+        }
 
         Class.forName("org.h2.Driver");
         // Connection conn = DriverManager.getConnection("jdbc:h2:./ok_usersinc;DATABASE_TO_UPPER=true;FILE_LOCK=NO",
