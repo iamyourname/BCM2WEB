@@ -136,6 +136,9 @@ body {
 <body>
 
 <div id="RightBar">
+
+</div>
+<div id="LeftBar">
     <div >
         <br>
         <br>
@@ -146,28 +149,24 @@ body {
                 <th>Имя</th>
                 <th>Количество</th>
             </tr>
-
             <%
 
                 int i=1;
                 for(int ii=0; ii<ConnToInc.tableTop.length; ii++){
-                    out.println("<tr>");
-                    out.println("<td>" + i + "</td>");
-                    out.println("<td>" + ConnToInc.tableTop[ii][0] + "</td>");
-                    out.println("<td>" + ConnToInc.tableTop[ii][1] + "</td>");
-                    out.println("</tr>");
-                    i++;
-
-
+                    if(ConnToInc.tableTop[ii][0]=="emp"){
+                    }else{
+                        out.println("<tr>");
+                        out.println("<td>" + i + "</td>");
+                        out.println("<td>" + ConnToInc.tableTop[ii][0] + "</td>");
+                        out.println("<td>" + ConnToInc.tableTop[ii][1] + "</td>");
+                        out.println("</tr>");
+                        i++;
+                    }
                 }
-
-
             %>
         </table>
-
     </div>
 </div>
-<div id="LeftBar"></div>
 <div  class ="w3-light-gray w3-center">
 	
 	<div style="border-top-left-radius:  25px; border-top-right-radius:  25px;" class=" w3-light-blue  w3-padding">
