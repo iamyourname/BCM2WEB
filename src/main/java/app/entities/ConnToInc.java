@@ -9,7 +9,7 @@ import static app.servlets.Bcm2WebMain.infoLine;
 
 public class ConnToInc {
 
-    public static String[][] tableTop; // = new String[35][2]
+    public static String[][] tableTop = new String[35][2]; // = new String[35][2]
 
     public static void TableOfTop() throws SQLException, ClassNotFoundException {
 
@@ -29,6 +29,7 @@ public class ConnToInc {
         ResultSet rsTop = stmt.executeQuery(sqlTableOfTop);
         int t=0;
         while(rsTop.next()){
+
             tableTop[t][0]= rsTop.getString(1);
             tableTop[t][1]= rsTop.getString(2);
 
