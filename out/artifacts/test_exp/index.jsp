@@ -241,7 +241,7 @@ body {
       <ul>
          <li ><a href='#' onClick="openSystem('BacchusOut')"><span >Переотправка 31 потока</span></a></li>
           <li ><a href='#' onClick="openSystem('BacchusBuf')"><span >Действия с буфером</span></a></li>
-          <li ><a href='#' disabled="true" onClick="openSystem('BacchusTransport')"><span >Возврат с трасп. разделом</span></a></li>
+          <li ><a href='#'  onClick="openSystem('BacchusTransport')" ><span >Возврат с трасп. разделом</span></a></li>
 
     </ul>
          </li>
@@ -420,7 +420,7 @@ body {
             </label><br>
 
         </form>
-        <button id="transBut"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="tranpGo()" >Отправить</button>
+        <button id="transBut"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="tranpGo()" disabled>Отправить</button>
 
 
 
