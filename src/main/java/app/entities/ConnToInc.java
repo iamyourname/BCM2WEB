@@ -35,6 +35,7 @@ public class ConnToInc {
             System.out.print(" "+rsTop.getString(1));
             System.out.print(" "+rsTop.getString(2));
             System.out.println(" ");
+            t++;
 
         }
 
