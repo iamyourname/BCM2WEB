@@ -92,7 +92,7 @@ public class ConnectToBD {
             urlLog = "jdbc:postgresql://msk-dpro-apl372:5432/postgres";
             //System.out.println(urlLog);
             Class.forName(driverNamePostgres);
-            connLog = DriverManager.getConnection(urlLog, "bcm_writer", "q6GHn7uE");
+            connLog = DriverManager.getConnection(urlLog, "bcm_writer", "Wa86DHzAZg9Q");
             stmtLog = connLog.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             //System.out.println("connecting: " + url);
             if (connLog.equals(null))
