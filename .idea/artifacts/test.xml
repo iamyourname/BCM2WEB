@@ -6,7 +6,6 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="lib">
           <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/ojdbc8.jar" />
-          <element id="library" level="project" name="h2-1.4.200" />
           <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/connections.txt" />
           <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/h2-1.4.200.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/jcifs-1.2.9.jar" />
@@ -14,6 +13,7 @@
           <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/mongo-java-driver-3.12.2.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/postgresql-42.2.12.jre7.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/sun.misc.BASE64Decoder.jar" />
+          <element id="library" level="project" name="Java EE 6-Java EE 6" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="BCM2WEB/web/Web" />
