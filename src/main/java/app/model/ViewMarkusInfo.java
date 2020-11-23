@@ -34,6 +34,7 @@ public class ViewMarkusInfo {
                 "{\n" +
                 "\"");
         js = js.replace("}", "\"}");
+        js = js.replace("\"\"}", "\"}");
         return js;
     }
     public static String viewDataFromMongo(String param,String value, String sap){
