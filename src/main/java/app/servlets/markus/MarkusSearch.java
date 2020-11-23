@@ -1,5 +1,7 @@
 package app.servlets.markus;
 
+import app.model.ViewMarkusInfo;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +26,7 @@ public class MarkusSearch  extends HttpServlet {
         String param = req.getParameter("param");
         String value = req.getParameter("value");
         String sap = req.getParameter("SAP");
-        out.append("work!");
+        out.append(ViewMarkusInfo.viewDataFromMongo(param,value,"0"));
 
 
 
