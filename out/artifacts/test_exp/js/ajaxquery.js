@@ -124,7 +124,7 @@ function searchMarkus(){
     var input_1 = document.getElementById('inpunt1').value;
 
     var input_2 = document.getElementById('inpunt2').value;
-    var ifBuf=""+input_2;
+    var ifBuf="_"+input_2;
 
     //radio buttons
     var m_sap_ord = document.getElementById('mm_sap_ord');
