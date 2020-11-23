@@ -154,19 +154,39 @@ function searchMarkus(){
             printToMarkus+="<table class=\"w3-table-all w3-small\">";
 
             var markus_response = xhrB.responseText.split("!");
+            var details = markus_response[1].split(",");
+            var sapOrder = details[2].split(":");
+            //for(var i=0; i < markus_response.length; i++){
 
-            for(var i=0; i < markus_response.length; i++){
                 printToMarkus+="<tr>";
                 printToMarkus+="<td>id</td><td>"+markus_response[0]+"</td>";
-                printToMarkus+="<td>sapOrdIdHeader</td><td>"+markus_response[1]+"</td>";
+                printToMarkus+="</tr>";
+
+                printToMarkus+="<tr>";
+                printToMarkus+="<td>sapOrdIdHeader</td><td>"+sapOrder[1].replace("\"","")+"</td>";
+                printToMarkus+="</tr>";
+
+                printToMarkus+="<tr>";
                 printToMarkus+="<td>sapOrdIdHeader</td><td>"+markus_response[2]+"</td>";
+                printToMarkus+="</tr>";
+
+                printToMarkus+="<tr>";
                 printToMarkus+="<td>GUID</td><td>"+markus_response[3]+"</td>";
+                printToMarkus+="</tr>";
+
+                printToMarkus+="<tr>";
                 printToMarkus+="<td>STATUS</td><td>"+markus_response[4]+"</td>";
+                printToMarkus+="</tr>";
+
+                printToMarkus+="<tr>";
                 printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
+                printToMarkus+="</tr>";
+
+                printToMarkus+="<tr>";
                 printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
                 printToMarkus+="</tr>";
 
-            }
+         //   }
 
             printToMarkus+="</table>";
             outputMarkus.innerHTML+=printToMarkus;
