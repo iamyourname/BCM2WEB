@@ -49,8 +49,10 @@ public class ViewMarkusInfo {
                   BasicDBObject query=new BasicDBObject("guidUpd",value);
                   Document myDoc = (Document) coll.find(query).first();
 
-            System.out.println(myDoc.toString());
+
                   String js = jsonReplace(myDoc.toString());
+
+            System.out.println(js);
 
                   Object obj = new JSONParser().parse(js);
                   JSONObject jo = (JSONObject) obj;
