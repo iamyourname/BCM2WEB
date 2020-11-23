@@ -44,7 +44,7 @@ public class ViewMarkusInfo {
             MongoCollection coll = db.getCollection("document");
 
 
-
+            System.out.println("sReturn");
 
                   BasicDBObject query=new BasicDBObject("guidUpd",value);
                   Document myDoc = (Document) coll.find(query).first();

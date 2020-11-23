@@ -14,6 +14,7 @@
           <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/postgresql-42.2.12.jre7.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/sun.misc.BASE64Decoder.jar" />
           <element id="library" level="project" name="Java EE 6-Java EE 6" />
+          <element id="library" level="project" name="json-simple-1.1" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="BCM2WEB/web/Web" />
