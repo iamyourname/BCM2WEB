@@ -26,7 +26,7 @@ public class MarkusSearch  extends HttpServlet {
         String param = req.getParameter("paramSearch");
         String value = req.getParameter("value");
         String sap = req.getParameter("SAP");
-        out.append("hello");
+        out.append(ViewMarkusInfo.viewDataFromMongo(param,value,"0"));
 
 
 
