@@ -184,7 +184,7 @@ function searchMarkus(){
 
                 printToMarkus+="<tr >";//printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
 
-                printToMarkus+="<td onclick=onclick=\"myFunctionT('Demo101')\">DETAILS</td>"
+                printToMarkus+="<td onclick=\"myFunctionT('Demo101')\">DETAILS</td>"
                 printToMarkus+="<td><tr id=\"Demo101\" class=\"w3-hide\"><td>Hello</td><td>World</td></tr>";
                 printToMarkus+="</td></tr>";
 
@@ -213,7 +213,7 @@ function searchMarkus(){
 
 }
 
-function myFunction(id) {
+function myFunctionT(id) {
     var x = document.getElementById(id);
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
