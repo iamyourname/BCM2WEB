@@ -151,7 +151,7 @@ function searchMarkus(){
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
-            printToMarkus+="<table class=\"w3-table-all w3-small\">";
+            printToMarkus="<table class=\"w3-table-all w3-small\">";
 
             var markus_response = xhrB.responseText.split("!");
 
@@ -182,8 +182,8 @@ function searchMarkus(){
                 printToMarkus+="<td>STATUS</td><td>"+status[1].replace(/\"/g,"")+"</td>";
                 printToMarkus+="</tr>";
 
-                printToMarkus+="<tr>";
-                printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
+                printToMarkus+="<tr onclick=onclick=\"myFunctionT('Demo101')\">";//printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
+                printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td></td><td>hello</td></tr>";
                 printToMarkus+="</tr>";
 
                 printToMarkus+="<tr>";
@@ -193,7 +193,7 @@ function searchMarkus(){
          //   }
 
             printToMarkus+="</table>";
-            outputMarkus.innerHTML+=printToMarkus;
+            outputMarkus.innerHTML=printToMarkus;
 
 
         }
@@ -210,6 +210,16 @@ function searchMarkus(){
 
 
 }
+
+function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+
 
 function WRGo(Buf,Sap){
 
