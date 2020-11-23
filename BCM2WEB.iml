@@ -51,5 +51,6 @@
     <orderEntry type="library" exported="" name="postgresql-42.2.12.jre7" level="project" />
     <orderEntry type="library" exported="" name="sun.misc.BASE64Decoder" level="project" />
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="library" exported="" name="json-simple-1.1" level="project" />
   </component>
 </module>

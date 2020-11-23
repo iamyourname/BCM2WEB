@@ -120,13 +120,28 @@ function buforno(){
 
 
 function searchMarkus(){
-
+    //main input
     var input_1 = document.getElementById('inpunt1').value;
 
     var input_2 = document.getElementById('inpunt2').value;
+    var ifBuf=""+input_2;
 
-    var outputCheck = document.getElementById('outputmarkus');
+    //radio buttons
+    var m_sap_ord = document.getElementById('m_sap_ord');
+    var m_guid = document.getElementById('m_guid');
+    var m_pallet = document.getElementById('m_pallet');
+    var m_buf = document.getElementById('m_buf');
 
+    var param = "";
+    //check choise
+    if(m_sap_ord.checked)param="order";
+    if(m_guid.checked)param="guid";
+    if(m_pallet.checked)param="pallet";
+    if(m_buf.checked)param="buf";
+
+    //area output info
+    var outputMarkus = document.getElementById('outputmarkus');
+    //variable to print
     var printToMarkus="";
 
 
@@ -142,9 +157,9 @@ function searchMarkus(){
         }
     }
 
-    var body = 'paramSearch='+
-        '&value='+
-        '&SAP='+inSap;
+    var body = 'paramSearch='+param
+        '&value='+input_1
+        '&SAP='+ifBuf;
 
     xhrB.open('POST', '/test/markus', true);
     xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')

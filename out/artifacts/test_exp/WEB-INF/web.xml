@@ -9,6 +9,11 @@
     </servlet>
 
     <servlet>
+        <servlet-name>Markus</servlet-name>
+        <servlet-class>app.servlets.markus.MarkusSearch</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>GodBacchus</servlet-name>
         <servlet-class>app.servlets.bacchus.GodClass</servlet-class>
     </servlet>
@@ -41,6 +46,10 @@
         <url-pattern></url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>Markus</servlet-name>
+        <url-pattern>/markus</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>GodBacchus</servlet-name>
