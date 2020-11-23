@@ -34,10 +34,11 @@ public class ViewMarkusInfo {
     public static String viewDataFromMongo(String param,String value, String sap){
         String sReturn="";
 
+
         //connWithMongoDb
         try{
             MongoClientURI mongoClientURI = new MongoClientURI("mongodb://prod-markus-user:nqn9v75rubsa45g5cnzgz67@msk-dpro-mng045.x5.ru:27017");
-            //?authMechanism=SCRAM-SHA-1 
+            //?authMechanism=SCRAM-SHA-1
             MongoClient mongoClient = new MongoClient(mongoClientURI);
             MongoDatabase db = mongoClient.getDatabase("markus");
             MongoCollection coll = db.getCollection("document");
