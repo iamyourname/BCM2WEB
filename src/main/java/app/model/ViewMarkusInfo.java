@@ -81,7 +81,7 @@ B49985CB850630EAE053A8135A0AC0F9 - отгруз
 
 
         }catch (ParseException e){
-            System.out.println(e.toString());
+            System.out.println("here"+e.toString());
 
         }
 
