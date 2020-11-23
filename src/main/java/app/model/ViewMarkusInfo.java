@@ -28,6 +28,11 @@ public class ViewMarkusInfo {
         js = js.replace("}]\",","\"}],");
         js = js.replace("}]\",","\"}],");
         js = js.replace("Model}","Model\"}");
+        js = js.replace("\"},\n" +
+                "\"{\n" +
+                "\"", "\"},\n" +
+                "{\n" +
+                "\"");
         return js;
     }
 
