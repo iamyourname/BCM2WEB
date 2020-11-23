@@ -33,6 +33,7 @@ public class ViewMarkusInfo {
                 "\"", "\"},\n" +
                 "{\n" +
                 "\"");
+        js=js.replace("}$","\"}$");
         return js;
     }
 
