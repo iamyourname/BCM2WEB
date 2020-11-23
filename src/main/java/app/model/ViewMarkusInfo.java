@@ -13,30 +13,29 @@ import org.json.simple.parser.ParseException;
 
 public class ViewMarkusInfo {
 
-    public static String jsonReplace(String js){
-        js = js.replace("Document","");
-        js = js.replace(":","-");
-        js = js.replace("=",":");
-        js = js.replace("{{","{");
-        js = js.replace("}}","}");
-        js = js.replace("{","{\n\"");
-        js = js.replace(", ","\",\n\"");
-        js = js.replace(":","\":\"");
-        js = js.replace("\":\"{","\":{");
-        js = js.replace("}\",","\"},");
-        js = js.replace("\":\"[{","\":[{");
-        js = js.replace("}]\",","\"}],");
-        js = js.replace("}]\",","\"}],");
-        js = js.replace("Model}","Model\"}");
+    public static String jsonReplace(String js) {
+        js = js.replace("Document", "");
+        js = js.replace(":", "-");
+        js = js.replace("=", ":");
+        js = js.replace("{{", "{");
+        js = js.replace("}}", "}");
+        js = js.replace("{", "{\n\"");
+        js = js.replace(", ", "\",\n\"");
+        js = js.replace(":", "\":\"");
+        js = js.replace("\":\"{", "\":{");
+        js = js.replace("}\",", "\"},");
+        js = js.replace("\":\"[{", "\":[{");
+        js = js.replace("}]\",", "\"}],");
+        js = js.replace("}]\",", "\"}],");
+        js = js.replace("Model}", "Model\"}");
         js = js.replace("\"},\n" +
                 "\"{\n" +
                 "\"", "\"},\n" +
                 "{\n" +
                 "\"");
-        js=js.replace("}$","\"}$");
+        js = js.replace("}\\Z", "\"}");
         return js;
     }
-
     public static String viewDataFromMongo(String param,String value, String sap){
         String sReturn="";
 
