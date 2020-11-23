@@ -33,7 +33,7 @@ public class ViewMarkusInfo {
                 "\"", "\"},\n" +
                 "{\n" +
                 "\"");
-        js = js.replace("}\\Z", "\"}");
+        js = js.replace("}", "\"}");
         return js;
     }
     public static String viewDataFromMongo(String param,String value, String sap){
