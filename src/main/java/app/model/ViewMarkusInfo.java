@@ -64,41 +64,15 @@ public class ViewMarkusInfo {
                   JSONObject jo = (JSONObject) obj;
 
 
-                  sReturn=jo.get("_id").toString() + ",";
-                  sReturn+=jo.get("details").toString() + ",";
-                  sReturn+=jo.get("guidUpd").toString() + ",";
-                  sReturn+=jo.get("type").toString() + ",";
-                  sReturn+=jo.get("status").toString() + ",";
-                  sReturn+=jo.get("details").toString() + ",";
+                  sReturn=jo.get("_id").toString() + "!";
+                  sReturn+=jo.get("details.sapOrdIdHeader").toString() + "!";
+                  sReturn+=jo.get("guidUpd").toString() + "!";
+                  sReturn+=jo.get("type").toString() + "!";
+                  sReturn+=jo.get("status.stateMachine").toString() + "!";
+                  sReturn+=jo.get("details").toString() + "!";
                   sReturn+=jo.get("storeIn").toString();
                   //+jo.get("details.sapOrdIdHeader").toString()+jo.get("guidUpd").toString()+jo.get("type").toString();
                     System.out.println(sReturn);
-
-                  /*
-                  1. Из коллекции документ
-    1. Id без обджекта
-    2. OrderNumber
-    3. Guid
-    4. Type Тип из монго в скобках перевод
-    5. Статус - из монго в скобках перевод
-    6. Детали. Разворачиваются. PlU:quantity
-    7. StoreIn/StoreOut
-AE12698AC4185F09E05328B5A8C08F04 - прием
-B49985CB850630EAE053A8135A0AC0F9 - отгруз
-switch (param){
-              case "order":
-              case "guid":
-  case "pallet":
-              case "buf":
-
-          }
-                   */
-
-
-
-
-
-
 
         }catch (ParseException e){
             System.out.println("here"+e.toString());

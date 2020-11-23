@@ -151,7 +151,25 @@ function searchMarkus(){
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
+            printToMarkus+="<table class=\"w3-table-all w3-small\">";
 
+            var markus_response = xhrB.responseText.split("!");
+
+            for(var i=0; i < markus_response.length; i++){
+                printToMarkus+="<tr>";
+                printToMarkus+="<td>id</td><td>"+markus_response[0]+"</td>";
+                printToMarkus+="<td>sapOrdIdHeader</td><td>"+markus_response[1]+"</td>";
+                printToMarkus+="<td>sapOrdIdHeader</td><td>"+markus_response[2]+"</td>";
+                printToMarkus+="<td>GUID</td><td>"+markus_response[3]+"</td>";
+                printToMarkus+="<td>STATUS</td><td>"+markus_response[4]+"</td>";
+                printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
+                printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
+                printToMarkus+="</tr>";
+
+            }
+
+            printToMarkus+="</table>";
+            outputMarkus.innerHTML+=printToMarkus;
 
 
         }
