@@ -56,7 +56,7 @@ public class ViewMarkusInfo {
 
 
                   sReturn=jo.get("_id").toString()+jo.get("details.sapOrdIdHeader").toString()+jo.get("guidUpd").toString()+jo.get("type").toString();
-
+                    System.out.println(sReturn);
 
                   /*
                   1. Из коллекции документ
