@@ -59,8 +59,6 @@ public class ViewMarkusInfo {
 
 
                   /*
-
-
                   1. Из коллекции документ
     1. Id без обджекта
     2. OrderNumber
@@ -69,7 +67,8 @@ public class ViewMarkusInfo {
     5. Статус - из монго в скобках перевод
     6. Детали. Разворачиваются. PlU:quantity
     7. StoreIn/StoreOut
-
+AE12698AC4185F09E05328B5A8C08F04 - прием
+B49985CB850630EAE053A8135A0AC0F9 - отгруз
                    */
 
 

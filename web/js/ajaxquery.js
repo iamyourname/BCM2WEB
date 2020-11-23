@@ -127,10 +127,10 @@ function searchMarkus(){
     var ifBuf=""+input_2;
 
     //radio buttons
-    var m_sap_ord = document.getElementById('m_sap_ord');
-    var m_guid = document.getElementById('m_guid');
-    var m_pallet = document.getElementById('m_pallet');
-    var m_buf = document.getElementById('m_buf');
+    var m_sap_ord = document.getElementById('mm_sap_ord');
+    var m_guid = document.getElementById('mm_guid');
+    var m_pallet = document.getElementById('mm_pallet');
+    var m_buf = document.getElementById('mm_buf');
 
     var param = "";
     //check choise
