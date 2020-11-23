@@ -154,8 +154,12 @@ function searchMarkus(){
             printToMarkus+="<table class=\"w3-table-all w3-small\">";
 
             var markus_response = xhrB.responseText.split("!");
+
             var details = markus_response[1].split(",");
             var sapOrder = details[2].split(":");
+
+            var all_status = markus_response[4].split(",");
+            var status = all_status[0].split(":");
             //for(var i=0; i < markus_response.length; i++){
 
                 printToMarkus+="<tr>";
@@ -163,19 +167,19 @@ function searchMarkus(){
                 printToMarkus+="</tr>";
 
                 printToMarkus+="<tr>";
-                printToMarkus+="<td>sapOrdIdHeader</td><td>"+sapOrder[1].replace("\"","")+"</td>";
+                printToMarkus+="<td>sapOrdIdHeader</td><td>"+sapOrder[1].replace(/\"/g,"")+"</td>";
                 printToMarkus+="</tr>";
 
                 printToMarkus+="<tr>";
-                printToMarkus+="<td>sapOrdIdHeader</td><td>"+markus_response[2]+"</td>";
+                printToMarkus+="<td>GUID</td><td>"+markus_response[2]+"</td>";
                 printToMarkus+="</tr>";
 
                 printToMarkus+="<tr>";
-                printToMarkus+="<td>GUID</td><td>"+markus_response[3]+"</td>";
+                printToMarkus+="<td>TYPE</td><td>"+markus_response[3]+"</td>";
                 printToMarkus+="</tr>";
 
                 printToMarkus+="<tr>";
-                printToMarkus+="<td>STATUS</td><td>"+markus_response[4]+"</td>";
+                printToMarkus+="<td>STATUS</td><td>"+status[1].replace(/\"/g,"")+"</td>";
                 printToMarkus+="</tr>";
 
                 printToMarkus+="<tr>";
