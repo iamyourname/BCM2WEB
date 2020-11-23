@@ -292,6 +292,8 @@ body {
 
             <li ><a href='#' onClick="openSystem('MarkusGIS')"><span>Запросы в ГИС</span></a>
             </li>
+            <li ><a href='#' onClick="openSystem('MarkusSearch')"><span>Поиск</span></a>
+            </li>
             <!--li class='has-sub'><a href='#'><span>Приемка</span></a>
                 <ul>
                     <li><a href='#' onClick="openSystem('BacchusIn')"><span>Переотправка 24 потока</span></a></li>
@@ -559,6 +561,41 @@ body {
     </div>
 
 
+    <div id = "MarkusSearch" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">
+        <div class=" w3-light-blue">
+            <h4 >Поиск потоков</h4>
+        </div>
+        <!--method="GET" action="" target = "my_frame" -->
+        <form  class = "auth-info"  >
+
+
+            <input class="w3-radio" type="radio" name="gender" value="saporder" checked>
+            <label>Номер заказа</label>
+            <input class="w3-radio" type="radio" name="gender" value="guid" >
+            <label>GUID</label>
+            <input class="w3-radio" type="radio" name="gender" value="pallet" >
+            <label>Номер паллеты</label>
+            <input class="w3-radio" type="radio" name="gender" value="mbuf" >
+            <label>Буфер</label>
+                <input  id="input1Search" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+            <label>Код РЦ:
+                <input disabled id="input2Search" type="text"
+                       class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+            </label><br>
+        </form>
+        <button id="SearchButton"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="fLowSearch()" >Найти</button>
+
+
+
+        <div id="outputmarkus">
+        </div>
+        <div id="textAreamarkus" >
+            <!-- Trigger/Open the Modal -->
+            <!-- The Modal -->
+
+        </div>
+    </div>
+
     <div id = "MarkusGIS" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">
         <div class="w3-card-4 w3-light-gray">
             <button class="w3-bar-item w3-button tablink w3-light-blue" onclick="cityOpen(event, 'CheckOwner')">Проверка собственника</button>
@@ -609,6 +646,9 @@ body {
 
         </div>
     </div>
+
+
+
     <div id = "CaduAuto" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">
         <div class=" w3-light-blue">
             <h4 >Автогашение</h4>
