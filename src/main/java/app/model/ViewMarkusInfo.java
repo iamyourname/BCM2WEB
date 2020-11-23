@@ -55,6 +55,24 @@ public class ViewMarkusInfo {
                   JSONObject jo = (JSONObject) obj;
 
 
+                  sReturn=jo.get("_id").toString()+jo.get("details.sapOrdIdHeader").toString()+jo.get("guidUpd").toString()+jo.get("type").toString();
+
+
+                  /*
+
+
+                  1. Из коллекции документ
+    1. Id без обджекта
+    2. OrderNumber
+    3. Guid
+    4. Type Тип из монго в скобках перевод
+    5. Статус - из монго в скобках перевод
+    6. Детали. Разворачиваются. PlU:quantity
+    7. StoreIn/StoreOut
+
+                   */
+
+
               case "pallet":
               case "buf":
 
