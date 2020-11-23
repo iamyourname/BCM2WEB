@@ -112,7 +112,7 @@ function buforno(){
     var rbuf = document.getElementById("inpunt2");
     if(mbuf.checked){
         rbuf.disabled = false;
-        /editCheck.disabled = true;
+        //editCheck.disabled = true;
     }else{
         rbuf.disabled = true;
     }
