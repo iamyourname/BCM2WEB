@@ -108,7 +108,7 @@ function tranpGo(){
 }
 
 function buforno(){
-    var mbuf = document.getElementById("mBuf");
+    var mbuf = document.getElementById("mm_buf");
     var rbuf = document.getElementById("inpunt2");
     if(mbuf.checked){
         rbuf.disabled = false;
