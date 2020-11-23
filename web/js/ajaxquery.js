@@ -182,9 +182,9 @@ function searchMarkus(){
                 printToMarkus+="<td>STATUS</td><td>"+status[1].replace(/\"/g,"")+"</td>";
                 printToMarkus+="</tr>";
 
-                printToMarkus+="<tr onclick=onclick=\"myFunctionT('Demo101')\">";//printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
-                printToMarkus+="<td>DETAILS</td><td>"
-                printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td></td><td>hello</td></tr>";
+                printToMarkus+="<tr >";//printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
+                printToMarkus+="<td onclick=onclick=\"myFunctionT('Demo101')\">DETAILS</td>"
+                printToMarkus+="<td><tr id=\"Demo101\" class=\"w3-hide\"><td>Hello</td><td>World</td></tr>";
                 printToMarkus+="</td></tr>";
 
                 printToMarkus+="<tr>";
