@@ -64,7 +64,7 @@ public class ViewMarkusInfo {
                   JSONObject jo = (JSONObject) obj;
 
 
-                  sReturn=jo.get("_id").toString()+jo.get("details.sapOrdIdHeader").toString()+jo.get("guidUpd").toString()+jo.get("type").toString();
+                  sReturn=jo.get("_id").toString();//+jo.get("details.sapOrdIdHeader").toString()+jo.get("guidUpd").toString()+jo.get("type").toString();
                     System.out.println(sReturn);
 
                   /*
