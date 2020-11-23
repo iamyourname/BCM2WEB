@@ -44,9 +44,7 @@ public class ViewMarkusInfo {
 
 
 
-            switch (param){
-              case "order":
-              case "guid":
+
                   BasicDBObject query=new BasicDBObject("guidUpd",value);
                   Document myDoc = (Document) coll.find(query).first();
                   String js = jsonReplace(myDoc.toString());
@@ -69,13 +67,17 @@ public class ViewMarkusInfo {
     7. StoreIn/StoreOut
 AE12698AC4185F09E05328B5A8C08F04 - прием
 B49985CB850630EAE053A8135A0AC0F9 - отгруз
-                   */
-
-
-              case "pallet":
+switch (param){
+              case "order":
+              case "guid":
+  case "pallet":
               case "buf":
 
           }
+                   */
+
+
+
 
 
 
