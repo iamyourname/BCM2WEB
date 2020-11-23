@@ -183,8 +183,9 @@ function searchMarkus(){
                 printToMarkus+="</tr>";
 
                 printToMarkus+="<tr onclick=onclick=\"myFunctionT('Demo101')\">";//printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
+                printToMarkus+="<td>DETAILS</td><td>"
                 printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td></td><td>hello</td></tr>";
-                printToMarkus+="</tr>";
+                printToMarkus+="</td></tr>";
 
                 printToMarkus+="<tr>";
                 printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
