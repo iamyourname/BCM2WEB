@@ -58,13 +58,20 @@ public class ViewMarkusInfo {
 
                   String js = jsonReplace(myDoc.toString());
 
-            System.out.println(js);
+            //System.out.println(js);
 
                   Object obj = new JSONParser().parse(js);
                   JSONObject jo = (JSONObject) obj;
 
 
-                  sReturn=jo.get("details").toString();//+jo.get("details.sapOrdIdHeader").toString()+jo.get("guidUpd").toString()+jo.get("type").toString();
+                  sReturn=jo.get("_id").toString() + ",";
+                  sReturn+=jo.get("details").toString() + ",";
+                  sReturn+=jo.get("guidUpd").toString() + ",";
+                  sReturn+=jo.get("type").toString() + ",";
+                  sReturn+=jo.get("status").toString() + ",";
+                  sReturn+=jo.get("details").toString() + ",";
+                  sReturn+=jo.get("storeIn").toString();
+                  //+jo.get("details.sapOrdIdHeader").toString()+jo.get("guidUpd").toString()+jo.get("type").toString();
                     System.out.println(sReturn);
 
                   /*
