@@ -157,8 +157,8 @@ function searchMarkus(){
         }
     }
 
-    var body = 'paramSearch='+param
-        '&value='+input_1
+    var body = 'paramSearch='+param+
+        '&value='+input_1+
         '&SAP='+ifBuf;
 
     xhrB.open('POST', '/test/markus', true);
