@@ -569,13 +569,13 @@ body {
         <form  class = "auth-info"  >
 
 
-            <input id="mm_sap_ord" class="w3-radio" type="radio" name="value1" value="saporder" checked  onclick="buforno();">
+            <input id="mm_sap_ord" class="w3-radio" type="radio" name="typeS" value="saporder" checked  onclick="buforno();">
             <label>Номер заказа</label>
-            <input id="mm_guid" class="w3-radio" type="radio" name="value2" value="guid"  onclick="buforno();">
+            <input id="mm_guid" class="w3-radio" type="radio" name="typeS" value="guid"  onclick="buforno();">
             <label>GUID</label>
-            <input id="mm_pallet" class="w3-radio" type="radio" name="value3" value="pallet"  onclick="buforno();">
+            <input id="mm_pallet" class="w3-radio" type="radio" name="typeS" value="pallet"  onclick="buforno();">
             <label>Номер паллеты</label>
-            <input id="mm_buf" class="w3-radio" type="radio" name="value4" value="mbuf" onclick="buforno();">
+            <input id="mm_buf" class="w3-radio" type="radio" name="typeS" value="mbuf" onclick="buforno();">
             <label>Буфер</label>
             <div class="w3-row-padding">
                 <div class="w3-half">

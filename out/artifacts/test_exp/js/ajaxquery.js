@@ -134,10 +134,10 @@ function searchMarkus(){
 
     var param = "";
     //check choise
-    if(m_sap_ord.checked)param="order";
-    if(m_guid.checked)param="guid";
-    if(m_pallet.checked)param="pallet";
-    if(m_buf.checked)param="buf";
+    if(mm_sap_ord.checked)param="order";
+    if(mm_guid.checked)param="guid";
+    if(mm_pallet.checked)param="pallet";
+    if(mm_buf.checked)param="buf";
 
     //area output info
     var outputMarkus = document.getElementById('outputmarkus');
