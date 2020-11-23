@@ -575,21 +575,21 @@ body {
             <label>GUID</label>
             <input class="w3-radio" type="radio" name="gender" value="pallet" >
             <label>Номер паллеты</label>
-            <input class="w3-radio" type="radio" name="gender" value="mbuf" >
+            <input id ="mBuf" class="w3-radio" type="radio" name="gender" value="mbuf" onclick="buforno();">
             <label>Буфер</label>
             <div class="w3-row-padding">
                 <div class="w3-half">
 
-                    <input class="w3-input w3-border" type="text" placeholder="Two">
+                    <input id="inpunt1" class="w3-input w3-border" type="text">
                 </div>
                 <div class="w3-half">
-                    
-                    <input class="w3-input w3-border" type="text" placeholder="Three">
+
+                    <input id="inpunt2" disabled class="w3-input w3-border" type="text">
                 </div>
             </div>
 
         </form>
-        <button id="SearchButton"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="fLowSearch()" >Найти</button>
+        <button id="SearchButton"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="searchMarkus()" >Найти</button>
 
 
 

@@ -107,6 +107,53 @@ function tranpGo(){
 
 }
 
+function buforno(){
+    var mbuf = document.getElementById("mBuf");
+    var rbuf = document.getElementById("inpunt2");
+    if(mbuf.checked){
+        rbuf.disabled = false;
+        /editCheck.disabled = true;
+    }else{
+        rbuf.disabled = true;
+    }
+}
+
+
+function searchMarkus(){
+
+    var input_1 = document.getElementById('inpunt1').value;
+
+    var input_2 = document.getElementById('inpunt2').value;
+
+    var outputCheck = document.getElementById('outputmarkus');
+
+    var printToMarkus="";
+
+
+
+    let xhrB = new XMLHttpRequest();
+
+    xhrB.onreadystatechange = function() {
+        if (xhrB.readyState !== 4) return;
+        if (xhrB.status == 200) {
+
+
+
+        }
+    }
+
+    var body = 'paramSearch='+
+        '&value='+
+        '&SAP='+inSap;
+
+    xhrB.open('POST', '/test/markus', true);
+    xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrB.send(body);
+
+
+
+}
+
 function WRGo(Buf,Sap){
 
 
