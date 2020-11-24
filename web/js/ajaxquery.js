@@ -160,6 +160,9 @@ function searchMarkus(){
 
             var all_status = markus_response[4].split(",");
             var status = all_status[0].split(":");
+
+            var pluQuan = markus_response[5].split("}");
+
             //for(var i=0; i < markus_response.length; i++){
 
                 printToMarkus+="<tr>";
@@ -185,7 +188,14 @@ function searchMarkus(){
                 printToMarkus+="<tr >";//printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
 
                 printToMarkus+="<td onclick=\"myFunctionT('Demo101')\">DETAILS</td><td onclick=\"myFunctionT('Demo101')\">Развернуть</td>"
-                printToMarkus+="<td><tr id=\"Demo101\" class=\"w3-hide\"><td>Hello</td><td>World</td></tr>";
+                printToMarkus+="<td>";
+                for(var i=0; i < pluQuan.length; i++){
+                    var QuanPlu = pluQuan[i].split(",");
+                    var q = QuanPlu[0].split(":");var p = QuanPlu[4].split(":");
+                    printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>"+ q[1].replace(/\"/g,"") + "</td><td>" + p[1].replace(/\"/g,"") + "</td></tr>";
+                }
+                //printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>Hello</td><td>World</td></tr>";
+
                 printToMarkus+="</td>";
                 printToMarkus+="</tr>";
 
