@@ -204,17 +204,23 @@ function searchMarkus(){
 
                     printToMarkus+="<tr><td>"+ q[1].replace(/\"/g,"") + "</td><td>" + pw.replace(/\"/g,"") + "</td></tr>";
                 }
-                printToMarkus+="</tr>"
-                //printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>Hello</td><td>World</td></tr>";
+                /*
 
 
-                printToMarkus+="<tr>";
-                printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
-                printToMarkus+="</tr>";
+                 */
+
 
          //   }
+            var print2ToMarkus="";
+            print2ToMarkus+="</tr>"
+            //printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>Hello</td><td>World</td></tr>";
 
-            printToMarkus+="</table>";
+
+            print2ToMarkus+="<tr>";
+            print2ToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
+            print2ToMarkus+="</tr>";
+            print2ToMarkus+="</table>";
+            printToMarkus+=print2ToMarkus;
             outputMarkus.innerHTML=printToMarkus;
 
 
