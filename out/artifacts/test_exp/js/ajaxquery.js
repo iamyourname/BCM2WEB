@@ -193,7 +193,7 @@ function searchMarkus(){
                 printToMarkus+="</tr>";
 
                 var print2ToMarkus="";
-            printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td width=\"50%\"></td><td width=\"50%\"><table class=\"w3-table-all w3-small\">";
+            printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\" width=\"100%\" ><td width=\"80%\"></td><td width=\"20%\"><table class=\"w3-table-all w3-small\">";
             printToMarkus+="<thead><tr><th>PLU</th><th>QTY</th></tr></thead>";
 
                 for(var i=0; i < pluQuan.length; i++){
