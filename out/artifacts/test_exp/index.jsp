@@ -174,8 +174,8 @@ body {
         <h4 align="right">
             <%
                 if(NTLMUserFilter.getUserName().equals("Roma.Ivanov2")){
-                    out.println(Bcm2WebMain.hey_bro);
-                
+                    out.println(Bcm2WebMain.hey_bro);}
+
             %>!!!TEST!!! Привет <% out.println(NTLMUserFilter.getUserName()); %>!
             Выполнено инцидентов-трудозатраты за месяц:<% out.println(ConnToInc.ShowUserInc(NTLMUserFilter.getUserName())); %>
             инцидентов <% out.println(ConnToInc.ShowUserTime(NTLMUserFilter.getUserName())); %>
