@@ -192,7 +192,7 @@ function searchMarkus(){
                 printToMarkus+="<td onclick=\"myFunctionT('Demo101')\">DETAILS</td><td onclick=\"myFunctionT('Demo101')\">Развернуть</td>"
                 printToMarkus+="</tr>";
 
-                printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>";
+                printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\">";
                 for(var i=0; i < pluQuan.length; i++){
                     var QuanPlu = pluQuan[i].split(",");
                     console.log("PluQuan"+pluQuan[i]);
@@ -204,10 +204,10 @@ function searchMarkus(){
 
                     printToMarkus+="<tr><td>"+ q[1].replace(/\"/g,"") + "</td><td>" + pw.replace(/\"/g,"") + "</td></tr>";
                 }
-                printToMarkus+="</td></tr>"
+                printToMarkus+="</tr>"
                 //printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>Hello</td><td>World</td></tr>";
 
-                
+
                 printToMarkus+="<tr>";
                 printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
                 printToMarkus+="</tr>";
