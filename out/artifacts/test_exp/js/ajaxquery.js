@@ -197,7 +197,7 @@ function searchMarkus(){
 
                     console.log("QuanPlu"+QuanPlu);
 
-                    var q = QuanPlu[0].split(":");var p = QuanPlu[4].split(":").replace("}]","");
+                    var q = QuanPlu[0].split(":");var p = QuanPlu[4].split(":");p=p.replace("}]","");
                     console.log("q "+q[1]+"p "+p[1]);
 
                     printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>"+ q[1].replace(/\"/g,"") + "</td><td>" + p[1].replace(/\"/g,"") + "</td></tr>";
