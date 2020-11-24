@@ -173,7 +173,9 @@ body {
         <a href = "profile" > <img  src="img/1486564402-settings_81520.png" align = "right" /></a>
         <h4 align="right">
             <%
-                if(NTLMUserFilter.getUserName().equals("m.moiseev-2"))out.println("ppc");
+                if(NTLMUserFilter.getUserName().equals("Roma.Ivanov2")){
+                    out.println(Bcm2WebMain.hey_bro);
+                
             %>!!!TEST!!! Привет <% out.println(NTLMUserFilter.getUserName()); %>!
             Выполнено инцидентов-трудозатраты за месяц:<% out.println(ConnToInc.ShowUserInc(NTLMUserFilter.getUserName())); %>
             инцидентов <% out.println(ConnToInc.ShowUserTime(NTLMUserFilter.getUserName())); %>
