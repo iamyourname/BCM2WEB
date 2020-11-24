@@ -193,18 +193,15 @@ function searchMarkus(){
                 printToMarkus+="</tr>";
 
                 var print2ToMarkus="";
-            print2ToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>";
+            printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td></td><td><table class=\"w3-table-all w3-small\">";
 
                 for(var i=0; i < pluQuan.length; i++){
                     var QuanPlu = pluQuan[i].split(",");
                     //console.log("PluQuan"+pluQuan[i]);
-
                     //console.log("QuanPlu"+QuanPlu);
-
                     var q = QuanPlu[0].split(":");var p = QuanPlu[4].split(":"); var pw=p[1].replace("}]","");
                     //console.log("q "+q[1]+"p "+p[1]);
-
-                    print2ToMarkus+="<tr><td>"+ q[1].replace(/\"/g,"") + "</td><td>" + pw.replace(/\"/g,"") + "</td></tr>";
+                    printToMarkus+="<tr><td>"+ q[1].replace(/\"/g,"") + "</td><td>" + pw.replace(/\"/g,"") + "</td></tr>";
                 }
                 /*
 
@@ -213,17 +210,12 @@ function searchMarkus(){
 
 
          //   }
-
-            print2ToMarkus+="</td></tr>"
-            //printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>Hello</td><td>World</td></tr>";
-
-
+            printToMarkus+="</table></td></tr>"
+            
             printToMarkus+="<tr>";
             printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
             printToMarkus+="</tr>";
             printToMarkus+="</table>";
-            console.log(printToMarkus);
-            console.log(print2ToMarkus);
             //printToMarkus+=print2ToMarkus;
             outputMarkus.innerHTML=printToMarkus;
 
