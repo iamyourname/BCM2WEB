@@ -193,7 +193,7 @@ function searchMarkus(){
                 printToMarkus+="</tr>";
 
                 var print2ToMarkus="";
-            printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td></td><td><table class=\"w3-table-all w3-small\">";
+            printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td/><td><table class=\"w3-table-all w3-small\">";
 
                 for(var i=0; i < pluQuan.length; i++){
                     var QuanPlu = pluQuan[i].split(",");
@@ -211,7 +211,7 @@ function searchMarkus(){
 
          //   }
             printToMarkus+="</table></td></tr>"
-            
+
             printToMarkus+="<tr>";
             printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
             printToMarkus+="</tr>";
