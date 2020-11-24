@@ -190,7 +190,7 @@ function searchMarkus(){
                 printToMarkus+="<tr >";//printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
 
                 printToMarkus+="<td onclick=\"myFunctionT('Demo101')\">DETAILS</td><td onclick=\"myFunctionT('Demo101')\">Развернуть</td>"
-                printToMarkus+="<td></td><td><tr>";
+                printToMarkus+="<td></td><td><tr id=\"Demo101\" class=\"w3-hide\">";
                 for(var i=0; i < pluQuan.length; i++){
                     var QuanPlu = pluQuan[i].split(",");
                     console.log("PluQuan"+pluQuan[i]);
