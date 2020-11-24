@@ -161,7 +161,7 @@ function searchMarkus(){
             var all_status = markus_response[4].split(",");
             var status = all_status[0].split(":");
 
-            var pluQuan = markus_response[5].split("{");
+            var pluQuan = markus_response[5].split("}");
             console.log("pluQuan "+pluQuan);
 
             //for(var i=0; i < markus_response.length; i++){
