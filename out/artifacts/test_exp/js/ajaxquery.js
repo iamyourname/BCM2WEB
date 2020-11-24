@@ -190,14 +190,14 @@ function searchMarkus(){
                 printToMarkus+="<tr >";//printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
 
                 printToMarkus+="<td onclick=\"myFunctionT('Demo101')\">DETAILS</td><td onclick=\"myFunctionT('Demo101')\">Развернуть</td>"
-                printToMarkus+="<td>";
-                for(var i=0; i < pluQuan.length; i++){
+                printToMarkus+="<td></td><td>";
+                for(var i=0; i < pluQuan.length+1; i++){
                     var QuanPlu = pluQuan[i].split(",");
                     console.log("PluQuan"+pluQuan[i]);
 
                     console.log("QuanPlu"+QuanPlu);
 
-                    var q = QuanPlu[0].split(":");var p = QuanPlu[4].split(":");
+                    var q = QuanPlu[0].split(":");var p = QuanPlu[4].split(":").replace("}]","");
                     console.log("q "+q[1]+"p "+p[1]);
 
                     printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>"+ q[1].replace(/\"/g,"") + "</td><td>" + p[1].replace(/\"/g,"") + "</td></tr>";
