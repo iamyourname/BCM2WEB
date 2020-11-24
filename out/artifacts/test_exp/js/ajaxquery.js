@@ -163,6 +163,7 @@ function searchMarkus(){
 
             var pluQuan = markus_response[5].split("}");
             console.log("pluQuan "+pluQuan);
+            console.log("markus_response[5] "+markus_response[5]);
 
             //for(var i=0; i < markus_response.length; i++){
 
