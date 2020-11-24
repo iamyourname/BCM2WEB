@@ -50,6 +50,8 @@ public  class Bcm2WebMain extends HttpServlet {
 
    public static String[] infoLine = new String[12];
 
+   public static String hey_bro = "Hey Bro^^ - ты лучший!";
+
 
 
     @Override
