@@ -192,7 +192,7 @@ function searchMarkus(){
                 printToMarkus+="<td onclick=\"myFunctionT('Demo101')\">DETAILS</td><td onclick=\"myFunctionT('Demo101')\">Развернуть</td>"
                 printToMarkus+="</tr>";
 
-                printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\">";
+                printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>";
                 for(var i=0; i < pluQuan.length; i++){
                     var QuanPlu = pluQuan[i].split(",");
                     console.log("PluQuan"+pluQuan[i]);
@@ -212,7 +212,7 @@ function searchMarkus(){
 
          //   }
             var print2ToMarkus="";
-            print2ToMarkus+="</tr>"
+            print2ToMarkus+="</td></tr>"
             //printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>Hello</td><td>World</td></tr>";
 
 
