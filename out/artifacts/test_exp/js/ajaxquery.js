@@ -162,6 +162,7 @@ function searchMarkus(){
             var status = all_status[0].split(":");
 
             var pluQuan = markus_response[5].split("}");
+            console.log(pluQuan);
 
             //for(var i=0; i < markus_response.length; i++){
 
@@ -191,7 +192,11 @@ function searchMarkus(){
                 printToMarkus+="<td>";
                 for(var i=0; i < pluQuan.length; i++){
                     var QuanPlu = pluQuan[i].split(",");
+                    console.log("\n"+QuanPlu);
+
                     var q = QuanPlu[0].split(":");var p = QuanPlu[4].split(":");
+                    console.log("\n"+q[1]+"\n"+p[1]);
+
                     printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>"+ q[1].replace(/\"/g,"") + "</td><td>" + p[1].replace(/\"/g,"") + "</td></tr>";
                 }
                 //printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>Hello</td><td>World</td></tr>";
