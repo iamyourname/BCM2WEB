@@ -162,8 +162,8 @@ function searchMarkus(){
             var status = all_status[0].split(":");
 
             var pluQuan = markus_response[5].split("},{");
-            console.log("pluQuan "+pluQuan);
-            console.log("markus_response[5] "+markus_response[5]);
+            //console.log("pluQuan "+pluQuan);
+            //console.log("markus_response[5] "+markus_response[5]);
 
             //for(var i=0; i < markus_response.length; i++){
 
@@ -192,17 +192,19 @@ function searchMarkus(){
                 printToMarkus+="<td onclick=\"myFunctionT('Demo101')\">DETAILS</td><td onclick=\"myFunctionT('Demo101')\">Развернуть</td>"
                 printToMarkus+="</tr>";
 
-                printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>";
+                var print2ToMarkus="";
+            print2ToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>";
+
                 for(var i=0; i < pluQuan.length; i++){
                     var QuanPlu = pluQuan[i].split(",");
-                    console.log("PluQuan"+pluQuan[i]);
+                    //console.log("PluQuan"+pluQuan[i]);
 
-                    console.log("QuanPlu"+QuanPlu);
+                    //console.log("QuanPlu"+QuanPlu);
 
                     var q = QuanPlu[0].split(":");var p = QuanPlu[4].split(":"); var pw=p[1].replace("}]","");
-                    console.log("q "+q[1]+"p "+p[1]);
+                    //console.log("q "+q[1]+"p "+p[1]);
 
-                    printToMarkus+="<tr><td>"+ q[1].replace(/\"/g,"") + "</td><td>" + pw.replace(/\"/g,"") + "</td></tr>";
+                    print2ToMarkus+="<tr><td>"+ q[1].replace(/\"/g,"") + "</td><td>" + pw.replace(/\"/g,"") + "</td></tr>";
                 }
                 /*
 
@@ -211,16 +213,18 @@ function searchMarkus(){
 
 
          //   }
-            var print2ToMarkus="";
+
             print2ToMarkus+="</td></tr>"
             //printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\"><td>Hello</td><td>World</td></tr>";
 
 
-            print2ToMarkus+="<tr>";
-            print2ToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
-            print2ToMarkus+="</tr>";
-            print2ToMarkus+="</table>";
-            printToMarkus+=print2ToMarkus;
+            printToMarkus+="<tr>";
+            printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
+            printToMarkus+="</tr>";
+            printToMarkus+="</table>";
+            console.log(printToMarkus);
+            console.log(print2ToMarkus);
+            //printToMarkus+=print2ToMarkus;
             outputMarkus.innerHTML=printToMarkus;
 
 
