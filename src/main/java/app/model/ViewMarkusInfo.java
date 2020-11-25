@@ -72,7 +72,7 @@ public class ViewMarkusInfo {
                     //System.out.println(sReturn);
                     break;
                 case "order": //6321100654
-                    query=new BasicDBObject("details.sapOrdIdHeader",value);
+                    query=new BasicDBObject("details.sapOrdIdHeader",Long.valueOf(value));
                      myDoc = (Document) coll.find(query).first();
                      js = jsonReplace(myDoc.toString());
                      obj = new JSONParser().parse(js);
