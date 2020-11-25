@@ -109,8 +109,9 @@ function tranpGo(){
 
 function buforno(){
     var mbuf = document.getElementById("mm_buf");
+    var mm_pallet = document.getElementById("mm_pallet");
     var rbuf = document.getElementById("inpunt2");
-    if(mbuf.checked){
+    if(mbuf.checked||mm_pallet.checked){
         rbuf.disabled = false;
         //editCheck.disabled = true;
     }else{
@@ -136,8 +137,8 @@ function searchMarkus(){
     //check choise
     if(mm_sap_ord.checked)param="order";
     if(mm_guid.checked)param="guid";
-    if(mm_pallet.checked)param="pallet";
-    if(mm_buf.checked)param="buf";
+    if(mm_pallet.checked){param="pallet";inBuf=input_2;}
+    if(mm_buf.checked){param="buf";inBuf=input_2;}
 
     //area output info
     var outputMarkus = document.getElementById('outputmarkus');

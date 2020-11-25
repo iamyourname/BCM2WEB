@@ -1,5 +1,6 @@
 package app.model;
 
+import app.entities.ConnectionPool;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -9,6 +10,11 @@ import org.bson.Document;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class ViewMarkusInfo {
@@ -72,7 +78,7 @@ public class ViewMarkusInfo {
                     //System.out.println(sReturn);
                     break;
                 case "order": //6321100654
-                    query=new BasicDBObject("details.sapOrdIdHeader",Long.valueOf(value));
+                    query=new BasicDBObject("details.sapOrdIdHeader", Integer.valueOf(value));
                      myDoc = (Document) coll.find(query).first();
                      js = jsonReplace(myDoc.toString());
                      obj = new JSONParser().parse(js);
@@ -84,6 +90,11 @@ public class ViewMarkusInfo {
                     sReturn+=jo.get("status").toString() + "!";
                     sReturn+=jo.get("details").toString() + "!";
                     sReturn+=jo.get("storeIn").toString();
+                    break;
+                case "pallet":
+
+                    break;
+
             }
 
 
@@ -96,6 +107,29 @@ public class ViewMarkusInfo {
 
 
     return sReturn;
+    }
+    public static String viewDataFromNQ(String buf, String sap) throws SQLException {
+        String sData="";
+
+
+        Connection pullConnNq = ConnectionPool.getInstance().getConnectionNQ(sap);
+        Statement stmtPullNq = pullConnNq.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        String getSqlstringNQ =
+                "select xml_data from alc.export_data e where dt_created > trunc(sysdate-13) and e.data_type='OUT31' " +
+                "and id = '";
+
+        ResultSet rsNQ = stmtPullNq.executeQuery(getSqlstringNQ);
+        while (rsNQ.next()) {
+            for (int i = 0; i < 1; i++) {
+                sData = (rsNQ.getString("XML_DATA"));
+            }
+        }
+        pullConnNq.close();
+
+
+        return sData;
     }
 
 
