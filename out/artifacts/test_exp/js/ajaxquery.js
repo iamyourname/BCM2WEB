@@ -154,6 +154,8 @@ function searchMarkus(){
         if (xhrB.status == 200) {
             printToMarkus="<table class=\"w3-table-all w3-small\">";
 
+            var mainJson = xhrB.responseText.split("|");
+
             var markus_response = xhrB.responseText.split("!");
 
             var details = markus_response[1].split(",");
