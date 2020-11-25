@@ -157,7 +157,7 @@ function searchMarkus(){
             var mainJson = xhrB.responseText.split("|");
 
             for(var ii=0; mainJson.length;ii++){
-                var markus_response = mainJson[ii].("!");
+                var markus_response = mainJson[ii].split("!");
 
                 printToMarkus+="<tr>";
                 printToMarkus+="<td>id</td><td>"+markus_response[0]+"</td>";
