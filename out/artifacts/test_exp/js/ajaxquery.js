@@ -164,7 +164,7 @@ function searchMarkus(){
                 printToMarkus+="</tr>";
 
                 printToMarkus+="<tr>";
-                printToMarkus+="<td>sapOrdIdHeader</td><td>"+smarkus_response[1]+"</td>";
+                printToMarkus+="<td>sapOrdIdHeader</td><td>"+markus_response[1]+"</td>";
                 printToMarkus+="</tr>";
 
                 printToMarkus+="<tr>";
