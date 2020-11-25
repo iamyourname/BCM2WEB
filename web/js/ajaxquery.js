@@ -188,7 +188,7 @@ function searchMarkus(){
                 printToMarkus+="<tr id=\"Demo10"+i+"\" class=\"w3-hide\" width=\"100%\" ><td width=\"80%\"></td><td width=\"20%\"><table class=\"w3-table-all w3-small\">";
                 printToMarkus+="<thead><tr><th>PLU</th><th>QTY</th></tr></thead>";
                 var jdetails = markus_response[5].split("&");
-                for(var i=0; i < jdetails.length; i++){
+                for(var i=0; i < jdetails.length-1; i++){
                     var QuanPlu = jdetails[i].split(":");
 
                     printToMarkus+="<tr><td>"+ QuanPlu[0] + "</td><td>" + QuanPlu[1] + "</td></tr>";
