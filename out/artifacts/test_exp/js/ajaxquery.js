@@ -156,7 +156,7 @@ function searchMarkus(){
 
             var mainJson = xhrB.responseText.split("|");
 
-            for(var ii=0; mainJson.length;ii++){
+            for(var ii=0; mainJson.length-1;ii++){
                 var markus_response = mainJson[ii].split("!");
 
                 printToMarkus+="<tr>";
