@@ -50,29 +50,43 @@ public class ViewMarkusInfo {
             MongoCollection coll = db.getCollection("document");
 
 
-            System.out.println("sReturn");
+            switch (param){
+                case "guid":
+                    //System.out.println("sReturn");
 
-                  BasicDBObject query=new BasicDBObject("guidUpd",value);
-                  Document myDoc = (Document) coll.find(query).first();
+                    BasicDBObject query=new BasicDBObject("guidUpd",value);
+                    Document myDoc = (Document) coll.find(query).first();
+                    String js = jsonReplace(myDoc.toString());
+
+                    Object obj = new JSONParser().parse(js);
+                    JSONObject jo = (JSONObject) obj;
+
+                    sReturn=jo.get("_id").toString() + "!";
+                    sReturn+=jo.get("details").toString() + "!";
+                    sReturn+=jo.get("guidUpd").toString() + "!";
+                    sReturn+=jo.get("type").toString() + "!";
+                    sReturn+=jo.get("status").toString() + "!";
+                    sReturn+=jo.get("details").toString() + "!";
+                    sReturn+=jo.get("storeIn").toString();
+                    //+jo.get("details.sapOrdIdHeader").toString()+jo.get("guidUpd").toString()+jo.get("type").toString();
+                    //System.out.println(sReturn);
+                    break;
+                case "order": //6321100654
+                    query=new BasicDBObject("details.sapOrdIdHeader",value);
+                     myDoc = (Document) coll.find(query).first();
+                     js = jsonReplace(myDoc.toString());
+                     obj = new JSONParser().parse(js);
+                     jo = (JSONObject) obj;
+                    sReturn=jo.get("_id").toString() + "!";
+                    sReturn+=jo.get("details").toString() + "!";
+                    sReturn+=jo.get("guidUpd").toString() + "!";
+                    sReturn+=jo.get("type").toString() + "!";
+                    sReturn+=jo.get("status").toString() + "!";
+                    sReturn+=jo.get("details").toString() + "!";
+                    sReturn+=jo.get("storeIn").toString();
+            }
 
 
-                  String js = jsonReplace(myDoc.toString());
-
-            //System.out.println(js);
-
-                  Object obj = new JSONParser().parse(js);
-                  JSONObject jo = (JSONObject) obj;
-
-
-                  sReturn=jo.get("_id").toString() + "!";
-                  sReturn+=jo.get("details").toString() + "!";
-                  sReturn+=jo.get("guidUpd").toString() + "!";
-                  sReturn+=jo.get("type").toString() + "!";
-                  sReturn+=jo.get("status").toString() + "!";
-                  sReturn+=jo.get("details").toString() + "!";
-                  sReturn+=jo.get("storeIn").toString();
-                  //+jo.get("details.sapOrdIdHeader").toString()+jo.get("guidUpd").toString()+jo.get("type").toString();
-                    System.out.println(sReturn);
 
         }catch (ParseException e){
             System.out.println("here"+e.toString());
