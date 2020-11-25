@@ -7,6 +7,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -66,13 +67,38 @@ public class ViewMarkusInfo {
                         Object obj = new JSONParser().parse(document.toJson());
                         JSONObject jo = (JSONObject) obj;
 
-                        sReturn += jo.get("_id").toString() + "!";
-                        sReturn += jo.get("details").toString() + "!";
-                        sReturn += jo.get("guidUpd").toString() + "!";
-                        sReturn += jo.get("type").toString() + "!";
-                        sReturn += jo.get("status").toString() + "!";
-                        sReturn += jo.get("details").toString() + "!";
-                        sReturn += jo.get("storeIn").toString();
+                        //id
+                        JSONObject jid = (JSONObject) jo.get("_id");
+                        sReturn += jid.get("$oid")+"!";
+
+                        //all details
+                        JSONArray jdetails = (JSONArray) jo.get("details");
+                        JSONObject jdetails_val = (JSONObject)  jdetails.get(1);
+
+                        //number of sap
+                        JSONObject jsap = (JSONObject) jdetails_val.get("sapOrdIdHeader");
+                        sReturn += jsap.get("$numberLong")+"!";
+
+                        //guid
+                        sReturn += jo.get("guidUpd")+"!";
+
+                        //type
+                        sReturn += jo.get("type")+"!";
+
+                        //STATUS
+                        JSONObject jstatus = (JSONObject) jo.get("status");
+                        sReturn += jstatus.get("stateMachine")+"!";
+
+
+                        for(int i=0; i < jdetails.size(); i++){
+                            JSONObject jdetails_val_doc = (JSONObject)  jdetails.get(i);
+                            sReturn += jdetails_val_doc.get("idItem")+":"+jdetails_val_doc.get("quantity")+"&";
+                        }
+
+
+                        //store
+                        sReturn += "!"+jo.get("storeIn");
+
                         sReturn += "|";
 
                     }

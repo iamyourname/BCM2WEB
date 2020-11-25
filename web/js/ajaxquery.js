@@ -156,26 +156,15 @@ function searchMarkus(){
 
             var mainJson = xhrB.responseText.split("|");
 
-            var markus_response = xhrB.responseText.split("!");
-
-            var details = markus_response[1].split(",");
-            var sapOrder = details[2].split(":");
-
-            var all_status = markus_response[4].split(",");
-            var status = all_status[0].split(":");
-
-            var pluQuan = markus_response[5].split("},{");
-            //console.log("pluQuan "+pluQuan);
-            //console.log("markus_response[5] "+markus_response[5]);
-
-            //for(var i=0; i < markus_response.length; i++){
+            for(var ii=0; mainJson.length;ii++){
+                var markus_response = mainJson[ii].("!");
 
                 printToMarkus+="<tr>";
                 printToMarkus+="<td>id</td><td>"+markus_response[0]+"</td>";
                 printToMarkus+="</tr>";
 
                 printToMarkus+="<tr>";
-                printToMarkus+="<td>sapOrdIdHeader</td><td>"+sapOrder[1].replace(/\"/g,"")+"</td>";
+                printToMarkus+="<td>sapOrdIdHeader</td><td>"+smarkus_response[1]+"</td>";
                 printToMarkus+="</tr>";
 
                 printToMarkus+="<tr>";
@@ -187,40 +176,35 @@ function searchMarkus(){
                 printToMarkus+="</tr>";
 
                 printToMarkus+="<tr>";
-                printToMarkus+="<td>STATUS</td><td>"+status[1].replace(/\"/g,"")+"</td>";
+                printToMarkus+="<td>STATUS</td><td>"+markus_response[4]+"</td>";
                 printToMarkus+="</tr>";
 
                 printToMarkus+="<tr >";//printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
 
-                printToMarkus+="<td onclick=\"myFunctionT('Demo101')\">DETAILS</td><td onclick=\"myFunctionT('Demo101')\">Развернуть</td>"
+                printToMarkus+="<td onclick=\"myFunctionT('Demo10" +i + "')\">DETAILS</td><td onclick=\"myFunctionT('Demo101')\">Развернуть</td>"
                 printToMarkus+="</tr>";
 
                 var print2ToMarkus="";
-            printToMarkus+="<tr id=\"Demo101\" class=\"w3-hide\" width=\"100%\" ><td width=\"80%\"></td><td width=\"20%\"><table class=\"w3-table-all w3-small\">";
-            printToMarkus+="<thead><tr><th>PLU</th><th>QTY</th></tr></thead>";
+                printToMarkus+="<tr id=\"Demo10"+i+"\" class=\"w3-hide\" width=\"100%\" ><td width=\"80%\"></td><td width=\"20%\"><table class=\"w3-table-all w3-small\">";
+                printToMarkus+="<thead><tr><th>PLU</th><th>QTY</th></tr></thead>";
+                var jdetails = markus_response[5].split("&");
+                for(var i=0; i < jdetails.length; i++){
+                    var QuanPlu = jdetails[i].split(":");
 
-                for(var i=0; i < pluQuan.length; i++){
-                    var QuanPlu = pluQuan[i].split(",");
-                    //console.log("PluQuan"+pluQuan[i]);
-                    //console.log("QuanPlu"+QuanPlu);
-                    var q = QuanPlu[0].split(":");var p = QuanPlu[4].split(":"); var pw=p[1].replace("}]","");
-                    //console.log("q "+q[1]+"p "+p[1]);
-                    printToMarkus+="<tr><td>"+ q[1].replace(/\"/g,"") + "</td><td>" + pw.replace(/\"/g,"") + "</td></tr>";
+                    printToMarkus+="<tr><td>"+ QuanPlu[0] + "</td><td>" + QuanPlu[1] + "</td></tr>";
                 }
-                /*
+
+                printToMarkus+="</table></td></tr>"
+                printToMarkus+="<tr>";
+                printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
+                printToMarkus+="</tr>";
+                printToMarkus+="</table>";
+                printToMarkus+="<br>";
+
+            }
 
 
-                 */
 
-
-         //   }
-            printToMarkus+="</table></td></tr>"
-
-            printToMarkus+="<tr>";
-            printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
-            printToMarkus+="</tr>";
-            printToMarkus+="</table>";
-            //printToMarkus+=print2ToMarkus;
             outputMarkus.innerHTML=printToMarkus;
 
 
