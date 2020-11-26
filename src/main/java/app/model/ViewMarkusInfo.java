@@ -206,7 +206,7 @@ public class ViewMarkusInfo {
 
         //select ext_string from sdd.bufheader_ext where id_header = '6148661' and ext_name = 'GUIDUPD'
         String getSqlstringNQ ="select ext_string from sdd.bufheader_ext where id_header = '"+buff+"' and ext_name = 'GUIDUPD'";
-        ResultSet rsNQ = stmtPullNq.executeQuery(getSqlstringNQ + buff + "'");
+        ResultSet rsNQ = stmtPullNq.executeQuery(getSqlstringNQ);
         while (rsNQ.next()) {
             for (int i = 0; i < 1; i++) {
                 result = (rsNQ.getString("ext_string"));
