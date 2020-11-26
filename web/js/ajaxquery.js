@@ -142,7 +142,7 @@ function searchMarkus(){
     if(mm_sap_ord.checked)param="order";
     if(mm_guid.checked)param="guid";
     if(mm_pallet.checked){param="pallet";inBuf=input_2;}
-    if(mm_buf.checked){param="buf";inBuf=input_2;}
+    if(mm_buf.checked){param="buf";ifBuf=input_2;}
 
     //area output info
     var outputMarkus = document.getElementById('outputmarkus');

@@ -171,16 +171,18 @@ public class ViewMarkusInfo {
 
                     }
 
-
-
                     break;
+                case "buf":
+                    sReturn = ViewMarkInfoFromNQ(value,sap);
+                    break;
+
 
 
             }
 
 
 
-        }catch (ParseException e){
+        }catch (ParseException | SQLException e){
             System.out.println("here"+e.toString());
 
         }
@@ -194,5 +196,26 @@ public class ViewMarkusInfo {
 
 
 }
+
+
+    public static String ViewMarkInfoFromNQ(String buff, String sap) throws SQLException {
+        String result="";
+        Connection pullConnNq = ConnectionPool.getInstance().getConnectionNQ(sap);
+        Statement stmtPullNq = pullConnNq.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        //select ext_string from sdd.bufheader_ext where id_header = '6148661' and ext_name = 'GUIDUPD'
+        String getSqlstringNQ ="select ext_string from sdd.bufheader_ext where id_header = '"+buff+"' and ext_name = 'GUIDUPD'";
+        ResultSet rsNQ = stmtPullNq.executeQuery(getSqlstringNQ + buff + "'");
+        while (rsNQ.next()) {
+            for (int i = 0; i < 1; i++) {
+                result = (rsNQ.getString("ext_string"));
+            }
+        }
+        pullConnNq.close();
+        return result;
+    }
+
+
 
         }
