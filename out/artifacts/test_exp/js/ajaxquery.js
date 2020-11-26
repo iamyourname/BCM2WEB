@@ -181,7 +181,7 @@ function searchMarkus(){
 
                 printToMarkus+="<tr >";//printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
 
-                printToMarkus+="<td onclick=\"myFunctionT('Demo10" +ii + "')\">DETAILS</td><td onclick=\"myFunctionT('Demo101')\">Развернуть</td>"
+                printToMarkus+="<td onclick=\"myFunctionT('Demo10" +ii + "')\">DETAILS</td><td onclick=\"myFunctionT('Demo10" +ii + "')\">Развернуть</td>"
                 printToMarkus+="</tr>";
 
                 var print2ToMarkus="";
