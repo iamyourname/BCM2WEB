@@ -156,7 +156,7 @@ function searchMarkus(){
 
             var mainJson = xhrB.responseText.split("|");
 
-            for(var ii=0; mainJson.length-1;ii++){
+            for(var ii=0;ii < mainJson.length-1;ii++){
                 var markus_response = mainJson[ii].split("!");
 
                 printToMarkus+="<tr>";
@@ -181,11 +181,11 @@ function searchMarkus(){
 
                 printToMarkus+="<tr >";//printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
 
-                printToMarkus+="<td onclick=\"myFunctionT('Demo10" +i + "')\">DETAILS</td><td onclick=\"myFunctionT('Demo101')\">Развернуть</td>"
+                printToMarkus+="<td onclick=\"myFunctionT('Demo10" +ii + "')\">DETAILS</td><td onclick=\"myFunctionT('Demo101')\">Развернуть</td>"
                 printToMarkus+="</tr>";
 
                 var print2ToMarkus="";
-                printToMarkus+="<tr id=\"Demo10"+i+"\" class=\"w3-hide\" width=\"100%\" ><td width=\"80%\"></td><td width=\"20%\"><table class=\"w3-table-all w3-small\">";
+                printToMarkus+="<tr id=\"Demo10"+ii+"\" class=\"w3-hide\" width=\"100%\" ><td width=\"80%\"></td><td width=\"20%\"><table class=\"w3-table-all w3-small\">";
                 printToMarkus+="<thead><tr><th>PLU</th><th>QTY</th></tr></thead>";
                 var jdetails = markus_response[5].split("&");
                 for(var i=0; i < jdetails.length-1; i++){
