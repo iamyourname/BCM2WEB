@@ -1,5 +1,10 @@
 package app.entities;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class RcToAgent {
     public static String[][]  rcAgent = {
             {"0140","РЦ Видное","1"},
@@ -82,4 +87,20 @@ public class RcToAgent {
             {"0339","РЦ 5 Толмачево-Алкоголь","2"},
             {"0340","РЦ 5 Великий Новгород-Алкоголь","1"},
             {"0346","РЦ 5 Казань–Алкоголь","1"}};
+
+    public static String SapAgent(String sap) throws SQLException {
+        Connection pullConn = ConnectionPool.getInstance().getConnection("10");
+
+        Statement stmtPullB = pullConn.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String sqlSearchAgent = "select ao.a_agent_id from a_agents_org_divisions_rel ao\n" +
+                "left join c_org_divisions co on co.codv_id = ao.codv_id\n" +
+                "where co.codv_code = '"+sap+"'";
+        ResultSet rsPullB = stmtPullB.executeQuery(sqlSearchAgent);
+
+        String sAg = rsPullB.getString(1);
+    return sAg;
+    }
+
+
 }

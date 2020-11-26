@@ -339,11 +339,18 @@ function searchMarkus(){
                     printToMarkus+="</tr>";
                 }
 
-                if(!markus_response[7].includes("empty")){
+                if(!markus_response[8].includes("empty")){
                     printToMarkus+="<tr>";
-                    printToMarkus+="<td>StoreOut</td><td>"+markus_response[7]+"</td>";
+                    printToMarkus+="<td>StoreOut</td><td>"+markus_response[8]+"</td>";
                     printToMarkus+="</tr>";
                 }
+
+                if(!markus_response[7].includes("empty")){
+                    printToMarkus+="<tr>";
+                    printToMarkus+="<td>Буфер</td><td>"+markus_response[7]+"</td>";
+                    printToMarkus+="</tr>";
+                }
+
 
 
                 printToMarkus+="</table>";

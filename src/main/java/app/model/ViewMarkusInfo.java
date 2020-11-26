@@ -249,14 +249,17 @@ public class ViewMarkusInfo {
                         //store
                         if(jo.get("storeIn")==null)
                             sReturn += "!emptyIn";
-                        else
-                            sReturn += "!"+jo.get("storeIn");
+                        else {
+                            sReturn += "!" + jo.get("storeIn");
+                            sReturn += "!" + ViewMarkBufFromNQ(jo.get("guidUpd").toString(), jo.get("storeIn").toString());
+                        }
 
                         if(jo.get("storeOut")==null)
                             sReturn += "!emptyOut";
-                        else
-                            sReturn += "!"+jo.get("storeOut");
-
+                        else {
+                            sReturn += "!" + jo.get("storeOut");
+                            sReturn += "!" + ViewMarkBufFromNQ(jo.get("guidUpd").toString(), jo.get("storeIn").toString());
+                        }
 
 
                         sReturn += "|";
@@ -305,6 +308,27 @@ public class ViewMarkusInfo {
         return result;
     }
 
+    public static String ViewMarkBufFromNQ(String guid, String sap) throws SQLException {
+        String result="empty";
+        Connection pullConnNq = ConnectionPool.getInstance().getConnectionNQ(sap);
+        Statement stmtPullNq = pullConnNq.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
+        //select ext_string from sdd.bufheader_ext where id_header = '6148661' and ext_name = 'GUIDUPD'
+        String getSqlstringNQ ="select id_header from sdd.bufheader_ext where ext_string = '"+guid+"' and ext_name = 'GUIDUPD'";
+        ResultSet rsNQ = stmtPullNq.executeQuery(getSqlstringNQ);
+        rsNQ.last();
+        int countrows = rsNQ.getRow();
+        rsNQ.beforeFirst();
+        if(countrows==0)
+            return result;
+        while (rsNQ.next()) {
+            for (int i = 0; i < 1; i++) {
+                result = (rsNQ.getString("id_header"));
+            }
+        }
+        pullConnNq.close();
+        return result;
+    }
 
         }
