@@ -121,6 +121,10 @@ function buforno(){
 
 
 function searchMarkus(){
+    //button
+    var mbtn = document.getElementById("SearchButton");
+    mbtn.disabled = true;
+
     //main input
     var input_1 = document.getElementById('inpunt1').value;
 
@@ -153,7 +157,7 @@ function searchMarkus(){
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
 
-
+            mbtn.disabled = false;
             var mainJson = xhrB.responseText.split("|");
 
             for(var ii=0;ii < mainJson.length-1;ii++){
@@ -202,7 +206,7 @@ function searchMarkus(){
                     printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
                     printToMarkus+="</tr>";
                 }
-                
+
                 if(!markus_response[7].includes("empty")){
                     printToMarkus+="<tr>";
                     printToMarkus+="<td>StoreOut</td><td>"+markus_response[7]+"</td>";
