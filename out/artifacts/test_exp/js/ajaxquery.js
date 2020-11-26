@@ -152,13 +152,13 @@ function searchMarkus(){
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
-            printToMarkus="<table class=\"w3-table-all w3-small\">";
+
 
             var mainJson = xhrB.responseText.split("|");
 
             for(var ii=0;ii < mainJson.length-1;ii++){
                 var markus_response = mainJson[ii].split("!");
-
+                printToMarkus="<table class=\"w3-table-all w3-small\">";
                 printToMarkus+="<tr>";
                 printToMarkus+="<td>id</td><td>"+markus_response[0]+"</td>";
                 printToMarkus+="</tr>";
@@ -200,12 +200,12 @@ function searchMarkus(){
                 printToMarkus+="</tr>";
                 printToMarkus+="</table>";
                 printToMarkus+="<br>";
-
+                outputMarkus.innerHTML+=printToMarkus;
             }
 
 
 
-            outputMarkus.innerHTML=printToMarkus;
+
 
 
         }
