@@ -173,7 +173,61 @@ public class ViewMarkusInfo {
 
                     break;
                 case "buf":
-                    sReturn = ViewMarkInfoFromNQ(value,sap);
+                    String gUpd = ViewMarkInfoFromNQ(value,sap);
+
+                     query=new BasicDBObject("guidUpd",gUpd);
+
+                    for (Document document : (Iterable<Document>) coll.find(query)) {
+                        //System.out.println(cursor.next().toJson());
+                        Object obj = new JSONParser().parse(document.toJson());
+                        JSONObject jo = (JSONObject) obj;
+
+                        //id
+                        JSONObject jid = (JSONObject) jo.get("_id");
+                        sReturn += jid.get("$oid")+"!";
+
+                        //all details
+                        JSONArray jdetails = (JSONArray) jo.get("details");
+                        JSONObject jdetails_val = (JSONObject)  jdetails.get(1);
+
+                        //number of sap
+                        JSONObject jsap = (JSONObject) jdetails_val.get("sapOrdIdHeader");
+                        sReturn += jsap.get("$numberLong")+"!";
+
+                        //guid
+                        sReturn += jo.get("guidUpd")+"!";
+
+                        //type
+                        sReturn += jo.get("type")+"!";
+
+                        //STATUS
+                        JSONObject jstatus = (JSONObject) jo.get("status");
+                        sReturn += jstatus.get("stateMachine")+"!";
+
+
+                        for(int i=0; i < jdetails.size(); i++){
+                            JSONObject jdetails_val_doc = (JSONObject)  jdetails.get(i);
+                            sReturn += jdetails_val_doc.get("idItem")+":"+jdetails_val_doc.get("quantity")+"&";
+                        }
+
+
+                        //store
+                        if(jo.get("storeIn")==null)
+                            sReturn += "!emptyIn";
+                        else
+                            sReturn += "!"+jo.get("storeIn");
+
+                        if(jo.get("storeOut")==null)
+                            sReturn += "!emptyOut";
+                        else
+                            sReturn += "!"+jo.get("storeOut");
+
+
+
+                        sReturn += "|";
+
+                    }
+
                     break;
 
 

@@ -158,6 +158,137 @@ function searchMarkus(){
         if (xhrB.status == 200) {
 
             mbtn.disabled = false;
+            /*
+            switch (param){
+                case "order":
+                    var mainJson = xhrB.responseText.split("|");
+                    for(var ii=0;ii < mainJson.length-1;ii++){
+                        var markus_response = mainJson[ii].split("!");
+                        printToMarkus="<table class=\"w3-table-all w3-small\">";
+                        printToMarkus+="<tr>";
+                        printToMarkus+="<td>id</td><td>"+markus_response[0]+"</td>";
+                        printToMarkus+="</tr>";
+
+                        printToMarkus+="<tr>";
+                        printToMarkus+="<td>sapOrdIdHeader</td><td>"+markus_response[1]+"</td>";
+                        printToMarkus+="</tr>";
+
+                        printToMarkus+="<tr>";
+                        printToMarkus+="<td>GUID</td><td>"+markus_response[2]+"</td>";
+                        printToMarkus+="</tr>";
+
+                        printToMarkus+="<tr>";
+                        printToMarkus+="<td>TYPE</td><td>"+markus_response[3]+"</td>";
+                        printToMarkus+="</tr>";
+
+                        printToMarkus+="<tr>";
+                        printToMarkus+="<td>STATUS</td><td>"+markus_response[4]+"</td>";
+                        printToMarkus+="</tr>";
+
+                        printToMarkus+="<tr >";//printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
+
+                        printToMarkus+="<td onclick=\"myFunctionT('Demo10" +ii + "')\">DETAILS</td><td onclick=\"myFunctionT('Demo10" +ii + "')\">Развернуть</td>"
+                        printToMarkus+="</tr>";
+
+                        var print2ToMarkus="";
+                        printToMarkus+="<tr id=\"Demo10"+ii+"\" class=\"w3-hide\" width=\"100%\" ><td width=\"80%\"></td><td width=\"20%\"><table class=\"w3-table-all w3-small\">";
+                        printToMarkus+="<thead><tr><th>PLU</th><th>QTY</th></tr></thead>";
+                        var jdetails = markus_response[5].split("&");
+                        for(var i=0; i < jdetails.length-1; i++){
+                            var QuanPlu = jdetails[i].split(":");
+
+                            printToMarkus+="<tr><td>"+ QuanPlu[0] + "</td><td>" + QuanPlu[1] + "</td></tr>";
+                        }
+
+                        printToMarkus+="</table></td></tr>"
+
+
+                        if(!markus_response[6].includes("empty")){
+                            printToMarkus+="<tr>";
+                            printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
+                            printToMarkus+="</tr>";
+                        }
+
+                        if(!markus_response[7].includes("empty")){
+                            printToMarkus+="<tr>";
+                            printToMarkus+="<td>StoreOut</td><td>"+markus_response[7]+"</td>";
+                            printToMarkus+="</tr>";
+                        }
+
+
+                        printToMarkus+="</table>";
+                        printToMarkus+="<br>";
+                        outputMarkus.innerHTML+=printToMarkus;
+                    }
+                    break;
+                case "guid":
+                    var mainJson = xhrB.responseText.split("|");
+                    for(var ii=0;ii < mainJson.length-1;ii++){
+                        var markus_response = mainJson[ii].split("!");
+                        printToMarkus="<table class=\"w3-table-all w3-small\">";
+                        printToMarkus+="<tr>";
+                        printToMarkus+="<td>id</td><td>"+markus_response[0]+"</td>";
+                        printToMarkus+="</tr>";
+
+                        printToMarkus+="<tr>";
+                        printToMarkus+="<td>sapOrdIdHeader</td><td>"+markus_response[1]+"</td>";
+                        printToMarkus+="</tr>";
+
+                        printToMarkus+="<tr>";
+                        printToMarkus+="<td>GUID</td><td>"+markus_response[2]+"</td>";
+                        printToMarkus+="</tr>";
+
+                        printToMarkus+="<tr>";
+                        printToMarkus+="<td>TYPE</td><td>"+markus_response[3]+"</td>";
+                        printToMarkus+="</tr>";
+
+                        printToMarkus+="<tr>";
+                        printToMarkus+="<td>STATUS</td><td>"+markus_response[4]+"</td>";
+                        printToMarkus+="</tr>";
+
+                        printToMarkus+="<tr >";//printToMarkus+="<td>DETAILS</td><td>"+markus_response[5]+"</td>";
+
+                        printToMarkus+="<td onclick=\"myFunctionT('Demo10" +ii + "')\">DETAILS</td><td onclick=\"myFunctionT('Demo10" +ii + "')\">Развернуть</td>"
+                        printToMarkus+="</tr>";
+
+                        var print2ToMarkus="";
+                        printToMarkus+="<tr id=\"Demo10"+ii+"\" class=\"w3-hide\" width=\"100%\" ><td width=\"80%\"></td><td width=\"20%\"><table class=\"w3-table-all w3-small\">";
+                        printToMarkus+="<thead><tr><th>PLU</th><th>QTY</th></tr></thead>";
+                        var jdetails = markus_response[5].split("&");
+                        for(var i=0; i < jdetails.length-1; i++){
+                            var QuanPlu = jdetails[i].split(":");
+
+                            printToMarkus+="<tr><td>"+ QuanPlu[0] + "</td><td>" + QuanPlu[1] + "</td></tr>";
+                        }
+
+                        printToMarkus+="</table></td></tr>"
+
+
+                        if(!markus_response[6].includes("empty")){
+                            printToMarkus+="<tr>";
+                            printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
+                            printToMarkus+="</tr>";
+                        }
+
+                        if(!markus_response[7].includes("empty")){
+                            printToMarkus+="<tr>";
+                            printToMarkus+="<td>StoreOut</td><td>"+markus_response[7]+"</td>";
+                            printToMarkus+="</tr>";
+                        }
+
+
+                        printToMarkus+="</table>";
+                        printToMarkus+="<br>";
+                        outputMarkus.innerHTML+=printToMarkus;
+                    }
+                    break;
+                case "buf":
+                    //code here
+                    break;
+            }
+
+            */
+
             var mainJson = xhrB.responseText.split("|");
 
             for(var ii=0;ii < mainJson.length-1;ii++){
