@@ -129,13 +129,17 @@ public class ViewMarkusInfo {
                         //store
                         if(jo.get("storeIn")==null)
                             sReturn += "!emptyIn";
-                        else
-                            sReturn += "!"+jo.get("storeIn");
+                        else {
+                            sReturn += "!" + jo.get("storeIn");
+                            sReturn += "!" + ViewMarkBufFromNQ(jo.get("guidUpd").toString(), jo.get("storeIn").toString());
+                        }
 
                         if(jo.get("storeOut")==null)
                             sReturn += "!emptyOut";
-                        else
-                            sReturn += "!"+jo.get("storeOut");
+                        else {
+                            sReturn += "!" + jo.get("storeOut");
+                            sReturn += "!" + ViewMarkBufFromNQ(jo.get("guidUpd").toString(), jo.get("storeIn").toString());
+                        }
 
 
 
@@ -189,13 +193,17 @@ public class ViewMarkusInfo {
                         //store
                         if(jo.get("storeIn")==null)
                             sReturn += "!emptyIn";
-                        else
-                            sReturn += "!"+jo.get("storeIn");
+                        else {
+                            sReturn += "!" + jo.get("storeIn");
+                            sReturn += "!" + ViewMarkBufFromNQ(jo.get("guidUpd").toString(), jo.get("storeIn").toString());
+                        }
 
                         if(jo.get("storeOut")==null)
                             sReturn += "!emptyOut";
-                        else
-                            sReturn += "!"+jo.get("storeOut");
+                        else {
+                            sReturn += "!" + jo.get("storeOut");
+                            sReturn += "!" + ViewMarkBufFromNQ(jo.get("guidUpd").toString(), jo.get("storeIn").toString());
+                        }
 
 
 
