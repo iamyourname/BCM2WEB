@@ -97,7 +97,17 @@ public class ViewMarkusInfo {
 
 
                         //store
-                        sReturn += "!"+jo.get("storeIn");
+                        if(jo.get("storeIn")==null)
+                            sReturn += "!emptyIn";
+                        else
+                            sReturn += "!"+jo.get("storeIn");
+
+                        if(jo.get("storeOut")==null)
+                            sReturn += "!emptyOut";
+                        else
+                            sReturn += "!"+jo.get("storeOut");
+
+
 
                         sReturn += "|";
 

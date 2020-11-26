@@ -195,9 +195,20 @@ function searchMarkus(){
                 }
 
                 printToMarkus+="</table></td></tr>"
-                printToMarkus+="<tr>";
-                printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
-                printToMarkus+="</tr>";
+
+
+                if(!markus_response[6].includes("empty")){
+                    printToMarkus+="<tr>";
+                    printToMarkus+="<td>StoreIn</td><td>"+markus_response[6]+"</td>";
+                    printToMarkus+="</tr>";
+                }
+                if(!markus_response[7].includes("empty")){
+                    printToMarkus+="<tr>";
+                    printToMarkus+="<td>StoreOut</td><td>"+markus_response[7]+"</td>";
+                    printToMarkus+="</tr>";
+                }
+
+
                 printToMarkus+="</table>";
                 printToMarkus+="<br>";
                 outputMarkus.innerHTML+=printToMarkus;
