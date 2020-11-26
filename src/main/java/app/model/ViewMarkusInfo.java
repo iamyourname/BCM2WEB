@@ -175,8 +175,10 @@ public class ViewMarkusInfo {
 
                         //STATUS
                         JSONObject jstatus = (JSONObject) jo.get("status");
-                        sReturn += jstatus.get("stateMachine")+"!";
-
+                        for (int m=0; m < mStatus.length; m++){
+                            if(mStatus[m][0].equals(jstatus.get("stateMachine")))
+                                sReturn += jstatus.get("stateMachine")+"( " + mStatus[m][1] + " )!";
+                        }
 
                         for(int i=0; i < jdetails.size(); i++){
                             JSONObject jdetails_val_doc = (JSONObject)  jdetails.get(i);
@@ -232,7 +234,10 @@ public class ViewMarkusInfo {
 
                         //STATUS
                         JSONObject jstatus = (JSONObject) jo.get("status");
-                        sReturn += jstatus.get("stateMachine")+"!";
+                        for (int m=0; m < mStatus.length; m++){
+                            if(mStatus[m][0].equals(jstatus.get("stateMachine")))
+                                sReturn += jstatus.get("stateMachine")+"( " + mStatus[m][1] + " )!";
+                        }
 
 
                         for(int i=0; i < jdetails.size(); i++){

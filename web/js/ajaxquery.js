@@ -157,6 +157,7 @@ function searchMarkus(){
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
 
+            outputMarkus.innerHTML="";
             mbtn.disabled = false;
             /*
             switch (param){
