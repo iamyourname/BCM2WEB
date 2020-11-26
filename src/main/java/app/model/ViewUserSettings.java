@@ -22,8 +22,10 @@ public class ViewUserSettings {
     public void initUserParams() throws SQLException {
         String sqlTableName = "select user_name, settings -> 'Таблица автогашения' \"use_table\" from public.bcm_users\n" +
                 "where settings ->>'Таблица автогашения' !=  ''";
+
         rsLog = stmtLog.executeQuery("select bu.settings from bcm_users bu where upper(user_name) =upper(\'"
                 + NTLMUserFilter.getUserName()+"\')");
+
         String[] jsonParams = new String[10];
         // Считываем json
 

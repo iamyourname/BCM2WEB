@@ -20,6 +20,32 @@ import java.sql.Statement;
 
 public class ViewMarkusInfo {
 
+    public static String[][] mStatus = {
+            {"SAP_WAITING_APPROVAL","Ожидает подтверждения от SAP"},
+            {"SAP_APPROVED","Проверка в SAP пройдена"},
+            {"SAP_REJECTED","Проверка в SAP не пройдена"},
+            {"MOTP_REQ_APPROVAL","Запрос на проверку документа в ГИС"},
+            {"MOTP_APPROVED","Проверка в ГИС по документу пройдена"},
+            {"MOTP_REJECTED","Отклонено в ГИС"},
+            {"MOTP_REQ_DETAIL","Запрос детализации в ГИС"},
+            {"MOTP_DETAILED","Ожидание корректировок по УПД"},
+            {"WAITING_ADJUSTMENT","Детализация от ГИС получена"},
+            {"DC_DETAILED","Детализация отправлена"},
+            {"WAITING_CHANGE_OWNER","Ожидает смены собственника"},
+            {"OWNER_CHANGED","Собственник изменён"},
+            {"INVALID","Ошибка"},
+            {"DELETED","Удален"},
+            {"X5_CREATED","Создан"},
+            {"MARKUS_OK","Документ обработан с КИЗами"},
+            {"MARKUS_FAIL","Документ обработан без КИЗов"},
+            {"GIS_COMFIRMED","Документ обработан в ГИС"},
+            {"WAITING_VENDOR_APPROVAL","Ожидает смены собственника"},
+            {"VENDOR_APPROVED","Собственник изменён"},
+            {"ACCEPTED","Принят"},
+            {"RECLAMATION_CREATED","Принят с расхождениями"},
+            {"NO_RECLAMATION","Принят без расхождений"}};
+
+
     public static String jsonReplace(String js) {
         js = js.replace("Document", "");
         js = js.replace(":", "-");
@@ -87,7 +113,11 @@ public class ViewMarkusInfo {
 
                         //STATUS
                         JSONObject jstatus = (JSONObject) jo.get("status");
-                        sReturn += jstatus.get("stateMachine")+"!";
+                        for (int m=0; m < mStatus.length; m++){
+                            if(mStatus[m][0].equals(jstatus.get("stateMachine"))
+                                sReturn += jstatus.get("stateMachine")+"( " + mStatus[m][1] + " )!";
+                        }
+
 
 
                         for(int i=0; i < jdetails.size(); i++){
