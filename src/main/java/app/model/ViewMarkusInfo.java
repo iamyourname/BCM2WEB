@@ -138,7 +138,7 @@ public class ViewMarkusInfo {
                             sReturn += "!emptyOut";
                         else {
                             sReturn += "!" + jo.get("storeOut");
-                            sReturn += "!" + ViewMarkBufFromNQ(jo.get("guidUpd").toString(), jo.get("storeIn").toString());
+                            sReturn += "!" + ViewMarkBufFromNQ(jo.get("guidUpd").toString(), jo.get("storeOut").toString());
                         }
 
 
