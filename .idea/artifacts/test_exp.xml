@@ -6,9 +6,25 @@
         <element id="directory" name="classes">
           <element id="module-output" name="BCM2WEB" />
         </element>
-        <element id="directory" name="lib" />
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="h2-1.4.200" />
+          <element id="library" level="project" name="Java EE 6-Java EE 6" />
+          <element id="library" level="project" name="jcifs-1.2.9" />
+          <element id="library" level="project" name="json-simple-1.1" />
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:4.0.0" />
+          <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.4" />
+          <element id="library" level="project" name="Maven: jcifs:jcifs:1.3.17" />
+          <element id="library" level="project" name="Maven: org.apache.camel:camel-util-json:3.1.0" />
+          <element id="library" level="project" name="Maven: org.postgresql:postgresql:42.2.16.jre7" />
+          <element id="library" level="project" name="mongo-java-driver-3.12.2" />
+          <element id="library" level="project" name="ojdbc8" />
+          <element id="library" level="project" name="postgresql-42.2.12.jre7" />
+          <element id="library" level="project" name="sun.misc.BASE64Decoder" />
+        </element>
       </element>
       <element id="dir-copy" path="$PROJECT_DIR$/web" />
+      <element id="javaee-facet-resources" facet="BCM2WEB/web/Web" />
+      <element id="javaee-facet-resources" facet="BCM2WEB/web/Web2" />
     </root>
   </artifact>
 </component>
