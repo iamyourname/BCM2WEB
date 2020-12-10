@@ -119,6 +119,29 @@ function buforno(){
     }
 }
 
+function searchUTM(){
+
+    var sapUTM = document.getElementById("bUTM").value;
+
+    let xhrB = new XMLHttpRequest();
+
+    xhrB.onreadystatechange = function() {
+        if (xhrB.readyState !== 4) return;
+        if (xhrB.status == 200) {
+
+
+
+
+        }
+    }
+
+    var body = 'SAP=' + sapUTM;
+
+    xhrB.open('POST', '/test/UTM', true);
+    xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrB.send(body);
+
+}
 
 function searchMarkus(){
     //button
