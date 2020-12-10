@@ -265,6 +265,7 @@ body {
         </ul>
     </li>
     <li ><a href='#' onClick="openSystem('BacchusGod')"><span >Авто Поиск</span></a></li>
+    <li ><a href='#' onClick="openSystem('UTM')"><span >УТМ</span></a></li>
 </ul>
 </div>
 					</div>
@@ -374,7 +375,29 @@ body {
         </div>
     </div>
 
+    <div id = "UTM" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">
+        <div class=" w3-light-blue">
+            <h4 >УТМ</h4>
+        </div>
+        <!--method="GET" action="" target = "my_frame" -->
+        <form  class = "auth-info"  >
+            <label>SAP:
+                <input  id="bUTM" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+            </label>
+            <br>
+        </form>
+        <button id="sUTM"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="searchUTM()" >Найти УТМ</button>
 
+
+
+        <div id="GodOutput">
+        </div>
+        <div id="GodTextArea" >
+            <!-- Trigger/Open the Modal -->
+            <!-- The Modal -->
+
+        </div>
+    </div>
 
 	<div id = "BacchusOut" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">
         <div class=" w3-light-blue">
