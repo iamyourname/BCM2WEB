@@ -174,6 +174,7 @@ body {
         <h4 align="right">
             <%
                 if(NTLMUserFilter.getUserName().equals("Roma.Ivanov2")){
+
                     out.println(Bcm2WebMain.hey_bro);}
 
             %>!!!TEST!!! Привет <% out.println(NTLMUserFilter.getUserName()); %>!
@@ -384,15 +385,15 @@ body {
             <label>SAP:
                 <input  id="bUTM" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
             </label>
-            <br>
+            <button id="sUTM"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="searchUTM()" >Найти УТМ</button>
         </form>
-        <button id="sUTM"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="searchUTM()" >Найти УТМ</button>
 
 
 
-        <div id="GodOutput">
+
+        <div id="GodOutputUTM">
         </div>
-        <div id="GodTextArea" >
+        <div id="GodTextAreaUTM" >
             <!-- Trigger/Open the Modal -->
             <!-- The Modal -->
 

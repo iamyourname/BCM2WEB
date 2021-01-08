@@ -38,6 +38,22 @@
         <servlet-class>app.servlets.bacchus.confirmSend</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>UTM</servlet-name>
+        <servlet-class>app.servlets.bacchus.UTM</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SendUtm</servlet-name>
+        <servlet-class>app.servlets.bacchus.SendFile</servlet-class>
+        <multipart-config>
+            <!--location>E:\Progs\TomCat_9\files_utm</location-->
+            <max-file-size>20848820</max-file-size>
+            <max-request-size>418018841</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
+    </servlet>
+
 
 
 
@@ -76,6 +92,18 @@
         <url-pattern>/profile</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>UTM</servlet-name>
+        <url-pattern>/UTM</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SendUtm</servlet-name>
+        <url-pattern>/sendutm</url-pattern>
+    </servlet-mapping>
+
+
+
     <!--servlet-mapping>
         <servlet-name>BacchusConnect</servlet-name>
         <url-pattern>/bcm2web</url-pattern>
@@ -84,6 +112,8 @@
         <filter-name>ntlmFilter</filter-name>
         <filter-class>app.servlets.NTLMUserFilter</filter-class>
     </filter>
+
+
 
     <!-- Filter mapping configuration   -->
 

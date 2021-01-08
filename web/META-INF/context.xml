@@ -121,6 +121,15 @@
               maxTotal="7"
               maxIdle="4"/>
 
+    <Resource name="jdbc/agent_13"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="BAHU_CAGDB_PROD_X5_13"
+              password="BAHU_CAGDB_PROD_X5_13-password"
+              driverClassName="oracle.jdbc.driver.OracleDriver"
+              url="jdbc:oracle:thin:@MSK-DTLN-ORA343:1521/bacchus"
+              maxTotal="7"
+              maxIdle="4"/>
 
     <Resource name="jdbcnq/0182" auth="Container"
               type="javax.sql.DataSource"

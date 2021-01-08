@@ -82,7 +82,7 @@
 <body onload='loadUserParams()'>
 <div  class ="w3-light-gray w3-center">
     <div style="border-top-left-radius:  25px; border-top-right-radius:  25px;" class=" w3-light-blue  w3-padding">
-        <a href = "/" > <img  src="img/homeflat_106039.png" align = "right" /></a>
+        <a href = "/test" > <img  src="img/homeflat_106039.png" align = "right" /></a>
         <h4 align="right">Настройки профиля</h4><i class="fa fa-home"></i>
     </div>
     <div id = "mainInfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 ">

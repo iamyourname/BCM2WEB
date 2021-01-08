@@ -122,12 +122,58 @@ function buforno(){
 function searchUTM(){
 
     var sapUTM = document.getElementById("bUTM").value;
+    var outputUTM = document.getElementById("GodOutputUTM");
+    var outputUTM_2 = document.getElementById("GodOutputUTM").value;
+
+    var to_printUTM="";
+    outputUTM.innerHTML="";
 
     let xhrB = new XMLHttpRequest();
 
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
+
+            var response_text = xhrB.responseText;
+
+            to_printUTM += "<form  class = \"send-utm\" enctype=\"multipart/form-data\"><label>" +
+                "<input disabled  id=\"tUTM\" type=\"text\"  class=\"w3-input  w3-border w3-round-medium\"></label>";
+
+            to_printUTM += "<label><input class=\"w3-btn w3-green w3-round-large w3-margin-bottom\" " +
+                "type=\"file\" id=\"myfile\" name=\"myfile\"></label></form>";
+            //to_printUTM += "<button id=\"ssUTM\"   class=\"w3-btn w3-green w3-round-large w3-margin-bottom\">Отправить</button></form>";
+
+            //to_printUTM += "<button id=\"ssUTM\" type=\"file\"   class=\"w3-btn w3-green w3-round-large w3-margin-bottom\">Выбрать файл</button></form>";
+
+            outputUTM.innerHTML += to_printUTM;
+
+            document.getElementById("tUTM").value=response_text;
+
+
+            var input = document.getElementById("myfile");
+
+            input.onchange = function ()
+            {
+                var sendForm = new FormData();
+                sendForm.append('fileToUtm', input.files[0]);
+                sendForm.append('SAP', sapUTM);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST','/test/sendutm', true);
+                xhr.onreadystatechange = function ()
+                {
+                    if (xhr.readyState == 4)
+                    {
+                        var an = xhr.responseText;
+                        if (an)
+                            console.log(an);
+                        input.value = "";
+
+                    }
+                }
+                xhr.send(sendForm);
+            };
+
 
 
 
@@ -1285,6 +1331,7 @@ function confimSendOut31() {
     xhrConfirm.onreadystatechange = function() {
         if (xhrConfirm.readyState !== 4) return;
         if (xhrConfirm.status == 200) {
+            document.getElementById('send31').disabled=true;
             if(document.getElementById('yesConf')!==null){document.getElementById('yesConf').disabled=false;}
             var responseConfirm = xhrConfirm.responseText;
             var inBuf = document.getElementById('buff').value;
@@ -1349,7 +1396,7 @@ function confirmAfterEdit() {
     xhrConfirm.onreadystatechange = function() {
         if (xhrConfirm.readyState !== 4) return;
         if (xhrConfirm.status == 200) {
-
+            document.getElementById('send31').disabled=true;
             if(document.getElementById('yesAfter')!==null){document.getElementById('yesAfter').disabled=false;}
             var responseConfirm = xhrConfirm.responseText;
             var inBuf = document.getElementById('buff').value;
