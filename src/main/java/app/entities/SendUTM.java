@@ -1,5 +1,15 @@
 package app.entities;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,5 +50,45 @@ public class SendUTM {
 
         return response;
     }
+
+    public static String sendFileToUtm(String pathToUtm) throws ParserConfigurationException, IOException, SAXException {
+        String replyId = "";
+
+        String docPath="";
+
+
+        DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        Document document = documentBuilder.parse("E:\\Progs\\TomCat_9\\files_utm\\temp_xml.xml");
+        NodeList docType = document.getElementsByTagName("ns:Document");
+        NodeList docTypeL = docType.item(0).getChildNodes();
+        String dType = docTypeL.item(1).getNodeName().substring(3);
+
+        if(dType.equals("QueryFormBHistory")){
+             docPath = "QueryHistoryFormB";
+            System.out.println(docPath);
+        }
+
+
+        HttpRequest request = HttpRequest.post("http://"+pathToUtm+"/opt/in/"+docPath);
+
+        File file = new File("E:\\Progs\\TomCat_9\\files_utm\\temp_xml.xml");
+
+
+
+        request.part("xml_file", file);
+
+        int status = request.code();
+
+        if (status==200){
+            replyId=request.body();
+        }
+
+
+
+        return replyId;
+    }
+
+
+
 
 }
