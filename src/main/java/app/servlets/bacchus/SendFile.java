@@ -36,7 +36,7 @@ public class SendFile extends HttpServlet {
         }
         String sResumen = baos.toString();
 
-        File file = new File("E:\\Progs\\TomCat_9\\files_utm\\temp_xml.xml");
+        File file = new File("E:\\Progs\\TomCat_9\\webapps\\test\\files_utm\\temp_xml.xml");
         if(file.exists()){
             file.delete();
         }

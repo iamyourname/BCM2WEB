@@ -167,6 +167,15 @@ function searchUTM(){
                         var an = xhr.responseText;
                         if (an)
                             console.log(an);
+                        //outputUTM block with information
+                        var printCheckResponse ="";
+                        printCheckResponse += "<label><input id=\"inpresp\" class=\"w3-input  w3-border w3-round-medium\"></label>";
+                        printCheckResponse += "<button id=\"checkResp\"  class=\"w3-btn w3-green w3-round-large w3-margin-bottom\" onclick=\"checkResp()\">Check</button>";
+                        var lastURl =  document.getElementById("tUTM").value;
+                        outputUTM.innerHTML += printCheckResponse;
+                        document.getElementById("inpresp").value = an;
+
+                        document.getElementById("tUTM").value = lastURl;
                         input.value = "";
 
                     }
@@ -188,6 +197,112 @@ function searchUTM(){
     xhrB.send(body);
 
 }
+
+function checkCert(){
+    // функция отправки параметров для поиска сертификатов
+    let xhrB = new XMLHttpRequest();
+
+    var csap = document.getElementById("csap").value;
+    var ccert = document.getElementById("certsToCheck").innerText;
+
+    var listcc = ccert.replace(/\n/g,"!");
+    //listOfCerts.replace(/\s/g,"!");
+    /*
+    * */
+    alert("list:"+listcc);
+
+    var listOfCheck=listcc.split("!");
+    for(var i =0; i < listOfCheck.length; i++){
+
+        alert(listOfCheck[i]);
+
+    }
+
+
+
+
+
+    xhrB.onreadystatechange = function() {
+        if (xhrB.readyState !== 4) return;
+        if (xhrB.status == 200) {
+
+
+        }
+    }
+
+    var body = 'SAP=' + csap +
+        "&cert=" + ccert;
+
+    xhrB.open('POST', '/test/checkcerts', true);
+    xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrB.send(body);
+
+
+}
+
+
+
+function checkResp() {
+    var replik = document.getElementById("inpresp").value;
+
+    var sapUTM = document.getElementById("bUTM").value;
+
+    let xhrB = new XMLHttpRequest();
+
+    document.getElementById("checkResp").disabled = "true";
+
+    xhrB.onreadystatechange = function() {
+        if (xhrB.readyState !== 4) return;
+        if (xhrB.status == 200) {
+            var respik = xhrB.responseText;
+
+            var print_resp="<table class=\"w3-table-all w3-small\">";
+
+            if(respik.includes("Тикеты")){
+                document.getElementById("GodTextAreaUTM").innerHTML = respik;
+            }else{
+
+                document.getElementById("GodTextAreaUTM").innerHTML = "";
+                var Aresp = respik.split("&");
+
+                for(var i=0;i<Aresp.length-1; i++){
+                    var head_body_resp = Aresp[i].split("|");
+
+                    var withoutx = head_body_resp[1].replace(/</g,"&lt;");withoutx = withoutx.replace(/>/g,"&gt;");
+                    //xmlTi=xmlTi.replace(/</g,"&lt;"); xmlTi= xmlTi.replace(/>/g,"&gt;");
+                    print_resp += "<tr><td>"+head_body_resp[0]+"</td>"+
+                        "<td><a href=\"/test/files_utm/"+head_body_resp[0].replace(/\//g,"_")+".xml\">Посмотреть</a></td></tr>";
+
+                }
+
+                print_resp +="</table>";
+                document.getElementById("GodTextAreaUTM").innerHTML = print_resp;
+
+                print_resp="";
+
+            }
+
+            setTimeout(() => document.getElementById("checkResp").disabled = false, 30000);
+        }
+    }
+    var body = 'SAP=' + sapUTM +
+        "&reply=" + replik;
+
+    xhrB.open('POST', '/test/replycheck', true);
+    xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrB.send(body);
+
+}
+
+$('.download').on('click', function(){
+    var link = document.createElement('a');
+    link.setAttribute('href', 'E:/Progs/TomCat_9/files_utm/download.png');
+    link.setAttribute('download', 'download.png');
+    link.click();
+    return false;
+});
+
+
 
 function searchMarkus(){
     //button

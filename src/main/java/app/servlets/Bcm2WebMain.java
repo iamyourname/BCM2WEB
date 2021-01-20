@@ -52,6 +52,8 @@ public  class Bcm2WebMain extends HttpServlet {
 
    public static String hey_bro = "Hey Bro^^ - ты лучший!";
 
+    public static String bday_bro = "С Днем Рождения, друг!";
+
 
 
     @Override

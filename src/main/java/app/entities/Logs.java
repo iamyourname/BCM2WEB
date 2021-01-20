@@ -1,11 +1,9 @@
 package app.entities;
 
+import app.servlets.caduceus.ConnectToGK;
 import org.postgresql.util.PGobject;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import static app.entities.ConnectToBD.connLog;
 
@@ -25,6 +23,9 @@ public class Logs {
         //System.out.println(options);
 
         parentID=0;
+
+
+
         String LogStringMain = "insert into public.bcm_log  " +
                 "(\"user\", " +
                 "\"system\"," +

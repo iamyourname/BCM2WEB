@@ -277,6 +277,9 @@ body {
 
             <li ><a href='#' onClick="openSystem('CaduAuto')"><span>Автогашение</span></a>
             </li>
+
+            <li ><a href='#' onClick="openSystem('CaduCheck')"><span>Поиск Сертификатов</span></a>
+            </li>
             <!--li class='has-sub'><a href='#'><span>Приемка</span></a>
                 <ul>
                     <li><a href='#' onClick="openSystem('BacchusIn')"><span>Переотправка 24 потока</span></a></li>
@@ -385,9 +388,8 @@ body {
             <label>SAP:
                 <input  id="bUTM" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
             </label>
-            <button id="sUTM"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="searchUTM()" >Найти УТМ</button>
         </form>
-
+        <button id="sUTM"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="searchUTM()" >Найти УТМ</button>
 
 
 
@@ -682,6 +684,83 @@ body {
         </div>
     </div>
 
+
+
+
+    <div id = "CaduCheck" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">
+        <div class=" w3-light-blue">
+            <h4 >Поиск Сертификатов</h4>
+        </div>
+
+
+        <!--method="GET" action="" target = "my_frame" -->
+        <!--form--  class = "auth-info"  >
+            <label>Номер буфера:
+                <input  id="buff" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+            </label>
+            <label>Код РЦ:
+                <input id="SAP" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+            </label><br>
+            <input id="check0" class="w3-check" type="checkbox">
+            <label >Подтверждение отправки</label>
+
+            <input id="check1" class="w3-check" type="checkbox" onclick="onOff()">
+            <label>Переотправить ошибочные</label>
+            <input id="check2" class="w3-check" type="checkbox">
+            <label>Редактирование перед отправкой</label>
+        </form-->
+
+        <!--button id="ShowTableAuto"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="showTempTable()" >Просмотр временной таблицы</button>
+        <button id="ClearTableAuto"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="trunAutoGas()" >Очистить временную таблицу</button>
+        <button id="InsToTableAuto"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="insMainAutoGas()" >Добавить сертификаты в таблицу автогашения</button>
+        <button id="ShowMainTableAuto"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="showTableAutoGas()" >Просмотр таблицы автогашения</button!-->
+
+        <form  class = "auth-info"  >
+            <label>SAP:
+                <input  id="csap" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+            </label>
+            <label>Сертификат:
+                <input onclick="document.getElementById('id777').style.display='block'" id="ccert" type="text"  class="w3-input w3-border w3-round-medium" style="width: 30%">
+            </label><br>
+        </form>
+        <button id="startCheck"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="checkCert()" >Проверить</button>
+
+
+
+        <div id="outputCert" class="w3-container  w3-small" style="display: none; overflow-x: scroll; overflow-y: scroll;height: 55%">
+        </div>
+        <div id="outputCert2">
+            <div id="id777" class="w3-modal" style="z-index: 999">
+                <div class="w3-modal-content w3-card-4">
+                    <header class="w3-container w3-teal">
+        <span onclick="document.getElementById('id777').style.display='none'"
+              class="w3-button w3-display-topright">&times;</span>
+                        <h2>Сертификаты</h2>
+                    </header>
+                    <div class="w3-container">
+                        <div  contenteditable="true" id="certsToCheck" style="overflow-y: scroll"></div>
+                    </div>
+                    <footer class="w3-container w3-teal">
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Get the modal
+            var modal = document.getElementById('id777');
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+
+
+        </div>
+    </div>
 
 
     <div id = "CaduAuto" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">

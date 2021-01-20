@@ -9,6 +9,11 @@
     </servlet>
 
     <servlet>
+        <servlet-name>ReplyCheck</servlet-name>
+        <servlet-class>app.servlets.bacchus.ReplyCheck</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>Markus</servlet-name>
         <servlet-class>app.servlets.markus.MarkusSearch</servlet-class>
     </servlet>
@@ -44,6 +49,11 @@
     </servlet>
 
     <servlet>
+        <servlet-name>checkcerts</servlet-name>
+        <servlet-class>app.servlets.caduceus.CheckCert</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>SendUtm</servlet-name>
         <servlet-class>app.servlets.bacchus.SendFile</servlet-class>
         <multipart-config>
@@ -55,7 +65,10 @@
     </servlet>
 
 
-
+    <servlet-mapping>
+        <servlet-name>checkcerts</servlet-name>
+        <url-pattern>/checkcerts</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>BacchusConnect</servlet-name>
@@ -70,6 +83,11 @@
     <servlet-mapping>
         <servlet-name>GodBacchus</servlet-name>
         <url-pattern>/togod</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ReplyCheck</servlet-name>
+        <url-pattern>/replycheck</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

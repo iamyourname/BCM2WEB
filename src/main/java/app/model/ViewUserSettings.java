@@ -17,7 +17,7 @@ public class ViewUserSettings {
     public static ViewUserSettings getInstance(){return viewUserSettings;}
 
     private static String[][] userParams = new String[10][2];
-    private static String[][] allUsersTableAuto = new String[23][2];
+    private static String[][] allUsersTableAuto = new String[25][2];
 
     public void initUserParams() throws SQLException {
         String sqlTableName = "select user_name, settings -> 'Таблица автогашения' \"use_table\" from public.bcm_users\n" +

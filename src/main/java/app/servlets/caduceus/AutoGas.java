@@ -317,9 +317,10 @@ public class AutoGas {
                         StringBuffer sb = new StringBuffer(rsPullM.getString((String) colNames[0]).replace("-",""));
                         sb.insert(4,"-");sb.insert(9,"-");sb.insert(14,"-");
                         sb.insert(19,"-");sb.insert(24,"-");sb.insert(29,"-");sb.insert(34,"-");
-                        certsToUpdate += sb +"_";
+                        certsToUpdate += sb + "_";
                     }
                 }
+
                 response +=""+AllConfirmCerts+"!"+""+countCertsInQueue+"!"+certsToUpdate;
 
                 stmtPullM.close();
