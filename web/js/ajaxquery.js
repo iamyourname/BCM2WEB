@@ -245,11 +245,11 @@ function checkCert(){
                     }else{
                         //toPrintCert += "<td>Не найден в кадуцей</td>";
                         //break;
-                        if(k <= arrK.length-1){
-                            console.log("K "+k+" arrK "+arrK.length)
-                            continue;
-                        }else{
+                        if(k >= arrK.length-2){
                             toPrintCert += "<td>Нет</td>";
+                            break;
+                        }else{
+                            console.log("K "+k+" arrK "+arrK.length);
                         }
 
 
@@ -269,11 +269,11 @@ function checkCert(){
                     }else{
                         //toPrintCert += "<td>Не найден в GK</td>";
                         //break;
-                        if(gk <= arrGK.length-1){
-                            console.log("GK "+gk+" arrgK "+arrGK.length)
-                            continue;
-                        }else{
+                        if(gk <= arrGK.length-2){
                             toPrintCert += "<td>Нет</td>";
+                            break;
+                        }else{
+                            console.log("GK "+gk+" arrgK "+arrGK.length)
                         }
 
 
