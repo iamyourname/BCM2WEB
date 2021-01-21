@@ -289,15 +289,15 @@ function checkCert(){
                 toPrintCert += "</tr>";
 
                 if(cadus==true && gkeus==true)
-                    greenRow+=u+"|";
+                    greenRow+=(u+1)+"|";
                 console.log("GREEN "+greenRow);
 
                 if(cadus==true && gkeus==false)
-                    yellowRow+=u+"|";
+                    yellowRow+=(u+1)+"|";
                 console.log("YELLOW "+yellowRow);
 
                 if(cadus==false && gkeus==false)
-                    redRow+=u+"|";
+                    redRow+=(u+1)+"|";
                 console.log("RED "+redRow);
 
 
@@ -312,17 +312,19 @@ function checkCert(){
                 var yellowC=yellowRow.split("|");
                 var redC=redRow.split("|");
 
-            for(var gc=0; gc < greenC.length;gc++){
-                document.getElementById("'uuu"+greenC[gc]+"'").style.backgroundColor="green";
-            }
+                if(greenC.length>=1){for(var gc=0; gc < greenC.length;gc++){
+                    document.getElementById("'uuu"+greenC[gc]+"'").style.backgroundColor="green";
+                }}
 
-            for(var yc=0; yc < yellowC.length;yc++){
+
+            if(yellowC.length>=1){for(var yc=0; yc < yellowC.length;yc++){
                 document.getElementById("'uuu"+yellowC[yc]+"'").style.backgroundColor="yellow";
-            }
+            }}
 
-            for(var rc=0; rc < redC.length;rc++){
+            if(redC.length>=1){for(var rc=0; rc < redC.length;rc++){
                 document.getElementById("'uuu"+redC[rc]+"'").style.backgroundColor="red";
-            }
+            }}
+
 
 
 
