@@ -290,15 +290,15 @@ function checkCert(){
 
                 if(cadus==true && gkeus==true)
                     greenRow+=(u+1)+"|";
-                console.log("GREEN "+greenRow);
+                //console.log("GREEN "+greenRow);
 
                 if(cadus==true && gkeus==false)
                     yellowRow+=(u+1)+"|";
-                console.log("YELLOW "+yellowRow);
+                //console.log("YELLOW "+yellowRow);
 
                 if(cadus==false && gkeus==false)
                     redRow+=(u+1)+"|";
-                console.log("RED "+redRow);
+               // console.log("RED "+redRow);
 
 
 
@@ -314,7 +314,7 @@ function checkCert(){
 
                 if(greenC.length>=2){
                     for(var gc=0; gc < greenC.length-1;gc++){
-                        var dgebi="uuu"+(gc+1);
+                        var dgebi="uuu"+(greenC[gc]);
                         //console.log(dgebi);
                         var rowG=document.getElementById(dgebi);
 
@@ -325,7 +325,7 @@ function checkCert(){
 
             if(yellowC.length>=2){
                 for(var yc=0; yc < yellowC.length-1;yc++){
-                    var dgebi="uuu"+(yc+1);
+                    var dgebi="uuu"+(yellowC[yc]);
                     //console.log(dgebi);
                     var rowY=document.getElementById(dgebi);
                     rowY.classList.remove("w3-green");
@@ -336,7 +336,7 @@ function checkCert(){
 
             if(redC.length>=2){
                 for(var rc=0; rc < redC.length-1;rc++){
-                var dgebi="uuu"+(rc+1);
+                var dgebi="uuu"+(redC[rc]);
                 //console.log(dgebi);
                 var rowR=document.getElementById(dgebi);
                 rowR.classList.remove("w3-green");
@@ -349,7 +349,7 @@ function checkCert(){
 
 
 
-
+            console.log("GREEN "+greenRow+"YELLOW "+yellowRow+"RED "+redRow);
 
         }
     }
