@@ -314,6 +314,8 @@ function checkCert(){
 
                 if(greenC.length>=1){
                     for(var gc=0; gc < greenC.length;gc++){
+                        var dgebi="uuu"+(gc+1);
+                        console.log(dgebi);
                     //document.getElementById("'uuu"+(gc+1)+"'").style.backgroundColor="green";
                     document.getElementById("'uuu"+(gc+1)+"'").color="green";
                      }
