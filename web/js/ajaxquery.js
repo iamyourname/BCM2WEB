@@ -217,7 +217,7 @@ function checkCert(){
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
             var toPrintCert = "<table class=\"w3-table-all w3-small\">";
-             toPrintCert += "<tr class = 'w3-light-blue'><th>№</th><th>Кадуцей</th><th>GK</th><th>UUID</th></tr>";
+             toPrintCert += "<tr class = 'w3-light-blue'><th style='width: 5%'>№</th><th>Кадуцей</th><th>GK</th><th>UUID</th></tr>";
 
             var respText = xhrB.responseText.split("&");
             var arrK = respText[0].split("|");

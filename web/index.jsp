@@ -719,8 +719,12 @@ body {
             <label>SAP:
                 <input  id="csap" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
             </label>
-            <label>Сертификат:
-                <input onclick="document.getElementById('id777').style.display='block'" id="ccert" type="text" value="Добавить" class="w3-input w3-border w3-round-medium" style="width: 30%">
+            <label>Сертификаты:
+                <button onclick="document.getElementById('id777').style.display='block'"  class="w3-btn w3-green w3-round-large w3-margin-bottom" >Добавить</button>
+                <%--
+                                <input onclick="document.getElementById('id777').style.display='block'" id="ccert" type="text" value="Добавить" class="w3-input w3-border w3-round-medium" style="width: 30%">
+
+                --%>
             </label><br>
         </form>
         <button id="startCheck"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="checkCert()" >Проверить</button>
@@ -737,7 +741,7 @@ body {
               class="w3-button w3-display-topright">&times;</span>
                         <h2>Сертификаты</h2>
                     </header>
-                    <div class="w3-container" contenteditable="true" id="certsToCheck" style="text-align: left;overflow-y: scroll;height: 475px;"></div>
+                    <div class="w3-container" contenteditable="true" id="certsToCheck" style="text-align: left;overflow-y: scroll;height: 225px;width: 300px;"></div>
                     <footer class="w3-container w3-teal">
                     </footer>
                 </div>
