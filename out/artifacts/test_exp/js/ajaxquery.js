@@ -216,7 +216,7 @@ function checkCert(){
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
-            var toPrintCert = "<table class=\"w3-table w3-small\">";
+            var toPrintCert = "<table class=\"w3-table-all w3-small\">";
              toPrintCert += "<tr class = 'w3-light-blue'><th>№</th><th>Кадуцей</th><th>GK</th><th>UUID</th></tr>";
 
             var respText = xhrB.responseText.split("&");
@@ -231,7 +231,7 @@ function checkCert(){
             for(var u=0; u < arrUsersCert.length-2;u++){
 
                 var cadus=false; var gkeus=false;
-                toPrintCert += "<tr id=\"uuu"+(u+1)+"\">";
+                toPrintCert += "<tr id=\"uuu"+(u+1)+"\" class=\"w3-green\">";
                 toPrintCert += "<td>"+(u+1)+"</td>";
 
 
