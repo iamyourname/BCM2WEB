@@ -310,15 +310,15 @@ function checkCert(){
                 var redC=redRow.split("|");
 
             for(var gc=0; gc < greenC.length;gc++){
-                document.getElementById('uuu'+greenC[gc]).style.background="green";
+                document.getElementById('uuu'+greenC[gc]).style.backgroundColor="green";
             }
 
             for(var yc=0; yc < yellowC.length;yc++){
-                document.getElementById('uuu'+yellowC[yc]).style.background="yellow";
+                document.getElementById('uuu'+yellowC[yc]).style.backgroundColor="yellow";
             }
 
             for(var rc=0; rc < redC.length;rc++){
-                document.getElementById('uuu'+redC[rc]).style.background="red";
+                document.getElementById('uuu'+redC[rc]).style.backgroundColor="red";
             }
 
 
