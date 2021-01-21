@@ -203,35 +203,86 @@ function checkCert(){
     let xhrB = new XMLHttpRequest();
 
     var csap = document.getElementById("csap").value;
-    var ccert = document.getElementById("certsToCheck").innerText;
+    var printCerts = document.getElementById("outputCert");
 
-    var listcc = ccert.replace(/\n/g,"!");
-    //listOfCerts.replace(/\s/g,"!");
-    /*
-    * */
-    alert("list:"+listcc);
+    var listius = document.getElementById("certsToCheck").innerText; //document.getElementById("certsToCheck").innerText;
 
-    var listOfCheck=listcc.split("!");
-    for(var i =0; i < listOfCheck.length; i++){
-
-        alert(listOfCheck[i]);
-
-    }
+    var listiusH = document.getElementById("certsToCheck").innerText;
 
 
-
+    var mainMesSert = listius.replace(/\-/g,"");
 
 
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
+            var toPrintCert = "<table class=\"w3-table-all w3-small\">";
+             toPrintCert += "<tr class = 'w3-light-blue'><th>№</th><th>Кадуцей</th><th>GK</th><th>UUID</th></tr>";
 
+            var respText = xhrB.responseText.split("&");
+            var arrK = respText[0].split("|");
+            var arrGK = respText[1].split("|");
+            var arrUsersCert = respText[2].split("|");
+
+            for(var u=0; u < arrUsersCert.length-2;u++){
+
+                toPrintCert += "<tr id=\"uuu"+(u+1)+"\">";
+                toPrintCert += "<td>"+(u+1)+"</td>";
+
+
+                //ищем сертификат в каду из найденных среди введенных
+                for(var k=0; k < arrK.length;k++){
+                    if(arrUsersCert[u]==arrK[k]){
+                        //toPrintCert += "<td>"+arrK[k]+"</td>";
+                        toPrintCert += "<td>Да</td>";
+                        break;
+                    }else{
+                        //toPrintCert += "<td>Не найден в кадуцей</td>";
+                        //break;
+                        if(k>=arrK.length)
+                            toPrintCert += "<td>Нет</td>";
+                        else
+                            continue;
+
+
+                    }
+
+                }
+
+                //ищем сертификат в GK из найденных среди введенных
+                for(var gk=0; k < arrGK.length;gk++){
+                    if(arrUsersCert[u]==arrGK[gk]){
+                        //toPrintCert += "<td>"+arrGK[gk]+"</td>";
+                        toPrintCert += "<td>Да</td>";
+                        break;
+                    }else{
+                        //toPrintCert += "<td>Не найден в GK</td>";
+                        //break;
+                        if(gk>=arrGK.length)
+                            toPrintCert += "<td>Нет</td>";
+                        else
+                            continue;
+
+                    }
+                    //toPrintCert += "<td>Нет</td>";
+                }
+
+
+                toPrintCert += "<td>"+arrUsersCert[u]+"</td>";
+
+                toPrintCert += "</tr>";
+            }
+
+            toPrintCert += "</table>";
+
+            printCerts.innerHTML = toPrintCert;
+            printCerts.style.display="block";
 
         }
     }
 
     var body = 'SAP=' + csap +
-        "&cert=" + ccert;
+        "&cert=" + mainMesSert;
 
     xhrB.open('POST', '/test/checkcerts', true);
     xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')

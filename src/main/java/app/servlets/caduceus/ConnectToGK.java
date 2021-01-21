@@ -38,11 +38,38 @@ public class ConnectToGK {
     }
 
     public static String compare_cert(String sap, String cert) throws SQLException {
+
         String responseGK="";
         String responseK="";
+        String certToCompare="";
+        String userCerts="";
 
-        String findCertGK = "select vet_doc_uuid from xrg_evsd where vet_doc_uuid in ('"+cert+"')";
-        String findCertK = "select mgen_uuid from m_vetdocument where mgen_uuid in ('"+cert+"')";
+        int countOfCerts = cert.length() / 32;
+
+        String[] arrCerts= new String[countOfCerts];
+
+        if(countOfCerts>=32){
+            System.out.println("1");
+            certToCompare = arrCerts[0];
+        }else{
+            System.out.println(countOfCerts);
+            for (int i=0; i < arrCerts.length;i++){
+                arrCerts[i] = cert.substring(i*32,(32*(i+1)));
+                StringBuffer sb = new StringBuffer(arrCerts[i]);
+                sb.insert(8,"-");sb.insert(13,"-");sb.insert(18,"-");sb.insert(23,"-");
+                arrCerts[i] = cert.substring(i*32,(32*(i+1)));
+                certToCompare += "'"+sb+"',";
+                userCerts += sb+"|";
+
+            }
+            certToCompare+="|";certToCompare=certToCompare.replace("',|","'");
+            userCerts+="|";userCerts=userCerts.replace("',|","'");
+        }
+
+        System.out.println(certToCompare);
+
+        String findCertGK = "select vet_doc_uuid from xrg_evsd where vet_doc_uuid in ("+certToCompare+") order by 1";
+        String findCertK = "select mgen_uuid from m_vetdocument where mgen_uuid in ("+certToCompare+") order by 1";
 
         Connection pullConn = ConnectionPool.getInstance().getConnectionMerc();
 
@@ -71,12 +98,13 @@ public class ConnectToGK {
         pullConn.close();
         conn.close();
 
+        //System.out.println("GK\n"+responseGK+"\nK\n"+responseK);
+        //System.out.println("GK\n"+findCertGK+"\nK\n"+findCertK);
 
 
 
 
-
-        return responseGK+"&"+responseK;
+        return responseK+"&"+responseGK+"&"+userCerts;
     }
 
 

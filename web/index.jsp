@@ -720,7 +720,7 @@ body {
                 <input  id="csap" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
             </label>
             <label>Сертификат:
-                <input onclick="document.getElementById('id777').style.display='block'" id="ccert" type="text"  class="w3-input w3-border w3-round-medium" style="width: 30%">
+                <input onclick="document.getElementById('id777').style.display='block'" id="ccert" type="button"  class="w3-input w3-border w3-round-medium" style="width: 30%">
             </label><br>
         </form>
         <button id="startCheck"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="checkCert()" >Проверить</button>
@@ -737,9 +737,7 @@ body {
               class="w3-button w3-display-topright">&times;</span>
                         <h2>Сертификаты</h2>
                     </header>
-                    <div class="w3-container">
-                        <div  contenteditable="true" id="certsToCheck" style="overflow-y: scroll"></div>
-                    </div>
+                    <div class="w3-container" contenteditable="true" id="certsToCheck" style="text-align: left;overflow-y: scroll;height: 475px;"></div>
                     <footer class="w3-container w3-teal">
                     </footer>
                 </div>

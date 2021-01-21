@@ -27,7 +27,6 @@ public class CheckCert extends HttpServlet {
 
         String cert = req.getParameter("cert");
 
-        System.out.println(cert);
 
 
         try {
