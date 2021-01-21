@@ -223,9 +223,14 @@ function checkCert(){
             var arrK = respText[0].split("|");
             var arrGK = respText[1].split("|");
             var arrUsersCert = respText[2].split("|");
+            var greenRow="";
+            var yellowRow="";
+            var redRow="";
+
 
             for(var u=0; u < arrUsersCert.length-2;u++){
 
+                var cadus=false; var gkeus=false;
                 toPrintCert += "<tr id=\"uuu"+(u+1)+"\">";
                 toPrintCert += "<td>"+(u+1)+"</td>";
 
@@ -235,11 +240,12 @@ function checkCert(){
                     if(arrUsersCert[u]==arrK[k]){
                         //toPrintCert += "<td>"+arrK[k]+"</td>";
                         toPrintCert += "<td>Да</td>";
+                        cadus=true;
                         break;
                     }else{
                         //toPrintCert += "<td>Не найден в кадуцей</td>";
                         //break;
-                        if(k>=arrK.length)
+                        if(k<arrK.length)
                             continue;
                         else
                             toPrintCert += "<td>Нет</td>";
@@ -255,11 +261,12 @@ function checkCert(){
                     if(arrUsersCert[u]==arrGK[gk]){
                         //toPrintCert += "<td>"+arrGK[gk]+"</td>";
                         toPrintCert += "<td>Да</td>";
+                        gkeus=false;
                         break;
                     }else{
                         //toPrintCert += "<td>Не найден в GK</td>";
                         //break;
-                        if(gk>=arrGK.length)
+                        if(gk<arrGK.length)
                             continue;
                         else
                             toPrintCert += "<td>Нет</td>";
@@ -273,9 +280,23 @@ function checkCert(){
                 toPrintCert += "<td>"+arrUsersCert[u]+"</td>";
 
                 toPrintCert += "</tr>";
+
+                if(cadus==true && gkeus==true)
+                    greenRow+=u+"|"
+
+                if(cadus==true && gkeus==false)
+                    yellowRow+=u+"|"
+
+                if(cadus==false && gkeus==false)
+                    redRowRow+=u+"|"
+
+
+
             }
 
             toPrintCert += "</table>";
+
+            
 
             printCerts.innerHTML = toPrintCert;
             printCerts.style.display="block";
