@@ -250,7 +250,7 @@ function checkCert(){
                             cadus=false;
                             break;
                         }else{
-                            console.log("K "+k+" arrK "+arrK.length);
+                           // console.log("K "+k+" arrK "+arrK.length);
                         }
 
 
@@ -275,7 +275,7 @@ function checkCert(){
                             gkeus=false;
                             break;
                         }else{
-                            console.log("GK "+gk+" arrgK "+arrGK.length)
+                            //console.log("GK "+gk+" arrgK "+arrGK.length)
                         }
 
 
@@ -316,16 +316,20 @@ function checkCert(){
                     for(var gc=0; gc < greenC.length-1;gc++){
                         var dgebi="uuu"+(gc+1);
                         console.log(dgebi);
+                        var rowG=document.getElementById("'"+dgebi+"'").innerHTML;
+                        console.log(rowG)
                     //document.getElementById("'uuu"+(gc+1)+"'").style.backgroundColor="green";
-                    document.getElementById("'"+dgebi+"'").classList+="w3-green";
+
                      }
                 }
 
 
-            if(yellowC.length>=1){for(var yc=0; yc < yellowC.length;yc++){
+            if(yellowC.length>=1){
+                for(var yc=0; yc < yellowC.length;yc++){
                 //document.getElementById("'uuu"+(yc+1)+"'").style.backgroundColor="yellow";
                 document.getElementById("'uuu"+(yc+1)+"'").color="yellow";
-            }}
+                }
+            }
 
             if(redC.length>=1){for(var rc=0; rc < redC.length;rc++){
                 //document.getElementById("'uuu"+(rc+1)+"'").style.backgroundColor="red";
