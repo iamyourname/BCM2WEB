@@ -216,7 +216,7 @@ function checkCert(){
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
-            var toPrintCert = "<table class=\"w3-table-all w3-small\">";
+            var toPrintCert = "<table class=\"w3-table w3-small\">";
              toPrintCert += "<tr class = 'w3-light-blue'><th>№</th><th>Кадуцей</th><th>GK</th><th>UUID</th></tr>";
 
             var respText = xhrB.responseText.split("&");
@@ -313,9 +313,11 @@ function checkCert(){
                 var redC=redRow.split("|");
 
                 if(greenC.length>=1){
-                    for(var gc=0; gc < greenC.length;gc++){
+                    for(var gc=0; gc < greenC.length-1;gc++){
+                        var dgebi="uuu"+(gc+1);
+                        console.log(dgebi);
                     //document.getElementById("'uuu"+(gc+1)+"'").style.backgroundColor="green";
-                    document.getElementById("'uuu"+(gc+1)+"'").color="green";
+                    document.getElementById("'"+dgebi+"'").classList+="w3-green";
                      }
                 }
 
