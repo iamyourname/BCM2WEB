@@ -288,7 +288,7 @@ function checkCert(){
                     yellowRow+=u+"|"
 
                 if(cadus==false && gkeus==false)
-                    redRowRow+=u+"|"
+                    redRow+=u+"|"
 
 
 

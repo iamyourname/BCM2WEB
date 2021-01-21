@@ -288,7 +288,7 @@ function checkCert(){
                     yellowRow+=u+"|"
 
                 if(cadus==false && gkeus==false)
-                    redRowRow+=u+"|"
+                    redRow+=u+"|"
 
 
 
@@ -296,7 +296,7 @@ function checkCert(){
 
             toPrintCert += "</table>";
 
-            
+
 
             printCerts.innerHTML = toPrintCert;
             printCerts.style.display="block";
