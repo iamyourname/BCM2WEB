@@ -318,22 +318,24 @@ function checkCert(){
                         console.log(dgebi);
                         var rowG=document.getElementById(dgebi).innerHTML;
                         console.log(rowG)
-                    //document.getElementById("'uuu"+(gc+1)+"'").style.backgroundColor="green";
-
                      }
                 }
 
 
             if(yellowC.length>=1){
                 for(var yc=0; yc < yellowC.length;yc++){
-                //document.getElementById("'uuu"+(yc+1)+"'").style.backgroundColor="yellow";
-                document.getElementById("'uuu"+(yc+1)+"'").color="yellow";
+                    var dgebi="uuu"+(yc+1);
+                    console.log(dgebi);
+                    var rowY=document.getElementById(dgebi).innerHTML;
+                    console.log(rowY)
                 }
             }
 
             if(redC.length>=1){for(var rc=0; rc < redC.length;rc++){
-                //document.getElementById("'uuu"+(rc+1)+"'").style.backgroundColor="red";
-                document.getElementById("'uuu"+(rc+1)+"'").color="yellow";
+                var dgebi="uuu"+(rc+1);
+                console.log(dgebi);
+                var rowR=document.getElementById(dgebi).innerHTML;
+                console.log(rowR)
             }}
 
 
