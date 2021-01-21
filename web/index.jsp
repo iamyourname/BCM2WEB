@@ -720,7 +720,7 @@ body {
                 <input  id="csap" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
             </label>
             <label>Сертификаты:
-                <input onclick="document.getElementById('id777').style.display='block'" id="ccert" type="button" value="Добавить" class="w3-input w3-btn w3-green w3-round-large" style="width: 30%">
+                <input onclick="document.getElementById('id777').style.display='block'" id="ccert" type="button" value="Добавить" class="w3-btn w3-green w3-round-large" style="width: 30%">
 
             <%--
                 <button onclick="document.getElementById('id777').style.display='block'"  class="w3-btn w3-green w3-round-large w3-margin-bottom" >Добавить</button>
