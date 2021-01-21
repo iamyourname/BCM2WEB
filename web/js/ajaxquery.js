@@ -312,17 +312,22 @@ function checkCert(){
                 var yellowC=yellowRow.split("|");
                 var redC=redRow.split("|");
 
-                if(greenC.length>=1){for(var gc=0; gc < greenC.length;gc++){
-                    document.getElementById("'uuu"+greenC[gc]+"'").style.backgroundColor="green";
-                }}
+                if(greenC.length>=1){
+                    for(var gc=0; gc < greenC.length;gc++){
+                    //document.getElementById("'uuu"+(gc+1)+"'").style.backgroundColor="green";
+                    document.getElementById("'uuu"+(gc+1)+"'").color="green";
+                     }
+                }
 
 
             if(yellowC.length>=1){for(var yc=0; yc < yellowC.length;yc++){
-                document.getElementById("'uuu"+yellowC[yc]+"'").style.backgroundColor="yellow";
+                //document.getElementById("'uuu"+(yc+1)+"'").style.backgroundColor="yellow";
+                document.getElementById("'uuu"+(yc+1)+"'").color="yellow";
             }}
 
             if(redC.length>=1){for(var rc=0; rc < redC.length;rc++){
-                document.getElementById("'uuu"+redC[rc]+"'").style.backgroundColor="red";
+                //document.getElementById("'uuu"+(rc+1)+"'").style.backgroundColor="red";
+                document.getElementById("'uuu"+(rc+1)+"'").color="yellow";
             }}
 
 
