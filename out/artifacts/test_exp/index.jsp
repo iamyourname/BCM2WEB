@@ -742,7 +742,7 @@ body {
               class="w3-button w3-display-topright">&times;</span>
                         <h2>Сертификаты</h2>
                     </header>
-                    <div class="w3-container" contenteditable="true" id="certsToCheck" style="text-align: left;overflow-y: scroll;height: 225px;width: 300px;"></div>
+                    <div class="w3-container" contenteditable="true" id="certsToCheck" style="text-align: left;overflow-y: scroll;height: 225px;"></div>
                     <footer class="w3-container w3-teal">
                     </footer>
                 </div>
