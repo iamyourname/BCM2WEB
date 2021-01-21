@@ -312,31 +312,38 @@ function checkCert(){
                 var yellowC=yellowRow.split("|");
                 var redC=redRow.split("|");
 
-                if(greenC.length>=1){
+                if(greenC.length>=2){
                     for(var gc=0; gc < greenC.length-1;gc++){
                         var dgebi="uuu"+(gc+1);
-                        console.log(dgebi);
-                        var rowG=document.getElementById(dgebi).innerHTML;
-                        console.log(rowG)
+                        //console.log(dgebi);
+                        var rowG=document.getElementById(dgebi);
+
+                       // console.log(rowG)
                      }
                 }
 
 
-            if(yellowC.length>=1){
-                for(var yc=0; yc < yellowC.length;yc++){
+            if(yellowC.length>=2){
+                for(var yc=0; yc < yellowC.length-1;yc++){
                     var dgebi="uuu"+(yc+1);
-                    console.log(dgebi);
-                    var rowY=document.getElementById(dgebi).innerHTML;
-                    console.log(rowY)
+                    //console.log(dgebi);
+                    var rowY=document.getElementById(dgebi);
+                    rowY.classList.remove("w3-green");
+                    rowY.classList.add("w3-yellow");
+                    //console.log(rowY)
                 }
             }
 
-            if(redC.length>=1){for(var rc=0; rc < redC.length;rc++){
+            if(redC.length>=2){
+                for(var rc=0; rc < redC.length-1;rc++){
                 var dgebi="uuu"+(rc+1);
-                console.log(dgebi);
-                var rowR=document.getElementById(dgebi).innerHTML;
-                console.log(rowR)
-            }}
+                //console.log(dgebi);
+                var rowR=document.getElementById(dgebi);
+                rowR.classList.remove("w3-green");
+                rowR.classList.add("w3-red");
+                //console.log(rowR)
+                }
+            }
 
 
 
