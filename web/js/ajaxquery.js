@@ -240,9 +240,10 @@ function checkCert(){
                         //toPrintCert += "<td>Не найден в кадуцей</td>";
                         //break;
                         if(k>=arrK.length)
-                            toPrintCert += "<td>Нет</td>";
-                        else
                             continue;
+                        else
+                            toPrintCert += "<td>Нет</td>";
+
 
 
                     }
@@ -259,9 +260,10 @@ function checkCert(){
                         //toPrintCert += "<td>Не найден в GK</td>";
                         //break;
                         if(gk>=arrGK.length)
-                            toPrintCert += "<td>Нет</td>";
-                        else
                             continue;
+                        else
+                            toPrintCert += "<td>Нет</td>";
+
 
                     }
                     //toPrintCert += "<td>Нет</td>";
