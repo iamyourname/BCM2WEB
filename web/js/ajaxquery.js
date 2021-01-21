@@ -247,6 +247,7 @@ function checkCert(){
                         //break;
                         if(k >= arrK.length-2){
                             toPrintCert += "<td>Нет</td>";
+                            cadus=false;
                             break;
                         }else{
                             console.log("K "+k+" arrK "+arrK.length);
@@ -264,13 +265,14 @@ function checkCert(){
                     if(arrUsersCert[u]==arrGK[gk]){
                         //toPrintCert += "<td>"+arrGK[gk]+"</td>";
                         toPrintCert += "<td>Да</td>";
-                        gkeus=false;
+                        gkeus=true;
                         break;
                     }else{
                         //toPrintCert += "<td>Не найден в GK</td>";
                         //break;
-                        if(gk <= arrGK.length-2){
+                        if(gk >= arrGK.length-2){
                             toPrintCert += "<td>Нет</td>";
+                            gkeus=false;
                             break;
                         }else{
                             console.log("GK "+gk+" arrgK "+arrGK.length)
@@ -300,11 +302,29 @@ function checkCert(){
             }
 
             toPrintCert += "</table>";
-
-
-
             printCerts.innerHTML = toPrintCert;
             printCerts.style.display="block";
+
+                var greenC=greenRow.split("|");
+                var yellowC=yellowRow.split("|");
+                var redC=redRow.split("|");
+
+            for(var gc=0; gc < greenC.length;gc++){
+                document.getElementById('uuu'+greenC[gc]).style.background="green";
+            }
+
+            for(var yc=0; yc < yellowC.length;yc++){
+                document.getElementById('uuu'+yellowC[yc]).style.background="yellow";
+            }
+
+            for(var rc=0; rc < redC.length;rc++){
+                document.getElementById('uuu'+redC[rc]).style.background="red";
+            }
+
+
+
+
+
 
         }
     }
