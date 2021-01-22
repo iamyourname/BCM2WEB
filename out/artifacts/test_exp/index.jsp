@@ -734,6 +734,9 @@ body {
         <button id="ShowMainTableAuto"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="showTableAutoGas()" >Просмотр таблицы автогашения</button!-->
 
         <form  class = "auth-info"  >
+            <label>
+                <img  src="img/gui_eraser_icon_157160.png" align = "right" />
+            </label>
             <label>SAP:
                 <input  id="csap" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
             </label>
