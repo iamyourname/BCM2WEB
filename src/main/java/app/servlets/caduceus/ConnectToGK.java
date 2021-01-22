@@ -47,7 +47,7 @@ public class ConnectToGK {
         String certToCompare="";
         String userCerts="";
 
-        String[] arrCerts= cert.split("|");
+        String[] arrCerts= cert.split("\\|");
 
 
        // int countOfCerts = cert.length() / 32;
