@@ -1,10 +1,13 @@
 package app.servlets.caduceus;
 
 import app.entities.ConnectionPool;
+import app.servlets.NTLMUserFilter;
 
 import java.sql.*;
 
 import static app.entities.ConnectToBD.driverNamePostgres;
+import static app.entities.Logs.writeLogMain;
+import static app.entities.Logs.writeLogParent;
 
 public class ConnectToGK {
 
@@ -77,7 +80,13 @@ public class ConnectToGK {
 
         StringBuffer sb = new StringBuffer(cert.replace("-",""));
 
+        String jsonOptions =
+                "{\"SAP\":\"" + sap + "\"," +
+                        "\"FROM\":\"WEB\"}"; // multi
 
+        writeLogMain(NTLMUserFilter.getUserName(),"CADUCEUS","ПОИСК",
+                "СЕРТИФИКАТОВ",
+                jsonOptions,"LOADING","");
 
 
         Statement stmtK = pullConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -100,7 +109,9 @@ public class ConnectToGK {
 
         //System.out.println("GK\n"+responseGK+"\nK\n"+responseK);
         //System.out.println("GK\n"+findCertGK+"\nK\n"+findCertK);
-
+        writeLogParent(NTLMUserFilter.getUserName(),"CADUCEUS","ПОИСК",
+                "СЕРТИФИКАТОВ",
+                jsonOptions,"LOADING","");
 
 
 

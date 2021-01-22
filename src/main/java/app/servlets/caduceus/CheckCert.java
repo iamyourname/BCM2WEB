@@ -30,6 +30,7 @@ public class CheckCert extends HttpServlet {
 
 
         try {
+
             out.append(ConnectToGK.compare_cert(sap,cert));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
