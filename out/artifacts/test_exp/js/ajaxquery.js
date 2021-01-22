@@ -273,51 +273,27 @@ function checkCert(){
                 for(var k=0; k < arrK.length-1;k++){
                     if(arrUsersCert[u]==arrK[k]){
                         //toPrintCert += "<td>"+arrK[k]+"</td>";
-                        toPrintCert += "<td>Да</td>";
+                        //toPrintCert += "<td>Да</td>";
                         cadus=true;
                         break;
-                    }else{
-                        //toPrintCert += "<td>Не найден в кадуцей</td>";
-                        //break;
-                        if(k >= arrK.length-1){
-                            toPrintCert += "<td>Нет</td>";
-                            cadus=false;
-                            break;
-                        }else{
-                           // console.log("K "+k+" arrK "+arrK.length);
-                        }
-
-
-
-
                     }
 
                 }
+
+                if(cadus==false){toPrintCert += "<td>Нет</td>";}else{toPrintCert += "<td>Да</td>";}
 
                 //ищем сертификат в GK из найденных среди введенных
                 for(var gk=0; gk < arrGK.length-1;gk++){
                     if(arrUsersCert[u]==arrGK[gk]){
                         //toPrintCert += "<td>"+arrGK[gk]+"</td>";
-                        toPrintCert += "<td>Да</td>";
+                        //toPrintCert += "<td>Да</td>";
                         gkeus=true;
                         break;
-                    }else{
-                        //toPrintCert += "<td>Не найден в GK</td>";
-                        //break;
-                        if(gk >= arrGK.length-1){
-                            toPrintCert += "<td>Нет</td>";
-                            gkeus=false;
-                            break;
-                        }else{
-                            //console.log("GK "+gk+" arrgK "+arrGK.length)
-                        }
-
-
                     }
-                    //toPrintCert += "<td>Нет</td>";
                 }
 
-
+                if(gkeus==false){toPrintCert += "<td>Нет</td>";}else{toPrintCert += "<td>Да</td>";}
+                
                 toPrintCert += "<td>"+arrUsersCert[u]+"</td>";
 
                 toPrintCert += "</tr>";
