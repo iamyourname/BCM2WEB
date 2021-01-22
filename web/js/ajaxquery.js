@@ -384,7 +384,12 @@ function checkCert(){
 
 }
 
+function clearCerts(){
 
+    var clearSap = document.getElementById("csap");
+    var clearCert = document.getElementById("certsToCheck") //document.getElementById("certsToCheck").innerText;
+    clearSap.value="";clearCert.innerText="";
+}
 
 function checkResp() {
     var replik = document.getElementById("inpresp").value;
