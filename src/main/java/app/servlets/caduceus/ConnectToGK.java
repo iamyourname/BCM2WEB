@@ -54,7 +54,7 @@ public class ConnectToGK {
 
         //String[] arrCerts= new String[countOfCerts];
 
-        for(int i=0;i<arrCerts.length-1;i++){
+        for(int i=0;i<arrCerts.length;i++){
             StringBuffer sb = new StringBuffer(arrCerts[i]);
             sb.insert(8,"-");sb.insert(13,"-");sb.insert(18,"-");sb.insert(23,"-");
             certToCompare += "'"+sb+"',";
