@@ -174,19 +174,31 @@ body {
         <h4 align="right">
             <%
                 if(NTLMUserFilter.getUserName().equals("Roma.Ivanov2")){
-
                     out.println(Bcm2WebMain.hey_bro);}
-
-            %>!!!TEST!!! Привет <% out.println(NTLMUserFilter.getUserName()); %>!
-            Выполнено инцидентов-трудозатраты за месяц:<%
+            %>
+            !!!TEST!!! Привет
+            <% out.println(NTLMUserFilter.getUserName()); %>!
+            Выполнено инцидентов-трудозатраты за месяц:
+            <%
             String incs = ConnToInc.ShowUserInc(NTLMUserFilter.getUserName());
             String mins = ConnToInc.ShowUserTime(NTLMUserFilter.getUserName());
-            if(incs.isEmpty()){incs="0";}
-            out.println(incs);
-
-%>
-            инцидентов <% out.println(mins); %>
-            минут
+            String whoami = NTLMUserFilter.getUserName();
+            //if(incs.isEmpty()){incs="0";}
+            if(whoami.equals("m.moiseev-2")){
+                    out.println("0");
+            }else{
+                            out.println(incs);
+            }
+            %>
+            инцидентов,
+            <%
+             if(whoami.equals("m.moiseev-2")){
+                 out.println("0");
+            }else{
+                 out.println(mins);
+            }
+            %>
+            минут.
 
     </div>
 
