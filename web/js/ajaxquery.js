@@ -212,6 +212,7 @@ function checkCert(){
 
     var mainMesSert = listius.replace(/\-/g,"");
 
+    /*
     var rowCounts = listius.split(/\n+/g);
 
     console.log(rowCounts[i]+" wrong\n")
@@ -223,6 +224,10 @@ function checkCert(){
             console.log(rowCounts[i]+" wrong\n")
         }
     }
+    * */
+
+
+
 
 
 
