@@ -111,7 +111,7 @@ public class ConnectToGK {
         //System.out.println("GK\n"+findCertGK+"\nK\n"+findCertK);
         writeLogParent(NTLMUserFilter.getUserName(),"CADUCEUS","ПОИСК",
                 "СЕРТИФИКАТОВ",
-                jsonOptions,"LOADING","");
+                jsonOptions,"OK","");
 
 
 
