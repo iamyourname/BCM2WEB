@@ -211,7 +211,19 @@ function checkCert(){
 
 
     var mainMesSert = listius.replace(/\-/g,"");
-    mainMesSert=mainMesSert.replace(/\s+/g,'');
+
+    var rowCounts = listius.split(/\s+/g);
+
+    //mainMesSert=mainMesSert.replace(/\s+/g,'');
+
+    for (var i=0; rowCounts.length;i++){
+        if(rowCounts[i].length!=32){
+            console.log(rowCounts[i]+"wrong")
+        }
+    }
+
+
+
 
 
     xhrB.onreadystatechange = function() {
@@ -355,7 +367,7 @@ function checkCert(){
 
 
 
-            console.log("GREEN "+greenRow+"YELLOW "+yellowRow+"RED "+redRow);
+            //console.log("GREEN "+greenRow+"YELLOW "+yellowRow+"RED "+redRow);
 
         }
     }
