@@ -93,6 +93,8 @@ public class ConnToInc {
         String AllUserInc = rsDay.getString(1);
         stmt.close();
         conn.close();
+        if(AllUserInc.equals(""))
+            AllUserInc="0";
         return AllUserInc;
     }
 
@@ -121,6 +123,8 @@ public class ConnToInc {
         String allUserTime = rsDayTime.getString(1);
         stmt.close();
         conn.close();
+        if(allUserTime.equals(""))
+            allUserTime="0";
         return allUserTime;
     }
 
