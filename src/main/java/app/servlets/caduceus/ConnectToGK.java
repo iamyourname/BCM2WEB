@@ -47,11 +47,24 @@ public class ConnectToGK {
         String certToCompare="";
         String userCerts="";
 
-        int countOfCerts = cert.length() / 32;
+        String[] arrCerts= cert.split("|");
 
-        String[] arrCerts= new String[countOfCerts];
 
-        if(countOfCerts>=32){
+       // int countOfCerts = cert.length() / 32;
+
+        //String[] arrCerts= new String[countOfCerts];
+
+        for(int i=0;i<arrCerts.length-1;i++){
+            StringBuffer sb = new StringBuffer(arrCerts[i]);
+            sb.insert(8,"-");sb.insert(13,"-");sb.insert(18,"-");sb.insert(23,"-");
+            certToCompare += "'"+sb+"',";
+            userCerts += sb+"|";
+        }
+
+        certToCompare+="|";certToCompare=certToCompare.replace("',|","'");
+        userCerts+="|";userCerts=userCerts.replace("',|","'");
+
+       /* if(countOfCerts>=32){
             System.out.println("1");
             certToCompare = arrCerts[0];
         }else{
@@ -68,6 +81,7 @@ public class ConnectToGK {
             certToCompare+="|";certToCompare=certToCompare.replace("',|","'");
             userCerts+="|";userCerts=userCerts.replace("',|","'");
         }
+        */
 
         System.out.println(certToCompare);
 
