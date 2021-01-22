@@ -207,10 +207,19 @@ function checkCert(){
 
     var listius = document.getElementById("certsToCheck").innerText; //document.getElementById("certsToCheck").innerText;
 
-    var listiusH = document.getElementById("certsToCheck").innerText;
+    var listiusH = document.getElementById("certsToCheck").innerHTML;
 
+    var mainMesSert = "";
 
-    var mainMesSert = listius.replace(/\-/g,"");
+    var blistiusH = listiusH.replace(/<div>/g,"");
+
+    var rowCounts = blistiusH.split("</div>");
+
+    console.log(rowCounts.length-1);
+    for(var i =0; i<rowCounts.length-1;i++){
+        mainMesSert+=(rowCounts[i].replace(/-/g,"").toLowerCase())+"|";
+    }
+
 
     /*
     var rowCounts = listius.split(/\n+/g);
@@ -380,7 +389,7 @@ function checkCert(){
     }
 
     var body = 'SAP=' + csap +
-        "&cert=" + mainMesSert.toLowerCase();
+        "&cert=" + mainMesSert;
 
     xhrB.open('POST', '/test/checkcerts', true);
     xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
