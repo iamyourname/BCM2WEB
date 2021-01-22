@@ -118,7 +118,9 @@ public class ConnectToGK {
             responseK+=rsK.getString(1)+"|";
         }
 
-        String[] arrUserCerts = userCerts.split("\\|"); // то что ввели
+
+
+        /*String[] arrUserCerts = userCerts.split("\\|"); // то что ввели
 
         String[] arrResponseK = new String[arrUserCerts.length-2]; // финал К
         String[] arrResponseGK = new String[arrUserCerts.length-2]; // финал ГК
@@ -164,6 +166,8 @@ public class ConnectToGK {
         }
         System.out.println("K\n"+responseK2+" GK\n"+responseGK2);
 
+
+        * */
 
 
 /* for(var k=0; k < arrK.length;k++){

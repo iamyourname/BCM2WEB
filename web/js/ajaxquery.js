@@ -270,7 +270,7 @@ function checkCert(){
 
 
                 //ищем сертификат в каду из найденных среди введенных
-                for(var k=0; k < arrK.length;k++){
+                for(var k=0; k < arrK.length-1;k++){
                     if(arrUsersCert[u]==arrK[k]){
                         //toPrintCert += "<td>"+arrK[k]+"</td>";
                         toPrintCert += "<td>Да</td>";
@@ -279,7 +279,7 @@ function checkCert(){
                     }else{
                         //toPrintCert += "<td>Не найден в кадуцей</td>";
                         //break;
-                        if(k >= arrK.length-2){
+                        if(k >= arrK.length-1){
                             toPrintCert += "<td>Нет</td>";
                             cadus=false;
                             break;
@@ -295,7 +295,7 @@ function checkCert(){
                 }
 
                 //ищем сертификат в GK из найденных среди введенных
-                for(var gk=0; k < arrGK.length;gk++){
+                for(var gk=0; gk < arrGK.length-1;gk++){
                     if(arrUsersCert[u]==arrGK[gk]){
                         //toPrintCert += "<td>"+arrGK[gk]+"</td>";
                         toPrintCert += "<td>Да</td>";
@@ -304,7 +304,7 @@ function checkCert(){
                     }else{
                         //toPrintCert += "<td>Не найден в GK</td>";
                         //break;
-                        if(gk >= arrGK.length-2){
+                        if(gk >= arrGK.length-1){
                             toPrintCert += "<td>Нет</td>";
                             gkeus=false;
                             break;
