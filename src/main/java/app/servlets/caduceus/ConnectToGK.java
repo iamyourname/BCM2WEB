@@ -118,6 +118,80 @@ public class ConnectToGK {
             responseK+=rsK.getString(1)+"|";
         }
 
+        String[] arrUserCerts = userCerts.split("\\|"); // то что ввели
+
+        String[] arrResponseK = new String[arrUserCerts.length-2]; // финал К
+        String[] arrResponseGK = new String[arrUserCerts.length-2]; // финал ГК
+
+        String responseGK2="";
+        String responseK2="";
+        String certToCompare2="";
+        String userCerts2="";
+
+        String[] arrKCerts = userCerts.split("\\|");
+        String[] arrGKCerts = userCerts.split("\\|");
+
+        for(int i=0; i < arrUserCerts.length-2;i++){
+
+            if(i<=arrKCerts.length-1){
+                for(int k=0; k<arrKCerts.length-1;k++){
+                    if(arrUserCerts[i].equals(arrKCerts[k])){
+                        responseK2+=arrUserCerts[i]+"|";
+                        break;
+                    }else{
+                        if(k>=arrKCerts.length-1){
+                            responseK2+="empty";
+                        }
+                    }
+                }
+
+            }
+
+            if(i<=arrGKCerts.length-1){
+                for(int k=0; k<arrGKCerts.length-1;k++){
+                    if(arrUserCerts[i].equals(arrGKCerts[k])){
+                        responseGK2+=arrUserCerts[i]+"|";
+                        break;
+                    }else{
+                        if(k>=arrGKCerts.length-1){
+                            responseGK2+="empty";
+                        }
+                    }
+                }
+
+            }
+
+        }
+        System.out.println("K\n"+responseK2+" GK\n"+responseGK2);
+
+
+
+/* for(var k=0; k < arrK.length;k++){
+                    if(arrUsersCert[u]==arrK[k]){
+                        //toPrintCert += "<td>"+arrK[k]+"</td>";
+                        toPrintCert += "<td>Да</td>";
+                        cadus=true;
+                        break;
+                    }else{
+                        //toPrintCert += "<td>Не найден в кадуцей</td>";
+                        //break;
+                        if(k >= arrK.length-2){
+                            toPrintCert += "<td>Нет</td>";
+                            cadus=false;
+                            break;
+                        }else{
+                           // console.log("K "+k+" arrK "+arrK.length);
+                        }
+
+
+
+
+                    }
+
+                }*/
+
+
+
         pullConn.close();
         conn.close();
 
