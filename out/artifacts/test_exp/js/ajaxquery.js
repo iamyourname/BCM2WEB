@@ -217,8 +217,8 @@ function checkCert(){
     //mainMesSert=mainMesSert.replace(/\s+/g,'');
 
     for (var i=0; rowCounts.length;i++){
-        if(rowCounts[i].length!=32){
-            console.log(rowCounts[i]+"wrong")
+        if(!rowCounts[i].equals("") && rowCounts[i].length!=32){
+            console.log(rowCounts[i]+" wrong\n")
         }
     }
 
