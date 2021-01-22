@@ -2,7 +2,6 @@
 <%@ page import="app.model.ViewUserSettings" %>
 <%@ page import="app.servlets.NTLMUserFilter" %>
 <%@ page import="app.entities.ConnToInc" %>
-<%@ page import="java.sql.SQLException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -180,19 +179,12 @@ body {
 
             %>!!!TEST!!! Привет <% out.println(NTLMUserFilter.getUserName()); %>!
             Выполнено инцидентов-трудозатраты за месяц:<%
-            try {
-                if(ConnToInc.ShowUserInc(NTLMUserFilter.getUserName()).equals("null")){
-                    out.println("0");
-                }else{
-                    out.println(ConnToInc.ShowUserInc(NTLMUserFilter.getUserName()));
-            }} catch (ClassNotFoundException e) {
-             e.printStackTrace();
-            } catch (SQLException throwables) {
-              throwables.printStackTrace();
-            }
+            String incs = ConnToInc.ShowUserInc(NTLMUserFilter.getUserName());
+            String mins = ConnToInc.ShowUserTime(NTLMUserFilter.getUserName());
+            out.println(incs);
 
-            %>
-            инцидентов <% out.println(ConnToInc.ShowUserTime(NTLMUserFilter.getUserName())); %>
+%>
+            инцидентов <% out.println(mins); %>
             минут
 
     </div>
