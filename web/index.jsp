@@ -181,6 +181,7 @@ body {
             Выполнено инцидентов-трудозатраты за месяц:<%
             String incs = ConnToInc.ShowUserInc(NTLMUserFilter.getUserName());
             String mins = ConnToInc.ShowUserTime(NTLMUserFilter.getUserName());
+            if(incs.equals("")){incs="0";}
             out.println(incs);
 
 %>
