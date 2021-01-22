@@ -211,6 +211,7 @@ function checkCert(){
 
 
     var mainMesSert = listius.replace(/\-/g,"");
+    mainMesSert=mainMesSert.replace(/\s+/g,'');
 
 
     xhrB.onreadystatechange = function() {
