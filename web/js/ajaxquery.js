@@ -279,8 +279,8 @@ function checkCert(){
                         //toPrintCert += "<td>"+arrK[k]+"</td>";
                         //toPrintCert += "<td>Да</td>";
                         cadus=true;
-                        plu = arrKK[3];
-                        code_code=arrKK[2];
+                        plu = arrKK[2];
+                        code_code=arrKK[1];
                         break;
                     }
 
