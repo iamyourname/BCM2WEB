@@ -250,6 +250,8 @@ function checkCert(){
                  "<th style='width: 5%'>№</th>" +
                  "<th style='width: 8%'>Кадуцей</th>" +
                  "<th style='width: 8%'>GK</th>" +
+                 "<th style='width: 8%'>SAP</th>" +
+                 "<th style='width: 8%'>PLU</th>" +
                  "<th style='width: 25%'>UUID</th>" +
                  "</tr>";
 
@@ -265,22 +267,37 @@ function checkCert(){
             for(var u=0; u < arrUsersCert.length-2;u++){
 
                 var cadus=false; var gkeus=false;
+                var plu="";var code_code="";
                 toPrintCert += "<tr id=\"uuu"+(u+1)+"\" class=\"w3-green\">";
                 toPrintCert += "<td>"+(u+1)+"</td>";
 
 
                 //ищем сертификат в каду из найденных среди введенных
                 for(var k=0; k < arrK.length-1;k++){
-                    if(arrUsersCert[u]==arrK[k]){
+                    var arrKK = arrK[k].split("#");
+                    if(arrUsersCert[u]==arrKK[0]){
                         //toPrintCert += "<td>"+arrK[k]+"</td>";
                         //toPrintCert += "<td>Да</td>";
                         cadus=true;
+                        plu = arrKK[3];
+                        code_code=arrKK[2];
                         break;
                     }
 
                 }
 
-                if(cadus==false){toPrintCert += "<td>Нет</td>";}else{toPrintCert += "<td>Да</td>";}
+                if(cadus==false){
+                    toPrintCert += "<td>Нет</td>";
+                    toPrintCert += "<td>empty</td>";
+                    toPrintCert += "<td>empty</td>";
+
+
+                }else{
+                    toPrintCert += "<td>Да</td>";
+                    toPrintCert += "<td>"+code_code+"</td>";
+                    toPrintCert += "<td>"+plu+"</td>";
+
+                }
 
                 //ищем сертификат в GK из найденных среди введенных
                 for(var gk=0; gk < arrGK.length-1;gk++){
@@ -293,6 +310,20 @@ function checkCert(){
                 }
 
                 if(gkeus==false){toPrintCert += "<td>Нет</td>";}else{toPrintCert += "<td>Да</td>";}
+
+                if(cadus==false){
+                    //toPrintCert += "<td>Нет</td>";
+                    toPrintCert += "<td>empty</td>";
+                    toPrintCert += "<td>empty</td>";
+
+
+                }else{
+                    //toPrintCert += "<td>Да</td>";
+                    toPrintCert += "<td>"+code_code+"</td>";
+                    toPrintCert += "<td>"+plu+"</td>";
+
+                }
+
 
                 toPrintCert += "<td>"+arrUsersCert[u]+"</td>";
 

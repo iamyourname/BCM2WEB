@@ -86,7 +86,14 @@ public class ConnectToGK {
         System.out.println(certToCompare);
 
         String findCertGK = "select vet_doc_uuid from xrg_evsd where vet_doc_uuid in ("+certToCompare+") order by 1";
-        String findCertK = "select mgen_uuid from m_vetdocument where mgen_uuid in ("+certToCompare+") order by 1";
+
+
+
+
+        String findCertK = "select mv.mgen_uuid, co.codv_code,mv.MVDC_PRODUCTCODE from M_VETDOCUMENT mv\n" +
+                "left join c_org_divisions co on co.MENT_GUID = mv.MVDC_CONS_CONSIGNEE_ENTERPRISE\n" +
+                "where\n" +
+                " mv.mgen_uuid in ("+certToCompare+") order by 1";
 
         Connection pullConn = ConnectionPool.getInstance().getConnectionMerc();
 
@@ -115,7 +122,10 @@ public class ConnectToGK {
         }
 
         while (rsK.next()){
-            responseK+=rsK.getString(1)+"|";
+            responseK+=rsK.getString(1)+"#";
+            responseK+=rsK.getString(2)+"#";
+            responseK+=rsK.getString(3)+"#";
+            responseK+="|";
         }
 
 
