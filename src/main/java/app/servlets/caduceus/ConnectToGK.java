@@ -50,6 +50,7 @@ public class ConnectToGK {
                 "and doc_status = 9\n" +
                 "and codv_factoryformat in ('Дискаунтер','Дакстор','Алкомаркет','РЦ')\n" +
                 "and codv_code = upper('"+sap+"')");
+        rs.last();
         int gkk = rs.getRow();
         if(gkk>0)
             gk=true;
