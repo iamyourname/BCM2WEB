@@ -246,6 +246,7 @@ function checkCert(){
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
+
             var toPrintCert = "<table class=\"w3-table-all w3-small\">";
              toPrintCert += "<tr class = 'w3-light-blue'>" +
                  "<th style='width: 5%'>№</th>" +
@@ -255,7 +256,10 @@ function checkCert(){
                  "<th style='width: 10%'>PLU</th>" +
                  "<th style='width: 55%'>UUID</th>" +
                  "</tr>";
-
+            if(xhrB.responseText=="false"){
+                printCerts.innerHTML = "Магазин не GK. Или не найден";
+                printCerts.style.display="block";
+            }
             var respText = xhrB.responseText.split("&");
             var arrK = respText[0].split("|");
             var arrGK = respText[1].split("|");
@@ -393,6 +397,9 @@ function checkCert(){
 
             //console.log("GREEN "+greenRow+"YELLOW "+yellowRow+"RED "+redRow);
 
+        }else{
+            printCerts.innerHTML = "Ошибка. Опишите свои действия и укажите входные данные отправив письмо m.moiseev@x5.ru";
+            printCerts.style.display="block";
         }
     }
 

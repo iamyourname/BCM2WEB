@@ -40,12 +40,29 @@ public class ConnectToGK {
         return connGK;
     }
 
+    public static boolean gkOrNo(String sap) throws SQLException {
+        boolean gk=false;
+
+        Connection pullConn = ConnectionPool.getInstance().getConnection("hub");
+        Statement stmtPullB = pullConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmtPullB.executeQuery("select codv_code from c_org_divisions where\n" +
+                "1=1\n" +
+                "and doc_status = 9\n" +
+                "and codv_factoryformat in ('Дискаунтер','Дакстор','Алкомаркет','РЦ')\n" +
+                "and codv_code = upper('"+sap+"')");
+        int gkk = rs.getRow();
+        if(gkk>0)
+            gk=true;
+        return gk;
+    }
+
     public static String compare_cert(String sap, String cert) throws SQLException {
 
         String responseGK="";
         String responseK="";
         String certToCompare="";
         String userCerts="";
+        Connection conn = null;
 
         String[] arrCerts= cert.split("\\|");
 
@@ -95,9 +112,15 @@ public class ConnectToGK {
                 "where\n" +
                 " mv.mgen_uuid in ("+certToCompare+") order by 1";
 
-        Connection pullConn = ConnectionPool.getInstance().getConnectionMerc();
 
-        Connection conn = connectionGK(sap);
+
+        Connection pullConn = ConnectionPool.getInstance().getConnectionMerc();
+        if(gkOrNo(sap)){
+             conn = connectionGK(sap);
+        }else{
+            return "false";
+        }
+
 
         StringBuffer sb = new StringBuffer(cert.replace("-",""));
 

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
     <!-- Specify a JDBC datasource -->
+    <Resource name="jdbc/agent_hub"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="BAHU_CAGDB_PROD_X5_00"
+              password="BAHU_CAGDB_PROD_X5_00-password"
+              driverClassName="oracle.jdbc.driver.OracleDriver"
+              url="jdbc:oracle:thin:@BACCHUS-HUB01-DB:1521/bacchus"
+              maxTotal="7"
+              maxIdle="7"/>
     <Resource name="jdbc/agent_01"
               auth="Container"
               type="javax.sql.DataSource"
