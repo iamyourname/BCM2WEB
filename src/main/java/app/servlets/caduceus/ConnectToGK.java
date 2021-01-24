@@ -90,7 +90,7 @@ public class ConnectToGK {
 
 
 
-        String findCertK = "select mv.mgen_uuid, co.codv_code,mv.MVDC_PRODUCTCODE from M_VETDOCUMENT mv\n" +
+        String findCertK = "select mv.mgen_uuid, co.codv_code,mv.MVDC_PRODUCTCODE from M_VETDOCUMENT mv \n" +
                 "left join c_org_divisions co on co.MENT_GUID = mv.MVDC_CONS_CONSIGNEE_ENTERPRISE\n" +
                 "where\n" +
                 " mv.mgen_uuid in ("+certToCompare+") order by 1";

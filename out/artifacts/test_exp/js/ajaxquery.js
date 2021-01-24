@@ -248,11 +248,11 @@ function checkCert(){
             var toPrintCert = "<table class=\"w3-table-all w3-small\">";
              toPrintCert += "<tr class = 'w3-light-blue'>" +
                  "<th style='width: 5%'>№</th>" +
-                 "<th style='width: 8%'>Кадуцей</th>" +
-                 "<th style='width: 8%'>GK</th>" +
-                 "<th style='width: 8%'>SAP</th>" +
-                 "<th style='width: 8%'>PLU</th>" +
-                 "<th style='width: 25%'>UUID</th>" +
+                 "<th style='width: 10%'>Кадуцей</th>" +
+                 "<th style='width: 10%'>GK</th>" +
+                 "<th style='width: 10%'>SAP</th>" +
+                 "<th style='width: 10%'>PLU</th>" +
+                 "<th style='width: 55%'>UUID</th>" +
                  "</tr>";
 
             var respText = xhrB.responseText.split("&");
