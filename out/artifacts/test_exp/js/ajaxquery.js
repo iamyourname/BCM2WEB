@@ -212,6 +212,7 @@ function checkCert(){
     var mainMesSert = "";
 
     var blistiusH = listiusH.replace(/<div>/g,"");
+    var blistiusH = listiusH.replace(/<br>/g,"");
 
     var rowCounts = blistiusH.split("</div>");
 
