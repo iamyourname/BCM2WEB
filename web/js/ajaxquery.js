@@ -288,14 +288,14 @@ function checkCert(){
 
                 if(cadus==false){
                     toPrintCert += "<td>Нет</td>";
-                    toPrintCert += "<td>empty</td>";
-                    toPrintCert += "<td>empty</td>";
+                    //toPrintCert += "<td>empty</td>";
+                    //toPrintCert += "<td>empty</td>";
 
 
                 }else{
                     toPrintCert += "<td>Да</td>";
-                    toPrintCert += "<td>"+code_code+"</td>";
-                    toPrintCert += "<td>"+plu+"</td>";
+                    //toPrintCert += "<td>"+code_code+"</td>";
+                    //toPrintCert += "<td>"+plu+"</td>";
 
                 }
 
