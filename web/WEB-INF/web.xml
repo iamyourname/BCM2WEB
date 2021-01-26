@@ -76,7 +76,7 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>magout</servlet-name>
+        <servlet-name>MagOut</servlet-name>
         <url-pattern>/magout</url-pattern>
     </servlet-mapping>
 
