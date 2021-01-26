@@ -216,7 +216,7 @@ function checkCert(){
 
     var rowCounts = blistiusH.split("</div>");
 
-    console.log(rowCounts.length-1);
+    console.log(rowCounts.length);
     for(var i =0; i<rowCounts.length-1;i++){
         mainMesSert+=(rowCounts[i].replace(/-/g,"").toLowerCase())+"|";
     }
