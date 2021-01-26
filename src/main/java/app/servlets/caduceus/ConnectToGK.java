@@ -54,6 +54,8 @@ public class ConnectToGK {
         int gkk = rs.getRow();
         if(gkk>0)
             gk=true;
+        pullConn.close();
+        stmtPullB.close();
         return gk;
     }
 
