@@ -202,6 +202,9 @@ function checkCert(){
     // функция отправки параметров для поиска сертификатов
     let xhrB = new XMLHttpRequest();
 
+
+    document.getElementById("certsToCheck").innerHTML="";
+
     var csap = document.getElementById("csap").value;
     var printCerts = document.getElementById("outputCert");
 
