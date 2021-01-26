@@ -213,7 +213,7 @@ function checkCert(){
 
     var blistiusH = listiusH.replace(/<div>/g,"");
     var blistiusH = blistiusH.replace(/<br>/g,"");
-
+    blistiusH+="</div>";
     var rowCounts = blistiusH.split("</div>");
 
     console.log(rowCounts.length);
