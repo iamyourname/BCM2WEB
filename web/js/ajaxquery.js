@@ -203,7 +203,7 @@ function checkCert(){
     let xhrB = new XMLHttpRequest();
 
 
-    document.getElementById("certsToCheck").innerHTML="";
+
 
     var csap = document.getElementById("csap").value;
     var printCerts = document.getElementById("outputCert");
@@ -229,7 +229,7 @@ function checkCert(){
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
-
+            document.getElementById("certsToCheck").innerHTML="";
             var toPrintCert = "<table class=\"w3-table-all w3-small\">";
              toPrintCert += "<tr class = 'w3-light-blue'>" +
                  "<th style='width: 5%'>№</th>" +
@@ -383,6 +383,7 @@ function checkCert(){
         }else{
             printCerts.innerHTML = "Ошибка. Опишите свои действия и укажите входные данные отправив письмо m.moiseev@x5.ru";
             printCerts.style.display="block";
+            document.getElementById("certsToCheck").innerHTML="";
         }
     }
 
