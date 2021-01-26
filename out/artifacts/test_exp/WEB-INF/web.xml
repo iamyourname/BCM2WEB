@@ -14,6 +14,11 @@
     </servlet>
 
     <servlet>
+        <servlet-name>MagOut</servlet-name>
+        <servlet-class>app.servlets.bacchus.MagOut</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>Markus</servlet-name>
         <servlet-class>app.servlets.markus.MarkusSearch</servlet-class>
     </servlet>
@@ -69,6 +74,12 @@
         <servlet-name>checkcerts</servlet-name>
         <url-pattern>/checkcerts</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>magout</servlet-name>
+        <url-pattern>/magout</url-pattern>
+    </servlet-mapping>
+
 
     <servlet-mapping>
         <servlet-name>BacchusConnect</servlet-name>

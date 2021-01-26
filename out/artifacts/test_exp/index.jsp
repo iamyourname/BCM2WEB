@@ -275,6 +275,12 @@ body {
                
             </ul>
          </li>
+    <li class='active has-sub'><a href='#'><span>Магазины</span></a>
+        <ul>
+            <li><a href='#' onClick="openSystem('MagOut')"><span>Отгрузка</span></a></li>
+            <li><a href='#' onClick="openSystem('MagIn')"><span>Приемка</span></a></li>
+        </ul>
+    </li>
     <li ><a href='#' onclick="openSystem('BacchusFlowSearch')"><span>Поиск потоков</span></a>
 
     </li>
@@ -447,6 +453,31 @@ body {
         <div id="output">
         </div>
         <div id="textArea" >
+            <!-- Trigger/Open the Modal -->
+            <!-- The Modal -->
+
+        </div>
+    </div>
+
+
+    <div id = "MagOut" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">
+        <div class=" w3-light-blue">
+            <h4 >Магазины. Отгрузка</h4>
+        </div>
+        <!--method="GET" action="" target = "my_frame" -->
+        <form  class = "auth-info"  >
+            <label>Номер буфера:
+                <input  id="Magbuff" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+            </label>
+            <label>Код SAP:
+                <input id="MagSAP" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+            </label>
+        </form>
+        <button id="MagOutSend"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="MagOut()" >Отправить</button>
+
+        <div id="Magoutput">
+        </div>
+        <div id="MagTextArea" >
             <!-- Trigger/Open the Modal -->
             <!-- The Modal -->
 

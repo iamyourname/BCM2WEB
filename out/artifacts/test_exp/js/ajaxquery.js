@@ -222,27 +222,6 @@ function checkCert(){
     }
 
 
-    /*
-    var rowCounts = listius.split(/\n+/g);
-
-    console.log(rowCounts[i]+" wrong\n")
-
-    //mainMesSert=mainMesSert.replace(/\s+/g,'');
-
-    for (var i=0; rowCounts.length;i++){
-        if(rowCounts[i]!="" && rowCounts[i].length!=32){
-            console.log(rowCounts[i]+" wrong\n")
-        }
-    }
-    * */
-
-
-
-
-
-
-
-
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
@@ -480,7 +459,30 @@ $('.download').on('click', function(){
     return false;
 });
 
+function MagOut(){
 
+var magbuf = document.getElementById("Magbuff").value;
+var magsap = document.getElementById("MagSAP").value;
+var magPrint="";
+
+    let xhrB = new XMLHttpRequest();
+
+    xhrB.onreadystatechange = function() {
+        if (xhrB.readyState !== 4) return;
+        if (xhrB.status == 200) {
+            var magresp = xhrB.responseText;
+
+        }
+    }
+
+    var body = 'magbuf='+magbuf+
+        '&magsap='+magsap;
+
+    xhrB.open('POST', '/test/markus', true);
+    xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrB.send(body);
+
+}
 
 function searchMarkus(){
     //button
