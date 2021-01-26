@@ -48,7 +48,7 @@ public class ConnectToGK {
         ResultSet rs = stmtPullB.executeQuery("select codv_code from c_org_divisions where\n" +
                 "1=1\n" +
                 "and doc_status = 9\n" +
-                "and codv_factoryformat in ('Дискаунтер','Дакстор','Алкомаркет','РЦ')\n" +
+                "and codv_factoryformat in ('Дискаунтер','Дакстор','Алкомаркет','РЦ','Супермаркет')\n" +
                 "and codv_code = upper('"+sap+"')");
         rs.last();
         int gkk = rs.getRow();
