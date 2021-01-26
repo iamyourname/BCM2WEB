@@ -207,7 +207,7 @@ function checkCert(){
 
     var listius = document.getElementById("certsToCheck").innerText; //document.getElementById("certsToCheck").innerText;
 
-    var listiusH = document.getElementById("certsToCheck").innerHTML;
+    var listiusH = document.getElementById("certsToCheck").innerHTML+"</div>";
 
     var mainMesSert = "";
 
