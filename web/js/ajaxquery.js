@@ -383,7 +383,7 @@ function checkCert(){
     }
 
     var body = 'SAP=' + csap +
-        "&cert=" + mainMesSert+"\n";
+        "&cert=" + mainMesSert;
 
     xhrB.open('POST', '/test/checkcerts', true);
     xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
