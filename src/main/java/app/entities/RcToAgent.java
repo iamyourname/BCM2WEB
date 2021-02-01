@@ -95,15 +95,17 @@ public class RcToAgent {
 
     public static String SapAgent(String sap) throws SQLException {
         Connection pullConn = ConnectionPool.getInstance().getConnection("10");
-
+        String sAg = "";
         Statement stmtPullB = pullConn.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         String sqlSearchAgent = "select ao.a_agent_id from a_agents_org_divisions_rel ao\n" +
                 "left join c_org_divisions co on co.codv_id = ao.codv_id\n" +
-                "where co.codv_code = '"+sap+"'";
+                "where co.codv_code = '"+sap.toUpperCase()+"'";
         ResultSet rsPullB = stmtPullB.executeQuery(sqlSearchAgent);
+        while (rsPullB.next())
+            sAg += rsPullB.getString(1);
+        pullConn.close();stmtPullB.close();
 
-        String sAg = rsPullB.getString(1);
     return sAg;
     }
 

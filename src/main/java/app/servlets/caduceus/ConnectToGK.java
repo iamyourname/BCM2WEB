@@ -12,7 +12,7 @@ import static app.entities.Logs.writeLogParent;
 public class ConnectToGK {
 
     public static Connection  connectionGK(String sap){
-        Connection gk =null;
+
 
         Connection connGK = null;
 
@@ -31,7 +31,7 @@ public class ConnectToGK {
                 isConnectedLog = true;
             connGK.setAutoCommit(false);
         } catch (SQLException | ClassNotFoundException e) {
-            //err = "SQLException\n" + e.getMessage();
+
             isConnectedLog = false;
         }
 
@@ -50,6 +50,9 @@ public class ConnectToGK {
                 "and doc_status = 9\n" +
                 "and codv_factoryformat in ('Дискаунтер','Дакстор','Алкомаркет','РЦ','Супермаркет')\n" +
                 "and codv_code = upper('"+sap+"')");
+
+        //
+
         rs.last();
         int gkk = rs.getRow();
         if(gkk>0)

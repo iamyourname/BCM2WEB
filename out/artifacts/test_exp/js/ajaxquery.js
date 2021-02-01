@@ -483,7 +483,7 @@ var magPrint="";
     var body = 'magbuf='+magbuf+
         '&magsap='+magsap;
 
-    xhrB.open('POST', '/test/markus', true);
+    xhrB.open('POST', '/test/magout', true);
     xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     xhrB.send(body);
 
