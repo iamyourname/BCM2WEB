@@ -22,12 +22,30 @@ public class MagOut extends HttpServlet {
 
         String sap = req.getParameter("magsap");
         String buff = req.getParameter("magbuf");
-
+        String magio = req.getParameter("magio");
+        String magstate = req.getParameter("magstate");
+        String magflow = req.getParameter("magflow");
+        resp.setCharacterEncoding("UTF-8");
         PrintWriter out = resp.getWriter();
 
 
         try {
-            out.append(ConnectToMag.Mag(buff,sap));
+
+            if(magio.equals("1") && magstate.equals("no")){
+                out.append(ConnectToMag.MagIn(buff,sap));
+                //return;
+            }
+
+            if(magio.equals("1") && magstate.equals("yes")){
+                out.append(ConnectToMag.MagStateHistory(buff,sap));
+                //return;
+            }
+
+            if(magio.equals("1") && magflow.equals("yes")){
+                out.append(ConnectToMag.MagBufHistory(buff,sap));
+               // return;
+            }
+
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }

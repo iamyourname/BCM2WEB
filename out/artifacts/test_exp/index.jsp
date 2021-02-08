@@ -462,16 +462,27 @@ body {
 
     <div id = "MagOut" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">
         <div class=" w3-light-blue">
-            <h4 >Магазины. Отгрузка</h4>
+            <h4 >Магазины</h4>
         </div>
         <!--method="GET" action="" target = "my_frame" -->
         <form  class = "auth-info"  >
-            <label>Номер буфера:
+            <label style="margin-right: 25px">
+
+                <img onclick="clearCerts()"  src="img/gui_eraser_icon_157160_1.png" width="60" height="60"/>
+
+            </label>
+            <label>Буфер\ТТН\Заказ:
                 <input  id="Magbuff" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
             </label>
             <label>Код SAP:
                 <input id="MagSAP" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
             </label>
+        <label>
+            <select id="listInOut" class="w3-select w3-border" name="option">
+                <option value="1" selected>Приемка</option>
+                <option value="2">Отгрузка</option>
+            </select>
+        </label>
         </form>
         <button id="MagOutSend"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="MagOut()" >Отправить</button>
 

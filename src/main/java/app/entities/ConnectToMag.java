@@ -90,7 +90,7 @@ public class ConnectToMag {
         return connNQ;
     }
 
-    public static String Mag(String buf, String sap) throws SQLException, ClassNotFoundException {
+    public static String MagIn(String buf, String sap) throws SQLException, ClassNotFoundException {
         String response="";
         String gknq = goOrNq(sap);
         String findNQ = "select \n" +
@@ -130,13 +130,15 @@ public class ConnectToMag {
                 "\th.local_id = (split_part('"+buf+"','-',1))::int8\n" +
                 "\tor h.ttn ='"+buf+"'\n" +
                 " or h.order_number = '"+buf+"') limit 1";
-        String fingBacc = "select binc_transactionid\n" +
-                ", binc_waybillnumber\n" +
-                ", binc_sapordernumber\n" +
-                ", doc_status\n" +
-                ", binc_transactiondate\n" +
-                "from b_incoming where\n" +
-                "binc_transactionid = '"+buf+"' or binc_waybillnumber = '"+buf+"' or binc_sapordernumber like ('"+buf+"')";
+
+        String fingBacc = "select bi.binc_transactionid\n" +
+                ", bi.doc_status ||' ('||sd.sdss_name ||')'\n" +
+                ", bi.binc_waybillnumber\n" +
+                ", bi.binc_transactiondate\n" +
+                ", bi.binc_sapordernumber\n" +
+                "from b_incoming bi\n" +
+                "left join s_docstatuses sd on sd.sdss_id = bi.doc_status where "+
+                "bi.binc_transactionid = '"+buf+"' or bi.binc_waybillnumber = '"+buf+"' or bi.binc_sapordernumber like ('"+buf+"')";
         if(gknq.equals("GK")){
 
             Connection cnn = connectionMagGK(sap);
@@ -189,6 +191,114 @@ public class ConnectToMag {
         return response;
     }
 
+    public static String MagStateHistory(String buf, String sap) throws SQLException {
+        String response="";
+
+        String findHistory = "select \n" +
+                "\txbi.creation_date\n" +
+                "\t,\n" +
+                "\tCASE\n" +
+                "\t\t\tWHEN xbi.document_state = 'NEW' then 'Новый'\n" +
+                "\t\t\tWHEN xbi.document_state = 'CREATED' then 'Создан'\n" +
+                "\t\t\tWHEN xbi.document_state = 'READY' then 'Готов'\n" +
+                "\t\t\tWHEN xbi.document_state = 'CONFIRMED' then 'Подтвержден'\n" +
+                "\t\t\tWHEN xbi.document_state = 'MATCHED' then 'Сопоставлен'\n" +
+                "\t\t\tWHEN xbi.document_state = 'NOT_APPLIED' then 'NOT_APPLIED'\n" +
+                "\t\t\tWHEN xbi.document_state = 'UPLOAD' then 'Отправлен IN22'\t\n" +
+                "\t\t\tELSE xbi.document_state END \"GK_state\"\n" +
+                "\t,\n" +
+                "\tCASE\n" +
+                "\t\t\tWHEN xbi.egais_state = 'CONFIRMING' then 'Подтвержден КИС'\n" +
+                "\t\t\tWHEN xbi.egais_state = 'CREATED' then 'Создан'\n" +
+                "\t\t\tWHEN xbi.egais_state = 'READY' then 'Готов'\n" +
+                "\t\t\tWHEN xbi.egais_state = 'CONFIRMED' then 'Подтвержден ЕГАИС'\n" +
+                "\t\t\tWHEN xbi.egais_state = 'MATCHED' then 'Сопоставлен'\n" +
+                "\t\t\tWHEN xbi.egais_state = 'NOT_APPLIED' then 'NOT_APPLIED'\n" +
+                "\t\t\tWHEN xbi.egais_state = 'NOTMATCHED' then 'Не сопоставлен'\t\n" +
+                "\t\t\tELSE xbi.egais_state END \"BC_state\"\n" +
+                "from \n" +
+                "xrg_bacchus_integration xbi  \n" +
+                "where xbi.local_id = (select \n" +
+                "\t\tH.local_id \n" +
+                "\tfrom xrg_gr_doc_header h \n" +
+                "where  (\n" +
+                "\th.local_id = (split_part('"+buf+"','-',1))::int8\n" +
+                "\tor h.identifier_1 ='"+buf+"'\n" +
+                "\tor h.order_number = '"+buf+"'\n" +
+                ") limit 1)\n" +
+                "order by 1";
+        Connection cnn = connectionMagGK(sap);
+        Statement stmtGK = cnn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rsGK = stmtGK.executeQuery(findHistory);
+        while (rsGK.next()){
+            response+=rsGK.getString(1)+"|";
+            response+=rsGK.getString(2)+"|";
+            response+=rsGK.getString(3)+"|";
+            response+="&";
+        }
+        cnn.close();stmtGK.close();
+
+
+        return response;
+    }
+
+    public static String MagBufHistory(String buf, String sap) throws SQLException {
+        String response="";
+
+        String flowFindBacc="select LEAST(al_status_code), GREATEST(al_info3), to_char(al_maininfo) from a_all_log where\n" +
+                "al_codv_id ="+ sap.replaceAll("[a-zA-Z]","") +"\n" +
+                "and al_created > sysdate -5\n" +
+                " and al_info3 !='/supply/receipt/getStatus'"+
+                " and al_info2 !='SupplyReceiptXmlService.getWaybillList()'\n" +
+                " and al_maininfo like('%<TransactionID>"+buf+"</TransactionID>%')\n" +
+                " group by LEAST(al_status_code),GREATEST(al_info3),to_char(al_maininfo)" +
+                " order by 2 desc";
+
+        String agent = RcToAgent.SapAgent(sap);
+        if(Integer.parseInt(agent)<9)agent="0"+agent;
+        System.out.println(agent);
+        Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
+        //String sAg = "";
+        Statement stmtPullB = pullConn.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rsF = stmtPullB.executeQuery(flowFindBacc);
+        //rsB.last();int cntFlow = rsB.getRow();rsB.first();
+        //String[][] flows = new String[cntFlow][2];
+
+        while (rsF.next()){
+            if(rsF.getString(1).equals("RA0001"))
+                response+="request|";
+            else
+                response+="response|";
+            switch (rsF.getString(2)){
+                case "/supply/receipt/upload":
+                    response+="IN21|";
+                    break;
+                case "/supply/receipt/updateIdDoc":
+                    response+="IN25|";
+                    break;
+                case "/supply/receipt/trustConfirm":
+                    response+="IN26|";
+                    break;
+                case "/discrepancyReport/TTNGet":
+                    response+="DR27|";
+                    break;
+            }
+
+            response+=rsF.getString(3)+"|";
+            response+="&";
+        }
+
+
+
+
+        pullConn.close();stmtPullB.close();rsF.close();
+
+
+
+
+        return response;
+    }
 
 
 }

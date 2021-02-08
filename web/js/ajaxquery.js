@@ -400,8 +400,11 @@ function checkCert(){
 function clearCerts(){
 
     var clearSap = document.getElementById("csap");
-    var clearCert = document.getElementById("certsToCheck") //document.getElementById("certsToCheck").innerText;
+    var clearCert = document.getElementById("certsToCheck"); //document.getElementById("certsToCheck").innerText;
+    var clearBuff = document.getElementById("Magbuff"); //document.getElementById("certsToCheck").innerText;
+    var clearSap = document.getElementById("MagSAP"); //document.getElementById("certsToCheck").innerText;
     clearSap.value="";clearCert.innerText="";
+    clearBuff.value="";clearSap.innerText="";
 }
 
 function checkResp() {
@@ -465,10 +468,33 @@ $('.download').on('click', function(){
 });
 
 function MagOut(){
-
+    var lio = document.getElementById("listInOut");
+    var lioMes = lio.options[lio.selectedIndex].value;
+    //alert(lioMes);
 var magbuf = document.getElementById("Magbuff").value;
 var magsap = document.getElementById("MagSAP").value;
-var magPrint="";
+var toPrintag = document.getElementById("Magoutput");
+    toPrintag.innerHTML="";
+
+var bacPrint="<div id=\"magbac\" class=\"w3-bar\" style='width: 100%'><h4>БАХУС</h4><br><div id=\"bact\" class='w3-left w3-padding' style='width: 60%'><table class=\"w3-table-all w3-small\">" +
+    "<tr class = \"w3-light-blue\">"+
+    "<th>Буфер</th>"+
+    "<th>Статус</th>"+
+    "<th>ТТН</th>"+
+    "<th>Дата</th>"+
+    "<th>Заказ</th>"+
+    "</tr>";
+
+var magPrint="<h4>МАГАЗИН</h4><br><table class=\"w3-table-all w3-small\">" +
+    "<tr class = \"w3-light-blue\">"+
+    "<th>Буфер</th>"+
+    "<th>Статус</th>"+
+    "<th>Дата</th>"+
+    "<th>ТТН</th>"+
+    "<th>Заказ</th>"+
+    "<th>Статус Заказа</th>"+
+    "<th>Последний запрос в БАХУС</th>"+
+    "</tr>";
 
     let xhrB = new XMLHttpRequest();
 
@@ -476,12 +502,49 @@ var magPrint="";
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
             var magresp = xhrB.responseText;
+            var magbac = magresp.split("&");
+
+            var magInfo = magbac[0].split("|");
+            var bacInfo = magbac[1].split("|");
+            magPrint+="<tr>"
+            bacPrint+="<tr>"
+
+            for(var i=0; i <magInfo.length-1;i++){
+
+                magPrint+="<td>"+magInfo[i]+"</td>";
+            }
+
+            for(var i=0; i <bacInfo.length-1;i++){
+
+                bacPrint+="<td>"+bacInfo[i]+"</td>";
+            }
+
+            magPrint+="</tr></table>";
+            bacPrint+="</tr></table></div><div id='bacS' class='w3-right w3-padding' style='width: 40%;'>";
+            bacPrint +="<div class=\"w3-light-blue\" style='margin-top: 0px;margin-bottom: 0px;'>\n" +
+                "  <button onclick=\"myFunctionBM('DemoBM')\" class=\"w3-button w3-block\">История статусов</button>\n" +
+                "  <div id=\"DemoBM\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+                //"    <p>Lorem ipsum 25% width</p>\n" +
+                "  </div>\n" +
+                "</div></div></div>";
+
+            bacPrint +="<div class=\"w3-light-blue\" style='margin-top: 0px;margin-bottom: 0px;'>\n" +
+                "  <button onclick=\"myFunctionFL('DemoFL')\" class=\"w3-button w3-block\">Потоки из Бахус</button>\n" +
+                "  <div id=\"DemoFL\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+                //"    <p>Lorem ipsum 25% width</p>\n" +
+                "  </div>\n" +
+                "</div>"
+            toPrintag.innerHTML+=magPrint;
+            toPrintag.innerHTML+=bacPrint;
 
         }
     }
 
     var body = 'magbuf='+magbuf+
-        '&magsap='+magsap;
+        '&magsap='+magsap+
+        '&magio='+lioMes+
+        '&magflow=no'+
+        '&magstate=no';
 
     xhrB.open('POST', '/test/magout', true);
     xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
@@ -756,19 +819,116 @@ function myFunctionT(id) {
     }
 }
 
+function myFunctionBM(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        var lio = document.getElementById("listInOut");
+        var lioMes = lio.options[lio.selectedIndex].value;
+        var magbuf = document.getElementById("Magbuff").value;
+        var magsap = document.getElementById("MagSAP").value;
+        var printHistory="";
+        x.innerHTML="";
+        printHistory += "<table class='w3-table-all w3-small' style='margin-top: 5px'>";
+        printHistory +=  "<tr class = \"w3-light-blue\">"+
+            "<th>Дата</th>"+
+            "<th>Статус GK</th>"+
+            "<th>Статус Бахус</th>"+
+            "</tr>";
+        let xhrB = new XMLHttpRequest();
+
+        xhrB.onreadystatechange = function() {
+            if (xhrB.readyState !== 4) return;
+            if (xhrB.status == 200) {
+                var state_hist = xhrB.responseText;
+                var arr_state_hist = state_hist.split("&");
+                for(var i=0;i<arr_state_hist.length-1;i++){
+                    var row_state_hist = arr_state_hist[i].split("|");
+                    printHistory+="<tr>"
+                    printHistory+="<td>"+row_state_hist[0]+"</td>";
+                    printHistory+="<td>"+row_state_hist[1]+"</td>";
+                    printHistory+="<td>"+row_state_hist[2]+"</td>";
+                    printHistory+="</tr>"
+                }
+
+                printHistory+="</table>";
+                x.innerHTML+=printHistory;
+            }
+        }
+        var body = 'magbuf='+magbuf+
+            '&magsap='+magsap+
+            '&magio='+lioMes+
+            '&magflow=no'+
+            '&magstate=yes';
+
+        xhrB.open('POST', '/test/magout', true);
+        xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhrB.send(body);
+
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+
+function myFunctionFL(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        var lio = document.getElementById("listInOut");
+        var lioMes = lio.options[lio.selectedIndex].value;
+        var magbuf = document.getElementById("Magbuff").value;
+        var magsap = document.getElementById("MagSAP").value;
+        var printHistory="";
+        x.innerHTML="";
+        printHistory += "<table class='w3-table-all w3-small' style='margin-top: 5px'>";
+        printHistory +=  "<tr class = \"w3-light-blue\">"+
+            "<th>Req/Resp</th>"+
+            "<th>Тип</th>"+
+            "<th>Содержание</th>"+
+            "</tr>";
+        let xhrB = new XMLHttpRequest();
+
+        xhrB.onreadystatechange = function() {
+            if (xhrB.readyState !== 4) return;
+            if (xhrB.status == 200) {
+                var state_hist = xhrB.responseText;
+                var arr_state_hist = state_hist.split("&");
+                for(var i=0;i<arr_state_hist.length-1;i++){
+                    var row_state_hist = arr_state_hist[i].split("|");
+                    printHistory+="<tr>"
+                    printHistory+="<td>"+row_state_hist[0]+"</td>";
+                    printHistory+="<td>"+row_state_hist[1]+"</td>";
+                    printHistory+="<td>"+row_state_hist[2]+"</td>";
+                    printHistory+="</tr>"
+                }
+
+                printHistory+="</table>";
+                x.innerHTML+=printHistory;
+            }
+        }
+        var body = 'magbuf='+magbuf+
+            '&magsap='+magsap+
+            '&magio='+lioMes+
+            '&magflow=yes'+
+            '&magstate=nope';
+
+        xhrB.open('POST', '/test/magout', true);
+        xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhrB.send(body);
+
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+
 
 function WRGo(Buf,Sap){
-
-
-
 
     var reply_text = document.getElementById('respWR');
 
     var outputCheck = document.getElementById('outputTrans');
 
     var printTableCheck="";
-
-
 
     let xhrB = new XMLHttpRequest();
 
@@ -890,10 +1050,7 @@ function checkGo(Buf,Sap){
 
 }
 
-
 function ticketView(xmlTi){
-
-
 
     //ticketText.style.display = "block";
     var modaldiv = document.getElementById("textTrans");
