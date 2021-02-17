@@ -219,8 +219,8 @@ function checkCert(){
     blistiusH+="</div>";
     var rowCounts = blistiusH.split("</div>");
 
-    console.log(rowCounts.length);
-    console.log(blistiusH);
+    //console.log(rowCounts.length);
+    //console.log(blistiusH);
     for(var i =0; i<rowCounts.length;i++){
         mainMesSert+=(rowCounts[i].replace(/-/g,"").toLowerCase())+"|";
     }
@@ -470,6 +470,7 @@ $('.download').on('click', function(){
 function MagOut(){
     var lio = document.getElementById("listInOut");
     var lioMes = lio.options[lio.selectedIndex].value;
+    var btn_text = document.getElementById("MagOutSend");
     //alert(lioMes);
 var magbuf = document.getElementById("Magbuff").value;
 var magsap = document.getElementById("MagSAP").value;
@@ -499,9 +500,15 @@ var magPrint="<h4>МАГАЗИН</h4><br><table class=\"w3-table-all w3-small\">
     let xhrB = new XMLHttpRequest();
 
     xhrB.onreadystatechange = function() {
+        btn_text.innerText="Загружаю..."
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
+            btn_text.innerText="Отправить"
             var magresp = xhrB.responseText;
+            if(magresp==""){
+                toPrintag.innerHTML="Ничего не найдено!";
+                return;
+            }
             var magbac = magresp.split("&");
 
             var magInfo = magbac[0].split("|");
@@ -522,14 +529,14 @@ var magPrint="<h4>МАГАЗИН</h4><br><table class=\"w3-table-all w3-small\">
             magPrint+="</tr></table>";
             bacPrint+="</tr></table></div><div id='bacS' class='w3-right w3-padding' style='width: 40%;'>";
             bacPrint +="<div class=\"w3-light-blue\" style='margin-top: 0px;margin-bottom: 0px;'>\n" +
-                "  <button onclick=\"myFunctionBM('DemoBM')\" class=\"w3-button w3-block\">История статусов</button>\n" +
+                "  <button id=\"btn_hist\" onclick=\"myFunctionBM('DemoBM')\" class=\"w3-button w3-block\">История статусов</button>\n" +
                 "  <div id=\"DemoBM\" class=\"w3-hide w3-container w3-light-gray\">\n" +
                 //"    <p>Lorem ipsum 25% width</p>\n" +
                 "  </div>\n" +
                 "</div></div></div>";
 
             bacPrint +="<div class=\"w3-light-blue\" style='margin-top: 0px;margin-bottom: 0px;'>\n" +
-                "  <button onclick=\"myFunctionFL('DemoFL')\" class=\"w3-button w3-block\">Потоки из Бахус</button>\n" +
+                "  <button id=\"btn_hist_flow\" onclick=\"myFunctionFL('DemoFL')\" class=\"w3-button w3-block\">Потоки из Бахус</button>\n" +
                 "  <div id=\"DemoFL\" class=\"w3-hide w3-container w3-light-gray\">\n" +
                 //"    <p>Lorem ipsum 25% width</p>\n" +
                 "  </div>\n" +
@@ -540,8 +547,8 @@ var magPrint="<h4>МАГАЗИН</h4><br><table class=\"w3-table-all w3-small\">
         }
     }
 
-    var body = 'magbuf='+magbuf+
-        '&magsap='+magsap+
+    var body = 'magbuf='+magbuf.replaceAll(/\s/g,"")+
+        '&magsap='+magsap.replaceAll(/\s/g,"")+
         '&magio='+lioMes+
         '&magflow=no'+
         '&magstate=no';
@@ -821,6 +828,7 @@ function myFunctionT(id) {
 
 function myFunctionBM(id) {
     var x = document.getElementById(id);
+    var bt_name = document.getElementById("btn_hist");
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
         var lio = document.getElementById("listInOut");
@@ -838,12 +846,15 @@ function myFunctionBM(id) {
         let xhrB = new XMLHttpRequest();
 
         xhrB.onreadystatechange = function() {
+            bt_name.innerText="Загружаю...";
             if (xhrB.readyState !== 4) return;
             if (xhrB.status == 200) {
+                bt_name.innerText="История статусов";
                 var state_hist = xhrB.responseText;
                 var arr_state_hist = state_hist.split("&");
                 for(var i=0;i<arr_state_hist.length-1;i++){
                     var row_state_hist = arr_state_hist[i].split("|");
+
                     printHistory+="<tr>"
                     printHistory+="<td>"+row_state_hist[0]+"</td>";
                     printHistory+="<td>"+row_state_hist[1]+"</td>";
@@ -855,8 +866,8 @@ function myFunctionBM(id) {
                 x.innerHTML+=printHistory;
             }
         }
-        var body = 'magbuf='+magbuf+
-            '&magsap='+magsap+
+        var body = 'magbuf='+magbuf.replaceAll(/\s/g,"")+
+            '&magsap='+magsap.replaceAll(/\s/g,"")+
             '&magio='+lioMes+
             '&magflow=no'+
             '&magstate=yes';
@@ -872,6 +883,8 @@ function myFunctionBM(id) {
 
 function myFunctionFL(id) {
     var x = document.getElementById(id);
+    var btn_hist_flow_var = document.getElementById("btn_hist_flow");
+    x.innerHTML="";
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
         var lio = document.getElementById("listInOut");
@@ -879,6 +892,9 @@ function myFunctionFL(id) {
         var magbuf = document.getElementById("Magbuff").value;
         var magsap = document.getElementById("MagSAP").value;
         var printHistory="";
+        var printModal="";
+        var divModal_ID=210;
+
         x.innerHTML="";
         printHistory += "<table class='w3-table-all w3-small' style='margin-top: 5px'>";
         printHistory +=  "<tr class = \"w3-light-blue\">"+
@@ -889,25 +905,53 @@ function myFunctionFL(id) {
         let xhrB = new XMLHttpRequest();
 
         xhrB.onreadystatechange = function() {
+            btn_hist_flow_var.innerText="Загружаю..."
             if (xhrB.readyState !== 4) return;
             if (xhrB.status == 200) {
+                btn_hist_flow_var.innerText="Потоки из Бахус";
                 var state_hist = xhrB.responseText;
-                var arr_state_hist = state_hist.split("&");
+                var arr_state_hist = state_hist.split("~");
                 for(var i=0;i<arr_state_hist.length-1;i++){
+                    divModal_ID++;
+
+                    //console.log(arr_state_hist[i]);
+
                     var row_state_hist = arr_state_hist[i].split("|");
+
+                    var printModalDiv_TOP = "<div id=\"idh"+divModal_ID+"\" class=\"w3-modal\" style=\"z-index: 999\">\n" +
+                        "                <div class=\"w3-modal-content w3-card-4\">\n" +
+                        "                    <header class=\"w3-container w3-teal\">\n" +
+                        "        <span onclick=\"document.getElementById('idh"+divModal_ID+"').style.display='none'\"\n" +
+                        "              class=\"w3-button w3-display-topright\">&times;</span>\n" +
+                        "                        <h2>"+row_state_hist[1]+" "+row_state_hist[0]+"</h2>\n" +
+                        "                    </header>\n" +
+                        "                    <div class=\"w3-container\" contenteditable=\"true\" id=\""+divModal_ID+"\" style=\"text-align: left;overflow-y: scroll;height: 600px;\"><pre><code>";
+                    var printModalDiv_Foot = "</code></pre></div>\n" +
+                        "                    <footer class=\"w3-container w3-teal\">\n" +
+                        "                    </footer>\n" +
+                        "                </div>\n" +
+                        "            </div>";
+
+                    var flowWithOutTegs = row_state_hist[2].replace(/\</g,"&lt;");
+                    flowWithOutTegs = flowWithOutTegs.replace(/\>/g,"&gt;");
                     printHistory+="<tr>"
                     printHistory+="<td>"+row_state_hist[0]+"</td>";
                     printHistory+="<td>"+row_state_hist[1]+"</td>";
-                    printHistory+="<td>"+row_state_hist[2]+"</td>";
+                    //printHistory+="<td>"+flowWithOutTegs+"</td>";
+                    printHistory+="<td>"+"<button onclick=\"document.getElementById('idh"+divModal_ID+"').style.display='block'\" class=\"w3-button w3-block\">Посмотреть</button>"+"</td>";
                     printHistory+="</tr>"
+                    printModal+=printModalDiv_TOP+flowWithOutTegs+printModalDiv_Foot;
+
                 }
 
                 printHistory+="</table>";
                 x.innerHTML+=printHistory;
+                x.innerHTML+=printModal;
+
             }
         }
-        var body = 'magbuf='+magbuf+
-            '&magsap='+magsap+
+        var body = 'magbuf='+magbuf.replaceAll(/\s/g,"")+
+            '&magsap='+magsap.replaceAll(/\s/g,"")+
             '&magio='+lioMes+
             '&magflow=yes'+
             '&magstate=nope';

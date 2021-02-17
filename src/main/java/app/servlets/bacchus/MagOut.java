@@ -26,11 +26,37 @@ public class MagOut extends HttpServlet {
         String magstate = req.getParameter("magstate");
         String magflow = req.getParameter("magflow");
         resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
+
+
 
 
         try {
 
+            switch (magio){
+                case "1":
+
+                    if(magstate.equals("no"))
+                        out.append(ConnectToMag.MagIn(buff,sap));
+                    if(magstate.equals("yes"))
+                        out.append(ConnectToMag.MagStateHistory(buff,sap));
+                    if(magflow.equals("yes"))
+                        out.append(ConnectToMag.MagBufHistory(buff,sap));
+                    break;
+
+                case "2":
+
+                    if(magstate.equals("no"))
+                        out.append(ConnectToMag.magOut(buff,sap));
+                    if(magstate.equals("yes"))
+                        out.append(ConnectToMag.MagStateHistoryOut(buff,sap));
+                    if(magflow.equals("yes"))
+                        out.append(ConnectToMag.MagBufHistory(buff,sap));
+                    break;
+
+            }
+            /*
             if(magio.equals("1") && magstate.equals("no")){
                 out.append(ConnectToMag.MagIn(buff,sap));
                 //return;
@@ -45,6 +71,8 @@ public class MagOut extends HttpServlet {
                 out.append(ConnectToMag.MagBufHistory(buff,sap));
                // return;
             }
+            */
+
 
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();

@@ -87,6 +87,9 @@ body {
 <!--[if lt IE 9]>
 
 <![endif]-->
+    <link rel="stylesheet" href="styles/googlecode.css">
+    <script src="js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 
     <script src="js/Moment.js"></script>
     <script src="js/ru.js"></script>
@@ -130,7 +133,7 @@ body {
         }
     </script>
 
-
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
@@ -138,6 +141,8 @@ body {
 <div id="RightBar">
 
 </div>
+
+<%--
 <div id="LeftBar">
     <div >
         <br>
@@ -167,6 +172,7 @@ body {
         </table>
     </div>
 </div>
+--%>
 <div  class ="w3-light-gray w3-center">
 	
 	<div style="border-top-left-radius:  25px; border-top-right-radius:  25px;" class=" w3-light-blue  w3-padding">
@@ -178,6 +184,10 @@ body {
             %>
             !!!TEST!!! Привет
             <% out.println(NTLMUserFilter.getUserName()); %>!
+
+    </div>
+    <%--
+
             Выполнено инцидентов-трудозатраты за месяц:
             <%
             String incs = ConnToInc.ShowUserInc(NTLMUserFilter.getUserName());
@@ -200,8 +210,7 @@ body {
             %>
             минут.
 
-    </div>
-
+    --%>
 	<div class ="w3-card-4 w3-image "  style = "width: 100%; margin-top: 7px;">
 
 
@@ -213,6 +222,7 @@ body {
                 <img class="w3-bar-item w3-button"  src="img/wine-bottle_icon-icons.com_60728 (2).png"
                      onClick="openCity('London')"  />
             </div>
+            <%--
             <div class="w3-container w3-left-align w3-cell" style="width: 15%">
                 БАХУС РЦ: <% out.println(Bcm2WebMain.infoLine[2]); %><br>
                 В ожидании: <% out.println(Bcm2WebMain.infoLine[3]); %><br>
@@ -225,6 +235,8 @@ body {
                 Решено: <% out.println(Bcm2WebMain.infoLine[7]); %><br>
                 В ожидании: <% out.println(Bcm2WebMain.infoLine[8]); %><br>
             </div>
+            --%>
+
             <div class="w3-container w3-centered w3-cell">
                 <img class="w3-bar-item w3-button" src="img/32380cutofmeat_98860 (1).png" alt=""   onClick="openCity('Paris')"   />
             </div>
@@ -239,10 +251,13 @@ body {
             <div class="w3-container w3-left-align w3-cell" >
 
             </div>
+            <%--
             <div class="w3-container w3-left-align w3-cell" >
                 Дата последнего обновления: <% out.println(Bcm2WebMain.infoLine[10]); %><br>
 
             </div>
+            --%>
+
             <div class="w3-container w3-left-align w3-cell" >
 
             </div>
@@ -275,11 +290,15 @@ body {
                
             </ul>
          </li>
-    <li class='active has-sub'><a href='#'><span>Магазины</span></a>
-        <ul>
+    <li ><a href='#' onClick="openSystem('MagOut')"><span>Магазины</span></a>
+        <%--
+         <ul>
             <li><a href='#' onClick="openSystem('MagOut')"><span>Отгрузка</span></a></li>
             <li><a href='#' onClick="openSystem('MagIn')"><span>Приемка</span></a></li>
         </ul>
+        --%>
+
+
     </li>
     <li ><a href='#' onclick="openSystem('BacchusFlowSearch')"><span>Поиск потоков</span></a>
 
