@@ -133,7 +133,7 @@ public class ConnectToMag {
                 " or h.order_number = '"+buf+"') limit 1";
 
         String fingBacc = "select bi.binc_transactionid\n" +
-                ", bi.doc_status ||' ('||sd.sdss_name ||')'\n" +
+                ", sd.sdss_name||' ('||bi.doc_status ||')'\n" +
                 ", bi.binc_waybillnumber\n" +
                 ", bi.binc_transactiondate\n" +
                 ", bi.binc_sapordernumber\n" +

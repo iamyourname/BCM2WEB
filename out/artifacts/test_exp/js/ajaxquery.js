@@ -475,9 +475,10 @@ function MagOut(){
 var magbuf = document.getElementById("Magbuff").value;
 var magsap = document.getElementById("MagSAP").value;
 var toPrintag = document.getElementById("Magoutput");
+    var intStatus="";
     toPrintag.innerHTML="";
 
-var bacPrint="<div id=\"magbac\" class=\"w3-bar\" style='width: 100%'><h4>БАХУС</h4><br><div id=\"bact\" class='w3-left w3-padding' style='width: 60%'><table class=\"w3-table-all w3-small\">" +
+var bacPrint="<div id=\"magbac\" class=\"w3-bar\" style='width: 100%'><br><h4>БАХУС</h4><br><div id=\"bact\" class='w3-left w3-padding' style='width: 75%'><table class=\"w3-table-all w3-small\">" +
     "<tr class = \"w3-light-blue\">"+
     "<th>Буфер</th>"+
     "<th>Статус</th>"+
@@ -522,12 +523,91 @@ var magPrint="<h4>МАГАЗИН</h4><br><table class=\"w3-table-all w3-small\">
             }
 
             for(var i=0; i <bacInfo.length-1;i++){
+                if(lioMes==1){
+                    if(i==1){
+                         intStatus = bacInfo[i].split("(");
+                        //intStatus=intStatus[1].replace(")");
+                        //var oldSt = document.getElementById("listOfStatusesOut").value;
+                        bacPrint+="<td id=\"rowStatus\">";
+                        bacPrint+="<select onchange=\"changeStateBacchus("+intStatus[1].replace(")","")+",'"+magbuf+"','"+magsap.replaceAll(/\s/g,'')+"',"+lioMes+")\" id=\"listOfStatusesIn\" class=\"w3-select w3-border\" name=\"option\">\n" +
+                            "\t\n" +
+                            "<option value=\"265\">Создан (265)</option>\n" +
+                            "<option value=\"266\">Сопоставлен Заголовок (266)</option>\n" +
+                            "<option value=\"267\">Сопоставлен (267)</option>\n" +
+                            "<option value=\"268\">Не сопоставлен (268)</option>\n" +
+                            "<option value=\"269\">Ошибка (269)</option>\n" +
+                            "<option value=\"270\">На разборе (270)</option>\n" +
+                            "<option value=\"271\">Подтверждён КИС (271)</option>\n" +
+                            "<option value=\"272\">Автообработка (272)</option>\n" +
+                            "<option value=\"274\">Подтверждён ЕГАИС (274)</option>\n" +
+                            "<option value=\"275\">Готов (275)</option>\n" +
+                            "<option value=\"276\">Удалён (276)</option>\n" +
+                            "<option value=\"309\">Отклонен КИС (309)</option>\n" +
+                            "<option value=\"365\">На сопоставлении (365)</option>\n" +
+                            "<option value=\"369\">Отклонен ЕГАИС (369)</option>\n" +
+                            "<option value=\"372\">Распроведение подтверждено (372)</option>\n" +
+                            "<option value=\"376\">Общий (376)</option>\n" +
+                            "<option value=\"4062\">Отказан Акт Разногласий (4062)</option>\n" +
+                            "<option value=\"501\">Распроводится в ЕГАИС (501)</option>\n" +
+                            "<option value=\"5839\">Акт разногласий не подтвержден (5839)</option>\n" +
+                            "<option value=\"712\">Распроведёние отклонено (712)</option>\n" +
+                            "<option value=\"9714\">Отказ Приемки без ТТН (9714)</option>                \n" +
+                            "                \n" +
+                            "</select>";
+                        bacPrint+="</td>";
+                    }else{
+                        bacPrint+="<td>"+bacInfo[i]+"</td>";
+                    }
+                }else{
+                    if(i==1){
+                        intStatus = bacInfo[i].split("(");
+                        //intStatus=intStatus[1].replace(")");
 
-                bacPrint+="<td>"+bacInfo[i]+"</td>";
+                        bacPrint+="<td>";
+
+                        bacPrint+="<select id=\"listOfStatusesOut\" class=\"w3-select w3-border\" name=\"option\">\n" +
+                            "\t\n" +
+                            "<option value=\"294\">Создан (294)</option>\n" +
+                            "<option value=\"295\">Ошибка (295)</option>\n" +
+                            "<option value=\"296\">На разборе (296)</option>\n" +
+                            "<option value=\"297\">В обработке (297)</option>\n" +
+                            "<option value=\"298\">Подтверждена отгрузка (298)</option>\n" +
+                            "<option value=\"299\">Подтверждён ЕГАИС (299)</option>\n" +
+                            "<option value=\"300\">Частично Подтверждена Приемка (300)</option>\n" +
+                            "<option value=\"301\">Отклонен ЕГАИС (301)</option>\n" +
+                            "<option value=\"302\">Передан в SAP (302)</option>\n" +
+                            "<option value=\"303\">Удалён (303)</option>\n" +
+                            "<option value=\"527\">Отправлен в ЕГАИС (527)</option>\n" +
+                            "<option value=\"528\">Успешно создан в ЕГАИС (528)</option>\n" +
+                            "<option value=\"529\">Отзывается в ЕГАИС (529)</option>\n" +
+                            "<option value=\"533\">Принято частично (в ожидании) (533)</option>\n" +
+                            "<option value=\"534\">Принято частично (534)</option>\n" +
+                            "<option value=\"535\">Распроводится в ЕГАИС (535)</option>\n" +
+                            "<option value=\"536\">Распроведён (536)</option>\n" +
+                            "<option value=\"538\">Общий (538)</option>\n" +
+                            "<option value=\"744\">Отправка решения по частичной приёмке (744)</option>\n" +
+                            "<option value=\"746\">Частичная приёмка отклонена (746)</option>\n" +
+                            "<option value=\"747\">Ошибка при отправке решения по частичной приёмке (747)</option>\n" +
+                            "<option value=\"748\">Запрошено распроведение (в ожидании) (748)</option>\n" +
+                            "<option value=\"749\">Отправка решения о распроведении (749)</option>\n" +
+                            "<option value=\"750\">Распроведение отклонено (750)</option>\n" +
+                            "<option value=\"751\">Распроведено (751)</option>\n" +
+                            "<option value=\"752\">Ошибка при отправке решения о распроведении (752)</option>\n" +
+                            "<option value=\"9716\">Некорректные количества (9716)</option>\n" +
+                            "\n" +
+                            "</select>\n";
+                        bacPrint+="</td>";
+                    }else{
+                        bacPrint+="<td>"+bacInfo[i]+"</td>";
+                    }
+                }
+
+
+
             }
 
             magPrint+="</tr></table>";
-            bacPrint+="</tr></table></div><div id='bacS' class='w3-right w3-padding' style='width: 40%;'>";
+            bacPrint+="</tr></table></div><div id='bacS' class='w3-right w3-padding' style='width: 25%;'>";
             bacPrint +="<div class=\"w3-light-blue\" style='margin-top: 0px;margin-bottom: 0px;'>\n" +
                 "  <button id=\"btn_hist\" onclick=\"myFunctionBM('DemoBM')\" class=\"w3-button w3-block\">История статусов</button>\n" +
                 "  <div id=\"DemoBM\" class=\"w3-hide w3-container w3-light-gray\">\n" +
@@ -543,6 +623,8 @@ var magPrint="<h4>МАГАЗИН</h4><br><table class=\"w3-table-all w3-small\">
                 "</div>"
             toPrintag.innerHTML+=magPrint;
             toPrintag.innerHTML+=bacPrint;
+            document.getElementById("listOfStatusesIn").value=intStatus[1].replace(")","");
+            document.getElementById("listOfStatusesOut").value=intStatus[1].replace(")","");
 
         }
     }
@@ -556,6 +638,21 @@ var magPrint="<h4>МАГАЗИН</h4><br><table class=\"w3-table-all w3-small\">
     xhrB.open('POST', '/test/magout', true);
     xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     xhrB.send(body);
+
+}
+
+function changeStateBacchus(oldS,buf,sap,inout){
+    var newSt = document.getElementById("listOfStatusesIn").value;
+    var row_status = document.getElementById("rowStatus");
+    //вывести кнопки подтвеждения или отмены смены статуса буфера, разобраться с повторением, повторный вызов функции.
+    if(inout==1){
+        alert('change status of incoming buffer from'+oldS+'to - '+newSt+' buf - '+ buf.replaceAll(/\s/g,'') + ' sap - '+sap);
+        MagOut();
+    }
+    else{
+        alert('change status of outgoing buffer from'+oldS+'to - '+newSt+' buf - '+ buf.replaceAll(/\s/g,'') + ' sap - '+sap);
+    }
+
 
 }
 
