@@ -75,7 +75,7 @@ public class FlowSend {
         con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "Application/xml");
-        System.out.println(url);
+       // System.out.println(url);
 
 
         //con.setRequestProperty("StandardCharsets","UTF-8");
@@ -150,7 +150,7 @@ public class FlowSend {
         con24 = (HttpURLConnection) obj.openConnection();
         con24.setRequestMethod("POST");
         con24.setRequestProperty("Content-Type", "Application/xml");
-        System.out.println(url);
+       // System.out.println(url);
 
 
         //con.setRequestProperty("StandardCharsets","UTF-8");

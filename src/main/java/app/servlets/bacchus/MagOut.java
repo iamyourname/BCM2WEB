@@ -1,6 +1,8 @@
 package app.servlets.bacchus;
 
 import app.entities.ConnectToMag;
+import app.entities.Logs;
+import app.servlets.NTLMUserFilter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+
+import static app.entities.Logs.writeLogMain;
+import static app.entities.Logs.writeLogParent;
 
 public class MagOut extends HttpServlet {
 
@@ -28,12 +33,20 @@ public class MagOut extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
+        String[] old_new = magstate.split(",");
 
-
-
+        String jsonOptions =
+                "{\"SAP\":\"" + sap + "\"," +
+                        "\"Web\":\"true\","+
+                        "\"options\":\"magstate "+magstate+" magflow "+magflow+" magio "+magio+"\","+
+                        "\"BUF\":\""+ buff +"\"}"; // multi
 
         try {
 
+
+            writeLogMain(NTLMUserFilter.getUserName(),"BACCHUS","Магазины",
+                    "Магазины",
+                    jsonOptions,"LOADING","");
             switch (magio){
                 case "1":
 
@@ -43,6 +56,13 @@ public class MagOut extends HttpServlet {
                         out.append(ConnectToMag.MagStateHistory(buff,sap));
                     if(magflow.equals("yes"))
                         out.append(ConnectToMag.MagBufHistory(buff,sap));
+                    if(magflow.equals("cmp"))
+                        out.append(ConnectToMag.EgaisTtnComp(buff,sap));
+                    if(magflow.equals("cmp_buf"))
+                        out.append(ConnectToMag.BacBufComp(buff,sap));
+                    if(magstate.contains("ch"))
+                    out.append(ConnectToMag.ChangeBufMagIn(buff,sap,old_new[2]));
+
                     break;
 
                 case "2":
@@ -53,6 +73,8 @@ public class MagOut extends HttpServlet {
                         out.append(ConnectToMag.MagStateHistoryOut(buff,sap));
                     if(magflow.equals("yes"))
                         out.append(ConnectToMag.MagBufHistory(buff,sap));
+                    if(magstate.contains("ch"))
+                        out.append(ConnectToMag.ChangeBufMagOut(buff,sap,old_new[2]));
                     break;
 
             }
@@ -72,10 +94,19 @@ public class MagOut extends HttpServlet {
                // return;
             }
             */
-
+            writeLogParent(NTLMUserFilter.getUserName(),"BACCHUS","Магазины",
+                    "Магазины",
+                    jsonOptions,"OK","");
 
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
+            try {
+                Logs.writeLogParent(NTLMUserFilter.getUserName(),"BACCHUS","Магазины",
+                        "Магазины",
+                        jsonOptions,"ERROR",""+throwables.toString());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
 

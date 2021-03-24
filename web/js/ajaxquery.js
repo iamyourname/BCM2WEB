@@ -436,7 +436,9 @@ function checkResp() {
                     var withoutx = head_body_resp[1].replace(/</g,"&lt;");withoutx = withoutx.replace(/>/g,"&gt;");
                     //xmlTi=xmlTi.replace(/</g,"&lt;"); xmlTi= xmlTi.replace(/>/g,"&gt;");
                     print_resp += "<tr><td>"+head_body_resp[0]+"</td>"+
-                        "<td><a href=\"/test/files_utm/"+head_body_resp[0].replace(/\//g,"_")+".xml\">Посмотреть</a></td></tr>";
+                        "<td><a href=\"/test/files_utm/"+head_body_resp[0].replace(/\//g,"_")+".xml\">Посмотреть</a></td>" +
+
+                        "</tr>";
 
                 }
 
@@ -478,7 +480,7 @@ var toPrintag = document.getElementById("Magoutput");
     var intStatus="";
     toPrintag.innerHTML="";
 
-var bacPrint="<div id=\"magbac\" class=\"w3-bar\" style='width: 100%'><br><h4>БАХУС</h4><br><div id=\"bact\" class='w3-left w3-padding' style='width: 75%'><table class=\"w3-table-all w3-small\">" +
+var bacPrint="<div id=\"magbac\" class=\"w3-bar\" style='width: 100%'><br><h4>БАХУС</h4><br><div id=\"bact\" class='w3-left w3-padding' style='width: 70%'><table class=\"w3-table-all w3-small\">" +
     "<tr class = \"w3-light-blue\">"+
     "<th>Буфер</th>"+
     "<th>Статус</th>"+
@@ -501,6 +503,7 @@ var magPrint="<h4>МАГАЗИН</h4><br><table class=\"w3-table-all w3-small\">
     let xhrB = new XMLHttpRequest();
 
     xhrB.onreadystatechange = function() {
+        btn_text.className = btn_text.className.replace(" w3-red", "w3-green");
         btn_text.innerText="Загружаю..."
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
@@ -607,7 +610,7 @@ var magPrint="<h4>МАГАЗИН</h4><br><table class=\"w3-table-all w3-small\">
             }
 
             magPrint+="</tr></table>";
-            bacPrint+="</tr></table></div><div id='bacS' class='w3-right w3-padding' style='width: 25%;'>";
+            bacPrint+="</tr></table></div><div id='bacS' class='w3-right w3-padding' style='width: 30%;'>";
             bacPrint +="<div class=\"w3-light-blue\" style='margin-top: 0px;margin-bottom: 0px;'>\n" +
                 "  <button id=\"btn_hist\" onclick=\"myFunctionBM('DemoBM')\" class=\"w3-button w3-block\">История статусов</button>\n" +
                 "  <div id=\"DemoBM\" class=\"w3-hide w3-container w3-light-gray\">\n" +
@@ -620,12 +623,30 @@ var magPrint="<h4>МАГАЗИН</h4><br><table class=\"w3-table-all w3-small\">
                 "  <div id=\"DemoFL\" class=\"w3-hide w3-container w3-light-gray\">\n" +
                 //"    <p>Lorem ipsum 25% width</p>\n" +
                 "  </div>\n" +
-                "</div>"
+                "</div>";
+
+            bacPrint +="<div class=\"w3-light-blue\" style='margin-top: 10px;margin-bottom: 0px;'>\n" +
+                "  <button id=\"btn_cmp\" onclick=\"myFunctionComp('DemoCmp')\" class=\"w3-button w3-block\">Состав ТТН ЕГАИС</button>\n" +
+                "  <div id=\"DemoCmp\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+                //"    <p>Lorem ipsum 25% width</p>\n" +
+                "  </div>\n" +
+                "</div>";
+            bacPrint +="<div class=\"w3-light-blue\" style='margin-top: 10px;margin-bottom: 0px;'>\n" +
+                "  <button id=\"btn_buf_cmp\" onclick=\"myFunctionBufComp('DemoBufCmp')\" class=\"w3-button w3-block\">Состав Буфера</button>\n" +
+                "  <div id=\"DemoBufCmp\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+                //"    <p>Lorem ipsum 25% width</p>\n" +
+                "  </div>\n" +
+                "</div>";
+
             toPrintag.innerHTML+=magPrint;
             toPrintag.innerHTML+=bacPrint;
             document.getElementById("listOfStatusesIn").value=intStatus[1].replace(")","");
             document.getElementById("listOfStatusesOut").value=intStatus[1].replace(")","");
 
+        }
+        else{
+            btn_text.className = btn_text.className.replace(" w3-green", "w3-red");
+            btn_text.innerText="Какая-то ошибка!"
         }
     }
 
@@ -646,11 +667,50 @@ function changeStateBacchus(oldS,buf,sap,inout){
     var row_status = document.getElementById("rowStatus");
     //вывести кнопки подтвеждения или отмены смены статуса буфера, разобраться с повторением, повторный вызов функции.
     if(inout==1){
-        alert('change status of incoming buffer from'+oldS+'to - '+newSt+' buf - '+ buf.replaceAll(/\s/g,'') + ' sap - '+sap);
+        //alert('change status of incoming buffer from'+oldS+'to - '+newSt+' buf - '+ buf.replaceAll(/\s/g,'') + ' sap - '+sap);
+        let xhrCh = new XMLHttpRequest();
+        xhrCh.onreadystatechange = function() {
+            //btn_text.innerText="Загружаю..."
+            if (xhrCh.readyState !== 4) return;
+            if (xhrCh.status == 200) {
+                var ok_or_no = xhrCh.responseText;
+                if(ok_or_no=="ok")
+                    alert("buf changed!");
+                MagOut();
+            }
+        }
+        var body = 'magbuf='+buf.replaceAll(/\s/g,"")+
+            '&magsap='+sap.replaceAll(/\s/g,"")+
+            '&magio='+inout+
+            '&magflow=nope'+
+            '&magstate=ch,'+oldS+','+newSt;
+        xhrCh.open('POST', '/test/magout', true);
+        xhrCh.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhrCh.send(body);
+
         //MagOut();
     }
     else{
         alert('change status of outgoing buffer from'+oldS+'to - '+newSt+' buf - '+ buf.replaceAll(/\s/g,'') + ' sap - '+sap);
+        let xhrOut = new XMLHttpRequest();
+        xhrOut.onreadystatechange = function() {
+            //btn_text.innerText="Загружаю..."
+            if (xhrOut.readyState !== 4) return;
+            if (xhrOut.status == 200) {
+                var ok_or_no = xhrOut.responseText;
+                if(ok_or_no=="ok")
+                    alert("buf changed!");
+                MagOut();
+            }
+        }
+        var body = 'magbuf='+buf.replaceAll(/\s/g,"")+
+            '&magsap='+sap.replaceAll(/\s/g,"")+
+            '&magio='+inout+
+            '&magflow=nope'+
+            '&magstate=ch,'+oldS+','+newSt;
+        xhrOut.open('POST', '/test/magout', true);
+        xhrOut.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhrOut.send(body);
     }
 
 
@@ -998,6 +1058,7 @@ function myFunctionFL(id) {
             "<th>Req/Resp</th>"+
             "<th>Тип</th>"+
             "<th>Содержание</th>"+
+            "<th>Переотправка</th>"+
             "</tr>";
         let xhrB = new XMLHttpRequest();
 
@@ -1036,6 +1097,7 @@ function myFunctionFL(id) {
                     printHistory+="<td>"+row_state_hist[1]+"</td>";
                     //printHistory+="<td>"+flowWithOutTegs+"</td>";
                     printHistory+="<td>"+"<button onclick=\"document.getElementById('idh"+divModal_ID+"').style.display='block'\" class=\"w3-button w3-block\">Посмотреть</button>"+"</td>";
+                    printHistory+="<td>"+"<button onclick=\"#\" class=\"w3-button w3-block\">Переотправить</button>"+"</td>";
                     printHistory+="</tr>"
                     printModal+=printModalDiv_TOP+flowWithOutTegs+printModalDiv_Foot;
 
@@ -1062,6 +1124,197 @@ function myFunctionFL(id) {
     }
 }
 
+function myFunctionComp(id) {
+    var x = document.getElementById(id);
+    var btn_cmp = document.getElementById("btn_cmp");
+    x.innerHTML="";
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        var lio = document.getElementById("listInOut");
+        var lioMes = lio.options[lio.selectedIndex].value;
+        var magbuf = document.getElementById("Magbuff").value;
+        var magsap = document.getElementById("MagSAP").value;
+        var printHistory="";
+        var printModal="";
+        var divModal_ID=210;
+
+        x.innerHTML="";
+        printHistory += "<table class='w3-table w3-bordered w3-card-4 w3-small' style='margin-top: 5px'>";
+        printHistory +=  "<tr class = \"w3-light-blue\">"+
+            "<th>Наименование</th>"+
+            "<th>PLU</th>"+
+            "<th>Алкокод</th>"+
+            "<th>Справка Б</th>"+
+            "<th>Кол-во</th>"+
+            //"<th>Дата розлива</th>"+
+            "</tr>";
+        let xhrB = new XMLHttpRequest();
+
+        xhrB.onreadystatechange = function() {
+            btn_cmp.innerText="Загружаю..."
+            if (xhrB.readyState !== 4) return;
+            if (xhrB.status == 200) {
+                btn_cmp.innerText="Состав ТТН ЕГАИС";
+                var egais_cmp = xhrB.responseText;
+
+                var egais_position = egais_cmp.split("&"); // строки целиком
+                //var green_no = true;
+                for(var i=0;i< egais_position.length-1;i++){
+
+                    var egais_lines = egais_position[i].split("|"); // коробки в позиции
+
+                    //выводим наименования из ттн егаис. Дальше коробки по наименованию и коробки
+                    //for(var l=0;l<egais_lines.length;l++){
+
+                        printHistory+= "<tr class=\"w3-hover-green\" onclick=\"BoxAmcTree('rowBox"+i+"')\">";
+
+
+
+
+                        printHistory+="<td>"+egais_lines[0]+"</td>";
+                        printHistory+="<td>"+egais_lines[1]+"</td>";
+                        printHistory+="<td>"+egais_lines[2]+"</td>";
+                        printHistory+="<td>"+egais_lines[3]+"</td>";
+                        printHistory+="<td>"+egais_lines[4]+"</td>";
+                        printHistory+="</tr>";
+                    //}
+                    var box_in_pos = egais_lines[5].split("!"); // отделяем коробки от даты разлива
+                    var box_amc_in_pos = box_in_pos[1].split("?") // отделяем отдельно коробки:марки
+
+                    for(var b=0;b<box_amc_in_pos.length-1;b++){
+                        var amc_in_boxes = box_amc_in_pos[b].split(":"); // отделяем короба от марок.
+                        // 0 - короб, 1 марки через запятую
+                        //for(var ba=0; ba<amc_in_boxes.length)
+                        printHistory+= "<tr id=\"rowBox"+i+"\" class=\"w3-hide\">";
+                        printHistory+="<td>";
+                        printHistory+="<ul class=\"w3-ul\">";
+                        printHistory+="<li>";
+                        printHistory+="<button onclick=\"BoxAmcTree('Box"+i+b+"')\" class=\"w3-button w3-light-blue w3-block  w3-left-align\">"+amc_in_boxes[0]+" </button>";
+                        printHistory+="<div id=\"Box"+i+b+"\" class=\"w3-hide\">";
+                        printHistory+="<ul class=\"w3-ul\">";
+
+                        var amcs_in_box = amc_in_boxes[1].split(","); // печатаем марки
+
+                        for(var aib=0;aib<amcs_in_box.length-1;aib++){
+                            printHistory+="<li>"+amcs_in_box[aib]+"</li>";
+
+                        }
+
+                        printHistory+="</ul>"; // список марок
+                        printHistory+=" </div>"; // блок коробок
+                        printHistory+="</li>"; // коробка из списка коробок
+                        printHistory+="</ul>"; // конец списка коробок по позиции
+                        printHistory+="</td>"; // ячейка содержимого
+                        printHistory+="</tr>"; // строка содержимого
+
+
+                    }
+
+
+                }
+
+                //Переименование кнопки, отправка данных на сервер.
+                // Далее получаем данные и отображем их для пользователя
+
+                printHistory+="</table>";
+                console.log(printHistory);
+                x.innerHTML+=printHistory;
+                //x.innerHTML+=printModal;
+
+            }
+        }
+        var body = 'magbuf='+magbuf.replaceAll(/\s/g,"")+
+            '&magsap='+magsap.replaceAll(/\s/g,"")+
+            '&magio='+lioMes+
+            '&magflow=cmp'+
+            '&magstate=nope';
+
+        xhrB.open('POST', '/test/magout', true);
+        xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhrB.send(body);
+
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+
+function myFunctionBufComp(id) {
+    var x = document.getElementById(id);
+    var btn_cmp = document.getElementById("btn_buf_cmp");
+    x.innerHTML="";
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        var lio = document.getElementById("listInOut");
+        var lioMes = lio.options[lio.selectedIndex].value;
+        var magbuf = document.getElementById("Magbuff").value;
+        var magsap = document.getElementById("MagSAP").value;
+        var printHistory="";
+        var printModal="";
+        var divModal_ID=210;
+
+        x.innerHTML="";
+        printHistory += "<table class='w3-table w3-bordered w3-card-4 w3-small' style='margin-top: 5px'>";
+        printHistory +=  "<tr class = \"w3-light-blue\">"+
+            "<th>Наименование</th>"+
+            "<th>PLU</th>"+
+            "<th>Кол-во</th>"+
+            //"<th>Дата розлива</th>"+
+            "</tr>";
+        let xhrB = new XMLHttpRequest();
+
+        xhrB.onreadystatechange = function() {
+            btn_cmp.innerText="Загружаю..."
+            if (xhrB.readyState !== 4) return;
+            if (xhrB.status == 200) {
+                btn_cmp.innerText="Состав Буфера";
+                var egais_cmp = xhrB.responseText;
+
+                var egais_position = egais_cmp.split("&"); // строки целиком
+                //var green_no = true;
+                for(var i=0; i < egais_position.length-1; i++){
+                    var buf_pos = egais_position[i].split("|");
+                    printHistory+="<tr>";
+                    printHistory+="<td>"+buf_pos[0]+"</td>";
+                    printHistory+="<td>"+buf_pos[1]+"</td>";
+                    printHistory+="<td>"+buf_pos[2]+"</td>";
+                    printHistory+="</tr>";
+
+                }
+                //Переименование кнопки, отправка данных на сервер.
+                // Далее получаем данные и отображем их для пользователя
+
+                printHistory+="</table>";
+                //console.log(printHistory);
+                x.innerHTML+=printHistory;
+                //x.innerHTML+=printModal;
+
+            }
+        }
+        var body = 'magbuf='+magbuf.replaceAll(/\s/g,"")+
+            '&magsap='+magsap.replaceAll(/\s/g,"")+
+            '&magio='+lioMes+
+            '&magflow=cmp_buf'+
+            '&magstate=nope';
+
+        xhrB.open('POST', '/test/magout', true);
+        xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhrB.send(body);
+
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+
+
+
+function BoxAmcTree(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
 
 function WRGo(Buf,Sap){
 

@@ -32,7 +32,6 @@ public class ConnectToMag {
             Connection pullConnNq = ConnectionPool.getInstance().getConnectionNQ("0154");
             Statement stmtPullNq = pullConnNq.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-
             ResultSet rsnq = stmtPullNq.executeQuery("select nickname from sdd.department " +
                     "where id_department in (select id_department from sdd.department_ext where ext_string = '"+sap+"')");
             String resnq = "";
@@ -258,7 +257,7 @@ public class ConnectToMag {
             cnn.close();stmtGK.close();
 
             String agent = RcToAgent.SapAgent(sap);
-            if(Integer.parseInt(agent)<9)agent="0"+agent;
+            if(Integer.parseInt(agent)<10)agent="0"+agent;
             System.out.println(agent);
             Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
             //String sAg = "";
@@ -475,6 +474,246 @@ public class ConnectToMag {
         pullConn.close();stmtPullB.close();rsF.close();
 
 
+
+
+        return response;
+    }
+
+    public static String ChangeBufMagIn(String buf, String sap,String status) throws SQLException {
+        String response="";
+        String updateBufIn = "update b_incoming set doc_status ="+status+" \n" +
+                "    where binc_id = (\n" +
+                "        select binc_id from b_incoming bi\n" +
+                "        left join c_org_divisions co on co.codv_id = bi.codv_id\n" +
+                "            where 1=1\n" +
+                "                and bi.binc_transactionid = '"+buf+"'\n" +
+                "                and co.codv_code = '"+sap+"'\n" +
+                ")";
+
+        String agent = RcToAgent.SapAgent(sap);
+        if(Integer.parseInt(agent)<9)agent="0"+agent;
+        System.out.println(agent);
+        Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
+        //String sAg = "";
+        Statement stmtPullB = pullConn.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        stmtPullB.execute(updateBufIn);
+            response="ok";
+        pullConn.close();stmtPullB.close();
+        return response;
+    }
+
+    public static String ChangeBufMagOut(String buf, String sap,String status) throws SQLException {
+        String response="";
+        String updateBufIn = "update b_outgoing set doc_status ="+status+" \n" +
+                "    where bout_id = (\n" +
+                "        select bout_id from b_outgoing bo\n" +
+                "        left join c_org_divisions co on co.codv_id = bo.codv_id\n" +
+                "            where 1=1\n" +
+                "                and bi.bout_transactionid = '"+buf+"'\n" +
+                "                and co.codv_code = '"+sap+"'\n" +
+                ")";
+
+        String agent = RcToAgent.SapAgent(sap);
+        if(Integer.parseInt(agent)<9)agent="0"+agent;
+        System.out.println(agent);
+        Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
+        //String sAg = "";
+        Statement stmtPullB = pullConn.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        stmtPullB.execute(updateBufIn);
+        response="ok";
+        pullConn.close();stmtPullB.close();
+        return response;
+    }
+
+    public static String EgaisTtnComp(String buf, String sap) throws SQLException {
+        String response="";
+
+        String e_positions = "select \n" +
+                "\t\t ep.id \n" +
+                "\t , ep.alc_code_name\n" +
+                "\t , ep.plu \n" +
+                "\t , ep.alc_code \n" +
+                "\t , ep.fb_number \n" +
+                "\t , ep.fb_quantity \n" +
+                "\t , ep.bottling_date\n" +
+                " from xrg_gr_doc_header h\n" +
+                " left join XRG_EGAIS_RECEIPT_HEADER eh on eh.local_id  = h.local_id \n" +
+                " left join XRG_EGAIS_RECEIPT_POSITIONS ep on ep.header_id = eh.id \n" +
+                " where  (\n" +
+                "\t h.local_id = (split_part('"+buf+"','-',1))::int8\n" +
+                "\t or h.identifier_1 = '"+buf+"'\n" +
+                "\t or h.order_number = '"+buf+"'\n" +
+                ")" +
+                " order by 1";
+
+
+        String e_box = "select \n" +
+                "\t\t ep.id \n" +
+                "\t,\t case \n" +
+                "\t\twhen eb.box_id is null then 'box_not_found'\n" +
+                "\t\tELSE eb.box_id \n" +
+                "\t\tEND box_id \n" +
+                "\t,\t eb.pallete_number \n" +
+                "from xrg_gr_doc_header h\n" +
+                "left join XRG_EGAIS_RECEIPT_HEADER eh on eh.local_id  = h.local_id \n" +
+                "left join XRG_EGAIS_RECEIPT_POSITIONS ep on ep.header_id = eh.id \n" +
+                "left join XRG_EGAIS_RECEIPT_BOX eb on eb.position_id = ep.id\n" +
+                "where  (\n" +
+                "\th.local_id = (split_part('"+buf+"','-',1))::int8\n" +
+                "\tor h.identifier_1 = '"+buf+"'\n" +
+                "\tor h.order_number = '"+buf+"'\n" +
+                ")" +
+                " order by 1";
+
+        String e_amc = "select \n" +
+                "\t\t \t distinct (ea.position_id )\n" +
+                "\t\t ,\t ea.box_id \n" +
+                "\t\t ,\t ea.amc_code \n" +
+                "from xrg_gr_doc_header h\n" +
+                "left join XRG_EGAIS_RECEIPT_HEADER eh on eh.local_id  = h.local_id \n" +
+                "left join XRG_EGAIS_RECEIPT_POSITIONS ep on ep.header_id = eh.id \n" +
+                "left join XRG_EGAIS_RECEIPT_BOX eb on eb.position_id = ep.id\n" +
+                "left join XRG_EGAIS_RECEIPT_AM ea on ea.header_id = eh.id \n" +
+                "where  (\n" +
+                "\t h.local_id = (split_part('"+buf+"','-',1))::int8\n" +
+                "\t or h.identifier_1 = '"+buf+"'\n" +
+                "\t or h.order_number = '"+buf+"'\n" +
+                ")" +
+                " order by 1";
+        Connection cnn = connectionMagGK(sap);
+        Statement stmtGK = cnn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        // waybill positions
+        ResultSet rsGK = stmtGK.executeQuery(e_positions);
+
+        rsGK.last();int countPos=rsGK.getRow();rsGK.beforeFirst();
+        String[][] egaisRows = new String[countPos+1][7];
+        int cr=0;
+
+        while (rsGK.next()){
+            egaisRows[cr][0] = rsGK.getString(1);
+            egaisRows[cr][1] = rsGK.getString(2);
+            egaisRows[cr][2] = rsGK.getString(3);
+            egaisRows[cr][3] = rsGK.getString(4);
+            egaisRows[cr][4] = rsGK.getString(5);
+            egaisRows[cr][5] = rsGK.getString(6);
+            egaisRows[cr][6] = rsGK.getString(7);
+
+            cr++;
+            /*
+            response+=rsGK.getString(1)+"|";
+            response+=rsGK.getString(2)+"|";
+            response+=rsGK.getString(3)+"|";
+            response+=rsGK.getString(4)+"|";
+            response+=rsGK.getString(5)+"|";
+            response+=rsGK.getString(6)+"|";
+            response+="&";
+            */
+
+        }
+
+        // waybill amcs
+        rsGK = stmtGK.executeQuery(e_amc);
+
+        rsGK.last(); int countAMC=rsGK.getRow();rsGK.beforeFirst();
+        String[][] egaisAmc = new String[countAMC+1][3];
+        int cra=0;
+
+        while (rsGK.next()){
+            egaisAmc[cra][0] = rsGK.getString(1);
+            egaisAmc[cra][1] = rsGK.getString(2);
+            egaisAmc[cra][2] = rsGK.getString(3);
+            cra++;
+
+        }
+
+
+
+        // waybill boxes
+         rsGK = stmtGK.executeQuery(e_box);
+
+        rsGK.last(); int countBox=rsGK.getRow();rsGK.beforeFirst();
+        String[][] egaisBoxs = new String[countBox+1][3];
+        int crb=0;
+
+        while (rsGK.next()){
+            egaisBoxs[crb][0] = rsGK.getString(1);
+            egaisBoxs[crb][1] = rsGK.getString(2);
+            egaisBoxs[crb][2] = rsGK.getString(3);
+            crb++;
+
+        }
+        for(int i = 0; i < countPos; i++){
+            response+=egaisRows[i][1]+"|";
+            response+=egaisRows[i][2]+"|";
+            response+=egaisRows[i][3]+"|";
+            response+=egaisRows[i][4]+"|";
+            response+=egaisRows[i][5]+"|";
+            response+=egaisRows[i][6]+"!";
+
+            for(int ii=0; ii < countBox;ii++){
+
+                if(egaisRows[i][0].equals(egaisBoxs[ii][0])){
+                    response+=egaisBoxs[ii][1]+":";
+
+                        for(int iii = 0; iii < countAMC; iii++){
+                            if(egaisBoxs[ii][1].equals(egaisAmc[iii][1])){
+                                response+=egaisAmc[iii][2]+",";
+                            }
+                            //System.out.println("box "+egaisBoxs[ii][1]+" amc "+egaisAmc[iii][2]);
+                        }
+                        response+="?";
+                }
+
+
+            }
+
+
+            response+="&";
+            //System.out.println("pos "+countPos+" box "+countBox+" amc "+countAMC);
+
+        }
+
+
+
+
+        cnn.close();stmtGK.close();rsGK.close();
+
+
+        return response;
+    }
+
+    public static String BacBufComp(String buf, String sap) throws SQLException {
+        String response="";
+
+
+       String q_bufCmp = "select item_name, item_id, quantity from xrg_gr_doc_pos xgdp where\n" +
+               "xgdp.local_id = (split_part('"+buf+"','-',1))::int8\n" +
+               "and alcohol_flag = 'J';";
+
+
+        Connection cnn = connectionMagGK(sap);
+        Statement stmtGK = cnn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        // waybill positions
+        ResultSet rsGK = stmtGK.executeQuery(q_bufCmp);
+
+
+
+        while (rsGK.next()){
+            response+= rsGK.getString(1) + "|";
+            response+= rsGK.getString(2) + "|";
+            response+= rsGK.getString(3)+ "|";
+            response+= "&";
+
+        }
+
+
+
+
+
+
+        cnn.close();stmtGK.close();rsGK.close();
 
 
         return response;
