@@ -474,13 +474,13 @@ function MagOut(){
     var lioMes = lio.options[lio.selectedIndex].value;
     var btn_text = document.getElementById("MagOutSend");
     //alert(lioMes);
-var magbuf = document.getElementById("Magbuff").value;
-var magsap = document.getElementById("MagSAP").value;
-var toPrintag = document.getElementById("Magoutput");
+    var magbuf = document.getElementById("Magbuff").value;
+    var magsap = document.getElementById("MagSAP").value;
+    var toPrintag = document.getElementById("Magoutput");
     var intStatus="";
     toPrintag.innerHTML="";
 
-var bacPrint="<div id=\"magbac\" class=\"w3-bar\" style='width: 100%'><br><h4>БАХУС</h4><br><div id=\"bact\" class='w3-left w3-padding' style='width: 70%'><table class=\"w3-table-all w3-small\">" +
+    var bacPrint="<div id=\"magbac\" class=\"w3-bar\" style='width: 100%'><br><h4>БАХУС</h4><br><div id=\"bact\" class='w3-left w3-padding' style='width: 70%'><table class=\"w3-table-all w3-small\">" +
     "<tr class = \"w3-light-blue\">"+
     "<th>Буфер</th>"+
     "<th>Статус</th>"+
@@ -489,7 +489,7 @@ var bacPrint="<div id=\"magbac\" class=\"w3-bar\" style='width: 100%'><br><h4>Б
     "<th>Заказ</th>"+
     "</tr>";
 
-var magPrint="<h4>МАГАЗИН</h4><br><table class=\"w3-table-all w3-small\">" +
+    var magPrint="<h4>МАГАЗИН</h4><br><table class=\"w3-table-all w3-small\">" +
     "<tr class = \"w3-light-blue\">"+
     "<th>Буфер</th>"+
     "<th>Статус</th>"+
@@ -715,6 +715,51 @@ function changeStateBacchus(oldS,buf,sap,inout){
 
 
 }
+
+function MagNQ(){
+    var lio = document.getElementById("listNQInOut");
+    var lioMes = lio.options[lio.selectedIndex].value;
+    var btn_text = document.getElementById("MagNQOutSend");
+    //alert(lioMes);
+    var magbuf = document.getElementById("MagNQbuff").value;
+    var magsap = document.getElementById("MagNQSAP").value;
+    var toPrintag = document.getElementById("MagNQoutput");
+    var intStatus="";
+    toPrintag.innerHTML="";
+
+    let xhrB = new XMLHttpRequest();
+    xhrB.onreadystatechange = function() {
+        if (xhrB.readyState !== 4) return;
+        if (xhrB.status == 200) {
+        }
+    }
+    var body = 'magbuf='+buf.replaceAll(/\s/g,"")+
+        '&magsap='+sap.replaceAll(/\s/g,"")+
+        '&magio='+inout+
+        '&magflow=nope'+
+        '&magstate=ch,'+oldS+','+newSt;
+    xhrOut.open('POST', '/test/magnq', true);
+    xhrOut.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrOut.send(body);
+    /*
+     xhrB.onreadystatechange = function() {
+        if (xhrB.readyState !== 4) return;
+            if (xhrB.status == 200) {
+            }
+    }
+    var body = 'magbuf='+buf.replaceAll(/\s/g,"")+
+            '&magsap='+sap.replaceAll(/\s/g,"")+
+            '&magio='+inout+
+            '&magflow=nope'+
+            '&magstate=ch,'+oldS+','+newSt;
+        xhrOut.open('POST', '/test/magnq', true);
+        xhrOut.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhrOut.send(body);
+
+     */
+
+}
+
 
 function searchMarkus(){
     //button
