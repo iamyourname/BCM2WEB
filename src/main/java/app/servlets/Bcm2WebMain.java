@@ -111,7 +111,7 @@ public  class Bcm2WebMain extends HttpServlet {
                     jsonOptions,"LOADING","");
             if(countrows!=0){
 
-                ConnToInc.ShowDayInc();
+                //ConnToInc.ShowDayInc();
                 /*
                 Charset cs = StandardCharsets.UTF_8;
                 File commonIncInfo = new File("E:\\Progs\\TomCat_9\\webapps\\BaccRcStat.txt");
@@ -126,7 +126,7 @@ public  class Bcm2WebMain extends HttpServlet {
                 br.close();
                 */
 
-                ConnToInc.TableOfTop();
+               // ConnToInc.TableOfTop();
 
 
                 ViewUserSettings viewUserSettings = new ViewUserSettings();
@@ -158,7 +158,7 @@ public  class Bcm2WebMain extends HttpServlet {
 
             }
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

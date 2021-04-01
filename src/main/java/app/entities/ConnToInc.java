@@ -9,8 +9,7 @@ import static app.servlets.Bcm2WebMain.infoLine;
 
 public class ConnToInc {
 
-    public static String[][] tableTop = new String[35][2]; // = new String[35][2]
-
+    /*
     public static void TableOfTop() throws SQLException, ClassNotFoundException {
 
         for(int l=0; l < tableTop.length; l++){
@@ -48,8 +47,14 @@ public class ConnToInc {
 
     }
 
+     */
 
-    public static void ShowDayInc() throws ClassNotFoundException, SQLException {
+
+    /*public static String[][] tableTop = new String[35][2]; // = new String[35][2]*/
+
+
+
+    /*public static void ShowDayInc() throws ClassNotFoundException, SQLException {
 
         Class.forName("org.h2.Driver");
         // Connection conn = DriverManager.getConnection("jdbc:h2:./ok_usersinc;DATABASE_TO_UPPER=true;FILE_LOCK=NO",
@@ -66,9 +71,9 @@ public class ConnToInc {
         stmt.close();
         conn.close();
 
-    }
+    }*/
 
-    public static String ShowUserInc(String user) throws ClassNotFoundException, SQLException {
+    /*public static String ShowUserInc(String user) throws ClassNotFoundException, SQLException {
 
         Class.forName("org.h2.Driver");
         // Connection conn = DriverManager.getConnection("jdbc:h2:./ok_usersinc;DATABASE_TO_UPPER=true;FILE_LOCK=NO",
@@ -93,15 +98,15 @@ public class ConnToInc {
         String AllUserInc = rsDay.getString(1);
         stmt.close();
         conn.close();
-       /*
+       *//*
          if(AllUserInc.equals("null")){
             AllUserInc="0";
         }
-       * */
+       * *//*
         return AllUserInc;
-    }
+    }*/
 
-    public static String ShowUserTime(String user) throws ClassNotFoundException, SQLException {
+    /*public static String ShowUserTime(String user) throws ClassNotFoundException, SQLException {
 
         Class.forName("org.h2.Driver");
         // Connection conn = DriverManager.getConnection("jdbc:h2:./ok_usersinc;DATABASE_TO_UPPER=true;FILE_LOCK=NO",
@@ -126,21 +131,21 @@ public class ConnToInc {
         String allUserTime = rsDayTime.getString(1);
         stmt.close();
         conn.close();
-        /*
+        *//*
         if(allUserTime.equals("null")){
             allUserTime="0";
         }
-        */
+        *//*
 
 
         return allUserTime;
-    }
+    }*/
 
-    public static void UpdateUserInc() throws InterruptedException {
+    /*public static void UpdateUserInc() throws InterruptedException {
         System.out.println("SLEEP");
         Thread.sleep(5000);
         System.out.println("AFTER_SLEEP");
 
-    }
+    }*/
 
 }

@@ -1,5 +1,13 @@
 package app.entities;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
 import static app.entities.ConnectToBD.driverNamePostgres;
@@ -156,7 +164,7 @@ public class ConnectToMag {
             cnn.close();stmtGK.close();
 
             String agent = RcToAgent.SapAgent(sap);
-            if(Integer.parseInt(agent)<9)agent="0"+agent;
+            if(Integer.parseInt(agent)<10)agent="0"+agent;
             System.out.println(agent);
             Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
             //String sAg = "";
@@ -425,7 +433,7 @@ public class ConnectToMag {
                 " order by 1 desc";
 
         String agent = RcToAgent.SapAgent(sap);
-        if(Integer.parseInt(agent)<9)agent="0"+agent;
+        if(Integer.parseInt(agent)<10)agent="0"+agent;
         System.out.println(agent);
         Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
         //String sAg = "";
@@ -491,7 +499,7 @@ public class ConnectToMag {
                 ")";
 
         String agent = RcToAgent.SapAgent(sap);
-        if(Integer.parseInt(agent)<9)agent="0"+agent;
+        if(Integer.parseInt(agent)<10)agent="0"+agent;
         System.out.println(agent);
         Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
         //String sAg = "";
@@ -515,7 +523,7 @@ public class ConnectToMag {
                 ")";
 
         String agent = RcToAgent.SapAgent(sap);
-        if(Integer.parseInt(agent)<9)agent="0"+agent;
+        if(Integer.parseInt(agent)<10)agent="0"+agent;
         System.out.println(agent);
         Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
         //String sAg = "";
@@ -719,5 +727,116 @@ public class ConnectToMag {
         return response;
     }
 
+    public static String MagBacFlowResend(String buf, String sap, String flow) throws SQLException, IOException {
+        String response="";
+
+        String[] appsBac = {"servers",
+                "http://msk-dpro-app573:8080/bacchus",
+                "http://msk-dpro-app621:8080/bacchus",
+                "http://msk-dpro-app622:8080/bacchus",
+                "http://msk-dpro-app629:8080/bacchus",
+                "http://msk-dpro-app639:8080/bacchus",
+                "http://msk-dpro-app631:8080/bacchus",
+                "http://msk-dpro-app632:8080/bacchus",
+                "http://msk-dpro-app642:8080/bacchus",
+                "http://msk-dpro-app643:8080/bacchus",
+                "http://msk-dpro-app731:8080/bacchus",
+                "http://msk-dpro-app897:8080/bacchus",
+                "http://msk-dpro-app899:8080/bacchus",
+                "http://msk-DTLN-APL402:8080/bacchus"};
+
+        String[] typeflow = flow.split("_");
+
+        String flowFindBacc="select al_id, LEAST(al_status_code),\n" +
+                "    case \n" +
+                "        when al_status_code = 'RA0001' then 'request'\n" +
+                "        when al_status_code = 'RA0002' then 'response'\n" +
+                "        else al_status_code end \"reqResp\"\n" +
+                "        , GREATEST(al_info3),\n" +
+                "        case\n" +
+                "            when al_info3 = '/supply/receipt/upload' then 'IN21'\n" +
+                "            when al_info3 = '/discrepancyReport/TTNGet' then 'DR27'\n" +
+                "            when al_info3 = '/ship/updateIdDoc' then 'OUT33' \n" +
+                "             when al_info3 = '/ship/confirm' then 'OUT31'  \n" +
+                "            when al_info3 = '/supply/receipt/updateIdDoc' then 'IN25'\n" +
+                "            when al_info3 = '/supply/receipt/trustConfirm' then 'IN26'\n" +
+                "            else al_info3 end \"flown\"\n" +
+                "            ,al_maininfo from a_all_log " +
+                "where al_codv_id ="+ sap.replaceAll("[a-zA-Z]","") +"\n" +
+                "and al_created > sysdate -5\n" +
+                " and al_info3 !='/supply/receipt/getStatus' "+
+                " and al_info3 !='/ship/getStatusAndErrors' "+
+                " and al_info2 !='SupplyReceiptXmlService.getWaybillList()'\n" +
+                " and al_maininfo like('%<TransactionID>"+buf+"</TransactionID>%')\n" +
+                //  " group by LEAST(al_status_code),GREATEST(al_info3),to_char(al_maininfo)" +
+                " order by 1 desc";
+
+        String agent = RcToAgent.SapAgent(sap);
+        if(Integer.parseInt(agent)<10)agent="0"+agent;
+        System.out.println(agent);
+        Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
+        //String sAg = "";
+        Statement stmtPullB = pullConn.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rsF = stmtPullB.executeQuery(flowFindBacc);
+
+        while (rsF.next()){
+
+
+            if(rsF.getString(3).equals(typeflow[0]) & rsF.getString(5).equals(typeflow[1])){
+                //нашли поток, которые требуется переотправить
+                String flowToResend = rsF.getString(6).substring(55).replaceAll("\n","");
+                System.out.println(flowToResend);
+                String endPoint = appsBac[Integer.parseInt(agent)]+rsF.getString(4);
+
+                //flow sending
+
+                HttpURLConnection MagCon;
+                byte[] out;
+                URL obj = new URL(endPoint);
+                MagCon = (HttpURLConnection) obj.openConnection();
+                MagCon.setRequestMethod("POST");
+                MagCon.setRequestProperty("Content-Type", "Application/xml");
+
+                //Send post request
+                out = flowToResend.getBytes(StandardCharsets.UTF_8);
+                MagCon.setDoOutput(true);
+
+
+                try (OutputStream os = MagCon.getOutputStream()) {
+                    os.write(out);
+                    os.flush();
+                    int  responseCode = MagCon.getResponseCode();
+
+                }catch (IOException e){
+                    System.out.println(e.toString());
+                }
+
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(MagCon.getInputStream(), StandardCharsets.UTF_8));
+
+                String inputLine = "";
+                StringBuffer responseList = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) {
+                    responseList.append(inputLine + "\n");
+                }
+
+                in.close();
+                inputLine = String.valueOf(responseList);
+                inputLine = inputLine.replace("><", ">\n<");
+                MagCon.disconnect();
+                response=inputLine;
+                // end of sending
+            }
+        }
+
+
+
+
+
+
+
+        return response;
+    }
 
 }

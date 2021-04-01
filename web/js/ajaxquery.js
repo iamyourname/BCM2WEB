@@ -1097,7 +1097,7 @@ function myFunctionFL(id) {
                     printHistory+="<td>"+row_state_hist[1]+"</td>";
                     //printHistory+="<td>"+flowWithOutTegs+"</td>";
                     printHistory+="<td>"+"<button onclick=\"document.getElementById('idh"+divModal_ID+"').style.display='block'\" class=\"w3-button w3-block\">Посмотреть</button>"+"</td>";
-                    printHistory+="<td>"+"<button onclick=\"#\" class=\"w3-button w3-block\">Переотправить</button>"+"</td>";
+                    printHistory+="<td>"+"<button onclick=\"flowResend('"+row_state_hist[0]+"_"+row_state_hist[1]+"')\" class=\"w3-button w3-block\">Переотправить</button>"+"</td>";
                     printHistory+="</tr>"
                     printModal+=printModalDiv_TOP+flowWithOutTegs+printModalDiv_Foot;
 
@@ -1122,6 +1122,55 @@ function myFunctionFL(id) {
     } else {
         x.className = x.className.replace(" w3-show", "");
     }
+}
+
+var modalResp = document.getElementById('001idM');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modalResp) {
+        modalResp.style.display = "none";
+    }
+}
+function flowResend(nFlow){
+
+
+
+    var magbuf = document.getElementById("Magbuff").value;
+    var magsap = document.getElementById("MagSAP").value;
+    var mdMagModal = document.getElementById("respModal");
+    mdMagModal.innerHTML="";
+    var openModalWithResponse="";
+    var lio = document.getElementById("listInOut");
+    var lioMes = lio.options[lio.selectedIndex].value;
+
+    var flowType = nFlow.split("_");
+    //alert(nFlow);
+
+    let xhrB = new XMLHttpRequest();
+
+    xhrB.onreadystatechange = function() {
+        //btn_cmp.innerText = "Отправляю..."
+        if (xhrB.readyState !== 4) return;
+        if (xhrB.status == 200) {
+            //btn_cmp.innerText = "Отправляю..."
+            mdMagModal.innerHTML+="<pre><code>";
+            mdMagModal.innerText+=xhrB.responseText;
+            mdMagModal.innerHTML+="</code></pre>";
+            document.getElementById('001idM').style.display="block";
+        }
+    }
+
+
+    var body = 'magbuf='+magbuf.replaceAll(/\s/g,"")+
+        '&magsap='+magsap.replaceAll(/\s/g,"")+
+        '&magio='+lioMes+
+        '&magflow=rsd'+
+        '&magstate='+nFlow;
+
+    xhrB.open('POST', '/test/magout', true);
+    xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrB.send(body);
 }
 
 function myFunctionComp(id) {

@@ -290,13 +290,13 @@ body {
                
             </ul>
          </li>
-    <li ><a href='#' onClick="openSystem('MagOut')"><span>Магазины</span></a>
-        <%--
+    <li class='active has-sub'><a href='#' onClick="openSystem('MagOut')"><span>Магазины</span></a>
+
          <ul>
-            <li><a href='#' onClick="openSystem('MagOut')"><span>Отгрузка</span></a></li>
-            <li><a href='#' onClick="openSystem('MagIn')"><span>Приемка</span></a></li>
+            <li><a href='#' onClick="openSystem('MagOut')"><span>GK</span></a></li>
+            <li><a href='#' onClick="openSystem('MagNQ')"><span>NQ</span></a></li>
         </ul>
-        --%>
+
 
 
     </li>
@@ -510,9 +510,72 @@ body {
         <div id="MagTextArea" >
             <!-- Trigger/Open the Modal -->
             <!-- The Modal -->
+            <div id="001idM" class="w3-modal">
+                <div class="w3-modal-content w3-card-4">
+                    <header class="w3-container w3-teal">
+                     <span onclick="document.getElementById('001idM').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                        <h2>Результат</h2>
+                    </header>
+                    <div class="w3-container" id="respModal">
 
+                    </div>
+                    <footer class="w3-container w3-teal">
+                        <p></p>
+                    </footer>
+                </div>
+            </div>
         </div>
     </div>
+
+
+    <div id = "MagNQ" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">
+        <div class=" w3-light-blue">
+            <h4 >Магазины NQ</h4>
+        </div>
+        <!--method="GET" action="" target = "my_frame" -->
+        <form  class = "auth-info"  >
+            <label style="margin-right: 25px">
+
+                <img onclick="clearCerts()"  src="img/gui_eraser_icon_157160_1.png" width="60" height="60"/>
+
+            </label>
+            <label>Буфер\ТТН\Заказ:
+                <input  id="MagNQbuff" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+            </label>
+            <label>Код SAP:
+                <input id="MagNQSAP" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+            </label>
+            <label>
+                <select id="listNQInOut" class="w3-select w3-border" name="option">
+                    <option value="1" selected>Приемка</option>
+                    <option value="2">Отгрузка</option>
+                </select>
+            </label>
+        </form>
+        <button id="MagNQOutSend"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="MagNQ()" >Отправить</button>
+
+        <div id="MagNQoutput">
+        </div>
+        <div id="MagNQTextArea" >
+            <!-- Trigger/Open the Modal -->
+            <!-- The Modal -->
+            <div id="001idNQ" class="w3-modal">
+                <div class="w3-modal-content w3-card-4">
+                    <header class="w3-container w3-teal">
+                        <span onclick="document.getElementById('001idNQ').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                        <h2>Результат</h2>
+                    </header>
+                    <div class="w3-container" id="respModalNQ">
+
+                    </div>
+                    <footer class="w3-container w3-teal">
+                        <p></p>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!--
     BacchusTransport
@@ -823,8 +886,8 @@ body {
             <div id="id777" class="w3-modal" style="z-index: 999">
                 <div class="w3-modal-content w3-card-4">
                     <header class="w3-container w3-teal">
-        <span onclick="document.getElementById('id777').style.display='none'"
-              class="w3-button w3-display-topright">&times;</span>
+                            <span onclick="document.getElementById('id777').style.display='none'"
+                                  class="w3-button w3-display-topright">&times;</span>
                         <h2>Сертификаты</h2>
                     </header>
                     <div class="w3-container" contenteditable="true" id="certsToCheck" style="text-align: left;overflow-y: scroll;height: 225px;"></div>
@@ -847,8 +910,8 @@ body {
         </script>
 
 
-        </div>
     </div>
+
 
 
     <div id = "CaduAuto" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">

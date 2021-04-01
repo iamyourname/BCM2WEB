@@ -75,11 +75,6 @@ public class FlowSend {
         con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "Application/xml");
-       // System.out.println(url);
-
-
-        //con.setRequestProperty("StandardCharsets","UTF-8");
-
 
         //Send post request
         out = toPost.getBytes(StandardCharsets.UTF_8);

@@ -47,6 +47,7 @@ public class MagOut extends HttpServlet {
             writeLogMain(NTLMUserFilter.getUserName(),"BACCHUS","Магазины",
                     "Магазины",
                     jsonOptions,"LOADING","");
+
             switch (magio){
                 case "1":
 
@@ -60,6 +61,8 @@ public class MagOut extends HttpServlet {
                         out.append(ConnectToMag.EgaisTtnComp(buff,sap));
                     if(magflow.equals("cmp_buf"))
                         out.append(ConnectToMag.BacBufComp(buff,sap));
+                    if(magflow.equals("rsd"))
+                        out.append(ConnectToMag.MagBacFlowResend(buff,sap,magstate));
                     if(magstate.contains("ch"))
                     out.append(ConnectToMag.ChangeBufMagIn(buff,sap,old_new[2]));
 
