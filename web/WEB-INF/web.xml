@@ -20,7 +20,7 @@
 
     <servlet>
         <servlet-name>MagNQ</servlet-name>
-        <servlet-class>app.servlets.bacchus.MagOut</servlet-class>
+        <servlet-class>app.servlets.bacchus.MagNQ</servlet-class>
     </servlet>
 
     <servlet>

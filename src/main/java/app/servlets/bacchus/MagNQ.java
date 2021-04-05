@@ -1,6 +1,7 @@
 package app.servlets.bacchus;
 
 
+import app.entities.ConnectToMagNQ;
 import app.entities.Logs;
 import app.servlets.NTLMUserFilter;
 
@@ -27,17 +28,17 @@ public class MagNQ extends HttpServlet {
         String sap = req.getParameter("magsap");
         String buff = req.getParameter("magbuf");
         String magio = req.getParameter("magio");
-        String magstate = req.getParameter("magstate");
-        String magflow = req.getParameter("magflow");
+        String magParam = req.getParameter("magParam");
+        //String magflow = req.getParameter("magflow");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
-        String[] old_new = magstate.split(",");
+        //String[] old_new = magstate.split(",");
 
         String jsonOptions =
                 "{\"SAP\":\"" + sap + "\"," +
                         "\"Web\":\"true\","+
-                        "\"options\":\"magstate "+magstate+" magflow "+magflow+" magio "+magio+"\","+
+                        "\"options\":\"magParam "+magParam+" magio "+magio+"\","+
                         "\"BUF\":\""+ buff +"\"}"; // multi
 
         try {
@@ -46,48 +47,16 @@ public class MagNQ extends HttpServlet {
             writeLogMain(NTLMUserFilter.getUserName(),"BACCHUS","МагазиныNQ",
                     "МагазиныNQ",
                     jsonOptions,"LOADING","");
-            /*
-            switch (magio){
-                case "1":
 
-                    if(magstate.equals("no"))
-                        out.append(ConnectToMag.MagIn(buff,sap));
-                    if(magstate.equals("yes"))
-                        out.append(ConnectToMag.MagStateHistory(buff,sap));
-                    if(magflow.equals("yes"))
-                        out.append(ConnectToMag.MagBufHistory(buff,sap));
-                    if(magflow.equals("cmp"))
-                        out.append(ConnectToMag.EgaisTtnComp(buff,sap));
-                    if(magflow.equals("cmp_buf"))
-                        out.append(ConnectToMag.BacBufComp(buff,sap));
-                    if(magflow.equals("rsd"))
-                        out.append(ConnectToMag.MagBacFlowResend(buff,sap,magstate));
-                    if(magstate.contains("ch"))
-                        out.append(ConnectToMag.ChangeBufMagIn(buff,sap,old_new[2]));
+            //ConnectToMagNQ connectToMagNQ = new ConnectToMagNQ();
 
-                    break;
-
-                case "2":
-
-                    if(magstate.equals("no"))
-                        out.append(ConnectToMag.magOut(buff,sap));
-                    if(magstate.equals("yes"))
-                        out.append(ConnectToMag.MagStateHistoryOut(buff,sap));
-                    if(magflow.equals("yes"))
-                        out.append(ConnectToMag.MagBufHistory(buff,sap));
-                    if(magstate.contains("ch"))
-                        out.append(ConnectToMag.ChangeBufMagOut(buff,sap,old_new[2]));
-                    break;
-
-            }
-            */
-
+            out.append(ConnectToMagNQ.getNQ_Info(buff,sap));
 
             writeLogParent(NTLMUserFilter.getUserName(),"BACCHUS","Магазины",
                     "Магазины",
                     jsonOptions,"OK","");
 
-        } catch (SQLException throwables) {
+        } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
             try {
                 Logs.writeLogParent(NTLMUserFilter.getUserName(),"BACCHUS","Магазины",

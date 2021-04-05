@@ -555,6 +555,7 @@ body {
         <button id="MagNQOutSend"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="MagNQ()" >Отправить</button>
 
         <div id="MagNQoutput">
+
         </div>
         <div id="MagNQTextArea" >
             <!-- Trigger/Open the Modal -->

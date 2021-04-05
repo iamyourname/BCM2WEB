@@ -724,6 +724,15 @@ function MagNQ(){
     var magbuf = document.getElementById("MagNQbuff").value;
     var magsap = document.getElementById("MagNQSAP").value;
     var toPrintag = document.getElementById("MagNQoutput");
+    //var ="";
+    var printTable="<h4>NQ</h4><br><table class=\"w3-table-all w3-small\">" +
+        "<tr class = \"w3-light-blue\">"+
+        "<th>id_header</th>"+
+        "<th>Статус</th>"+
+        "<th>Статус_rus</th>"+
+        "<th>type</th>"+
+        "<th>bacchus_buf</th>"+
+        "</tr>";
     var intStatus="";
     toPrintag.innerHTML="";
 
@@ -731,16 +740,29 @@ function MagNQ(){
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
+            var respText = xhrB.responseText.split("|");
+            //for(var i=0; i<respText.length;i++){
+                printTable+="<tr>";
+                printTable+="<td>"+respText[0]+"</td>";
+                printTable+="<td>"+respText[1]+"</td>";
+                printTable+="<td>"+respText[2]+"</td>";
+                printTable+="<td>"+respText[3]+"</td>";
+                printTable+="<td>"+respText[4]+"</td>";
+                printTable+="</tr>";
+
+           // }
+            printTable+="</table>";
+            toPrintag.innerHTML+=printTable;
+
         }
     }
-    var body = 'magbuf='+buf.replaceAll(/\s/g,"")+
-        '&magsap='+sap.replaceAll(/\s/g,"")+
-        '&magio='+inout+
-        '&magflow=nope'+
-        '&magstate=ch,'+oldS+','+newSt;
-    xhrOut.open('POST', '/test/magnq', true);
-    xhrOut.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-    xhrOut.send(body);
+    var body = 'magbuf='+magbuf.replaceAll(/\s/g,"")+
+        '&magsap='+magsap.replaceAll(/\s/g,"")+
+        '&magio='+lioMes+
+        '&magParam=empty';
+    xhrB.open('POST', '/test/magnq', true);
+    xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrB.send(body);
     /*
      xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
