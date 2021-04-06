@@ -718,20 +718,20 @@ function changeStateBacchus(oldS,buf,sap,inout){
 
 function MagNQ(){
     var lio = document.getElementById("listNQInOut");
-    var lioMes = lio.options[lio.selectedIndex].value;
+    var lioMes = 0;//lio.options[lio.selectedIndex].value;
     var btn_text = document.getElementById("MagNQOutSend");
     //alert(lioMes);
     var magbuf = document.getElementById("MagNQbuff").value;
     var magsap = document.getElementById("MagNQSAP").value;
     var toPrintag = document.getElementById("MagNQoutput");
     //var ="";
-    var printTable="<h4>NQ</h4><br><table class=\"w3-table-all w3-small\">" +
+    var printTableNQ="<h4>NQ</h4><br><table class=\"w3-table-all w3-small\">" +
         "<tr class = \"w3-light-blue\">"+
-        "<th>id_header</th>"+
+        "<th>Буфер</th>"+
         "<th>Статус</th>"+
-        "<th>Статус_rus</th>"+
-        "<th>type</th>"+
-        "<th>bacchus_buf</th>"+
+        "<th>Описание</th>"+
+        "<th>Тип докуента</th>"+
+        "<th>Буфер в бахус</th>"+
         "</tr>";
     var intStatus="";
     toPrintag.innerHTML="";
@@ -740,19 +740,69 @@ function MagNQ(){
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
-            var respText = xhrB.responseText.split("|");
+            var respText = xhrB.responseText.split("&"); // main mes
+            console.log(respText);
+            var respNQ = respText[0].split("|"); // mes from nq
             //for(var i=0; i<respText.length;i++){
-                printTable+="<tr>";
-                printTable+="<td>"+respText[0]+"</td>";
-                printTable+="<td>"+respText[1]+"</td>";
-                printTable+="<td>"+respText[2]+"</td>";
-                printTable+="<td>"+respText[3]+"</td>";
-                printTable+="<td>"+respText[4]+"</td>";
-                printTable+="</tr>";
+            printTableNQ+="<tr>";
+            printTableNQ+="<td>"+respNQ[0]+"</td>";
+            printTableNQ+="<td>"+respNQ[1]+"</td>";
+            printTableNQ+="<td>"+respNQ[2]+"</td>";
+            printTableNQ+="<td>"+respNQ[3]+"</td>";
+            printTableNQ+="<td>"+respNQ[4]+"</td>";
+            printTableNQ+="</tr>";
 
            // }
-            printTable+="</table>";
-            toPrintag.innerHTML+=printTable;
+            printTableNQ+="</table>";
+            // nq buf history
+            var shortHistNQ=respText[1].split("!"); // short hist from NQ
+
+            var printTableNQH="<h4>NQ history</h4><br><table class=\"w3-table-all w3-small\">" +
+                "<tr class = \"w3-light-blue\">"+
+                "<th>Дата</th>"+
+                "<th>Поле</th>"+
+                "<th>Старое значение</th>"+
+                "<th>Новое значение</th>"+
+                "<th>Таблица</th>"+
+                "</tr>";
+
+            for(var i=0; i < shortHistNQ.length-1; i ++){
+                var params = shortHistNQ[i].split("|");
+                printTableNQH+="<tr>";
+                printTableNQH+="<td>"+params[0]+"</td>";
+                printTableNQH+="<td>"+params[1]+"</td>";
+                printTableNQH+="<td>"+params[2]+"</td>";
+                printTableNQH+="<td>"+params[3]+"</td>";
+                printTableNQH+="<td>"+params[4]+"</td>";
+                printTableNQH+="</tr>";
+            }
+
+            printTableNQH+="</table>";
+
+            //bacchus
+            var respBac=respText[2].split("|"); // mes from bacchus
+            var printTableBac="<h4>BACCHUS</h4><br><table class=\"w3-table-all w3-small\">" +
+                "<tr class = \"w3-light-blue\">"+
+                "<th>Буфер</th>"+
+                "<th>Статус</th>"+
+                "<th>ТТН</th>"+
+                "<th>Дата</th>"+
+                "<th>Заказ</th>"+
+                "</tr>";
+
+            printTableBac+="<tr>";
+            printTableBac+="<td>"+respBac[0]+"</td>";
+            printTableBac+="<td>"+respBac[1]+"</td>";
+            printTableBac+="<td>"+respBac[2]+"</td>";
+            printTableBac+="<td>"+respBac[3]+"</td>";
+            printTableBac+="<td>"+respBac[4]+"</td>";
+            printTableBac+="</tr>" + "</table>";
+
+            toPrintag.innerHTML+=printTableNQ;
+            toPrintag.innerHTML+=printTableNQH;
+            toPrintag.innerHTML+=printTableBac;
+
+
 
         }
     }

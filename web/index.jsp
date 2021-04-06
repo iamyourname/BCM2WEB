@@ -545,12 +545,14 @@ body {
             <label>Код SAP:
                 <input id="MagNQSAP" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
             </label>
+            <!--
             <label>
                 <select id="listNQInOut" class="w3-select w3-border" name="option">
                     <option value="1" selected>Приемка</option>
                     <option value="2">Отгрузка</option>
                 </select>
             </label>
+            -->
         </form>
         <button id="MagNQOutSend"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="MagNQ()" >Отправить</button>
 

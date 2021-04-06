@@ -432,13 +432,13 @@ public class ConnectToMag {
               //  " group by LEAST(al_status_code),GREATEST(al_info3),to_char(al_maininfo)" +
                 " order by 1 desc";
 
-        String agent = RcToAgent.SapAgent(sap);
-        if(Integer.parseInt(agent)<10)agent="0"+agent;
-        System.out.println(agent);
-        Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
-        //String sAg = "";
-        Statement stmtPullB = pullConn.createStatement(
-                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String agent = RcToAgent.SapAgent(sap);
+            if(Integer.parseInt(agent)<10)agent="0"+agent;
+            System.out.println(agent);
+            Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
+            //String sAg = "";
+            Statement stmtPullB = pullConn.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rsF = stmtPullB.executeQuery(flowFindBacc);
         //rsB.last();int cntFlow = rsB.getRow();rsB.first();
         //String[][] flows = new String[cntFlow][2];

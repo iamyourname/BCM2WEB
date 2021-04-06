@@ -48,19 +48,19 @@ public class MagNQ extends HttpServlet {
                     "МагазиныNQ",
                     jsonOptions,"LOADING","");
 
-            //ConnectToMagNQ connectToMagNQ = new ConnectToMagNQ();
+            ConnectToMagNQ connectToMagNQ = new ConnectToMagNQ();
 
-            out.append(ConnectToMagNQ.getNQ_Info(buff,sap));
-
+            out.append(connectToMagNQ.getNQ_Info(buff,sap));
+            System.out.println("end of");
             writeLogParent(NTLMUserFilter.getUserName(),"BACCHUS","Магазины",
-                    "Магазины",
+                    "МагазиныNQ",
                     jsonOptions,"OK","");
 
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
             try {
                 Logs.writeLogParent(NTLMUserFilter.getUserName(),"BACCHUS","Магазины",
-                        "Магазины",
+                        "МагазиныNQ",
                         jsonOptions,"ERROR",""+throwables.toString());
             } catch (SQLException e) {
                 e.printStackTrace();
