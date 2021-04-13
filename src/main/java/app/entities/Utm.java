@@ -59,7 +59,7 @@ public class Utm {
                 "and bo.doc_adddate > sysdate -3\n" +
                 "and co.codv_code = '" + WRSap + "'\n" +
                 "and bout_transactionid = '" + WRBuf + "'";
-        System.out.println("48 in utm");
+        //System.out.println("48 in utm");
         Connection pullConn = ConnectionPool.getInstance().getConnection("02");
         Statement stmtPullB = pullConn.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -103,7 +103,7 @@ public class Utm {
 
 
 
-        System.out.println("before created");
+       // System.out.println("before created");
         try
         {
 
@@ -375,7 +375,7 @@ public class Utm {
             StreamResult result = new StreamResult(new File("E:\\Progs\\TomCat_9\\waybills" + "\\"+data[0][16].toString() + "\\"+ data[0][16].toString() + "_new.xml"));
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.transform(source, result);
-            System.out.println("XML успешно изменен!");
+           // System.out.println("XML успешно изменен!");
 
 
 

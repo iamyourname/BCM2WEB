@@ -279,6 +279,36 @@ public class ConnectToMagNQ {
         return response;
     }
 
+    public String getFlowFromNQ(String buf, String sap) throws SQLException, ClassNotFoundException {
 
+        String response="";
+
+        String sqlQueryFlowFromNQ="SELECT \n" +
+                "      bhw.REQUEST_CODE\n" +
+                "    , bhw.DESCRIPTION\n" +
+                "    , bhwl.REQUEST_TEXT\n" +
+                "    , RESPONSE_TEXT \n" +
+                "FROM alco.BUF_HTTP_WEBSERVICE_LOG bhwl \n" +
+                "    LEFT JOIN alco.BUF_HTTP_WEBSERVICE bhw ON BHWL.ID_WEBSERVICE = bhw.id\n" +
+                "WHERE \n" +
+                "        bhwl.TAG_VALUE ='"+buf+"'\n" +
+                "    AND BHWL.DT_CREATED > SYSDATE -20";
+
+        Connection connMag = findAndConnTo_NQ(sap);
+        Statement stmtNQ = connMag.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmtNQ.executeQuery(sqlQueryFlowFromNQ);
+
+        while (rs.next()){
+            response+=rs.getString(1)+"|";
+            response+=rs.getString(2)+"|";
+            response+=rs.getString(3)+"|";
+            response+=rs.getString(4)+"|";
+            response+="@";
+        }
+
+
+
+        return response;
+    }
 
 }

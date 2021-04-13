@@ -49,8 +49,17 @@ public class MagNQ extends HttpServlet {
                     jsonOptions,"LOADING","");
 
             ConnectToMagNQ connectToMagNQ = new ConnectToMagNQ();
+            switch (magParam){
+                case "empty":
+                    out.append(connectToMagNQ.getNQ_Info(buff,sap));
+                    break;
+                case "flowNQ":
+                    //---
+                    out.append(connectToMagNQ.getFlowFromNQ(buff,sap));
+                    break;
+            }
 
-            out.append(connectToMagNQ.getNQ_Info(buff,sap));
+
             System.out.println("end of");
             writeLogParent(NTLMUserFilter.getUserName(),"BACCHUS","Магазины",
                     "МагазиныNQ",

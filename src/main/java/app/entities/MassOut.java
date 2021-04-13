@@ -66,7 +66,7 @@ public class MassOut {
             }
             pullConnNq.close();
         }catch (SQLException e){
-            System.out.println(e.toString());
+           // System.out.println(e.toString());
         }
 
      return response;
@@ -104,7 +104,7 @@ public class MassOut {
                     "MASS_ERROR",
                     jsonOptions,"OK","");
 
-            System.out.println(e.toString());
+           // System.out.println(e.toString());
         }
 
         return response;

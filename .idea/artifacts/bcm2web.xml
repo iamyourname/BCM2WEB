@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="bcm2web">
+    <output-path>$PROJECT_DIR$/out/artifacts/test</output-path>
+    <root id="archive" name="bcm2web.war">
+      <element id="artifact" artifact-name="test_exp" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/ojdbc8.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/connections.txt" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/h2-1.4.200.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/jcifs-1.2.9.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/json-simple-1.1-sources.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/mongo-java-driver-3.12.2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/postgresql-42.2.12.jre7.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/sun.misc.BASE64Decoder.jar" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="BCM2WEB/web/Web" />
+    </root>
+  </artifact>
+</component>

@@ -44,7 +44,7 @@ public class ViewGisResp {
             int  response = conGis.getResponseCode();
 
             if(response != 200){
-                System.out.println(response + "" + conGis.getErrorStream().toString());
+               // System.out.println(response + "" + conGis.getErrorStream().toString());
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(conGis.getErrorStream(), StandardCharsets.UTF_8));
                 StringBuffer responseList = new StringBuffer();
@@ -55,7 +55,7 @@ public class ViewGisResp {
                 respose = String.valueOf(responseList);
                 conGis.disconnect();
             }else{
-                System.out.println(response);
+               // System.out.println(response);
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(conGis.getInputStream(), StandardCharsets.UTF_8));
                 StringBuffer responseList = new StringBuffer();

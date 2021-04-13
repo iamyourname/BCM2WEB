@@ -37,7 +37,7 @@ public class ViewUserSettings {
             String[] sKeyParam = jsonParams[i].split(":");
             userParams[i][0] = sKeyParam[0].replace("\"","");
             userParams[i][1] = sKeyParam[1].replace("\"","");
-            System.out.println(userParams[i][0]+" " + userParams[i][1]);
+           // System.out.println(userParams[i][0]+" " + userParams[i][1]);
         }
 
         //------------------------------------------

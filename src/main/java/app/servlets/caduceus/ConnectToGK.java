@@ -106,7 +106,7 @@ public class ConnectToGK {
         }
         */
 
-        System.out.println(certToCompare);
+       // System.out.println(certToCompare);
 
         String findCertGK = "select vet_doc_uuid from xrg_evsd where vet_doc_uuid in ("+certToCompare+") order by 1";
 

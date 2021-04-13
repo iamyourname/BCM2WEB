@@ -55,7 +55,7 @@ public class ViewLog {
 
 
         queryToShow += " order by id";
-        System.out.println(queryToShow);
+        //System.out.println(queryToShow);
 
 
             rsLog = stmtLog.executeQuery(queryToShow);

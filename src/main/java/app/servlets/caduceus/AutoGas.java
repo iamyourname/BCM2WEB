@@ -178,13 +178,13 @@ public class AutoGas {
                 "from m_vetdocument mvd\n" +
                 "left join c_Autoconfirm_Queue caq on caq.CAQ_VSD_UUID = mvd.MGEN_UUID \n";
         if(certs.length() == 4){
-            System.out.println("SAP");
+            //System.out.println("SAP");
 
              String newSqlCounter = sqlCounter +  " where caq.caq_codv_id = ( select codv_id from c_org_divisions where codv_code = '" + certs + "') and mvd.mvdc_vetdstatus !='4'";
             Connection pullConn = ConnectionPool.getInstance().getConnectionMerc();
             Statement stmtPullM = pullConn.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            System.out.println("SAP1");
+           // System.out.println("SAP1");
 
             String jsonOptions =
                             "{\"SAP\":\""  + certs + "\"}" ; // multi
@@ -199,7 +199,7 @@ public class AutoGas {
                 ResultSet rsPullM = stmtPullM.executeQuery(newSqlCounter);
                 ResultSetMetaData rsdataM = rsPullM.getMetaData();
 
-                System.out.println("certs in cell");
+               // System.out.println("certs in cell");
 
                 int siz = rsdataM.getColumnCount();
                 rsPullM.last();

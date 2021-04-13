@@ -87,27 +87,27 @@ public class SendUTM {
 
         if(dType.equalsIgnoreCase("confirmticket")){
              docPath = "WayBillTicket";
-            System.out.println(docPath);
+           // System.out.println(docPath);
         }
 
         if(dType.equalsIgnoreCase("queryclients")){
             docPath = "QueryPartner";
-            System.out.println(docPath);
+           // System.out.println(docPath);
         }
 
         if(dType.equalsIgnoreCase("queryformbhistory")){
             docPath = "QueryHistoryFormB";
-            System.out.println(docPath);
+            //System.out.println(docPath);
         }
 
         if(dType.equalsIgnoreCase("ascpnav")){
             docPath = "ASCPNavigation";
-            System.out.println(docPath);
+           // System.out.println(docPath);
         }
 
         if(dType.equalsIgnoreCase("waybillact_v3")){
             docPath = "WayBillAct_v3";
-            System.out.println(docPath);
+            //System.out.println(docPath);
         }
 
 

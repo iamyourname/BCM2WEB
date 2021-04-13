@@ -56,11 +56,11 @@ public class Transport extends HttpServlet {
         }
 
         try {
-            System.out.println("Transport");
+           // System.out.println("Transport");
 
             if(TW.equals("1")){
                 if(RPL.equals("0")){
-                    System.out.println("Transport waybill");
+                  //  System.out.println("Transport waybill");
 
                     tResponse = Utm.WaybillReject(TBuf,TSap);
                     out.append(tResponse);
@@ -69,7 +69,7 @@ public class Transport extends HttpServlet {
                     out.append(tResponse);
                 }
             }else{
-                System.out.println("Transport buff");
+               // System.out.println("Transport buff");
                 Object[][] outT31 = viewResult.ViewBuffGodOutFromBD(TBuf,TSap, agent); // ошибка
                 for (Object[] out31Datum : outT31) {
                     tResponse += Arrays.toString(out31Datum);
@@ -83,7 +83,7 @@ public class Transport extends HttpServlet {
 
         }catch (Exception sq){
             out.append("Transport.java"+sq.toString());
-            System.out.println(""+sq.toString());
+           // System.out.println(""+sq.toString());
         }
 
 

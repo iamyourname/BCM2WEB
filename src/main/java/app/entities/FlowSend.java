@@ -248,7 +248,7 @@ public class FlowSend {
                     jsonOptions,"OK","");
     */
         }catch (IOException e){
-           System.out.println(e.toString());
+          // System.out.println(e.toString());
            /*
             writeLogMain(NTLMUserFilter.userName,"BACCHUS","Отгрузка",
                     "Переотправка 31",
@@ -322,7 +322,7 @@ public class FlowSend {
             int  response = con24.getResponseCode();
 
         }catch (IOException e){
-            System.out.println(e.toString());
+           // System.out.println(e.toString());
 
         }
 

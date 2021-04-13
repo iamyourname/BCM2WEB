@@ -20,7 +20,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.*;
 import java.io.*;
 import java.net.URISyntaxException;
@@ -51,6 +52,9 @@ public  class Bcm2WebMain extends HttpServlet {
    public static String[] infoLine = new String[12];
 
    public static String hey_bro = "Hey Bro^^ - ты лучший!";
+    //Date date = new Date();
+    static SimpleDateFormat formatForDateNow = new SimpleDateFormat("HH.mm.ss");
+    public static String versionB ="LastDeployVersion: "+ formatForDateNow.format(new Date()).toString();
 
     public static String bday_bro = "С Днем Рождения, друг!";
 

@@ -182,7 +182,11 @@ body {
                 if(NTLMUserFilter.getUserName().equals("Roma.Ivanov2")){
                     out.println(Bcm2WebMain.hey_bro);}
             %>
-            !!!TEST!!! Привет
+                    <%
+                if(NTLMUserFilter.getUserName().equals("m.moiseev-2")){
+                    out.println(Bcm2WebMain.versionB);}
+            %>
+            Привет
             <% out.println(NTLMUserFilter.getUserName()); %>!
 
     </div>
@@ -290,7 +294,7 @@ body {
                
             </ul>
          </li>
-    <li class='active has-sub'><a href='#' onClick="openSystem('MagOut')"><span>Магазины</span></a>
+    <li class='active has-sub'><a href='#'><span>Магазины</span></a>
 
          <ul>
             <li><a href='#' onClick="openSystem('MagOut')"><span>GK</span></a></li>
@@ -507,6 +511,7 @@ body {
 
         <div id="Magoutput">
         </div>
+
         <div id="MagTextArea" >
             <!-- Trigger/Open the Modal -->
             <!-- The Modal -->
@@ -525,6 +530,7 @@ body {
                 </div>
             </div>
         </div>
+
     </div>
 
 
@@ -562,20 +568,26 @@ body {
         <div id="MagNQTextArea" >
             <!-- Trigger/Open the Modal -->
             <!-- The Modal -->
+
+            <input type="hidden" id="to_modal">
             <div id="001idNQ" class="w3-modal">
                 <div class="w3-modal-content w3-card-4">
                     <header class="w3-container w3-teal">
                         <span onclick="document.getElementById('001idNQ').style.display='none'" class="w3-button w3-display-topright">&times;</span>
                         <h2>Результат</h2>
                     </header>
-                    <div class="w3-container" id="respModalNQ">
+                    <pre><code>
+                    <div class="w3-container" id="respModalNQ" style="text-align: left">
 
                     </div>
+                    </code></pre>
                     <footer class="w3-container w3-teal">
                         <p></p>
                     </footer>
                 </div>
             </div>
+
+
         </div>
     </div>
 

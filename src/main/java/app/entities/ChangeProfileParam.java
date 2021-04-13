@@ -17,9 +17,9 @@ public class ChangeProfileParam {
                 stmtLog.executeUpdate("update bcm_users  set \n" +
                         "settings = settings::jsonb || '{\"Таблица автогашения\":\""+value+"\"}'::jsonb\n" +
                         "where user_name = '"+ NTLMUserFilter.getUserName() + "'");
-                System.out.println("update bcm_users  set \n" +
+              /*  System.out.println("update bcm_users  set \n" +
                         "settings = settings::jsonb || '{\"Таблица автогашения\":\""+value+"\"}'::jsonb\n" +
-                        "where user_name = '"+ NTLMUserFilter.getUserName() + "'");
+                        "where user_name = '"+ NTLMUserFilter.getUserName() + "'"); */
                 connLog.commit();
                 response ="table_changed";
                 break;

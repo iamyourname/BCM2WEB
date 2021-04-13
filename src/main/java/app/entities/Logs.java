@@ -37,7 +37,13 @@ public class Logs {
                 " status," +
                 " error_log)\n values (?,?,?,?,?,?,?,?)";
 
-
+        System.out.println("USER: "+username);
+        System.out.println("SYSTEM: "+systemName);
+        System.out.println("PROCESS: "+processName);
+        System.out.println("OPERATION: "+operationName);
+        System.out.println("OPTIONS: "+options);
+        System.out.println("STATUS: "+statusName);
+        System.out.println("ERROR: "+error_log);
         PreparedStatement pstmMain = connLog.prepareStatement(LogStringMain, Statement.RETURN_GENERATED_KEYS);
 
         PGobject jsonObject = new PGobject();

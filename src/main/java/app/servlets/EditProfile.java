@@ -103,7 +103,7 @@ public class EditProfile extends HttpServlet {
                 break;
             case "reqData#yes" :
                 String[] queryParams = fromEdit[1].split("&");
-               System.out.println(queryParams[3]);
+              // System.out.println(queryParams[3]);
                 try {
                     connectToLog();
                    out.append( ViewLog.getInstance().getQueryFromLog(queryParams[0],queryParams[1],

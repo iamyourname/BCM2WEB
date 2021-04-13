@@ -620,7 +620,7 @@ function MagOut(){
 
             bacPrint +="<div class=\"w3-light-blue\" style='margin-top: 0px;margin-bottom: 0px;'>\n" +
                 "  <button id=\"btn_hist_flow\" onclick=\"myFunctionFL('DemoFL')\" class=\"w3-button w3-block\">Потоки из Бахус</button>\n" +
-                "  <div id=\"DemoFL\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+                  "  <div id=\"DemoFL\" class=\"w3-hide w3-container w3-light-gray\">\n" +
                 //"    <p>Lorem ipsum 25% width</p>\n" +
                 "  </div>\n" +
                 "</div>";
@@ -720,11 +720,15 @@ function MagNQ(){
     var lio = document.getElementById("listNQInOut");
     var lioMes = 0;//lio.options[lio.selectedIndex].value;
     var btn_text = document.getElementById("MagNQOutSend");
+    btn_text.innerText="Отправить"
+
     //alert(lioMes);
     var magbuf = document.getElementById("MagNQbuff").value;
     var magsap = document.getElementById("MagNQSAP").value;
     var toPrintag = document.getElementById("MagNQoutput");
-    //var ="";
+
+
+
     var printTableNQ="<h4>NQ</h4><br><table class=\"w3-table-all w3-small\">" +
         "<tr class = \"w3-light-blue\">"+
         "<th>Буфер</th>"+
@@ -738,8 +742,12 @@ function MagNQ(){
 
     let xhrB = new XMLHttpRequest();
     xhrB.onreadystatechange = function() {
+        btn_text.className = btn_text.className.replace(" w3-red", "w3-green");
+        btn_text.innerText="Загружаю..."
+
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
+            btn_text.innerText="Отправить"
             var respText = xhrB.responseText.split("&"); // main mes
             console.log(respText);
             var respNQ = respText[0].split("|"); // mes from nq
@@ -751,6 +759,13 @@ function MagNQ(){
             printTableNQ+="<td>"+respNQ[3]+"</td>";
             printTableNQ+="<td>"+respNQ[4]+"</td>";
             printTableNQ+="</tr>";
+
+            var flowPrint ="<br><div class=\"w3-light-blue\" style='margin-top: 0px;margin-bottom: 0px;'>\n" +
+                "  <button id=\"btn_hist_flow\" onclick=\"flowFromNQ('"+respNQ[4]+"')\" class=\"w3-button w3-block\">Потоки из NQ</button>\n" +
+                "  <div id=\"nqFL\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+                //"    <p>Lorem ipsum 25% width</p>\n" +
+                "  </div>\n" +
+                "</div>";
 
            // }
             printTableNQ+="</table>";
@@ -780,7 +795,7 @@ function MagNQ(){
             printTableNQH+="</table>";
 
             //bacchus
-            var respBac=respText[2].split("|"); // mes from bacchus
+            var respBac=respText[3].split("|"); // mes from bacchus
             var printTableBac="<h4>BACCHUS</h4><br><table class=\"w3-table-all w3-small\">" +
                 "<tr class = \"w3-light-blue\">"+
                 "<th>Буфер</th>"+
@@ -799,6 +814,7 @@ function MagNQ(){
             printTableBac+="</tr>" + "</table>";
 
             toPrintag.innerHTML+=printTableNQ;
+            toPrintag.innerHTML+=flowPrint;
             toPrintag.innerHTML+=printTableNQH;
             toPrintag.innerHTML+=printTableBac;
 
@@ -813,6 +829,7 @@ function MagNQ(){
     xhrB.open('POST', '/test/magnq', true);
     xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     xhrB.send(body);
+
     /*
      xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
@@ -830,6 +847,89 @@ function MagNQ(){
 
      */
 
+}
+
+function flowFromNQ(buf){
+
+
+    var magbuf = document.getElementById("MagNQbuff").value;
+    var magsap = document.getElementById("MagNQSAP").value;
+    //var printFlowFromNQ = document.getElementById("nqFL");
+    var printHidden="";
+    var x = document.getElementById("nqFL");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+
+    var printTableNQFlow="<br><table class=\"w3-table-all w3-small\">" +
+        "<tr class = \"w3-light-blue\">"+
+        "<th>Req/Resp</th>"+
+        "<th>Тип</th>"+
+        "<th>Содержание</th>"+
+        "</tr>";
+
+    let xhrB = new XMLHttpRequest();
+    xhrB.onreadystatechange = function() {
+        if (xhrB.readyState !== 4) return;
+        if (xhrB.status == 200) {
+
+            var respText=xhrB.responseText.split("@");
+
+            for(var i=0; i<respText.length-1;i++){
+                var paramsFlow=respText[i].split("|");
+
+                var reqFlow=paramsFlow[2].replaceAll(">","&gt;");reqFlow=reqFlow.replaceAll("<","&lt;");
+                reqFlow=reqFlow.replaceAll("&gt;&lt;","&gt;\n&lt;");
+
+                var respFlow=paramsFlow[3].replaceAll(">","&gt;");respFlow=respFlow.replaceAll("<","&lt;");
+                respFlow=respFlow.replaceAll("&gt;&lt;","&gt;\n&lt;");
+
+                printTableNQFlow+="<tr>";
+                printTableNQFlow+="<td>"+"REQUEST"+"</td>";
+                printTableNQFlow+="<td>"+paramsFlow[0]+"</td>";
+                printTableNQFlow+="<td>"+"<button onclick=\"showFlowNQ('"+paramsFlow[0]+"_REQUEST')\" class=\"w3-button w3-block\">Посмотреть</button>"+"</td>";
+                printTableNQFlow+="</tr>";
+                printHidden+="<input type=\"hidden\" id=\""+paramsFlow[0]+"_REQUEST\" value=\""+reqFlow.replaceAll("\"","&#34;")+"\">";
+
+                printTableNQFlow+="<tr>";
+                printTableNQFlow+="<td>"+"RESPONSE"+"</td>";
+                printTableNQFlow+="<td>"+paramsFlow[0]+"</td>";
+                printTableNQFlow+="<td>"+"<button onclick=\"showFlowNQ('"+paramsFlow[0]+"_RESPONSE')\" class=\"w3-button w3-block\">Посмотреть</button>"+"</td>";
+                printTableNQFlow+="</tr>";
+                printHidden+="<input type=\"hidden\" id=\""+paramsFlow[0]+"_RESPONSE\" value=\""+respFlow.replaceAll("\"","&#34;")+"\">";
+
+
+
+            }
+            printTableNQFlow+="</table>";
+            x.innerHTML+=printTableNQFlow;
+            x.innerHTML+=printHidden;
+    //https://5ka.webhook.office.com/webhookb2/30a9316e-5386-4735-b7ec-a543c6a4c58d@ae314115-5799-469f-8027-921d964c12a1/IncomingWebhook/ccff35f0b6af403992a072a98eb35e0c/a029d58c-b923-4a92-9cea-a5c064d583bd
+
+        }
+    }
+
+
+    var body = 'magbuf='+buf.replaceAll(/\s/g,"")+
+        '&magsap='+magsap.replaceAll(/\s/g,"")+
+        '&magio=0'+
+        '&magParam=flowNQ';
+    xhrB.open('POST', '/test/magnq', true);
+    xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrB.send(body);
+
+}
+//  printTableNQFlow+="<td>"+"<button onclick=\"showFlowNQ('"+paramsFlow[2]+"')\" class=\"w3-button w3-block\">Посмотреть</button>"+"</td>";
+//
+
+function showFlowNQ(mesHI){
+    var modalWinNQ = document.getElementById("respModalNQ");
+    var text_to_modal = document.getElementById(mesHI).value;
+        modalWinNQ.innerText=text_to_modal;
+
+    document.getElementById("001idNQ").style.display="block";
 }
 
 

@@ -145,8 +145,8 @@ public class ConnectToMag {
                 ", bi.binc_transactiondate\n" +
                 ", bi.binc_sapordernumber\n" +
                 "from b_incoming bi\n" +
-                "left join s_docstatuses sd on sd.sdss_id = bi.doc_status where "+
-                "bi.binc_transactionid = '"+buf+"' or bi.binc_waybillnumber = '"+buf+"' or bi.binc_sapordernumber like ('"+buf+"')";
+                "left join s_docstatuses sd on sd.sdss_id = bi.doc_status where bi.doc_status !=276 and ( "+
+                "bi.binc_transactionid = '"+buf+"' or bi.binc_waybillnumber = '"+buf+"' or bi.binc_sapordernumber like ('"+buf+"'))";
         if(gknq.equals("GK")){
 
             Connection cnn = connectionMagGK(sap);
@@ -165,7 +165,7 @@ public class ConnectToMag {
 
             String agent = RcToAgent.SapAgent(sap);
             if(Integer.parseInt(agent)<10)agent="0"+agent;
-            System.out.println(agent);
+           // System.out.println(agent);
             Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
             //String sAg = "";
             Statement stmtPullB = pullConn.createStatement(
@@ -190,7 +190,7 @@ public class ConnectToMag {
             ResultSet rsNQ = stmtNQ.executeQuery("ss");
         }
 
-        System.out.println(goOrNq(sap));
+       // System.out.println(goOrNq(sap));
 
 
 
@@ -246,8 +246,8 @@ public class ConnectToMag {
                 ", bo.bout_transactiondate\n" +
                 ", bo.bout_ordernumber\n" +
                 "from b_outgoing bo \n" +
-                "left join s_docstatuses sd on sd.sdss_id = bo.doc_status where "+
-                "bo.bout_transactionid = '"+buf+"' or bo.bout_waybillnumber = '"+buf+"' or bo.bout_ordernumber like ('"+buf+"')";
+                "left join s_docstatuses sd on sd.sdss_id = bo.doc_status where bi.doc_status !=276 and ( "+
+                "bo.bout_transactionid = '"+buf+"' or bo.bout_waybillnumber = '"+buf+"' or bo.bout_ordernumber like ('"+buf+"'))";
         if(gknq.equals("GK")){
 
             Connection cnn = connectionMagGK(sap);
@@ -266,7 +266,7 @@ public class ConnectToMag {
 
             String agent = RcToAgent.SapAgent(sap);
             if(Integer.parseInt(agent)<10)agent="0"+agent;
-            System.out.println(agent);
+           // System.out.println(agent);
             Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
             //String sAg = "";
             Statement stmtPullB = pullConn.createStatement(
@@ -291,7 +291,7 @@ public class ConnectToMag {
             ResultSet rsNQ = stmtNQ.executeQuery("ss");
         }
 
-        System.out.println(goOrNq(sap));
+        //System.out.println(goOrNq(sap));
 
 
 
@@ -426,7 +426,7 @@ public class ConnectToMag {
                 "where al_codv_id ="+ sap.replaceAll("[a-zA-Z]","") +"\n" +
                 "and al_created > sysdate -5\n" +
                 " and al_info3 !='/supply/receipt/getStatus' "+
-                " and al_info3 !='/ship/getStatusAndErrors' "+
+              //  " and al_info3 !='/ship/getStatusAndErrors' "+
                 " and al_info2 !='SupplyReceiptXmlService.getWaybillList()'\n" +
                 " and al_maininfo like('%<TransactionID>"+buf+"</TransactionID>%')\n" +
               //  " group by LEAST(al_status_code),GREATEST(al_info3),to_char(al_maininfo)" +
@@ -434,7 +434,7 @@ public class ConnectToMag {
 
             String agent = RcToAgent.SapAgent(sap);
             if(Integer.parseInt(agent)<10)agent="0"+agent;
-            System.out.println(agent);
+            //System.out.println(agent);
             Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
             //String sAg = "";
             Statement stmtPullB = pullConn.createStatement(
@@ -445,25 +445,6 @@ public class ConnectToMag {
 
         while (rsF.next()){
 
-            /*if(rsF.getString(1).equals("RA0001"))
-                response+="request|";
-            else
-                response+="response|";
-            switch (rsF.getString(2)){
-                case "/supply/receipt/upload":
-                    response+="IN21|";
-                    break;
-                case "/supply/receipt/updateIdDoc":
-                    response+="IN25|";
-                    break;
-                case "/supply/receipt/trustConfirm":
-                    response+="IN26|";
-                    break;
-                case "/discrepancyReport/TTNGet":
-                    response+="DR27|";
-                    break;
-            }
-            */
 
             response+=rsF.getString(3)+"|";
             response+=rsF.getString(5)+"|";
@@ -500,7 +481,7 @@ public class ConnectToMag {
 
         String agent = RcToAgent.SapAgent(sap);
         if(Integer.parseInt(agent)<10)agent="0"+agent;
-        System.out.println(agent);
+        //System.out.println(agent);
         Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
         //String sAg = "";
         Statement stmtPullB = pullConn.createStatement(
@@ -524,7 +505,7 @@ public class ConnectToMag {
 
         String agent = RcToAgent.SapAgent(sap);
         if(Integer.parseInt(agent)<10)agent="0"+agent;
-        System.out.println(agent);
+        //System.out.println(agent);
         Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
         //String sAg = "";
         Statement stmtPullB = pullConn.createStatement(
@@ -773,7 +754,7 @@ public class ConnectToMag {
 
         String agent = RcToAgent.SapAgent(sap);
         if(Integer.parseInt(agent)<10)agent="0"+agent;
-        System.out.println(agent);
+       // System.out.println(agent);
         Connection pullConn = ConnectionPool.getInstance().getConnection(agent);
         //String sAg = "";
         Statement stmtPullB = pullConn.createStatement(
@@ -786,7 +767,7 @@ public class ConnectToMag {
             if(rsF.getString(3).equals(typeflow[0]) & rsF.getString(5).equals(typeflow[1])){
                 //нашли поток, которые требуется переотправить
                 String flowToResend = rsF.getString(6).substring(55).replaceAll("\n","");
-                System.out.println(flowToResend);
+               // System.out.println(flowToResend);
                 String endPoint = appsBac[Integer.parseInt(agent)]+rsF.getString(4);
 
                 //flow sending
