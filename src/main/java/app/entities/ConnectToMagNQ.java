@@ -241,7 +241,7 @@ public class ConnectToMagNQ {
                 "        ,   bo.Bout_WAYBILLNUMBER AS \"TTN\" \n" +
                 "        ,   bo.Bout_TRANSACTIONDATE AS \"DATA\" \n" +
                 "        ,   bo.BOUT_SAP_DOC_ID AS \"ORDER\"\n" +
-                "        ,   cod.CODV_CODE AS \"SAP\" --CASE WHEN   = 'NULL' THEN '2'\n" +
+                "        ,   cod.CODV_CODE AS \"SAP\" \n" +
                 "    FROM\n" +
                 "        B_outgoing bo\n" +
                 "    LEFT JOIN s_docstatuses sd ON\n" +
@@ -251,8 +251,7 @@ public class ConnectToMagNQ {
                 "    ) ba\n" +
                 "WHERE\n" +
                 "    1 = 1\n" +
-                "    --AND ba.CODV = '"+sap+"'\n" +
-                "    AND ba.DATA > SYSDATE - 10\n" +
+              //  "    AND ba.DATA > SYSDATE - 10\n" +
                 "    AND (\n" +
                 "                ( ba.BUF = '"+buf+"'    OR ba.BUF = '"+buf+"' )\n" +
                 "            OR  ( ba.TTN = '"+buf+"'    OR ba.TTN = '"+buf+"' )\n" +
