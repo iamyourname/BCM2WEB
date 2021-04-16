@@ -36,14 +36,14 @@ public class Logs {
                 " \"options\"," +
                 " status," +
                 " error_log)\n values (?,?,?,?,?,?,?,?)";
-
+        System.out.println("---------------------------------------------------------------------------");
         System.out.println("USER: "+username);
         System.out.println("SYSTEM: "+systemName);
         System.out.println("PROCESS: "+processName);
         System.out.println("OPERATION: "+operationName);
         System.out.println("OPTIONS: "+options);
         System.out.println("STATUS: "+statusName);
-        System.out.println("ERROR: "+error_log);
+        System.out.println("ERROR: "+error_log+"\n\n");
         PreparedStatement pstmMain = connLog.prepareStatement(LogStringMain, Statement.RETURN_GENERATED_KEYS);
 
         PGobject jsonObject = new PGobject();
@@ -96,7 +96,14 @@ public class Logs {
                 " status," +
                 " error_log)\n values (?,?,?,?,?,?,?,?,?)";
 
-
+        System.out.println("USER: "+username);
+        System.out.println("SYSTEM: "+systemName);
+        System.out.println("PROCESS: "+processName);
+        System.out.println("OPERATION: "+operationName);
+        System.out.println("OPTIONS: "+options);
+        System.out.println("STATUS: "+statusName);
+        System.out.println("ERROR: "+error_log+"\n\n");
+        System.out.println("---------------------------------------------------------------------------");
         PreparedStatement pstmParent = connLog.prepareStatement(LogStringParent, Statement.RETURN_GENERATED_KEYS);
 
         PGobject jsonObject = new PGobject();

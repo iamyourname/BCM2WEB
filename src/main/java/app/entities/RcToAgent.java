@@ -102,12 +102,12 @@ public class RcToAgent {
                 "left join c_org_divisions co on co.codv_id = ao.codv_id\n" +
                 "where co.codv_code = '"+sap.toUpperCase()+"'";
         ResultSet rsPullB = stmtPullB.executeQuery(sqlSearchAgent);
-        rsPullB.last();
-        sAg = rsPullB.getString(1);
+        while (rsPullB.next())
+            sAg = rsPullB.getString(1);
         /*
         * while (rsPullB.next())
             sAg += rsPullB.getString(1);*/
-        pullConn.close();stmtPullB.close();
+        pullConn.close();stmtPullB.close();rsPullB.close();
 
 
     return sAg;

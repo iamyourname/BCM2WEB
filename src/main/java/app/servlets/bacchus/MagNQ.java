@@ -50,12 +50,15 @@ public class MagNQ extends HttpServlet {
 
             ConnectToMagNQ connectToMagNQ = new ConnectToMagNQ();
             switch (magParam){
-                case "empty":
-                    out.append(connectToMagNQ.getNQ_Info(buff,sap));
+                case "NQ_BASE_INFO":
+                    out.append(connectToMagNQ.getNQ_base_info(buff,sap));
                     break;
-                case "flowNQ":
+                case "BAC_BASE_INFO":
+                    out.append(connectToMagNQ.getBacInfo(buff,sap));
+                    break;
+                case "flow":
                     //---
-                    out.append(connectToMagNQ.getFlowFromNQ(buff,sap));
+                    //out.append(connectToMagNQ.getFlowFromNQ(buff,sap));
                     break;
             }
 

@@ -562,8 +562,24 @@ body {
         </form>
         <button id="MagNQOutSend"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="MagNQ()" >Отправить</button>
 
-        <div id="MagNQoutput">
+        <div>
+            <div class="w3-row">
+                <%-- Это общая инфа из nq--%>
+                <div id="threeq" class="w3-threequarter w3-container">
+                    <%--
+                     id="MagNQoutput"
+                    <h2>w3-threequarter</h2>
+                    <p>The w3-threequarter class uses 75% of the parent container.</p>
+                    <p>On screens smaller than 601 pixels it resizes to full screen.</p>
+                    --%>
 
+                </div>
+                    <%-- Это потоки из nq--%>
+                <div id="quart" class="w3-quarter w3-container">
+                    <%--<h2>w3-quarter</h2>--%>
+                </div>
+            </div>
+            <div  id="MagNQoutput"></div>
         </div>
         <div id="MagNQTextArea" >
             <!-- Trigger/Open the Modal -->

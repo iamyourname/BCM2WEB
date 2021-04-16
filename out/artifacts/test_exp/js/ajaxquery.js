@@ -716,6 +716,230 @@ function changeStateBacchus(oldS,buf,sap,inout){
 
 }
 
+function  NQ_BASE_INFO(){
+    var lio = document.getElementById("listNQInOut");
+    var lioMes = 0;//lio.options[lio.selectedIndex].value;
+    var btn_text = document.getElementById("MagNQOutSend");
+    btn_text.innerText="Отправить"
+
+    //alert(lioMes);
+    var magbuf = document.getElementById("MagNQbuff").value;
+    var magsap = document.getElementById("MagNQSAP").value;
+    var toPrintag = document.getElementById("threeq");
+    var toPrintFlow = document.getElementById("quart");
+    toPrintag.innerHTML="";toPrintFlow.innerHTML="";
+    var flagf=false;
+
+
+
+    var printTableNQ="<h4>NQ</h4><br><table class=\"w3-table-all w3-small\">" +
+    "<tr class = \"w3-light-blue\">"+
+    "<th>Буфер</th>"+
+    "<th>Статус</th>"+
+    "<th>Описание</th>"+
+    "<th>Тип докуента</th>"+
+    "<th>Буфер в бахус</th>"+
+    "</tr>";
+
+
+
+    var intStatus="";
+    //toPrintag.innerHTML="";
+
+
+    // request base info from nq---------------------------------------
+
+    var showNQInfo = ''+magbuf.replaceAll(/\s/g,"")+ //bufer
+        ','+magsap.replaceAll(/\s/g,"")+  //sap
+        ','+lioMes+  // in out poka ne ispolzuetsya
+        ',NQ_BASE_INFO'; // param to show
+
+    var paramsToShow = showNQInfo.split(",");
+
+    var respInfo="";
+
+    var body = 'magbuf='+paramsToShow[0].replaceAll(/\s/g,"")+
+        '&magsap='+paramsToShow[1].replaceAll(/\s/g,"")+
+        '&magio='+paramsToShow[2]+
+        '&magParam='+paramsToShow[3];
+
+    let xhrNQ_BASE = new XMLHttpRequest();
+    xhrNQ_BASE.onreadystatechange = function() {
+        if (xhrNQ_BASE.readyState !== 4) return;
+        if (xhrNQ_BASE.status == 200) {
+
+
+            var respInfo =  xhrNQ_BASE.responseText;
+
+            console.log("main_f"+xhrNQ_BASE.responseText);
+            var respNQ = respInfo.split("|");
+            printTableNQ+="<tr>";
+            printTableNQ+="<td>"+respNQ[0]+"</td>";
+            printTableNQ+="<td>"+respNQ[1]+"</td>";
+            printTableNQ+="<td>"+respNQ[2]+"</td>";
+            printTableNQ+="<td>"+respNQ[3]+"</td>";
+            printTableNQ+="<td>"+respNQ[4]+"</td>";
+            printTableNQ+="</tr></table>";
+
+            var flowPrint ="<br><div class=\"w3-light-blue\" style='margin-top: 0px;margin-bottom: 0px;'>\n" +
+                "  <button id=\"btn_hist_flow\" onclick=\"flowFromNQ('"+respNQ[4]+"')\" class=\"w3-button w3-block\">Потоки из NQ</button>\n" +
+                "  <div id=\"nqFL\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+                //"    <p>Lorem ipsum 25% width</p>\n" +
+                "  </div>\n" +
+                "</div>";
+
+            toPrintag.innerHTML+=printTableNQ;
+
+            toPrintFlow.innerHTML+=flowPrint;
+            flagf=true;
+            return flagf;
+
+        }
+        flagf=true;
+        return flagf;
+    }
+
+    xhrNQ_BASE.open('POST', '/test/magnq', true);
+    xhrNQ_BASE.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhrNQ_BASE.send(body);
+    flagf=true;
+    return flagf;
+}
+
+function  BAC_BASE_INFO(){
+    var lio = document.getElementById("listNQInOut");
+    var lioMes = 0;//lio.options[lio.selectedIndex].value;
+    var btn_text = document.getElementById("MagNQOutSend");
+    btn_text.innerText="Отправить"
+
+//alert(lioMes);
+    var magbuf = document.getElementById("MagNQbuff").value;
+    var magsap = document.getElementById("MagNQSAP").value;
+    var toPrintag = document.getElementById("MagNQoutput");
+    toPrintag.innerHTML="";
+
+
+    var printTableNQ="<h4>BACCHUS</h4><br><table class=\"w3-table-all w3-small\">" +
+        "<tr class = \"w3-light-blue\">"+
+        "<th>Буфер</th>"+
+        "<th>Статус</th>"+
+        "<th>ТТН</th>"+
+        "<th>Дата</th>"+
+        "<th>Заказ</th>"+
+        "</tr>";
+    var intStatus="";
+    //toPrintag.innerHTML="";
+
+
+// request base info from nq---------------------------------------
+
+    var showNQInfo = ''+magbuf.replaceAll(/\s/g,"")+ //bufer
+        ','+magsap.replaceAll(/\s/g,"")+  //sap
+        ','+lioMes+  // in out poka ne ispolzuetsya
+        ',BAC_BASE_INFO'; // param to show
+
+    var paramsToShow = showNQInfo.split(",");
+
+    var respInfo="";
+
+    var body = 'magbuf='+paramsToShow[0].replaceAll(/\s/g,"")+
+        '&magsap='+paramsToShow[1].replaceAll(/\s/g,"")+
+        '&magio='+paramsToShow[2]+
+        '&magParam='+paramsToShow[3];
+
+    let xhrBAC_BASE = new XMLHttpRequest();
+    xhrBAC_BASE.onreadystatechange = function() {
+        if (xhrBAC_BASE.readyState !== 4) return;
+        if (xhrBAC_BASE.status == 200) {
+            var respInfo =  xhrBAC_BASE.responseText;
+            console.log("main_f"+xhrBAC_BASE.responseText);
+            var respNQ = respInfo.split("|");
+            printTableNQ+="<tr>";
+            printTableNQ+="<td>"+respNQ[0]+"</td>";
+            printTableNQ+="<td>"+respNQ[1]+"</td>";
+            printTableNQ+="<td>"+respNQ[2]+"</td>";
+            printTableNQ+="<td>"+respNQ[3]+"</td>";
+            printTableNQ+="<td>"+respNQ[4]+"</td>";
+            printTableNQ+="</tr></table>";
+
+            toPrintag.innerHTML+=printTableNQ;
+
+        }
+        //return xhrB.responseText;
+    }
+
+    xhrBAC_BASE.open('POST', '/test/magnq', true);
+    xhrBAC_BASE.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhrBAC_BASE.send(body);
+}
+
+function  NQ_FLOW(){
+    var lio = document.getElementById("listNQInOut");
+    var lioMes = 0;//lio.options[lio.selectedIndex].value;
+    var btn_text = document.getElementById("MagNQOutSend");
+    btn_text.innerText="Отправить"
+
+    //alert(lioMes);
+    var magbuf = document.getElementById("MagNQbuff").value;
+    var magsap = document.getElementById("MagNQSAP").value;
+    var toPrintag = document.getElementById("threequarter");
+
+
+
+    var flowPrint ="<br><div class=\"w3-light-blue\" style='margin-top: 0px;margin-bottom: 0px;'>\n" +
+        "  <button id=\"btn_hist_flow\" onclick=\"flowFromNQ('"+respNQ[4]+"')\" class=\"w3-button w3-block\">Потоки из NQ</button>\n" +
+        "  <div id=\"nqFL\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+        //"    <p>Lorem ipsum 25% width</p>\n" +
+        "  </div>\n" +
+        "</div>";
+
+    var intStatus="";
+    //toPrintag.innerHTML="";
+
+
+    // request base info from nq---------------------------------------
+
+    var showNQInfo = ''+magbuf.replaceAll(/\s/g,"")+ //bufer
+        ','+magsap.replaceAll(/\s/g,"")+  //sap
+        ','+lioMes+  // in out poka ne ispolzuetsya
+        ',NQ_BASE_INFO'; // param to show
+
+    var paramsToShow = showNQInfo.split(",");
+
+    var respInfo="";
+
+    var body = 'magbuf='+paramsToShow[0].replaceAll(/\s/g,"")+
+        '&magsap='+paramsToShow[1].replaceAll(/\s/g,"")+
+        '&magio='+paramsToShow[2]+
+        '&magParam='+paramsToShow[3];
+
+    let xhrNQ_FLOW = new XMLHttpRequest();
+    xhrNQ_FLOW.onreadystatechange = function() {
+        if (xhrNQ_FLOW.readyState !== 4) return;
+        if (xhrNQ_FLOW.status == 200) {
+            var respInfo =  xhrNQ_FLOW.responseText;
+            console.log("main_f"+xhrNQ_FLOW.responseText);
+            var respNQ = respInfo.split("|");
+            printTableNQ+="<tr>";
+            printTableNQ+="<td>"+respNQ[0]+"</td>";
+            printTableNQ+="<td>"+respNQ[1]+"</td>";
+            printTableNQ+="<td>"+respNQ[2]+"</td>";
+            printTableNQ+="<td>"+respNQ[3]+"</td>";
+            printTableNQ+="<td>"+respNQ[4]+"</td>";
+            printTableNQ+="</tr></table>";
+
+            toPrintag.innerHTML+=printTableNQ;
+
+        }
+        //return xhrB.responseText;
+    }
+
+    xhrNQ_FLOW.open('POST', '/test/magnq', true);
+    xhrNQ_FLOW.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhrNQ_FLOW.send(body);
+}
+
+
 function MagNQ(){
     var lio = document.getElementById("listNQInOut");
     var lioMes = 0;//lio.options[lio.selectedIndex].value;
@@ -725,21 +949,23 @@ function MagNQ(){
     //alert(lioMes);
     var magbuf = document.getElementById("MagNQbuff").value;
     var magsap = document.getElementById("MagNQSAP").value;
-    var toPrintag = document.getElementById("MagNQoutput");
-
-
-
-    var printTableNQ="<h4>NQ</h4><br><table class=\"w3-table-all w3-small\">" +
-        "<tr class = \"w3-light-blue\">"+
-        "<th>Буфер</th>"+
-        "<th>Статус</th>"+
-        "<th>Описание</th>"+
-        "<th>Тип докуента</th>"+
-        "<th>Буфер в бахус</th>"+
-        "</tr>";
-    var intStatus="";
+    var toPrintag = document.getElementById("threeq");
+    var toPrintag_2 = document.getElementById("MagNQoutput");
     toPrintag.innerHTML="";
+    toPrintag_2.innerHTML="";
 
+    NQ_BASE_INFO();
+        setTimeout(BAC_BASE_INFO, 5000);
+
+
+
+
+// request base info from nq---------------------------------------
+
+
+    //
+
+    /*
     let xhrB = new XMLHttpRequest();
     xhrB.onreadystatechange = function() {
         btn_text.className = btn_text.className.replace(" w3-red", "w3-green");
@@ -828,7 +1054,9 @@ function MagNQ(){
         '&magParam=empty';
     xhrB.open('POST', '/test/magnq', true);
     xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-    xhrB.send(body);
+    xhrB.send(body); */
+
+
 
     /*
      xhrB.onreadystatechange = function() {
