@@ -579,6 +579,8 @@ body {
                     <%--<h2>w3-quarter</h2>--%>
                 </div>
             </div>
+            <div  id="markNQ_Check"></div>
+            <br>
             <div  id="MagNQoutput"></div>
         </div>
         <div id="MagNQTextArea" >
@@ -586,7 +588,7 @@ body {
             <!-- The Modal -->
 
             <input type="hidden" id="to_modal">
-            <div id="001idNQ" class="w3-modal">
+            <div id="001idNQ" class="w3-modal" style="z-index: 999">
                 <div class="w3-modal-content w3-card-4">
                     <header class="w3-container w3-teal">
                         <span onclick="document.getElementById('001idNQ').style.display='none'" class="w3-button w3-display-topright">&times;</span>

@@ -53,6 +53,56 @@ public class ConnectToMagNQ {
 
     }
 
+    public String getCheckNQ_Mark(String mark, String sap) throws SQLException, ClassNotFoundException {
+        String response="";
+
+        String sqlQueryMark="select \n" +
+                "    CASE \n" +
+                "        WHEN STATUS = 0 THEN 'Марка доступна к продаже'\n" +
+                "        WHEN STATUS =10 THEN 'Марка продана'\n" +
+                "        WHEN STATUS =11 THEN 'Марка заблокирована на кассе в чеке продажи '\n" +
+                "        WHEN STATUS =12 THEN 'Марка заблокирована в чеке возврата'\n" +
+                "        WHEN STATUS =20 THEN 'Марка перемещена или возвращена поставщику'\n" +
+                "        WHEN STATUS =21 THEN 'Заблокирована для перемещения или возврата поставщику'\n" +
+                "        WHEN STATUS =30 THEN 'Марка списана'\n" +
+                "        WHEN STATUS =31 THEN 'Марка заблокирована для списания'\n" +
+                "        WHEN STATUS =32 THEN 'Марка списана в NQ, но запрещена к списанию в ЕГАИС'\n" +
+                "        END STATUS \n" +
+                "    , DT_STATUS \n" +
+                "    , SOURCE_ID_HEADER \n" +
+                "    , OPERATION_STATUS\n" +
+                "    , de.EXT_STRING \n" +
+                "from alco.bhcs_amc ba\n" +
+                "LEFT JOIN sdd.DOCHEADER_EXT de ON de.ID_HEADER = ba.SOURCE_ID_HEADER \n" +
+                "WHERE 1=1\n" +
+                "AND ba.BARCODE = '"+mark+"' \n" +
+                " AND de.EXT_NAME = 'BUF_IDENT_ALCO'";
+
+
+        String urlNQ = "jdbc:oracle:thin:@" + findAndConnTo_NQ(sap) + ":1521/" + "orcl";
+        //System.out.println(urlNQ);
+        Class.forName(driverNameNQM);
+        Connection connMag =  DriverManager.getConnection(urlNQ, "sdd", "kjiflm");
+
+        //Connection connMag = ;
+        Statement stmtMag = connMag.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rsMag = stmtMag.executeQuery(sqlQueryMark);
+
+        while (rsMag.next()){
+            //System.out.println(rsMag.getString(7));
+
+                response+=rsMag.getString(1)+"|"; // id_header
+                response+=rsMag.getString(2)+"|"; // status
+                response+=rsMag.getString(3)+"|"; //ru_status
+                response+=rsMag.getString(4)+"|"; //type
+                response+=rsMag.getString(5)+"|"; // bacchus_buf
+
+        }
+        stmtMag.close();rsMag.close();connMag.close();
+
+        return response;
+    }
+
     public  String getNQ_base_info(String buf, String sap) throws SQLException, ClassNotFoundException{
         System.out.println("nq_base_info");
         String response="";
@@ -146,7 +196,21 @@ public class ConnectToMagNQ {
                 System.out.println(rsMag.getString(12));
             }
         }
-        stmtMag.close();rsMag.close();connMag.close();
+
+        String sqlCashe= "SELECT max(DT_STATUS)FROM ALCO.BHCS_AMC ba\n" +
+                "WHERE ba.OPERATION_STATUS = 'INCOME'";
+
+
+
+        stmtMag.close();rsMag.close();
+        Statement stmtMag2 = connMag.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rsMag2 = stmtMag2.executeQuery(sqlCashe);
+
+        while (rsMag2.next()){
+            response+=rsMag2.getString(1);
+        }
+        stmtMag2.close();rsMag2.close();
+        connMag.close();
 
 
         return response;

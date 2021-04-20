@@ -720,7 +720,7 @@ function  NQ_BASE_INFO(){
     var lio = document.getElementById("listNQInOut");
     var lioMes = 0;//lio.options[lio.selectedIndex].value;
     var btn_text = document.getElementById("MagNQOutSend");
-    btn_text.innerText="Отправить"
+
 
     //alert(lioMes);
     var magbuf = document.getElementById("MagNQbuff").value;
@@ -779,7 +779,12 @@ function  NQ_BASE_INFO(){
             printTableNQ+="<td>"+respNQ[2]+"</td>";
             printTableNQ+="<td>"+respNQ[3]+"</td>";
             printTableNQ+="<td>"+respNQ[4]+"</td>";
-            printTableNQ+="</tr></table>";
+            printTableNQ+="</tr>" +
+                "<tr>" +
+                "<td colspan=\"2\">Последняя выгрузка в КЭШ</td>"+
+                "<td colspan=\"3\">"+respNQ[5]+"</td>"+
+                "</tr>" +
+                "</table>";
 
             var flowPrint ="<br><div class=\"w3-light-blue\" style='margin-top: 0px;margin-bottom: 0px;'>\n" +
                 "  <button id=\"btn_hist_flow\" onclick=\"flowFromNQ('"+respNQ[4]+"')\" class=\"w3-button w3-block\">Потоки из NQ</button>\n" +
@@ -788,9 +793,14 @@ function  NQ_BASE_INFO(){
                 "  </div>\n" +
                 "</div>";
 
+            printTableNQ+="<br>проверка марки<textarea id=\"markCheck\" class=\"w3-input w3-border\"  style=\"resize:none\"></textarea>";
+            printTableNQ+="<button id=\"btn_mark_check\" onclick=\"checkMark()\" class=\"w3-btn w3-green w3-round-large w3-margin-bottom\">Проверить</button>";
+
+
             toPrintag.innerHTML+=printTableNQ;
 
             toPrintFlow.innerHTML+=flowPrint;
+            BAC_BASE_INFO(respNQ[4]);
             flagf=true;
             return flagf;
 
@@ -806,7 +816,7 @@ function  NQ_BASE_INFO(){
     return flagf;
 }
 
-function  BAC_BASE_INFO(){
+function  BAC_BASE_INFO(bac_buf){
     var lio = document.getElementById("listNQInOut");
     var lioMes = 0;//lio.options[lio.selectedIndex].value;
     var btn_text = document.getElementById("MagNQOutSend");
@@ -833,7 +843,7 @@ function  BAC_BASE_INFO(){
 
 // request base info from nq---------------------------------------
 
-    var showNQInfo = ''+magbuf.replaceAll(/\s/g,"")+ //bufer
+    var showNQInfo = ''+bac_buf.replaceAll(/\s/g,"")+ //bufer
         ','+magsap.replaceAll(/\s/g,"")+  //sap
         ','+lioMes+  // in out poka ne ispolzuetsya
         ',BAC_BASE_INFO'; // param to show
@@ -851,6 +861,7 @@ function  BAC_BASE_INFO(){
     xhrBAC_BASE.onreadystatechange = function() {
         if (xhrBAC_BASE.readyState !== 4) return;
         if (xhrBAC_BASE.status == 200) {
+            btn_text.innerText="Отправить"
             var respInfo =  xhrBAC_BASE.responseText;
             console.log("main_f"+xhrBAC_BASE.responseText);
             var respNQ = respInfo.split("|");
@@ -877,7 +888,7 @@ function  NQ_FLOW(){
     var lio = document.getElementById("listNQInOut");
     var lioMes = 0;//lio.options[lio.selectedIndex].value;
     var btn_text = document.getElementById("MagNQOutSend");
-    btn_text.innerText="Отправить"
+    //btn_text.innerText="Отправить"
 
     //alert(lioMes);
     var magbuf = document.getElementById("MagNQbuff").value;
@@ -939,12 +950,112 @@ function  NQ_FLOW(){
     xhrNQ_FLOW.send(body);
 }
 
+function  checkMark(){
+    var lio = document.getElementById("listNQInOut");
+    var lioMes = 0;//lio.options[lio.selectedIndex].value;
+    var btn_text = document.getElementById("MagNQOutSend");
+    var btn_mark = document.getElementById("btn_mark_check");
+    //btn_mark.disabled = "true";
+
+//alert(lioMes);
+    var magbuf = document.getElementById("MagNQbuff").value;
+    var magsap = document.getElementById("MagNQSAP").value;
+    var magMarkL = document.getElementById("markCheck").value;
+    var toPrintag = document.getElementById("markNQ_Check");
+    toPrintag.innerHTML="";
+
+    var printTableMark="<h5>MarkInfo</h5><table class=\"w3-table-all w3-small\">" +
+        "<tr class = \"w3-light-blue\">"+
+        "<th>Статус</th>"+
+        "<th>Дата</th>"+
+        "<th>Документ в NQ</th>"+
+        "<th>Статус_ENG</th>"+
+        "<th>Буфер в бахус</th>"+
+        "</tr>";
+
+    let xhrNQ_MARK = new XMLHttpRequest();
+
+    /*
+    setTimeout(checkLength,500);
+
+    function checkLength(){
+        var magMarkL = document.getElementById("markCheck").value;
+        var btn_markL = document.getElementById("btn_mark_check");
+        if(magMarkL.length==68 || magMarkL.length==150){
+            btn_markL.innerText="Проверить";
+        }
+        if(magMarkL.length==0){
+            btn_markL.innerText="Длинна марки 68 или 50 символов";
+        }
+    }
+
+    */
+
+    //toPrintag.innerHTML="";
+
+    if(magMarkL.length==68 || magMarkL.length==150){
+        //
+        var showNQInfo = ''+magMarkL.replaceAll(/\s/g,"")+ //bufer
+            ','+magsap.replaceAll(/\s/g,"")+  //sap
+            ','+lioMes+  // in out poka ne ispolzuetsya
+            ',markCheck'; // param to show
+        var paramsToShow = showNQInfo.split(",");
+
+        var respInfo="";
+
+        var body = 'magbuf='+paramsToShow[0].replaceAll(/\s/g,"")+
+            '&magsap='+paramsToShow[1].replaceAll(/\s/g,"")+
+            '&magio='+paramsToShow[2]+
+            '&magParam='+paramsToShow[3];
+
+        xhrNQ_MARK.open('POST', '/test/magnq', true);
+        xhrNQ_MARK.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhrNQ_MARK.send(body);
+    }else{
+        //btn_mark.disabled = "false";
+        alert("Длинна марки должна быть 68 или 150 символов!!!");
+
+
+    }
+
+
+
+
+
+
+    xhrNQ_MARK.onreadystatechange = function() {
+        if (xhrNQ_MARK.readyState !== 4) return;
+        if (xhrNQ_MARK.status == 200) {
+
+            var respInfo =  xhrNQ_MARK.responseText;
+            var markInfo = respInfo.split("|");
+
+            printTableMark+="<tr>";
+            printTableMark+="<td>"+markInfo[0]+"</td>";
+            printTableMark+="<td>"+markInfo[1]+"</td>";
+            printTableMark+="<td>"+markInfo[2]+"</td>";
+            printTableMark+="<td>"+markInfo[3]+"</td>";
+            printTableMark+="<td>"+markInfo[4]+"</td>";
+            printTableMark+="</tr>";
+            printTableMark+="</table>";
+
+            toPrintag.innerHTML+=printTableMark;
+
+
+
+        }
+        //return xhrB.responseText;
+    }
+
+
+}
+
 
 function MagNQ(){
     var lio = document.getElementById("listNQInOut");
     var lioMes = 0;//lio.options[lio.selectedIndex].value;
     var btn_text = document.getElementById("MagNQOutSend");
-    btn_text.innerText="Отправить"
+    btn_text.innerText="Загружаю..";
 
     //alert(lioMes);
     var magbuf = document.getElementById("MagNQbuff").value;
@@ -955,7 +1066,7 @@ function MagNQ(){
     toPrintag_2.innerHTML="";
 
     NQ_BASE_INFO();
-        setTimeout(BAC_BASE_INFO, 5000);
+       // setTimeout(BAC_BASE_INFO, 5000);
 
 
 

@@ -56,9 +56,13 @@ public class MagNQ extends HttpServlet {
                 case "BAC_BASE_INFO":
                     out.append(connectToMagNQ.getBacInfo(buff,sap));
                     break;
-                case "flow":
+                case "flowNQ":
                     //---
-                    //out.append(connectToMagNQ.getFlowFromNQ(buff,sap));
+                    out.append(connectToMagNQ.getFlowFromNQ(buff,sap));
+                    break;
+                case "markCheck":
+                    //---
+                    out.append(connectToMagNQ.getCheckNQ_Mark(buff,sap));
                     break;
             }
 
