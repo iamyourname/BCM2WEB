@@ -63,7 +63,11 @@ public class MagNQ extends HttpServlet {
                 case "markCheck":
                     //---
                     out.append(connectToMagNQ.getCheckNQ_Mark(buff,sap));
-                    break;
+                    break;//onlyMarkCash
+                case "onlyMarkCash":
+                    //---
+                    out.append(ConnectToMagNQ.getCashTime(sap));
+                    break;//
             }
 
 

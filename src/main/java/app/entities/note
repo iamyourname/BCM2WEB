@@ -1,0 +1,12 @@
+"SELECT \n" +
+                "     bhwl.ID_WEBSERVICE \n" +
+                "    , MAX(bhw.REQUEST_CODE)\n" +
+                "    , bhw.DESCRIPTION\n" +
+                "    , MIN(TO_CHAR(bhwl.REQUEST_TEXT))\n" +
+                "    , MIN(TO_CHAR(bhwl.RESPONSE_TEXT))\n" +
+                "FROM alco.BUF_HTTP_WEBSERVICE_LOG bhwl \n" +
+                "LEFT JOIN alco.BUF_HTTP_WEBSERVICE bhw ON BHWL.ID_WEBSERVICE = bhw.id\n" +
+                "WHERE 1=1\n" +
+                "       AND  bhwl.TAG_VALUE ='"+buf+"'\n" +
+                "       AND BHWL.DT_CREATED > SYSDATE -20\n" +
+                "       GROUP BY bhwl.ID_WEBSERVICE, BHW.DESCRIPTION "

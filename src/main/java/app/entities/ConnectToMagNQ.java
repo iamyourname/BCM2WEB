@@ -10,7 +10,7 @@ public class ConnectToMagNQ {
     final public static String driverNameNQM = "oracle.jdbc.driver.OracleDriver";
     String bccbuf;
     
-    private  String findAndConnTo_NQ(String sap) throws SQLException, ClassNotFoundException {
+    private static String findAndConnTo_NQ(String sap) throws SQLException, ClassNotFoundException {
         //Connection connMagNQ = null;
         String startUrl="ORA-";
 
@@ -75,9 +75,7 @@ public class ConnectToMagNQ {
                 "from alco.bhcs_amc ba\n" +
                 "LEFT JOIN sdd.DOCHEADER_EXT de ON de.ID_HEADER = ba.SOURCE_ID_HEADER \n" +
                 "WHERE 1=1\n" +
-                "AND ba.BARCODE = '"+mark+"' \n" +
-                " AND de.EXT_NAME = 'BUF_IDENT_ALCO'";
-
+                "AND ba.BARCODE = '"+mark+"' \n";//" AND de.EXT_NAME = 'BUF_IDENT_ALCO'"
 
         String urlNQ = "jdbc:oracle:thin:@" + findAndConnTo_NQ(sap) + ":1521/" + "orcl";
         //System.out.println(urlNQ);
@@ -101,6 +99,36 @@ public class ConnectToMagNQ {
         stmtMag.close();rsMag.close();connMag.close();
 
         return response;
+    }
+
+    public static String  getCashTime(String sap) throws SQLException, ClassNotFoundException {
+        String response="";
+
+        String sqlCashe= "select DT_CREATED, DT_PARSE, COMMENT_TEXT  \n" +
+                "from (select I.DT_CREATED, I.DT_PARSE, I.COMMENT_TEXT, RANK() OVER (order by DT_CREATED desc) as RNK from SAP.IMPORT_DATA I\n" +
+                "where FILENAME like 'REP92%' and ID_DEPARTMENT = (select ID_DEPARTMENT from SDD.DEPARTMENT where IS_HOST = 1)) X  where RNK = 1";
+
+
+
+        String urlNQ = "jdbc:oracle:thin:@" + findAndConnTo_NQ(sap) + ":1521/" + "orcl";
+        //System.out.println(urlNQ);
+        Class.forName(driverNameNQM);
+        Connection connMag =  DriverManager.getConnection(urlNQ, "sdd", "kjiflm");
+
+        //Connection connMag = ;
+        Statement stmtMag = connMag.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rsMag = stmtMag.executeQuery(sqlCashe);
+
+        while (rsMag.next()){
+            response+=rsMag.getString(2)+" ";
+            response+=rsMag.getString(3)+" ";
+        }
+        stmtMag.close();rsMag.close();
+        connMag.close();
+
+
+        return response;
+
     }
 
     public  String getNQ_base_info(String buf, String sap) throws SQLException, ClassNotFoundException{
@@ -197,8 +225,9 @@ public class ConnectToMagNQ {
             }
         }
 
-        String sqlCashe= "SELECT max(DT_STATUS)FROM ALCO.BHCS_AMC ba\n" +
-                "WHERE ba.OPERATION_STATUS = 'INCOME'";
+        String sqlCashe= "select DT_CREATED, DT_PARSE, COMMENT_TEXT  \n" +
+                "from (select I.DT_CREATED, I.DT_PARSE, I.COMMENT_TEXT, RANK() OVER (order by DT_CREATED desc) as RNK from SAP.IMPORT_DATA I\n" +
+                "where FILENAME like 'REP92%' and ID_DEPARTMENT = (select ID_DEPARTMENT from SDD.DEPARTMENT where IS_HOST = 1)) X  where RNK = 1";
 
 
 
@@ -207,7 +236,8 @@ public class ConnectToMagNQ {
         ResultSet rsMag2 = stmtMag2.executeQuery(sqlCashe);
 
         while (rsMag2.next()){
-            response+=rsMag2.getString(1);
+            response+=rsMag2.getString(2)+" ";
+            response+=rsMag2.getString(3)+" ";
         }
         stmtMag2.close();rsMag2.close();
         connMag.close();
@@ -392,6 +422,20 @@ public class ConnectToMagNQ {
         //String bbuf = bccbuf;
         String sqlQueryBacchus="SELECT * FROM\n" +
                 "    (\n" +
+                "SELECT\n" +
+                "            bw.BWO_TRANSACTIONID AS \"BUF\" \n" +
+                "        ,   sd.sdss_name || ' (' || bw.doc_status || ')' \n" +
+                "        ,   bw.BWO_DOCNUMBER AS \"TTN\" \n" +
+                "        ,   bw.BWO_TRANSACTIONDATE AS \"DATA\" \n" +
+                "        ,   bw.BWO_SAP_DOC_ID AS \"ORDER\" \n" +
+                "        ,   cod.CODV_CODE AS \"SAP\"\n" +
+                "    FROM\n" +
+                "        B_WRITEOFF bw\n" +
+                "    LEFT JOIN s_docstatuses sd ON\n" +
+                "        sd.sdss_id = bw.doc_status\n" +
+                "    LEFT JOIN C_ORG_DIVISIONS cod ON\n" +
+                "        cod.CODV_ID = bw.CODV_ID\n" +
+                "UNION ALL "+
                 "    SELECT\n" +
                 "            bi.BINC_TRANSACTIONID AS \"BUF\" \n" +
                 "        ,   sd.sdss_name || ' (' || bi.doc_status || ')' \n" +
@@ -453,16 +497,23 @@ public class ConnectToMagNQ {
 
         String response="";
 
-        String sqlQueryFlowFromNQ="SELECT \n" +
-                "      bhw.REQUEST_CODE\n" +
-                "    , bhw.DESCRIPTION\n" +
-                "    , bhwl.REQUEST_TEXT\n" +
-                "    , RESPONSE_TEXT \n" +
-                "FROM alco.BUF_HTTP_WEBSERVICE_LOG bhwl \n" +
+        String sqlQueryFlowFromNQ="SELECT * from\n" +
+                "   ( select row_number() over ( partition BY\n" +
+                "        bhw.REQUEST_CODE \n" +
+                "            order by \n" +
+                "        bhwl.DT_CREATED   desc) as rn \n" +
+                "            , bhw.REQUEST_CODE\n" +
+                "            , bhw.DESCRIPTION \n" +
+                "            , bhwl.REQUEST_TEXT \n" +
+                "            , bhwl.RESPONSE_TEXT \n" +
+                "            , bhwl.DT_CREATED \n" +
+                "    FROM alco.BUF_HTTP_WEBSERVICE_LOG bhwl \n" +
                 "    LEFT JOIN alco.BUF_HTTP_WEBSERVICE bhw ON BHWL.ID_WEBSERVICE = bhw.id\n" +
-                "WHERE \n" +
+                "    WHERE \n" +
                 "        bhwl.TAG_VALUE ='"+buf+"'\n" +
-                "    AND BHWL.DT_CREATED > SYSDATE -20";
+                "    AND BHWL.DT_CREATED > SYSDATE -20 ) aa\n" +
+                "    WHERE rn=1";
+
 
         String urlNQ = "jdbc:oracle:thin:@" + findAndConnTo_NQ(sap) + ":1521/" + "orcl";
         //System.out.println(urlNQ);
@@ -475,10 +526,10 @@ public class ConnectToMagNQ {
         ResultSet rs = stmtNQ.executeQuery(sqlQueryFlowFromNQ);
 
         while (rs.next()){
-            response+=rs.getString(1)+"|";
             response+=rs.getString(2)+"|";
             response+=rs.getString(3)+"|";
             response+=rs.getString(4)+"|";
+            response+=rs.getString(5)+"|";
             response+="@";
         }
 

@@ -59,6 +59,11 @@
     </servlet>
 
     <servlet>
+        <servlet-name>CaduSearch</servlet-name>
+        <servlet-class>app.servlets.caduceus.CaduSearch</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>checkcerts</servlet-name>
         <servlet-class>app.servlets.caduceus.CheckCert</servlet-class>
     </servlet>
@@ -74,6 +79,11 @@
         </multipart-config>
     </servlet>
 
+
+    <servlet-mapping>
+        <servlet-name>CaduSearch</servlet-name>
+        <url-pattern>/cadusearch</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>checkcerts</servlet-name>

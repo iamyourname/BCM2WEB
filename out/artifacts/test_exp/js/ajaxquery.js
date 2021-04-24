@@ -399,6 +399,20 @@ function checkCert(){
 
 function clearCerts(){
 
+    var clearSap1 = document.getElementById("csap");
+    var clearSap2 = document.getElementById("certsToCheck"); //document.getElementById("certsToCheck").innerText;
+    var clearSap3 = document.getElementById("Magbuff"); //document.getElementById("certsToCheck").innerText;
+    var clearSap4 = document.getElementById("MagSAP"); //document.getElementById("certsToCheck").innerText;
+    var clearSap5 = document.getElementById("MagNQbuff"); //document.getElementById("certsToCheck").innerText;
+    var clearSap6 = document.getElementById("MagNQSAP"); //document.getElementById("certsToCheck").innerText;
+    clearSap1.value="";    clearSap2.value="";
+    clearSap2.value="";    clearSap4.value="";
+    clearSap3.value="";    clearSap6.value="";
+
+}
+
+function clearCertsNQ(){
+
     var clearSap = document.getElementById("csap");
     var clearCert = document.getElementById("certsToCheck"); //document.getElementById("certsToCheck").innerText;
     var clearBuff = document.getElementById("Magbuff"); //document.getElementById("certsToCheck").innerText;
@@ -975,48 +989,14 @@ function  checkMark(){
 
     let xhrNQ_MARK = new XMLHttpRequest();
 
-    /*
-    setTimeout(checkLength,500);
+/*
 
-    function checkLength(){
-        var magMarkL = document.getElementById("markCheck").value;
-        var btn_markL = document.getElementById("btn_mark_check");
-        if(magMarkL.length==68 || magMarkL.length==150){
-            btn_markL.innerText="Проверить";
-        }
-        if(magMarkL.length==0){
-            btn_markL.innerText="Длинна марки 68 или 50 символов";
-        }
-    }
-
-    */
-
-    //toPrintag.innerHTML="";
-
-    if(magMarkL.length==68 || magMarkL.length==150){
-        //
-        var showNQInfo = ''+magMarkL.replaceAll(/\s/g,"")+ //bufer
-            ','+magsap.replaceAll(/\s/g,"")+  //sap
-            ','+lioMes+  // in out poka ne ispolzuetsya
-            ',markCheck'; // param to show
-        var paramsToShow = showNQInfo.split(",");
-
-        var respInfo="";
-
-        var body = 'magbuf='+paramsToShow[0].replaceAll(/\s/g,"")+
-            '&magsap='+paramsToShow[1].replaceAll(/\s/g,"")+
-            '&magio='+paramsToShow[2]+
-            '&magParam='+paramsToShow[3];
-
-        xhrNQ_MARK.open('POST', '/test/magnq', true);
-        xhrNQ_MARK.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhrNQ_MARK.send(body);
-    }else{
+    if(magMarkL.length!=68 || magMarkL.length!=150) {
         //btn_mark.disabled = "false";
         alert("Длинна марки должна быть 68 или 150 символов!!!");
-
-
+        return;
     }
+*/
 
 
 
@@ -1046,7 +1026,22 @@ function  checkMark(){
         }
         //return xhrB.responseText;
     }
+    var showNQInfo = ''+magMarkL.replaceAll(/\s/g,"")+ //bufer
+        ','+magsap.replaceAll(/\s/g,"")+  //sap
+        ','+lioMes+  // in out poka ne ispolzuetsya
+        ',markCheck'; // param to show
+    var paramsToShow = showNQInfo.split(",");
 
+    var respInfo="";
+
+    var body = 'magbuf='+paramsToShow[0].replaceAll(/\s/g,"")+
+        '&magsap='+paramsToShow[1].replaceAll(/\s/g,"")+
+        '&magio='+paramsToShow[2]+
+        '&magParam='+paramsToShow[3];
+
+    xhrNQ_MARK.open('POST', '/test/magnq', true);
+    xhrNQ_MARK.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhrNQ_MARK.send(body);
 
 }
 
@@ -1065,7 +1060,15 @@ function MagNQ(){
     toPrintag.innerHTML="";
     toPrintag_2.innerHTML="";
 
-    NQ_BASE_INFO();
+    if(magbuf==""){
+        // показываем только последний кэш и проверку марок
+        markAndCash();
+    }else{
+        NQ_BASE_INFO();
+    }
+
+
+
        // setTimeout(BAC_BASE_INFO, 5000);
 
 
@@ -1188,12 +1191,109 @@ function MagNQ(){
 
 }
 
+function markAndCash(){
+
+    var lio = document.getElementById("listNQInOut");
+    var lioMes = 0;//lio.options[lio.selectedIndex].value;
+    var btn_text = document.getElementById("MagNQOutSend");
+    //btn_text.innerText="Отправить"
+
+    //alert(lioMes);
+    var magbuf = "000";
+    var magsap = document.getElementById("MagNQSAP").value;
+    var toPrintag = document.getElementById("threeq");
+
+    toPrintag.innerHTML="";
+    var printTableNQ="";
+
+
+    var showNQInfo = ''+magbuf.replaceAll(/\s/g,"")+ //bufer
+        ','+magsap.replaceAll(/\s/g,"")+  //sap
+        ','+lioMes+  // in out poka ne ispolzuetsya
+        ',onlyMarkCash'; // param to show
+
+    var paramsToShow = showNQInfo.split(",");
+
+    var respInfo="";
+
+    var body = 'magbuf='+paramsToShow[0].replaceAll(/\s/g,"")+
+        '&magsap='+paramsToShow[1].replaceAll(/\s/g,"")+
+        '&magio='+paramsToShow[2]+
+        '&magParam='+paramsToShow[3];
+
+    let xhrNQ_FLOW = new XMLHttpRequest();
+    xhrNQ_FLOW.onreadystatechange = function() {
+        if (xhrNQ_FLOW.readyState !== 4) return;
+        if (xhrNQ_FLOW.status == 200) {
+            var respInfo =  xhrNQ_FLOW.responseText;
+            btn_text.innerText="Отправить";
+            printTableNQ+="<br><h4>Последняя выгрузка в КЭШ: "+respInfo+"</h4>";
+
+            printTableNQ+="<br>проверка марки<textarea id=\"markCheck\" class=\"w3-input w3-border\"  style=\"resize:none\"></textarea>";
+            printTableNQ+="<button id=\"btn_mark_check\" onclick=\"checkMark()\" class=\"w3-btn w3-green w3-round-large w3-margin-bottom\">Проверить</button>";
+
+
+            toPrintag.innerHTML+=printTableNQ;
+
+        }
+        //return xhrB.responseText;
+    }
+
+    xhrNQ_FLOW.open('POST', '/test/magnq', true);
+    xhrNQ_FLOW.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhrNQ_FLOW.send(body);
+
+}
+
+
+function CaduS() {
+
+    var btn_text = document.getElementById("CadSend");
+    //btn_text.innerText="Загружаю..";
+
+    //alert(lioMes);
+    var cadbuf = document.getElementById("CadBuf").value;
+    var cadsap = document.getElementById("CadSap").value;
+
+    var toPrintag = document.getElementById("CadThreeq"); // 3/4
+    var toPrintag_2 = document.getElementById("CadQuart"); // 1/4
+    var toPrintag_main = document.getElementById("CadTextArea"); // main div to print
+
+
+    toPrintag.innerHTML="";
+    toPrintag_2.innerHTML="";
+    toPrintag_main.innerHTML="";
+
+    let xhrCadu = new XMLHttpRequest();
+    xhrCadu.onreadystatechange = function() {
+        if (xhrCadu.readyState !== 4) return;
+        if (xhrCadu.status == 200) {
+            var respInfo =  xhrCadu.responseText;
+
+
+        }
+        //return xhrB.responseText;
+    }
+
+
+
+    var body = 'cadbuf='+buf.replaceAll(/\s/g,"")+
+        '&cadsap='+sap.replaceAll(/\s/g,"")+
+        '&cadparam=';
+
+    xhrCadu.open('POST', '/test/magnq', true);
+    xhrCadu.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrCadu.send(body);
+
+}
+
+
 function flowFromNQ(buf){
 
 
     var magbuf = document.getElementById("MagNQbuff").value;
     var magsap = document.getElementById("MagNQSAP").value;
-    //var printFlowFromNQ = document.getElementById("nqFL");
+    var btn_histF = document.getElementById("btn_hist_flow");
     var printHidden="";
     var x = document.getElementById("nqFL");
     if (x.className.indexOf("w3-show") == -1) {
@@ -1201,7 +1301,7 @@ function flowFromNQ(buf){
     } else {
         x.className = x.className.replace(" w3-show", "");
     }
-
+    btn_histF.innerTEXT="Загружаю";
     var printTableNQFlow="<br><table class=\"w3-table-all w3-small\">" +
         "<tr class = \"w3-light-blue\">"+
         "<th>Req/Resp</th>"+
@@ -1213,6 +1313,7 @@ function flowFromNQ(buf){
     xhrB.onreadystatechange = function() {
         if (xhrB.readyState !== 4) return;
         if (xhrB.status == 200) {
+            btn_histF.innerTEXT="Загружаю";
 
             var respText=xhrB.responseText.split("@");
 
