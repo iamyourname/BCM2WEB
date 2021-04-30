@@ -546,7 +546,7 @@ function MagOut(){
                         //intStatus=intStatus[1].replace(")");
                         //var oldSt = document.getElementById("listOfStatusesOut").value;
                         bacPrint+="<td id=\"rowStatus\">";
-                        bacPrint+="<select onchange=\"changeStateBacchus("+intStatus[1].replace(")","")+",'"+magbuf+"','"+magsap.replaceAll(/\s/g,'')+"',"+lioMes+")\" id=\"listOfStatusesIn\" class=\"w3-select w3-border\" name=\"option\">\n" +
+                        bacPrint+="<select onchange=\"changeStateBacchus("+intStatus[1].replace(")","")+",'"+magbuf+"','"+magsap.replaceAll(/\s/g,'')+"',"+lioMes+")\" id=\"listOfStatuses\" class=\"w3-select w3-border\" name=\"option\">\n" +
                             "\t\n" +
                             "<option value=\"265\">Создан (265)</option>\n" +
                             "<option value=\"266\">Сопоставлен Заголовок (266)</option>\n" +
@@ -579,10 +579,10 @@ function MagOut(){
                     if(i==1){
                         intStatus = bacInfo[i].split("(");
                         //intStatus=intStatus[1].replace(")");
+                        console.log(""+bacInfo[i]);
+                        bacPrint+="<td  id=\"rowStatusOut\">";
 
-                        bacPrint+="<td>";
-
-                        bacPrint+="<select id=\"listOfStatusesOut\" class=\"w3-select w3-border\" name=\"option\">\n" +
+                        bacPrint+="<select onchange=\"changeStateBacchus("+intStatus[1].replace(")","")+",'"+magbuf+"','"+magsap.replaceAll(/\s/g,'')+"',"+lioMes+")\" id=\"listOfStatuses\" class=\"w3-select w3-border\" name=\"optionn\">\n" +
                             "\t\n" +
                             "<option value=\"294\">Создан (294)</option>\n" +
                             "<option value=\"295\">Ошибка (295)</option>\n" +
@@ -654,8 +654,9 @@ function MagOut(){
 
             toPrintag.innerHTML+=magPrint;
             toPrintag.innerHTML+=bacPrint;
-            document.getElementById("listOfStatusesIn").value=intStatus[1].replace(")","");
-            document.getElementById("listOfStatusesOut").value=intStatus[1].replace(")","");
+            document.getElementById("listOfStatuses").value=intStatus[1].replace(")","");
+            //document.getElementById("listOfStatusesOut").value=intStatus[1].replace(")","");
+            console.log("EOF "+intStatus[1].replace(")",""));
 
         }
         else{
@@ -1202,9 +1203,10 @@ function markAndCash(){
     var magbuf = "000";
     var magsap = document.getElementById("MagNQSAP").value;
     var toPrintag = document.getElementById("threeq");
-
-    toPrintag.innerHTML="";
+    var toPrintag_2 = document.getElementById("MagNQoutput");
     var printTableNQ="";
+    toPrintag.innerHTML="";
+    toPrintag_2.innerHTML="";
 
 
     var showNQInfo = ''+magbuf.replaceAll(/\s/g,"")+ //bufer
@@ -2888,7 +2890,7 @@ function confimSendOut31() {
     xhrConfirm.onreadystatechange = function() {
         if (xhrConfirm.readyState !== 4) return;
         if (xhrConfirm.status == 200) {
-            document.getElementById('send31').disabled=true;
+            document.getElementById('send31').disabled=false;
             if(document.getElementById('yesConf')!==null){document.getElementById('yesConf').disabled=false;}
             var responseConfirm = xhrConfirm.responseText;
             var inBuf = document.getElementById('buff').value;
@@ -2953,7 +2955,7 @@ function confirmAfterEdit() {
     xhrConfirm.onreadystatechange = function() {
         if (xhrConfirm.readyState !== 4) return;
         if (xhrConfirm.status == 200) {
-            document.getElementById('send31').disabled=true;
+            document.getElementById('send31').disabled=false;
             if(document.getElementById('yesAfter')!==null){document.getElementById('yesAfter').disabled=false;}
             var responseConfirm = xhrConfirm.responseText;
             var inBuf = document.getElementById('buff').value;

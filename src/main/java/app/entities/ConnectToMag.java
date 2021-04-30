@@ -78,7 +78,7 @@ public class ConnectToMag {
         return connGK;
     }
 
-    public static Connection connectBMagNQ(String nick) throws SQLException {
+    public static Connection connectBMagNQ(String nick) throws SQLException  {
         //String hostname = "BACCHUS-AGENT";
         boolean isConnectedMagNQ;
         Connection connNQ = null;
@@ -240,13 +240,14 @@ public class ConnectToMag {
                 "\tor h.internal_document_number ='"+buf+"'\n" +
                 "\tor h.document_number = '"+buf+"'\n" +
                 ")";
+
         String fingBacc = "select bo.bout_transactionid\n" +
-                ", bo.doc_status ||' ('||sd.sdss_name ||')'\n" +
+                ", sd.sdss_name ||' ('||bo.doc_status ||')'\n" +
                 ", bo.bout_waybillnumber\n" +
                 ", bo.bout_transactiondate\n" +
                 ", bo.bout_ordernumber\n" +
                 "from b_outgoing bo \n" +
-                "left join s_docstatuses sd on sd.sdss_id = bo.doc_status where bi.doc_status !=276 and ( "+
+                "left join s_docstatuses sd on sd.sdss_id = bo.doc_status where bo.doc_status !=276 and ( "+
                 "bo.bout_transactionid = '"+buf+"' or bo.bout_waybillnumber = '"+buf+"' or bo.bout_ordernumber like ('"+buf+"'))";
         if(gknq.equals("GK")){
 
@@ -727,7 +728,7 @@ public class ConnectToMag {
                 "http://msk-DTLN-APL402:8080/bacchus"};
 
         String[] typeflow = flow.split("_");
-
+/*
         String flowFindBacc="select al_id, LEAST(al_status_code),\n" +
                 "    case \n" +
                 "        when al_status_code = 'RA0001' then 'request'\n" +
@@ -751,6 +752,33 @@ public class ConnectToMag {
                 " and al_maininfo like('%<TransactionID>"+buf+"</TransactionID>%')\n" +
                 //  " group by LEAST(al_status_code),GREATEST(al_info3),to_char(al_maininfo)" +
                 " order by 1 desc";
+        */
+        String flowFindBacc="SELECT * from\n" +
+                "   ( select row_number() over ( partition BY\n" +
+                "        AL_INFO3 \n" +
+                "        ORDER BY AL_CREATED DESC) as rn\n" +
+                "            , AL_STATUS_CODE \n" +
+                "            , case \n" +
+                "                when al_status_code = 'RA0001' then 'request'\n" +
+                "                when al_status_code = 'RA0002' then 'response'\n" +
+                "              else al_status_code END  \"reqResp\"\n" +
+                "        , AL_INFO3 \n" +
+                "        , case\n" +
+                "         when al_info3 = '/supply/receipt/upload' then 'IN21'\n" +
+                "            when al_info3 = '/discrepancyReport/TTNGet' then 'DR27'\n" +
+                "            when al_info3 = '/ship/updateIdDoc' then 'OUT33' \n" +
+                "             when al_info3 = '/ship/confirm' then 'OUT31'  \n" +
+                "            when al_info3 = '/supply/receipt/updateIdDoc' then 'IN25'\n" +
+                "            when al_info3 = '/supply/receipt/trustConfirm' then 'IN26'\n" +
+                "            when al_info3 = '/ship/getStatusAndErrors' then 'OUT35'\n" +
+                "         else al_info3 end \"flown\"\n" +
+                "            , al_maininfo\n" +
+                "            from a_all_log \n" +
+                "where al_codv_id =" + sap.replaceAll("[a-zA-Z]","") +"\n" +
+                "and al_created > sysdate -5\n" +
+                " and al_info2 !='SupplyReceiptXmlService.getWaybillList()'\n" +
+                " and al_maininfo like('%<TransactionID>"+buf+"</TransactionID>%') ) aa\n" +
+                "    WHERE rn <3 ";
 
         String agent = RcToAgent.SapAgent(sap);
         if(Integer.parseInt(agent)<10)agent="0"+agent;
