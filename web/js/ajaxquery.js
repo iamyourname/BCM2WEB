@@ -1794,42 +1794,47 @@ window.onclick = function(event) {
 function flowResend(nFlow){
 
 
+    var flowConf = confirm("Переотправить?");
+    if(flowConf){
 
-    var magbuf = document.getElementById("Magbuff").value;
-    var magsap = document.getElementById("MagSAP").value;
-    var mdMagModal = document.getElementById("respModal");
-    mdMagModal.innerHTML="";
-    var openModalWithResponse="";
-    var lio = document.getElementById("listInOut");
-    var lioMes = lio.options[lio.selectedIndex].value;
+        var magbuf = document.getElementById("Magbuff").value;
+        var magsap = document.getElementById("MagSAP").value;
+        var mdMagModal = document.getElementById("respModal");
+        mdMagModal.innerHTML="";
+        var openModalWithResponse="";
+        var lio = document.getElementById("listInOut");
+        var lioMes = lio.options[lio.selectedIndex].value;
 
-    var flowType = nFlow.split("_");
-    //alert(nFlow);
+        var flowType = nFlow.split("_");
+        //alert(nFlow);
 
-    let xhrB = new XMLHttpRequest();
+        let xhrB = new XMLHttpRequest();
 
-    xhrB.onreadystatechange = function() {
-        //btn_cmp.innerText = "Отправляю..."
-        if (xhrB.readyState !== 4) return;
-        if (xhrB.status == 200) {
+        xhrB.onreadystatechange = function() {
             //btn_cmp.innerText = "Отправляю..."
-            mdMagModal.innerHTML+="<pre><code>";
-            mdMagModal.innerText+=xhrB.responseText;
-            mdMagModal.innerHTML+="</code></pre>";
-            document.getElementById('001idM').style.display="block";
+            if (xhrB.readyState !== 4) return;
+            if (xhrB.status == 200) {
+                //btn_cmp.innerText = "Отправляю..."
+                mdMagModal.innerHTML+="<pre><code>";
+                mdMagModal.innerText+=xhrB.responseText;
+                mdMagModal.innerHTML+="</code></pre>";
+                document.getElementById('001idM').style.display="block";
+            }
         }
+
+
+        var body = 'magbuf='+magbuf.replaceAll(/\s/g,"")+
+            '&magsap='+magsap.replaceAll(/\s/g,"")+
+            '&magio='+lioMes+
+            '&magflow=rsd'+
+            '&magstate='+nFlow;
+
+        xhrB.open('POST', '/test/magout', true);
+        xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhrB.send(body);
+
     }
 
-
-    var body = 'magbuf='+magbuf.replaceAll(/\s/g,"")+
-        '&magsap='+magsap.replaceAll(/\s/g,"")+
-        '&magio='+lioMes+
-        '&magflow=rsd'+
-        '&magstate='+nFlow;
-
-    xhrB.open('POST', '/test/magout', true);
-    xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-    xhrB.send(body);
 }
 
 function myFunctionComp(id) {
