@@ -110,8 +110,20 @@ public class SendUTM {
             //System.out.println(docPath);
         }
 
+        if(dType.equalsIgnoreCase("requestrepealaco")){
+            docPath = "RequestRepealACO";
+            //System.out.println(docPath);
+        }
+
+        if(dType.equalsIgnoreCase("ActFixBarCode")){
+            docPath = "ActFixBarCode";
+            //System.out.println(docPath);
+        }
+
 
         HttpRequest request = HttpRequest.post("http://"+pathToUtm+"/opt/in/"+docPath);
+
+
 
         File file = new File("E:\\Progs\\TomCat_9\\webapps\\test\\files_utm\\temp_xml.xml");
 

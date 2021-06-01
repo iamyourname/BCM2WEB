@@ -566,6 +566,7 @@ public class ViewResult {
             }
         }
         pullConnNq.close();
+        stmtPullNq.close();
         return result;
     }
 
@@ -583,6 +584,7 @@ public class ViewResult {
             }
         }
         pullConnNq.close();
+        stmtPullNq.close();
         return result;
     }
 
@@ -639,6 +641,7 @@ public class ViewResult {
         }
         rsPullB.close();
         pullConn.close();
+        stmtPullB.close();
         return result;
     }
 

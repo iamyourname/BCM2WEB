@@ -10,3 +10,37 @@
                 "       AND  bhwl.TAG_VALUE ='"+buf+"'\n" +
                 "       AND BHWL.DT_CREATED > SYSDATE -20\n" +
                 "       GROUP BY bhwl.ID_WEBSERVICE, BHW.DESCRIPTION "
+
+
+
+
+                SELECT
+                        ci.CINC_TRANSACTIONID "BUF"
+                    ,   ci.DOC_TYPE "DOC_IN"
+                    ,   ci.DOC_STATUS "ST_IN"
+                    ,   ci.CINC_WAYBILLNUMBER
+                    ,   cod.CODV_NAME "otp_IN"
+                    ,   cod2.codv_name "prim_IN"
+                    --,   (SELECT CODV_NAME ||'('||CODV_CODE||')'  FROM C_ORG_DIVISIONS cod WHERE cod.CODV_ID=ci.CINC_FROMDIVISION_ID)"Otpravitel"
+                FROM C_INCOMING ci
+                LEFT JOIN C_ORG_DIVISIONS cod ON cod.codv_id = ci.CINC_FROMDIVISION_ID
+                LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = ci.CINC_TODIVISION_ID
+                WHERE
+                        (ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'503210'
+                    AND cod2.CODV_CODE = '0186')
+                UNION ALL
+                SELECT
+                        co.COUT_TRANSACTIONID "BUF"
+                    ,  CAST( co.COUT_TYPE AS varchar(12)) "DOC_OUT"
+                    ,   co.DOC_STATUS "ST_OUT"
+                    ,   co.COUT_WAYBILLNUMBER
+                    ,   cod.CODV_NAME "otp_OUT"
+                    ,   cod2.codv_name "prim_OUT"
+                    --,   (SELECT CODV_NAME ||'('||CODV_CODE||')'  FROM C_ORG_DIVISIONS cod WHERE cod.CODV_ID=ci.CINC_FROMDIVISION_ID)"Otpravitel"
+                FROM C_OUTGOING co
+                LEFT JOIN C_ORG_DIVISIONS cod ON cod.codv_id = co.COUT_FROMDIVISION_ID
+                LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = co.COUT_TODIVISION_ID
+                WHERE
+                        (co.Cout_TRANSACTIONID = 'OUT_'||cod2.CODV_CODEDEPNQ||'_'||'503210'
+                    AND cod2.CODV_CODE = '0186')
+                ;

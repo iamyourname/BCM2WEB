@@ -1,0 +1,373 @@
+package app.entities;
+
+import java.sql.*;
+
+public class CaduBaseInfo {
+
+    public String getCaduBaseInfo(String buf, String sap) throws SQLException {
+
+
+        // Добавить код сап отправителя и получателя--------------
+
+        Connection pullConn = ConnectionPool.getInstance().getConnectionMerc();
+        Statement stmtPullM = pullConn.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String findBaseInfo = "SELECT \n" +
+                "        ci.CINC_TRANSACTIONID \"BUF\"\n" +
+                "    ,   'Приемка' \"DOC_TYPE\"\n" +
+                "    ,   sd.SDSS_NAME ||'('||sd.SDSS_ID ||')'\"ST\"\n" +
+                "    ,   ci.CINC_WAYBILLNUMBER \n" +
+                "    ,   ci.CINC_WAYBILLDATE \n" +
+                "    ,   cod.CODV_NAME||' ('||cod.CODV_CODE||')' \"otpravitel\"\n" +
+                "    ,   cod2.codv_name||' ('||cod2.CODV_CODE||')' \"poluchatel\""+
+            //    "    --,   (SELECT CODV_NAME ||'('||CODV_CODE||')'  FROM C_ORG_DIVISIONS cod WHERE cod.CODV_ID=ci.CINC_FROMDIVISION_ID)\"Otpravitel\"\n" +
+                "FROM C_INCOMING ci \n" +
+                "LEFT JOIN C_ORG_DIVISIONS cod ON cod.codv_id = ci.CINC_FROMDIVISION_ID \n" +
+                "LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = ci.CINC_TODIVISION_ID \n" +
+                "LEFT JOIN S_DOCSTATUSES sd ON sd.SDSS_ID = ci.DOC_STATUS \n" +
+                "WHERE "+
+                "                        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+"')\n" +
+                "                    AND cod2.CODV_CODE = '"+sap+"')\n" +
+                "                UNION ALL\n" +
+                "SELECT \n" +
+                "        co.COUT_TRANSACTIONID \"BUF\"\n" +
+                "    ,  'Отгрузка' \"DOC_TYPE\"\n" +
+                "    ,   sd.SDSS_NAME ||' ('||sd.SDSS_ID ||')'\"ST\"\n" +
+                "    ,   co.COUT_WAYBILLNUMBER \n" +
+                "    ,   co.COUT_WAYBILLDATE \n" +
+                "    ,   cod.CODV_NAME||' ('||cod.CODV_CODE||')' \"otpravitel\"\n" +
+                "    ,   cod2.codv_name||' ('||cod2.CODV_CODE||')' \"poluchatel\" "+
+               // "    --,   (SELECT CODV_NAME ||'('||CODV_CODE||')'  FROM C_ORG_DIVISIONS cod WHERE cod.CODV_ID=ci.CINC_FROMDIVISION_ID)\"Otpravitel\"\n" +
+                "FROM C_OUTGOING co \n" +
+                "LEFT JOIN C_ORG_DIVISIONS cod ON cod.codv_id = co.COUT_FROMDIVISION_ID \n" +
+                "LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = co.COUT_TODIVISION_ID \n" +
+                "LEFT JOIN S_DOCSTATUSES sd ON sd.SDSS_ID = co.DOC_STATUS "+
+                "                WHERE\n" +
+                "                        ((co.Cout_TRANSACTIONID = 'OUT_'||cod.CODV_CODEDEPNQ||'_'||'"+buf+"' OR co.COUT_TRANSACTIONID = '"+buf+"') \n" +
+                "                    AND cod.CODV_CODE = '"+sap+"')"
+                ;
+
+
+        ResultSet rs = stmtPullM.executeQuery(findBaseInfo);
+
+        String response="";
+        while(rs.next()){
+            response+=rs.getString(1)+"|";
+            response+=rs.getString(2)+"|";
+            response+=rs.getString(3)+"|";
+            response+=rs.getString(4)+"|";
+            response+=rs.getString(5)+"|";
+            response+=rs.getString(6)+"|";
+            response+=rs.getString(7)+"|";
+            response+="&";
+        }
+        pullConn.close();
+        stmtPullM.close();
+
+        response+="@"+getCaduTaskInfo(buf,sap);
+
+        return response;
+    }
+
+    public String getCaduTaskInfo(String buf, String sap) throws SQLException {
+
+        Connection pullConn = ConnectionPool.getInstance().getConnectionMerc();
+        Statement stmtPullM = pullConn.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String findBaseInfo = "SELECT \n" +
+                "        at2.C_ID\n" +
+                "    ,   at2.C_CREATED\n" +
+                "    ,   at2.C_DATE_DONE\n" +
+                "    ,   at2.C_PROCESSING\n" +
+                "    ,   at2.C_TASK_STATUS\n" +
+                "    ,   at2.C_APPLICATION_STATUS\n" +
+                "    ,   at2.C_TASK_TYPE\n" +
+                "    ,   at2.C_ERROR_DETAILS\n" +
+                "    ,   at2.C_TRACE_ID\n" +
+                "    ,   at2.C_HOSTNAME\n" +
+                "    ,   at2.C_STATUS_MSG\n" +
+                "    ,   at2.C_TASK_SDSS\n" +
+                "    ,   at2.C_PRIORITY\n" +
+                "    ,   at2.C_TASK_DATA"+
+                " FROM C_INCOMING ci \n" +
+                "LEFT JOIN A_TASKS at2 ON at2.C_DOC_ID  = ci.CINC_ID \n" +
+                "LEFT JOIN C_ORG_DIVISIONS cod ON cod.codv_id = ci.CINC_FROMDIVISION_ID \n" +
+                "LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = ci.CINC_TODIVISION_ID \n" +
+                "LEFT JOIN S_DOCSTATUSES sd ON sd.SDSS_ID = ci.DOC_STATUS \n" +
+                "WHERE "+
+                "                        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+"')\n" +
+                "                    AND cod2.CODV_CODE = '"+sap+"')\n" +
+                "UNION ALL\n" +
+                "SELECT \n" +
+                "        at2.C_ID\n" +
+                "    ,   at2.C_CREATED\n" +
+                "    ,   at2.C_DATE_DONE\n" +
+                "    ,   at2.C_PROCESSING\n" +
+                "    ,   at2.C_TASK_STATUS\n" +
+                "    ,   at2.C_APPLICATION_STATUS\n" +
+                "    ,   at2.C_TASK_TYPE\n" +
+                "    ,   at2.C_ERROR_DETAILS\n" +
+                "    ,   at2.C_TRACE_ID\n" +
+                "    ,   at2.C_HOSTNAME\n" +
+                "    ,   at2.C_STATUS_MSG\n" +
+                "    ,   at2.C_TASK_SDSS\n" +
+                "    ,   at2.C_PRIORITY\n" +
+                "    ,   at2.C_TASK_DATA"+
+                " FROM C_OUTGOING co \n" +
+                "LEFT JOIN A_TASKS at2 ON at2.C_DOC_ID = co.COUT_ID \n" +
+                "LEFT JOIN C_ORG_DIVISIONS cod ON cod.codv_id = co.COUT_FROMDIVISION_ID \n" +
+                "LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = co.COUT_TODIVISION_ID \n" +
+                "LEFT JOIN S_DOCSTATUSES sd ON sd.SDSS_ID = co.DOC_STATUS \n" +
+                "                WHERE\n" +
+                "                        ((co.Cout_TRANSACTIONID = 'OUT_'||cod.CODV_CODEDEPNQ||'_'||'"+buf+"' OR co.COUT_TRANSACTIONID = '"+buf+"') \n" +
+                "                    AND cod.CODV_CODE = '"+sap+"')"+
+                " order by 2";
+
+
+        ResultSet rs = stmtPullM.executeQuery(findBaseInfo);
+
+        String response="";
+        while(rs.next()){
+            response+=rs.getString(1)+"|";
+            response+=rs.getString(2)+"|";
+            response+=rs.getString(3)+"|";
+            response+=rs.getString(4)+"|";
+            response+=rs.getString(5)+"|";
+            response+=rs.getString(6)+"|";
+            response+=rs.getString(7)+"|";
+            response+=rs.getString(8)+"|";
+            response+=rs.getString(9)+"|";
+            response+=rs.getString(10)+"|";
+            response+=rs.getString(11)+"|";
+            response+=rs.getString(12)+"|";
+            response+=rs.getString(13)+"|";
+            response+=rs.getString(14)+"|";
+            response+="&";
+        }
+        pullConn.close();
+        stmtPullM.close();
+
+        response+="@"+getCaduDetailsInfo(buf,sap);
+
+        return response;
+    }
+
+    public String getCaduDetailsInfo(String buf, String sap) throws SQLException {
+
+        Connection pullConn = ConnectionPool.getInstance().getConnectionMerc();
+        Statement stmtPullM = pullConn.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String findBaseInfo = "SELECT \n" +
+                "        sd.SDSS_NAME ||' ('||sd.SDSS_ID ||')'\"ST\"\n" +
+                "    ,   ca.CART_CODE \"C_ART\"\n" +
+                "    ,   ca.CART_NAME \"C_ART_NAME\"\n" +
+                "    ,   cid.CIND_VOLUME_DOC \"QTY\"\n" +
+                "FROM C_INCOMING ci  \n" +
+                "LEFT JOIN C_INCOMING_DETAILS cid ON cid.CIND_INCOMINGDOC_ID = ci.CINC_ID \n" +
+                "LEFT JOIN C_ARTICLES ca ON ca.CART_ID = cid.CIND_ARTICLE_ID \n" +
+                "LEFT JOIN C_ORG_DIVISIONS cod ON cod.codv_id = ci.CINC_FROMDIVISION_ID \n" +
+                "LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = ci.CINC_TODIVISION_ID \n" +
+                "LEFT JOIN S_DOCSTATUSES sd ON sd.SDSS_ID = ci.DOC_STATUS \n" +
+                "WHERE\n" +
+                "        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+"')\n" +
+                "            AND \n" +
+                "            cod2.CODV_CODE = '"+sap+"'\n" +
+                "            --AND ci.CINC_TRANSACTIONDATE > SYSDATE -30\n" +
+                "        )\n" +
+                "UNION ALL\n" +
+                "SELECT \n" +
+                "        sd.SDSS_NAME ||' ('||sd.SDSS_ID ||')'\"ST\"\n" +
+                "    ,   ca.CART_CODE \"C_ART\"\n" +
+                "    ,   ca.CART_NAME \"C_ART_NAME\"\n" +
+                "    ,   code.COUD_VOLUME_DOC \"QTY\"\n" +
+                "FROM C_OUTGOING co \n" +
+                "LEFT JOIN C_OUTGOING_DETAILS code ON code.COUD_OUTGOINGDOC_ID = co.cout_id\n" +
+                "LEFT JOIN C_ARTICLES ca ON ca.CART_ID = code.COUD_ARTICLE_ID \n" +
+                "LEFT JOIN C_ORG_DIVISIONS cod ON cod.codv_id = co.COUT_FROMDIVISION_ID \n" +
+                "LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = co.COUT_TODIVISION_ID \n" +
+                "LEFT JOIN S_DOCSTATUSES sd ON sd.SDSS_ID = co.DOC_STATUS \n" +
+                "WHERE\n" +
+                "        ((co.Cout_TRANSACTIONID = 'OUT_'||cod.CODV_CODEDEPNQ||'_'||'"+buf+"' OR co.COUT_TRANSACTIONID = '"+buf+"')\n" +
+                "    AND \n" +
+                "   cod.CODV_CODE = '"+sap+"'\n" +
+                "    )\n" +
+                "ORDER BY 1";
+
+
+        ResultSet rs = stmtPullM.executeQuery(findBaseInfo);
+
+        String response="";
+        while(rs.next()){
+            response+=rs.getString(1)+"|";
+            response+=rs.getString(2)+"|";
+            response+=rs.getString(3).replace("@","")+"|";
+            response+=rs.getString(4)+"|";
+            response+="&";
+        }
+        pullConn.close();
+        stmtPullM.close();
+
+        response+="@"+getCadu_RC_StateBufInfo(buf,sap);
+
+
+        return response;
+    }
+
+
+    public String getCadu_RC_StateBufInfo(String buf, String sap) throws SQLException {
+        String response="";
+
+        Connection pullConnNq = ConnectionPool.getInstance().getConnectionNQ(sap);
+        Statement stmtPullNq = pullConnNq.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        String findNqStateInfo = "select * from alc.buferstatushistory where BUF_ID_HEADER = '"+buf+"'  order by 1 desc ";
+
+        ResultSet rs = stmtPullNq.executeQuery(findNqStateInfo);
+
+
+      rs.first();
+            response+=rs.getString(7)+"|";
+            response+=rs.getString(9)+"|";
+            response+="&";
+
+        pullConnNq.close();
+        stmtPullNq.close();
+
+        response+="@"+getCadu_RC_ExcludeBufInfo(buf,sap);
+
+        return response;
+    }
+
+    public String getCadu_RC_ExcludeBufInfo(String buf, String sap) throws SQLException {
+        String response="";
+
+        Connection pullConnNq = ConnectionPool.getInstance().getConnectionNQ(sap);
+        Statement stmtPullNq = pullConnNq.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        String findNqStateInfo = "select * from sdd.mercexcludebuff c where ID_HEADER = '"+buf+"'";
+
+        ResultSet rs = stmtPullNq.executeQuery(findNqStateInfo);
+
+        rs.last();int excl = rs.getRow();rs.beforeFirst();
+
+        if(excl==0){
+            response+="Нет"+"|";
+        }else{
+            response+="Да ";
+            while(rs.next()){
+                response+=rs.getString(3)+"|";
+
+            }
+        }
+        response+="&";
+        pullConnNq.close();
+        stmtPullNq.close();
+
+        response+="@"+getCadu_RC_CarNumber(buf,sap);
+
+        return response;
+    }
+
+
+    /*
+    * select  i.* from scm.vetcertificatedetail i where
+WAYBILLNO =
+(select WAYBILLNUMBER from scm.vetshipmentheader v WHERE v.TRANSACTIONID like 'OUT_%_1376567')
+; -- по ТТН 1376352*/
+    public String getCadu_RC_CarNumber(String buf, String sap) throws SQLException {
+        String response="";
+
+        Connection pullConnNq = ConnectionPool.getInstance().getConnectionNQ(sap);
+        Statement stmtPullNq = pullConnNq.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        String findNqStateInfo = "select v.TRANSPORTNUMBER from scm.vetshipmentheader v where v.TRANSACTIONID like 'OUT_%_"+buf+"'";
+
+        ResultSet rs = stmtPullNq.executeQuery(findNqStateInfo);
+
+        rs.last();int excl = rs.getRow();rs.beforeFirst();
+
+        if(excl==0){
+            response+="Нет"+"|";
+        }else{
+           // response+="Да ";
+            while(rs.next()){
+                response+=rs.getString(1)+"|";
+
+            }
+        }
+
+        response+="&";
+        pullConnNq.close();
+        stmtPullNq.close();
+
+        response+="@"+getCaduSert(buf,sap);
+
+        return response;
+    }
+
+    public String getCaduSert(String buf, String sap) throws SQLException {
+        String response="";
+
+        Connection pullConnNq = ConnectionPool.getInstance().getConnectionNQ(sap);
+        Statement stmtPullNq = pullConnNq.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        String findNqStateInfo = "select  i.* from scm.vetcertificatedetail i where \n" +
+                " WAYBILLNO = " +
+                "(select v.WAYBILLNUMBER from scm.vetshipmentheader v WHERE v.TRANSACTIONID like 'OUT_%_"+buf+"' OR v.TRANSACTIONID LIKE 'BF_%_"+buf+"')";
+
+        ResultSet rs = stmtPullNq.executeQuery(findNqStateInfo);
+
+
+
+
+            while(rs.next()){
+                response+=rs.getString(5)+"|";
+                response+=rs.getString(6)+"|";
+                response+="!";
+            }
+
+
+        response+="&";
+        pullConnNq.close();
+        stmtPullNq.close();
+
+        response+="@"+getCaduVFlow(buf,sap);
+
+        return response;
+    }
+    //select i.CHNG_TYPE, i.FILE_NUMBER , i.DT_EXPORTED from sap.exportlist i where id = 1376567; -- поле file_number
+
+    public String getCaduVFlow(String buf, String sap) throws SQLException {
+        String response="";
+
+        Connection pullConnNq = ConnectionPool.getInstance().getConnectionNQ(sap);
+        Statement stmtPullNq = pullConnNq.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        String findNqStateInfo = "select i.CHNG_TYPE, i.FILE_NUMBER , i.DT_EXPORTED from sap.exportlist i where id = "+buf;
+
+        ResultSet rs = stmtPullNq.executeQuery(findNqStateInfo);
+
+
+
+
+        while(rs.next()){
+            response+=rs.getString(1)+"|";
+            response+=rs.getString(2)+"|";
+            response+=rs.getString(3)+"|";
+            response+="!";
+        }
+
+
+        response+="&";
+        pullConnNq.close();
+        stmtPullNq.close();
+
+        return response;
+    }
+
+}

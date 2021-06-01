@@ -24,6 +24,11 @@
     </servlet>
 
     <servlet>
+        <servlet-name>APNB</servlet-name>
+        <servlet-class>app.servlets.bacchus.act</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>Markus</servlet-name>
         <servlet-class>app.servlets.markus.MarkusSearch</servlet-class>
     </servlet>
@@ -93,6 +98,11 @@
     <servlet-mapping>
         <servlet-name>MagOut</servlet-name>
         <url-pattern>/magout</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>APNB</servlet-name>
+        <url-pattern>/apnb</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

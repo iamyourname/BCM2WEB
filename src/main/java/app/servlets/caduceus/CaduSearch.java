@@ -1,5 +1,6 @@
 package app.servlets.caduceus;
 
+import app.entities.CaduBaseInfo;
 import app.entities.ConnectToMagNQ;
 import app.entities.Logs;
 import app.servlets.NTLMUserFilter;
@@ -24,8 +25,8 @@ public class CaduSearch extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String sap = req.getParameter("cadbuf");
-        String buff = req.getParameter("cadsap");
+        String cadbuf = req.getParameter("cadbuf");
+        String cadsap = req.getParameter("cadsap");
         String cadparam = req.getParameter("cadparam");
 
         resp.setCharacterEncoding("UTF-8");
@@ -34,34 +35,37 @@ public class CaduSearch extends HttpServlet {
 
 
         String jsonOptions =
-                "{\"SAP\":\"" + sap + "\"," +
+                "{\"SAP\":\"" + cadsap + "\"," +
                         "\"Web\":\"true\","+
                         "\"options\":\"magParam "+cadparam+" magio "+"\","+
-                        "\"BUF\":\""+ buff +"\"}"; // multi
+                        "\"BUF\":\""+ cadbuf +"\"}"; // multi
 
         try {
 
 
             writeLogMain(NTLMUserFilter.getUserName(),"CADUCEUS","Кадуцей",
-                    "Кадуцей",
+                    "Поиск",
                     jsonOptions,"LOADING","");
 
-            ConnectToMagNQ connectToMagNQ = new ConnectToMagNQ();
+            //ConnectToMagNQ connectToMagNQ = new ConnectToMagNQ();
+            CaduBaseInfo caduBaseInfo = new CaduBaseInfo();
             switch (cadparam){
-
+                case "base":
+                        out.append(caduBaseInfo.getCaduBaseInfo(cadbuf,cadsap));
+                    break;
             }
 
 
             System.out.println("end of");
             writeLogParent(NTLMUserFilter.getUserName(),"CADUCEUS","Кадуцей",
-                    "Кадуцей",
+                    "Поиск",
                     jsonOptions,"OK","");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             try {
                 Logs.writeLogParent(NTLMUserFilter.getUserName(),"CADUCEUS","Кадуцей",
-                        "Кадуцей",
+                        "Поиск",
                         jsonOptions,"ERROR",""+throwables.toString());
             } catch (SQLException e) {
                 e.printStackTrace();

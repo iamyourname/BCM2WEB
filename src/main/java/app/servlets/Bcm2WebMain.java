@@ -38,6 +38,7 @@ import static app.entities.Logs.writeLogMain;
 import static app.entities.Logs.writeLogParent;
 import static app.entities.MassOut.searchErrorsFromNQ;
 import static app.entities.Utm.WaybillChange;
+import static app.entities.genAct.genXmlAct;
 import static java.util.Base64.Decoder;
 import static java.util.Base64.Encoder;
 
@@ -63,6 +64,9 @@ public  class Bcm2WebMain extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+
+
+            //System.out.println(genXmlAct("ACC-10150002723009-20210521103359_1","3312"));
 
 
 

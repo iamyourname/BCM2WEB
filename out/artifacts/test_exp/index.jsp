@@ -316,6 +316,7 @@ body {
     </li>
     <li ><a href='#' onClick="openSystem('BacchusGod')"><span >Авто Поиск</span></a></li>
     <li ><a href='#' onClick="openSystem('UTM')"><span >УТМ</span></a></li>
+    <li ><a href='#' onClick="openSystem('APNB')"><span >Акт ПНБ</span></a></li>
 </ul>
 </div>
 					</div>
@@ -329,7 +330,7 @@ body {
 
             <li ><a href='#' onClick="openSystem('CaduCheck')"><span>Поиск Сертификатов</span></a>
             </li>
-            <li ><a href='#' onClick="openSystem('CaduSearch')"><span>Поиск Сертификатов</span></a>
+            <li ><a href='#' onClick="openSystem('CaduSearch')"><span>Поиск</span></a>
             </li>
             <!--li class='has-sub'><a href='#'><span>Приемка</span></a>
                 <ul>
@@ -642,26 +643,29 @@ body {
         </form>
         <button id="CadSend"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="CaduS()" >Отправить</button>
 
-        <div>
+        <div id="CadThreeq">
+            <%--
             <div class="w3-row">
-                <%-- Это общая инфа из nq--%>
-                <div id="CadThreeq" class="w3-threequarter w3-container">
-                    <%--
-                     id="MagNQoutput"
-                    <h2>w3-threequarter</h2>
-                    <p>The w3-threequarter class uses 75% of the parent container.</p>
-                    <p>On screens smaller than 601 pixels it resizes to full screen.</p>
-                    --%>
+                 Это общая инфа из nq
+            <div id="CadThreeq" class="w3-threequarter w3-container">
 
-                </div>
-                <%-- Это потоки из nq--%>
-                <div id="CadQuart" class="w3-quarter w3-container">
-                    <%--<h2>w3-quarter</h2>--%>
-                </div>
+                 id="MagNQoutput"
+                <h2>w3-threequarter</h2>
+                <p>The w3-threequarter class uses 75% of the parent container.</p>
+                <p>On screens smaller than 601 pixels it resizes to full screen.</p>
+
+
             </div>
+            Это потоки из nq
+            <div id="CadQuart" class="w3-quarter w3-container">
+
+            </div>
+        </div>
+            --%>
+
 
         </div>
-        <div id="CadTextArea" >
+        <div id="CadTextArea" style="overflow-x: scroll" >
             <!-- Trigger/Open the Modal -->
             <!-- The Modal -->
 
@@ -812,6 +816,36 @@ body {
 
 
         <div id="ActiontextArea" >
+            <!-- Trigger/Open the Modal -->
+            <!-- The Modal -->
+
+        </div>
+    </div>
+
+    <div id = "APNB" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">
+        <div class=" w3-light-blue">
+            <h4 >Акты ПНБ</h4>
+        </div>
+        <!--method="GET" action="" target = "my_frame" -->
+        <form  class = "auth-info"  >
+            <label>Номер Акта:
+                <input  id="buffPNB" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+            </label>
+            <label>Код РЦ:
+                <input id="sapPNB" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+            </label>
+
+        </form>
+        <button id="Action_PNB"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="actionPNB()" >Выполнить</button>
+
+
+
+        <div id="ActionPNB">
+
+        </div>
+
+
+        <div id="ActiontextAreaPNB" >
             <!-- Trigger/Open the Modal -->
             <!-- The Modal -->
 

@@ -119,6 +119,108 @@ function buforno(){
     }
 }
 
+function actionPNB(){
+    var actBuf = document.getElementById('buffPNB').value.replace(/\s/g, '');
+    var actSap = document.getElementById('sapPNB').value.replace(/\s/g, '');
+
+    var output = document.getElementById('ActionPNB');
+    var outputText = document.getElementById('ActiontextAreaPNB');
+
+    output.innerHTML="";
+    var toPrintPNB="<table class=\"w3-table-all w3-card-4 w3-border \">";
+
+    let xhrCadu = new XMLHttpRequest();
+    xhrCadu.onreadystatechange = function() {
+        if (xhrCadu.readyState !== 4) return;
+        if (xhrCadu.status == 200) {
+            var resp = xhrCadu.responseText;
+            var parResp = resp.split("&");
+            if(parResp[0]==200){
+                toPrintPNB+="<tr>";
+                toPrintPNB+="<td>Документ успешно отправлен</td>"+
+                    "<td><a href=\"/test/xmlAct/"+parResp[1]+"\">Посмотреть</a></td>"+
+                "<td><input type=\"hidden\" id=\"hidd_repl\" value=\""+parResp[2]+"\">"+parResp[2]+"</td></tr></table>";
+                output.innerHTML+=toPrintPNB;
+                output.innerHTML+="<br><button id=\"Resp_check\"  class=\"w3-btn w3-green w3-round-large w3-margin-bottom\" onclick=\"RespCheck()\">Проверить тикеты</button>";
+            }
+
+
+        }
+    }
+
+    var body = 'actbuf='+actBuf.replaceAll(/\s/g,"")+
+        '&actsap='+actSap.replaceAll(/\s/g,"")+
+        '&check=no';
+
+    xhrCadu.open('POST', '/test/apnb', true);
+    xhrCadu.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrCadu.send(body);
+
+
+}
+
+function RespCheck(){
+    var replik = document.getElementById("hidd_repl").value;
+
+    var sapUTM = document.getElementById("sapPNB").value;
+
+    var output = document.getElementById('ActiontextAreaPNB');
+    output.innerHTML="";
+
+    document.getElementById("Resp_check").disabled = "true";
+
+
+    let xhrB = new XMLHttpRequest();
+
+    xhrB.onreadystatechange = function() {
+        if (xhrB.readyState !== 4) return;
+        if (xhrB.status == 200) {
+            var respCh = xhrB.responseText;
+
+            var print_resp="<table class=\"w3-table-all w3-card-4 w3-border\">";
+            if(respCh.includes("Тикеты")){
+                print_resp+="<tr><td>"+respCh+"</td></tr>"
+            }else{
+                var outResp=respCh.split("&");
+                for(var i=0; i<outResp.length-1;i++){
+                    var rowParam=outResp[i].split("|");
+                    print_resp+="<tr>";
+                    print_resp+="<td>"+rowParam[0]+"</td>";
+                    print_resp+="<td>"+rowParam[1]+"</td>";
+                    print_resp+="<td>"+rowParam[3]+"</td>";
+                    var respXML=rowParam[2].replaceAll("<","&lt;");
+                    print_resp += "<td onclick=\"document.getElementById('idC" + i + "').style.display='block'\">" + "Посмотреть" +
+                        "</td>";
+
+                    print_resp += "<div id='idC" + i + "' class=\"w3-modal\" style = \"z-index: 999\">\n" +
+                        "    <div class=\"w3-modal-content\">\n" +
+                        "      <div class=\"w3-container\" style=\"text-align: left\">\n" +
+                        "        <span onclick=\"document.getElementById('idC" + i + "').style.display='none'\" class=\"w3-button w3-display-topright\">&times;</span>\n" +
+                        "        <pre><code>" + respXML.replaceAll(">","&gt;") + "</code></pre>" +
+                        "      </div>" +
+                        "    </div>" +
+                        "  </div>";
+
+                    //print_resp+="<td>"+"ticket"+"</td>";
+                    print_resp+="</tr>";
+
+                }
+
+            }
+            output.innerHTML+=print_resp+"</table>";
+
+            setTimeout(() => document.getElementById("Resp_check").disabled = false, 30000);
+        }
+    }
+    var body = 'actbuf=1'+
+        '&actsap='+sapUTM.replaceAll(/\s/g,"")+
+        '&check='+replik;
+
+    xhrB.open('POST', '/test/apnb', true);
+    xhrB.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrB.send(body);
+}
+
 function searchUTM(){
 
     var sapUTM = document.getElementById("bUTM").value;
@@ -406,8 +508,8 @@ function clearCerts(){
     var clearSap5 = document.getElementById("MagNQbuff"); //document.getElementById("certsToCheck").innerText;
     var clearSap6 = document.getElementById("MagNQSAP"); //document.getElementById("certsToCheck").innerText;
     clearSap1.value="";    clearSap2.value="";
-    clearSap2.value="";    clearSap4.value="";
-    clearSap3.value="";    clearSap6.value="";
+    clearSap3.value="";    clearSap4.value="";
+    clearSap5.value="";    clearSap6.value="";
 
 }
 
@@ -1258,12 +1360,92 @@ function CaduS() {
     var cadsap = document.getElementById("CadSap").value;
 
     var toPrintag = document.getElementById("CadThreeq"); // 3/4
-    var toPrintag_2 = document.getElementById("CadQuart"); // 1/4
+    //var toPrintag_2 = document.getElementById("CadQuart"); // 1/4
     var toPrintag_main = document.getElementById("CadTextArea"); // main div to print
+
+    var printBaseInfo="<table class=\"w3-table-all w3-small\">" +
+        "<tr class = \"w3-light-blue\">"+
+        "<th>Буфер</th>"+
+        "<th>Тип буфера</th>"+
+        "<th>Статус</th>"+
+        "<th>ТТН</th>"+
+        "<th>Дата</th>"+
+        "<th>Отправитель</th>"+
+        "<th>Получатель</th>"+
+        "<th>Статус NQ</th>"+
+        "<th>Дата изменения в NQ</th>"+
+        "<th>Исключен?</th>"+
+        "<th>Номер</th>"+
+        "</tr>";
+    /*
+    bacPrint +="<div class=\"w3-light-blue\" style='margin-top: 10px;margin-bottom: 0px;'>\n" +
+        "  <button id=\"btn_cmp\" onclick=\"myFunctionComp('DemoCmp')\" class=\"w3-button w3-block\">Состав ТТН ЕГАИС</button>\n" +
+        "  <div id=\"DemoCmp\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+        //"    <p>Lorem ipsum 25% width</p>\n" +
+        "  </div>\n" +
+        "</div>";
+    */
+    var printTaskInfo=
+        "<div class=\"w3-light-blue\" style='margin-top: 10px;margin-bottom: 0px;'>\n" +
+        "  <button id=\"btn_c_tasks\" onclick=\"myFunctionCadu('C_Tasks')\" class=\"w3-button w3-block\">Таски</button>\n" +
+        "  <div id=\"C_Tasks\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+        "<br><table class=\"w3-table-all w3-small\">" +
+        "<tr class = \"w3-light-blue\">"+
+        "<th>C_ID</th>"+
+        "<th>C_CREATED</th>"+
+        "<th>C_DATE_DONE</th>"+
+        "<th>C_PROCESSING</th>"+
+        "<th>C_TASK_STATUS</th>"+
+        "<th>C_APPLICATION_STATUS</th>"+
+        "<th>C_TASK_TYPE</th>"+
+        "<th>C_ERROR_DETAILS</th>"+
+        "<th>C_TRACE_ID</th>"+
+        "<th>C_HOSTNAME</th>"+
+        "<th>C_STATUS_MSG</th>"+
+        "<th>C_TASK_SDSS</th>"+
+        "<th>C_PRIORITY</th>"+
+        "<th>C_TASK_DATA</th>"
+        "</tr>";
+
+
+
+    var printBufDetails=
+        "<br><div class=\"w3-light-blue\" style='margin-top: 10px;margin-bottom: 0px;'>\n" +
+        "  <button id=\"btn_c_tasks\" onclick=\"myFunctionCadu('C_Details')\" class=\"w3-button w3-block\">Детали буфера</button>\n" +
+        "  <div id=\"C_Details\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+        "<br><table class=\"w3-table-all w3-small\">" +
+        "<tr class = \"w3-light-blue\">"+
+        "<th>Статус</th>"+
+        "<th>PLU</th>"+
+        "<th>NAME</th>"+
+        "<th>Кол-во</th>"+
+        "</tr>";
+
+
+    var printCertInfo=
+        "<div class=\"w3-light-blue\" style='margin-top: 10px;margin-bottom: 0px;'>\n" +
+        "  <button id=\"btn_c_tasks\" onclick=\"myFunctionCadu('C_Certs')\" class=\"w3-button w3-block\">Сертификаты</button>\n" +
+        "  <div id=\"C_Certs\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+        "<br><table class=\"w3-table-all w3-small\">" +
+        "<tr class = \"w3-light-blue\">"+
+        "<th>UUID</th>"+
+        "<th>STATUS</th>"+
+         "</tr>";
+
+    var printVFlowInfo=
+        "<div class=\"w3-light-blue\" style='margin-top: 10px;margin-bottom: 0px;'>\n" +
+        "  <button id=\"btn_c_tasks\" onclick=\"myFunctionCadu('C_Flows')\" class=\"w3-button w3-block\">Потоки V10 и V13</button>\n" +
+        "  <div id=\"C_Flows\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+        "<br><table class=\"w3-table-all w3-small\">" +
+        "<tr class = \"w3-light-blue\">"+
+        "<th>Поток</th>"+
+        "<th>File Number</th>"+
+        "<th>Дата</th>"+
+        "</tr>";
 
 
     toPrintag.innerHTML="";
-    toPrintag_2.innerHTML="";
+    //toPrintag_2.innerHTML="";
     toPrintag_main.innerHTML="";
 
     let xhrCadu = new XMLHttpRequest();
@@ -1272,18 +1454,184 @@ function CaduS() {
         if (xhrCadu.status == 200) {
             var respInfo =  xhrCadu.responseText;
 
+            var arrInfoMain=respInfo.split("@");
 
+
+            var arrInfo=arrInfoMain[0].split("&");
+
+            var arrInfoTask=arrInfoMain[1].split("&");
+
+            var arrInfoDetails=arrInfoMain[2].split("&");
+
+            var arrRCState=arrInfoMain[3].split("&");
+
+            var arrExclState=arrInfoMain[4].split("&");
+
+           var arrBufCarNumber=arrInfoMain[5].split("&");
+
+           var arrBufCertInfo=arrInfoMain[6].split("&");
+
+           var arrBufFlowInfo=arrInfoMain[7].split("&");
+
+
+
+            for(var i=0;i<arrInfo.length-1;i++){
+                var rowInfo = arrInfo[i].split("|");
+                    printBaseInfo+="<tr>";
+                    printBaseInfo+="<td>"+rowInfo[0]+"</td>";
+                    printBaseInfo+="<td>"+rowInfo[1]+"</td>";
+                    printBaseInfo+="<td>"+rowInfo[2]+"</td>";
+                    printBaseInfo+="<td>"+rowInfo[3]+"</td>";
+                    printBaseInfo+="<td>"+rowInfo[4]+"</td>";
+                    printBaseInfo+="<td>"+rowInfo[5]+"</td>";
+                    printBaseInfo+="<td>"+rowInfo[6]+"</td>";
+                   // printBaseInfo+="</tr>";
+            }
+
+            /*
+             if(tasks[x].length > 80){
+                        printTask += "<td onclick=\"document.getElementById('id"+ii+"').style.display='block'\">" + tasks[x].substr(0,80) +
+                            //"<span style=\"display:none\" id=\"fullvalueTask"+x+"\">" + tasks[x] + "</span>"+
+                            "...</td>";
+                        printTask += "  <div id='id"+ii + "' class=\"w3-modal\" style = \"z-index: 999\">\n" +
+                            "    <div class=\"w3-modal-content\">\n" +
+                            "      <div class=\"w3-container\">\n" +
+                            "        <span onclick=\"document.getElementById('id"+ii+"').style.display='none'\" class=\"w3-button w3-display-topright\">&times;</span>\n" +
+                            "        <p>"+tasks[x]+"</p>\n" +
+                            "      </div>\n" +
+                            "    </div>\n" +
+                            "  </div>";
+                    }else{
+                        printTask += "<td>" + tasks[x].replace('$$','') +"</td>";
+                    }
+            * */
+
+            for(var i=0;i<arrInfoTask.length-1;i++) {
+                var rowInfo = arrInfoTask[i].split("|");
+                printTaskInfo += "<tr>";
+                for (var l = 0; l < rowInfo.length - 1; l++) {
+                    if (rowInfo[l].length > 80) {
+                        printTaskInfo += "<td onclick=\"document.getElementById('idT" + l + "').style.display='block'\">" + rowInfo[l].substr(0, 80) +
+                            //"<span style=\"display:none\" id=\"fullvalueTask"+x+"\">" + tasks[x] + "</span>"+
+                            "...</td>";
+                        printTaskInfo += "  <div id='idT" + l + "' class=\"w3-modal\" style = \"z-index: 999\">\n" +
+                            "    <div class=\"w3-modal-content\">\n" +
+                            "      <div class=\"w3-container\" style=\"text-align: left\">\n" +
+                            "        <span onclick=\"document.getElementById('idT" + l + "').style.display='none'\" class=\"w3-button w3-display-topright\">&times;</span>\n" +
+                            "        <pre><code>" + rowInfo[l].replaceAll(/,/g,"\n") + "</pre></code>" +
+                            "      </div>\n" +
+                            "    </div>\n" +
+                            "  </div>";
+                    } else {
+                        printTaskInfo += "<td>" + rowInfo[l].replace('$$', '') + "</td>";
+                    }
+                    /*
+                    * printTaskInfo+="<tr>";
+                    printTaskInfo+="<td>"+rowInfo[0]+"</td>";
+                    printTaskInfo+="<td>"+rowInfo[1]+"</td>";
+                    printTaskInfo+="<td>"+rowInfo[2]+"</td>";
+                    printTaskInfo+="<td>"+rowInfo[3]+"</td>";
+                    printTaskInfo+="<td>"+rowInfo[4]+"</td>";
+                    printTaskInfo+="<td>"+rowInfo[5]+"</td>";
+                    printTaskInfo+="<td>"+rowInfo[6]+"</td>";
+                    printTaskInfo+="<td>"+rowInfo[7]+"</td>";
+                    printTaskInfo+="<td>"+rowInfo[8]+"</td>";
+                    printTaskInfo+="<td>"+rowInfo[9]+"</td>";
+                    printTaskInfo+="<td>"+rowInfo[10]+"</td>";
+                    printTaskInfo+="<td>"+rowInfo[11]+"</td>";
+                    printTaskInfo+="<td>"+rowInfo[12]+"</td>";
+                    printTaskInfo+="<td>"+rowInfo[13]+"</td>";
+                    * */
+
+
+                }
+                printTaskInfo += "</tr>";
+            }
+
+            for(var i=0;i<arrInfoDetails.length-1;i++){
+                var rowInfo = arrInfoDetails[i].split("|");
+                printBufDetails+="<tr>";
+                printBufDetails+="<td>"+rowInfo[0]+"</td>";
+                printBufDetails+="<td>"+rowInfo[1]+"</td>";
+                printBufDetails+="<td>"+rowInfo[2]+"</td>";
+                printBufDetails+="<td>"+rowInfo[3]+"</td>";
+                printBufDetails+="</tr>";
+            }
+
+            for(var i=0;i<arrBufCertInfo.length-1;i++){
+                var rowC= arrBufCertInfo[i].split("!");
+                for(var l=0;l<rowC.length-1;l++){
+                    var rowInfo = rowC[l].split("|");
+                    printCertInfo+="<tr>";
+                    printCertInfo+="<td>"+rowInfo[0]+"</td>";
+                    printCertInfo+="<td>"+rowInfo[1]+"</td>";
+                    printCertInfo+="</tr>";
+                }
+
+            }
+
+            for(var i=0;i<arrBufFlowInfo.length-1;i++){
+                var rowC= arrBufFlowInfo[i].split("!");
+                for(var l=0;l<rowC.length-1;l++){
+                    var rowInfo = rowC[l].split("|");
+                    printVFlowInfo+="<tr>";
+                    printVFlowInfo+="<td>"+rowInfo[0]+"</td>";
+                    printVFlowInfo+="<td>"+rowInfo[1]+"</td>";
+                    printVFlowInfo+="<td>"+rowInfo[2]+"</td>";
+                    printVFlowInfo+="</tr>";
+                }
+
+            }
+
+            //printVFlowInfo  arrBufFlowInfo
+
+            var rowInfo = arrRCState[0].split("|");
+            printBaseInfo+="<td>"+rowInfo[1]+"</td>";
+            printBaseInfo+="<td>"+rowInfo[0]+"</td>";
+
+            var rowInfo = arrExclState[0].split("|");
+            printBaseInfo+="<td>"+rowInfo[0]+"</td>";
+
+            var rowInfo = arrBufCarNumber[0].split("|");
+            printBaseInfo+="<td>"+rowInfo[0]+"</td>";
+
+
+
+            printBaseInfo+="</tr>";
+            printBaseInfo+="</table>";
+            printTaskInfo+="</table>"+
+                "  </div>" +
+                "</div>";
+
+            printBufDetails+="</table>"+
+                "  </div>" +
+                "</div>";
+
+
+            printCertInfo+="</table>"+
+                "  </div>" +
+                "</div>";
+
+            printVFlowInfo+="</table>"+
+                "  </div>" +
+                "</div>";
+
+            toPrintag.innerHTML+=printBaseInfo;
+            toPrintag_main.innerHTML+=printTaskInfo;
+            toPrintag_main.innerHTML+=printBufDetails;
+            toPrintag_main.innerHTML+=printCertInfo;
+            toPrintag_main.innerHTML+=printVFlowInfo;
         }
         //return xhrB.responseText;
     }
 
 
 
-    var body = 'cadbuf='+buf.replaceAll(/\s/g,"")+
-        '&cadsap='+sap.replaceAll(/\s/g,"")+
-        '&cadparam=';
+    var body = 'cadbuf='+cadbuf.replaceAll(/\s/g,"")+
+        '&cadsap='+cadsap.replaceAll(/\s/g,"")+
+        '&cadparam=base';
 
-    xhrCadu.open('POST', '/test/magnq', true);
+    xhrCadu.open('POST', '/test/cadusearch', true);
     xhrCadu.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     xhrCadu.send(body);
 
@@ -1835,6 +2183,15 @@ function flowResend(nFlow){
 
     }
 
+}
+
+function myFunctionCadu(id){
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
 }
 
 function myFunctionComp(id) {
