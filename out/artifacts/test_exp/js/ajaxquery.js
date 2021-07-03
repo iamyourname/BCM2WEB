@@ -14,6 +14,8 @@ function onOff() {
 
 }
 
+
+
 function showChnage() {
     var changeBuf = document.getElementById("Actioncheck2");
     var changeList = document.getElementById("changeList");
@@ -28,6 +30,32 @@ function showChnage() {
 
 
 }
+
+function showChnagePnb() {
+    var chk_edit = document.getElementById("pnb_edit");
+    var btn_send = document.getElementById("Action_PNB");
+    var btn_edit = document.getElementById("Action_PNB_edit");
+
+
+
+    if(chk_edit.checked){
+
+        //x.className += " w3-show";
+        btn_edit.className = btn_edit.className.replace(" w3-hide", " ");
+        //btn_edit.style.display = "block";
+        btn_send.className += (" w3-hide");
+
+    }else{
+
+        btn_edit.className +=(" w3-hide");
+        //btn_edit.style.display = "block";
+        btn_send.className = btn_send.className.replace(" w3-hide", " ");
+
+    }
+
+
+}
+
 
 function tranpGo(){
 
@@ -127,6 +155,7 @@ function actionPNB(){
     var outputText = document.getElementById('ActiontextAreaPNB');
 
     output.innerHTML="";
+    outputText.innerHTML="";
     var toPrintPNB="<table class=\"w3-table-all w3-card-4 w3-border \">";
 
     let xhrCadu = new XMLHttpRequest();
@@ -138,7 +167,7 @@ function actionPNB(){
             if(parResp[0]==200){
                 toPrintPNB+="<tr>";
                 toPrintPNB+="<td>Документ успешно отправлен</td>"+
-                    "<td><a href=\"/test/xmlAct/"+parResp[1]+"\">Посмотреть</a></td>"+
+                    "<td><a href=\"/test/xmlAct/"+parResp[1]+"\">Скачать</a></td>"+
                 "<td><input type=\"hidden\" id=\"hidd_repl\" value=\""+parResp[2]+"\">"+parResp[2]+"</td></tr></table>";
                 output.innerHTML+=toPrintPNB;
                 output.innerHTML+="<br><button id=\"Resp_check\"  class=\"w3-btn w3-green w3-round-large w3-margin-bottom\" onclick=\"RespCheck()\">Проверить тикеты</button>";
@@ -157,6 +186,142 @@ function actionPNB(){
     xhrCadu.send(body);
 
 
+}
+
+function actionPNBEdit(){
+    var actBuf = document.getElementById('buffPNB').value.replace(/\s/g, '');
+    var actSap = document.getElementById('sapPNB').value.replace(/\s/g, '');
+
+    var output = document.getElementById('ActionPNB');
+    var outputText = document.getElementById('ActiontextAreaPNB');
+
+    var outputActBody = document.getElementById('actBody');var toBodyPrint="";outputActBody.innerHTML="";
+    var outputActDetails = document.getElementById('actDetails'); var toDetailsPrint="";outputActDetails.innerHTML="";
+
+    output.innerHTML="";
+    outputText.innerHTML="";
+    var toPrintPNB="<table class=\"w3-table-all w3-card-4 w3-border \">";
+
+    let xhrCadu = new XMLHttpRequest();
+    xhrCadu.onreadystatechange = function() {
+        if (xhrCadu.readyState !== 4) return;
+        if (xhrCadu.status == 200) {
+            var resp = xhrCadu.responseText;
+
+            var respParam=resp.split("!");
+
+            //toBodyPrint+="<pre><code>"+respParam[1]+"</code></pre>";
+
+            var respDet=respParam[2].split("&");
+
+            toDetailsPrint+="<label>Выбрать справку/марку для исключения из акта</label>"
+            toDetailsPrint+="<br><button id=\"refreshAct\"  " +
+                "class=\"w3-btn w3-green w3-round-large w3-margin-bottom\" " +
+                "onclick=\"actRefresh("+respDet.length+")\">Обновить</button>";
+
+            for(var i=1;i<respDet.length;i++){
+                var fAMC=respDet[i].split(",");
+
+                toDetailsPrint+="<input value=\""+fAMC[0]+"\" id=\"F"+i+"\" type=\"checkbox\"   class=\"w3-check\">\n" +
+                    "<label onclick=\"openAmc('F_a"+i+"')\">"+fAMC[0]+"</label><br>";
+                toDetailsPrint+="<ul id=\"F_a"+i+"\" class=\"w3-ul w3-card-4 w3-hide w3-small\">\n";
+                for(var ii=1;ii<fAMC.length-1;ii++){
+                    toDetailsPrint+="<li><label><input id=\"F_a_a"+i+"\" value=\""+fAMC[ii]+"\" type=\"checkbox\"  class=\"w3-check\">"+fAMC[ii]+"</label></li>";
+                }
+                toDetailsPrint+="</ul>";
+
+            }
+            outputActBody.innerHTML+="<pre><code>";
+            outputActBody.innerText+=respParam[1];
+            outputActBody.innerHTML+="</pre></code>";
+
+            outputActDetails.innerHTML+=toDetailsPrint;
+            document.getElementById('modalAct').style.display='block';
+
+
+
+            //var parResp = resp.split("&");
+            /*
+            * if(parResp[0]==200){
+                toPrintPNB+="<tr>";
+                toPrintPNB+="<td>Документ успешно отправлен</td>"+
+                    "<td><a href=\"/test/xmlAct/"+parResp[1]+"\">Скачать</a></td>"+
+                    "<td><input type=\"hidden\" id=\"hidd_repl\" value=\""+parResp[2]+"\">"+parResp[2]+"</td></tr></table>";
+                output.innerHTML+=toPrintPNB;
+                output.innerHTML+="<br><button id=\"Resp_check\"  class=\"w3-btn w3-green w3-round-large w3-margin-bottom\" onclick=\"RespCheck()\">Проверить тикеты</button>";
+            }
+
+            * */
+
+
+        }
+    }
+
+    var body = 'actbuf='+actBuf.replaceAll(/\s/g,"")+
+        '&actsap='+actSap.replaceAll(/\s/g,"")+
+        '&check=edit'+
+        '&Fs=empty'+
+        '&As=empty';
+
+    xhrCadu.open('POST', '/test/apnb', true);
+    xhrCadu.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrCadu.send(body);
+
+
+}
+
+function actRefresh(cnt) {
+
+    var actBuf = document.getElementById('buffPNB').value.replace(/\s/g, '');
+    var actSap = document.getElementById('sapPNB').value.replace(/\s/g, '');
+    var formB = "";
+    var amc = "";
+    for (var i = 1; i < cnt; i++) {
+
+        var fbArr = document.getElementById('F' + i);
+        var amcArr = document.getElementById('F_a_a' + i);
+
+        if (fbArr.checked) {
+            formB += fbArr.value + "!";
+        }
+
+        if (amcArr.checked) {
+            amc += amcArr.value + "!";
+        }
+
+    }
+
+    console.log("F" + formB);
+    console.log("A" + amc);
+
+    let xhrAct = new XMLHttpRequest();
+    xhrAct.onreadystatechange = function() {
+        if (xhrAct.readyState !== 4) return;
+        if (xhrAct.status == 200) {
+            var resp = xhrAct.responseText;
+        }
+    }
+
+    var body = 'actbuf='+actBuf.replaceAll(/\s/g,"")+
+        '&actsap='+actSap.replaceAll(/\s/g,"")+
+        '&check=edit'+
+        '&Fs='+formB+
+        '&As='+amc;
+
+    xhrAct.open('POST', '/test/apnb', true);
+    xhrAct.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrAct.send(body);
+
+}
+
+function openAmc(id) {
+
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
 }
 
 function RespCheck(){
@@ -1375,7 +1540,7 @@ function CaduS() {
         "<th>Статус NQ</th>"+
         "<th>Дата изменения в NQ</th>"+
         "<th>Исключен?</th>"+
-        "<th>Номер</th>"+
+        "<th>Номер машины</th>"+
         "</tr>";
     /*
     bacPrint +="<div class=\"w3-light-blue\" style='margin-top: 10px;margin-bottom: 0px;'>\n" +
@@ -1386,7 +1551,7 @@ function CaduS() {
         "</div>";
     */
     var printTaskInfo=
-        "<div class=\"w3-light-blue\" style='margin-top: 10px;margin-bottom: 0px;'>\n" +
+        "<div class=\"w3-light-blue\" style='overflow-x: scroll;  margin-top: 10px;margin-bottom: 0px;'>\n" +
         "  <button id=\"btn_c_tasks\" onclick=\"myFunctionCadu('C_Tasks')\" class=\"w3-button w3-block\">Таски</button>\n" +
         "  <div id=\"C_Tasks\" class=\"w3-hide w3-container w3-light-gray\">\n" +
         "<br><table class=\"w3-table-all w3-small\">" +
@@ -1418,7 +1583,11 @@ function CaduS() {
         "<th>Статус</th>"+
         "<th>PLU</th>"+
         "<th>NAME</th>"+
-        "<th>Кол-во</th>"+
+        "<th>Вет. ед.</th>"+
+        "<th>Баз. ед.</th>"+
+        "<th>Сертификат</th>"+
+        "<th>Статус серт.</th>"+
+        "<th>ЗСЖ</th>"+
         "</tr>";
 
 
@@ -1555,6 +1724,10 @@ function CaduS() {
                 printBufDetails+="<td>"+rowInfo[1]+"</td>";
                 printBufDetails+="<td>"+rowInfo[2]+"</td>";
                 printBufDetails+="<td>"+rowInfo[3]+"</td>";
+                printBufDetails+="<td>"+rowInfo[4]+"</td>";
+                printBufDetails+="<td><a href=\"https://mercury.vetrf.ru/pub/operatorui?_action=findVetDocumentFormByUuid&uuid="+rowInfo[5]+"\">"+rowInfo[5]+"</a></td>";
+                printBufDetails+="<td>"+rowInfo[6]+"</td>";
+                printBufDetails+="<td>"+rowInfo[7]+"</td>";
                 printBufDetails+="</tr>";
             }
 
@@ -1619,7 +1792,7 @@ function CaduS() {
             toPrintag.innerHTML+=printBaseInfo;
             toPrintag_main.innerHTML+=printTaskInfo;
             toPrintag_main.innerHTML+=printBufDetails;
-            toPrintag_main.innerHTML+=printCertInfo;
+            //toPrintag_main.innerHTML+=printCertInfo;
             toPrintag_main.innerHTML+=printVFlowInfo;
         }
         //return xhrB.responseText;

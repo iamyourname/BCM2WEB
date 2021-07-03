@@ -4,6 +4,30 @@ import java.sql.*;
 
 public class CaduBaseInfo {
 
+
+    /*
+    Перезапуск док-ов приемки
+    http://msk-dpro-app324:8080/gui/supply/runfunction - end-point
+    body
+
+    {
+   "body":[
+      {
+         "Id":478002541,  -- номер документа приемки
+         "FunctionCode":"incPushToMercuryWithCheckVet" -- тип запускаемой функции
+      }
+   ],
+   "head":{
+      "sessionId":"HUY",
+      "caduceusUser":"admin",
+      "caduceusApiKey":"X5",
+      "caduceusApiVersion":"20170901"
+   }
+}
+
+
+     */
+
     public String getCaduBaseInfo(String buf, String sap) throws SQLException {
 
 
@@ -17,7 +41,7 @@ public class CaduBaseInfo {
                 "    ,   'Приемка' \"DOC_TYPE\"\n" +
                 "    ,   sd.SDSS_NAME ||'('||sd.SDSS_ID ||')'\"ST\"\n" +
                 "    ,   ci.CINC_WAYBILLNUMBER \n" +
-                "    ,   ci.CINC_WAYBILLDATE \n" +
+                "    ,  ci.CINC_WAYBILLDATE \n" +
                 "    ,   cod.CODV_NAME||' ('||cod.CODV_CODE||')' \"otpravitel\"\n" +
                 "    ,   cod2.codv_name||' ('||cod2.CODV_CODE||')' \"poluchatel\""+
             //    "    --,   (SELECT CODV_NAME ||'('||CODV_CODE||')'  FROM C_ORG_DIVISIONS cod WHERE cod.CODV_ID=ci.CINC_FROMDIVISION_ID)\"Otpravitel\"\n" +
@@ -158,39 +182,50 @@ public class CaduBaseInfo {
         Statement stmtPullM = pullConn.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         String findBaseInfo = "SELECT \n" +
-                "        sd.SDSS_NAME ||' ('||sd.SDSS_ID ||')'\"ST\"\n" +
-                "    ,   ca.CART_CODE \"C_ART\"\n" +
-                "    ,   ca.CART_NAME \"C_ART_NAME\"\n" +
-                "    ,   cid.CIND_VOLUME_DOC \"QTY\"\n" +
-                "FROM C_INCOMING ci  \n" +
-                "LEFT JOIN C_INCOMING_DETAILS cid ON cid.CIND_INCOMINGDOC_ID = ci.CINC_ID \n" +
-                "LEFT JOIN C_ARTICLES ca ON ca.CART_ID = cid.CIND_ARTICLE_ID \n" +
+                " sd.SDSS_NAME||'('||c.DOC_STATUS||')'\n" +
+                ", ca.CART_CODE \n" +
+                ", c.CIND_REFARTICLENAME \n" +
+                ", c.CIND_VOLUMEINVETUNITS \n" +
+                ", c.CIND_VOLUMEINBASEUNITS \n" +
+                ", c.CIND_VETDOCUMENT_UUID \n" +
+                ", s.MVDS_NAME \n" +
+                ", cs.CSEN_ENTRYNUMBER \n" +
+                " FROM c_incoming_details c \n" +
+                "LEFT JOIN c_incoming ci ON ci.CINC_ID = c.CIND_INCOMINGDOC_ID \n" +
                 "LEFT JOIN C_ORG_DIVISIONS cod ON cod.codv_id = ci.CINC_FROMDIVISION_ID \n" +
                 "LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = ci.CINC_TODIVISION_ID \n" +
-                "LEFT JOIN S_DOCSTATUSES sd ON sd.SDSS_ID = ci.DOC_STATUS \n" +
-                "WHERE\n" +
-                "        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+"')\n" +
+                "LEFT JOIN C_ARTICLES ca on c.CIND_ARTICLE_ID = ca.cart_id\n" +
+                "LEFT join s_docstatuses sd on c.doc_status = sd.sdss_id\n" +
+                "LEFT join m_vetdocument m on c.CIND_VETDOCUMENT_UUID = m.MGEN_UUID\n" +
+                "LEFT join m_vetdocumentstatus s on m.MVDC_VETDSTATUS = s.MVDS_ID\n" +
+                "LEFT join C_STOCKENTRIES cs on c.CIND_STOCKENTRY_ID = cs.csen_id"+
+                " WHERE\n" +
+                "        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+"') \n" +
                 "            AND \n" +
-                "            cod2.CODV_CODE = '"+sap+"'\n" +
-                "            --AND ci.CINC_TRANSACTIONDATE > SYSDATE -30\n" +
-                "        )\n" +
-                "UNION ALL\n" +
+                "            cod2.CODV_CODE = '"+sap+"')" +
+                "UNION ALL \n" +
                 "SELECT \n" +
-                "        sd.SDSS_NAME ||' ('||sd.SDSS_ID ||')'\"ST\"\n" +
-                "    ,   ca.CART_CODE \"C_ART\"\n" +
-                "    ,   ca.CART_NAME \"C_ART_NAME\"\n" +
-                "    ,   code.COUD_VOLUME_DOC \"QTY\"\n" +
-                "FROM C_OUTGOING co \n" +
-                "LEFT JOIN C_OUTGOING_DETAILS code ON code.COUD_OUTGOINGDOC_ID = co.cout_id\n" +
-                "LEFT JOIN C_ARTICLES ca ON ca.CART_ID = code.COUD_ARTICLE_ID \n" +
+                "  sd.SDSS_NAME||'('||o.DOC_STATUS||')'\n" +
+                " , ca.CART_CODE \n" +
+                " , o.COUD_REFARTICLENAME\n" +
+                " , o.COUD_VOLUMEINVETUNITS\n" +
+                " , o.COUD_VOLUMEINBASEUNITS\n" +
+                " , o.COUD_VETDOCUMENT_UUID\n" +
+                " , s.MVDS_NAME\n" +
+                " , cs.CSEN_ENTRYNUMBER\n" +
+                " FROM C_OUTGOING_DETAILS o\n" +
+                "LEFT JOIN C_OUTGOING co ON co.COUT_ID = o.COUD_OUTGOINGDOC_ID \n" +
                 "LEFT JOIN C_ORG_DIVISIONS cod ON cod.codv_id = co.COUT_FROMDIVISION_ID \n" +
                 "LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = co.COUT_TODIVISION_ID \n" +
-                "LEFT JOIN S_DOCSTATUSES sd ON sd.SDSS_ID = co.DOC_STATUS \n" +
-                "WHERE\n" +
+                "LEFT JOIN C_ARTICLES ca on o.COUD_ARTICLE_ID  = ca.cart_id\n" +
+                "LEFT join s_docstatuses sd on o.doc_status = sd.sdss_id\n" +
+                "LEFT join m_vetdocument m on o.COUD_VETDOCUMENT_UUID = m.MGEN_UUID\n" +
+                "LEFT join m_vetdocumentstatus s on m.MVDC_VETDSTATUS = s.MVDS_ID\n" +
+                "LEFT join C_STOCKENTRIES cs on o.COUD_STOCKENTRY_ID = cs.csen_id"+
+                " WHERE\n" +
                 "        ((co.Cout_TRANSACTIONID = 'OUT_'||cod.CODV_CODEDEPNQ||'_'||'"+buf+"' OR co.COUT_TRANSACTIONID = '"+buf+"')\n" +
                 "    AND \n" +
-                "   cod.CODV_CODE = '"+sap+"'\n" +
-                "    )\n" +
+                "   cod.CODV_CODE = '"+sap+"')" +
                 "ORDER BY 1";
 
 
@@ -202,6 +237,10 @@ public class CaduBaseInfo {
             response+=rs.getString(2)+"|";
             response+=rs.getString(3).replace("@","")+"|";
             response+=rs.getString(4)+"|";
+            response+=rs.getString(5)+"|";
+            response+=rs.getString(6)+"|";
+            response+=rs.getString(7)+"|";
+            response+=rs.getString(8)+"|";
             response+="&";
         }
         pullConn.close();

@@ -79,6 +79,32 @@ body {
 	margin-top: 5px;
 }
 
+
+.box {
+        cursor: pointer;
+        -webkit-user-select: none; /* Safari 3.1+ */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none;
+}
+
+.box::before {
+        content: "\2610";
+        color: black;
+        display: inline-block;
+        margin-right: 6px;
+}
+
+.nested {
+        display: none;
+}
+
+.active {
+        display: block;
+}
+
+
+
 </style>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -88,6 +114,7 @@ body {
 
 <![endif]-->
     <link rel="stylesheet" href="styles/googlecode.css">
+    
     <script src="js/highlight.pack.js"></script>
     <script>
 
@@ -125,7 +152,7 @@ body {
             document.getElementById(cityName).style.display = "block";
         }
         function openSystem(SysstemName) {
-            var i;
+            //var i;
             var i;
             var x = document.getElementsByClassName("SystemAction");
             for (i = 0; i < x.length; i++) {
@@ -133,6 +160,17 @@ body {
             }
             document.getElementById(SysstemName).style.display = "block";
         }
+        
+        var toggleron = document.getElementsByClassName("box");
+        var iik;
+
+        for (iik = 0; iik < toggleron.length; iik++) {
+            toggleron[iik].addEventListener("click", function() {
+                this.parentElement.querySelector(".nested").classList.toggle("active");
+                //this.classList.toggle("check-box");
+            });
+        }
+        
     </script>
 
     <script>hljs.initHighlightingOnLoad();</script>
@@ -627,10 +665,10 @@ body {
 
             </label>
             <label>Буфер\ТТН\Заказ:
-                <input  id="CadBuf" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+                <input  id="CadBuf" type="text"  class="w3-input w3-border w3-round-medium" style="width: 100%">
             </label>
             <label>Код SAP:
-                <input id="CadSap" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
+                <input id="CadSap" type="text"  class="w3-input  w3-border w3-round-medium" style="width: 100%">
             </label>
             <!--
             <label>
@@ -834,13 +872,21 @@ body {
             <label>Код РЦ:
                 <input id="sapPNB" type="text"  class="w3-input w3-animate-input w3-border w3-round-medium" style="width: 30%">
             </label>
+            <label >
+            <input id="pnb_edit" class="w3-check" type="checkbox" onclick="showChnagePnb()">
+            Подтверждение отправки</label>
+
 
         </form>
-        <button id="Action_PNB"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="actionPNB()" >Выполнить</button>
+        <button id="Action_PNB"  class="w3-btn w3-green  w3-round-large w3-margin-bottom " onclick="actionPNB()" >Создать и отправить</button>
+       <button id="Action_PNB_edit"  class="w3-btn w3-green  w3-round-large w3-margin-bottom w3-hide"  onclick="actionPNBEdit()" >Создать и редактировать</button>
+
 
 
 
         <div id="ActionPNB">
+
+
 
         </div>
 
@@ -849,6 +895,31 @@ body {
             <!-- Trigger/Open the Modal -->
             <!-- The Modal -->
 
+        </div>
+        <div id="modalAct" class="w3-modal" style="z-index: 999">
+
+            <div class="w3-modal-content w3-card-4"  style="width:1300px">
+
+                <header class="w3-container w3-teal">
+                <span onclick="document.getElementById('modalAct').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+
+                </header>
+
+                <div class="w3-cell-row">
+                    <div id="actBody" class="w3-container w3-small w3-cell w3-left-align"  style="width:35%">
+
+                    </div>
+
+                    <div id="actDetails" class="w3-container w3-cell w3-small"  style="width:65%">
+
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
         </div>
     </div>
 

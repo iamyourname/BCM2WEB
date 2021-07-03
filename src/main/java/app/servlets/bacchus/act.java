@@ -26,6 +26,11 @@ public class act extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
+        //отправка срабатывает не сразу
+        // проверить!
+
         String buff = req.getParameter("actbuf");
         String sap = req.getParameter("actsap");
         String check = req.getParameter("check");
@@ -44,17 +49,36 @@ public class act extends HttpServlet {
                     "АктПНБ_Отправка",
                     jsonOptions,"LOADING","");
 
-            if(check.equals("no")){
+            switch (check){
+                case "no":
+                    out.append(genAct.genXmlAct(buff,sap));
+                    break;
+                case "edit":
+                    //edit
+                    String fbs = req.getParameter("Fs");
+                    String amcs = req.getParameter("As");
+                    out.append(genAct.genXmlActEdit(buff,sap,fbs,amcs));
+                    break;
+                default:
+                    out.append(genAct.checkReply(check,sap));
+                    break;
+            }
+            /*if(check.equals("no")){
                 out.append(genAct.genXmlAct(buff,sap));
             }else{
                 out.append(genAct.checkReply(check,sap));
-            }
+            }*/
+
+
             writeLogParent(NTLMUserFilter.getUserName(),"BACCHUS","АктПНБ",
                     "АктПНБ_Отправка",
                     jsonOptions,"OK","");
+
         } catch (SQLException throwables) {
+
             throwables.printStackTrace();
             try {
+
                 writeLogParent(NTLMUserFilter.getUserName(),"BACCHUS","АктПНБ",
                         "АктПНБ_Отправка",
                         jsonOptions,"ERROR",""+throwables.toString());
