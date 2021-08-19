@@ -1,1 +1,2 @@
-test version of web-application for second line of support.
+Рабочая, тестовая версия BCM.
+Настроена на работу с локальным сервером. 
