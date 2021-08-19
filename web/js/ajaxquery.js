@@ -1612,6 +1612,14 @@ function CaduS() {
         "<th>Дата</th>"+
         "</tr>";
 
+    //PLU, ДВ, СГ, номер инв., статус инв., ЗСЖ. Ошибка.
+
+    var printInventInfo=
+        "<div class=\"w3-light-blue\" style='margin-top: 10px;margin-bottom: 0px;'>\n" +
+        "  <button id=\"btn_c_tasks\" onclick=\"myFunctionCaduInvent('C_Invent')\" class=\"w3-button w3-block\">Инвентаризация</button>\n" +
+        "  <div id=\"C_Invent\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+        "<br>";
+
 
     toPrintag.innerHTML="";
     //toPrintag_2.innerHTML="";
@@ -1639,6 +1647,8 @@ function CaduS() {
            var arrBufCarNumber=arrInfoMain[5].split("&");
 
            var arrBufCertInfo=arrInfoMain[6].split("&");
+
+           var arrBufFlowInfo=arrInfoMain[7].split("&");
 
            var arrBufFlowInfo=arrInfoMain[7].split("&");
 
@@ -1756,6 +1766,11 @@ function CaduS() {
 
             }
 
+
+            // need add block with inventarisation to UI
+
+
+
             //printVFlowInfo  arrBufFlowInfo
 
             var rowInfo = arrRCState[0].split("|");
@@ -1789,11 +1804,16 @@ function CaduS() {
                 "  </div>" +
                 "</div>";
 
+            printInventInfo+=""+
+                "  </div>" +
+                "</div>";
+
             toPrintag.innerHTML+=printBaseInfo;
             toPrintag_main.innerHTML+=printTaskInfo;
             toPrintag_main.innerHTML+=printBufDetails;
             //toPrintag_main.innerHTML+=printCertInfo;
             toPrintag_main.innerHTML+=printVFlowInfo;
+            toPrintag_main.innerHTML+=printInventInfo;
         }
         //return xhrB.responseText;
     }
@@ -2366,6 +2386,78 @@ function myFunctionCadu(id){
         x.className = x.className.replace(" w3-show", "");
     }
 }
+
+function myFunctionCaduInvent(id){
+
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+
+    var cadbuf = document.getElementById("CadBuf").value;
+    var cadsap = document.getElementById("CadSap").value;
+    var blockPrint = document.getElementById("C_Invent");
+    var toBlockPrint = "<br><table class=\"w3-table-all w3-small\">" +
+    "<tr class = \"w3-light-blue\">"+
+    "<th>PLU</th>"+
+    "<th>ДВ</th>"+
+    "<th>СГ</th>"+
+    "<th>Номер инв.</th>"+
+    "<th>Статус инв.</th>"+
+    "<th>ЗСЖ</th>"+
+    "<th>Ошибка</th>"+
+    "</tr>";
+
+    var rowsPrint="";
+
+
+    blockPrint.innerHTML=toBlockPrint;
+
+    let xhrCadu = new XMLHttpRequest();
+    xhrCadu.onreadystatechange = function() {
+        if (xhrCadu.readyState !== 4) return;
+        if (xhrCadu.status == 200) {
+            var respInfo = xhrCadu.responseText;
+
+            var inventRows = respInfo.split("&");
+
+            if(respInfo!="&"){
+                for(var i=0;i<inventRows.length-1;i++){
+                    var rowInfo = arrInfo[i].split("|");
+                    rowsPrint+="<tr>";
+                    rowsPrint+="<td>"+rowInfo[0]+"</td>";
+                    rowsPrint+="<td>"+rowInfo[1]+"</td>";
+                    rowsPrint+="<td>"+rowInfo[2]+"</td>";
+                    rowsPrint+="<td>"+rowInfo[3]+"</td>";
+                    rowsPrint+="<td>"+rowInfo[4]+"</td>";
+                    rowsPrint+="<td>"+rowInfo[5]+"</td>";
+                    rowsPrint+="<td>"+rowInfo[6]+"</td>";
+
+                }
+            }
+
+
+            blockPrint.innerHTML+=rowsPrint+"</table>";
+
+        }
+    }
+
+
+    var body = 'cadbuf='+cadbuf.replaceAll(/\s/g,"")+
+        '&cadsap='+cadsap.replaceAll(/\s/g,"")+
+        '&cadparam=invent';
+
+    xhrCadu.open('POST', '/test/cadusearch', true);
+    xhrCadu.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrCadu.send(body);
+
+
+
+}
+
+
 
 function myFunctionComp(id) {
     var x = document.getElementById(id);

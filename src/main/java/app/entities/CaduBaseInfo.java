@@ -28,6 +28,54 @@ public class CaduBaseInfo {
 
      */
 
+
+    public String getInventInfo(String buf, String sap) throws SQLException {
+
+        Connection pullConn = ConnectionPool.getInstance().getConnectionMerc();
+        Statement stmtPullM = pullConn.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        String sqlFindInvent = "select * from (\n" +
+                "select row_number() over (partition by i.cinv_id order by a.C_CREATED desc) as rn,\n" +
+                "c.cart_code \"PLU\",cod.COUD_PRODDATE_FROM \"ДВ\",cod.COUD_EXPIREDATE_FROM \"СГ\",i.cinv_id \"Инвентаризация\",i.DOC_STATUS,s.SDSS_NAME,cst.csen_entrynumber \"ЗСЖ\",\n" +
+                "a.C_ERROR_DETAILS \"Ошибка\"\n" +
+                "from C_INVENTORYING i\n" +
+                "join C_INVENTORYING_DETAILS cid on i.cinv_id = cid.civd_inventoryingdoc_id\n" +
+                "join c_articles c on cid.CIVD_ARTICLE_ID = c.cart_id\n" +
+                "left join C_STOCKENTRIES cst on cid.CIVD_STOCKENTRY_ID = cst.csen_id\n" +
+                "join c_Outgoing_Inventory_Dtls_Rel coidr ON coidr.CIVD_ID = cid.CIVD_ID\n" +
+                "join c_outgoing_details cod ON coidr.COUD_ID = cod.COUD_ID\n" +
+                "join S_DOCSTATUSES s on i.doc_status = s.sdss_id\n" +
+                "join C_OUTGOING ou ON cod.COUD_OUTGOINGDOC_ID = ou.COUT_ID \n" +
+                "join a_tasks a on i.cinv_id = a.c_doc_id \n" +
+                "JOIN C_ORG_DIVISIONS cod2 ON cod2.CODV_ID = i.CINV_STORAGE \n" +
+                "where ou.cout_transactionid  = 'OUT_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' AND cod2.CODV_CODE='"+sap+"') t\n" +
+                "where rn = 1\n" +
+                "order by DOC_STATUS";
+
+        ResultSet rs = stmtPullM.executeQuery(sqlFindInvent);
+
+        String response="";
+        while(rs.next()){
+            response+=rs.getString(2)+"|";
+            response+=rs.getString(3)+"|";
+            response+=rs.getString(4)+"|";
+            response+=rs.getString(5)+"|";
+            response+=rs.getString(6)+"("+rs.getString(7)+")"+"|";
+            response+=rs.getString(8)+"|";
+            response+=rs.getString(9)+"|";
+            response+="&";
+        }
+        pullConn.close();
+        stmtPullM.close();
+
+        if(response.equals(""))
+            return "&";
+        else
+
+        return "";
+    }
+
     public String getCaduBaseInfo(String buf, String sap) throws SQLException {
 
 
