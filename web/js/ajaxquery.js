@@ -1519,7 +1519,7 @@ function CaduS() {
 
     var btn_text = document.getElementById("CadSend");
     //btn_text.innerText="Загружаю..";
-
+    btn_text.disabled = true;
     //alert(lioMes);
     var cadbuf = document.getElementById("CadBuf").value;
     var cadsap = document.getElementById("CadSap").value;
@@ -1629,6 +1629,8 @@ function CaduS() {
     xhrCadu.onreadystatechange = function() {
         if (xhrCadu.readyState !== 4) return;
         if (xhrCadu.status == 200) {
+            btn_text.disabled = false;
+
             var respInfo =  xhrCadu.responseText;
 
             var arrInfoMain=respInfo.split("@");

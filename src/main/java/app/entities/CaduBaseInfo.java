@@ -98,8 +98,9 @@ public class CaduBaseInfo {
                 "LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = ci.CINC_TODIVISION_ID \n" +
                 "LEFT JOIN S_DOCSTATUSES sd ON sd.SDSS_ID = ci.DOC_STATUS \n" +
                 "WHERE "+
-                "                        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+"')\n" +
-                "                    AND cod2.CODV_CODE = '"+sap+"')\n" +
+                "                        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+
+                "' OR ci.CINC_WAYBILLNUMBER ='"+buf+"')\n" +
+                "                    AND cod2.CODV_CODE = '"+sap+"' AND ci.CINC_WAYBILLDATE > SYSDATE-30)\n" +
                 "                UNION ALL\n" +
                 "SELECT \n" +
                 "        co.COUT_TRANSACTIONID \"BUF\"\n" +
@@ -115,15 +116,18 @@ public class CaduBaseInfo {
                 "LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = co.COUT_TODIVISION_ID \n" +
                 "LEFT JOIN S_DOCSTATUSES sd ON sd.SDSS_ID = co.DOC_STATUS "+
                 "                WHERE\n" +
-                "                        ((co.Cout_TRANSACTIONID = 'OUT_'||cod.CODV_CODEDEPNQ||'_'||'"+buf+"' OR co.COUT_TRANSACTIONID = '"+buf+"') \n" +
-                "                    AND cod.CODV_CODE = '"+sap+"')"
+                "                        ((co.Cout_TRANSACTIONID = 'OUT_'||cod.CODV_CODEDEPNQ||'_'||'"+buf+"' OR co.COUT_TRANSACTIONID = '"+buf+
+                "' OR co.COUT_WAYBILLNUMBER ='"+buf+"')\n" +
+                "                    AND cod.CODV_CODE = '"+sap+"' AND  co.COUT_WAYBILLDATE > SYSDATE-30)"
                 ;
 
 
         ResultSet rs = stmtPullM.executeQuery(findBaseInfo);
 
         String response="";
+        String bufNumber="";
         while(rs.next()){
+            bufNumber=rs.getString(1);
             response+=rs.getString(1)+"|";
             response+=rs.getString(2)+"|";
             response+=rs.getString(3)+"|";
@@ -136,7 +140,7 @@ public class CaduBaseInfo {
         pullConn.close();
         stmtPullM.close();
 
-        response+="@"+getCaduTaskInfo(buf,sap);
+        response+="@"+getCaduTaskInfo(bufNumber,sap);
 
         return response;
     }
@@ -167,8 +171,9 @@ public class CaduBaseInfo {
                 "LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = ci.CINC_TODIVISION_ID \n" +
                 "LEFT JOIN S_DOCSTATUSES sd ON sd.SDSS_ID = ci.DOC_STATUS \n" +
                 "WHERE "+
-                "                        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+"')\n" +
-                "                    AND cod2.CODV_CODE = '"+sap+"')\n" +
+                "                        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+
+                "'OR ci.CINC_WAYBILLNUMBER ='"+buf+"')\n" +
+                "                    AND cod2.CODV_CODE = '"+sap+"' AND ci.CINC_WAYBILLDATE > SYSDATE-30)\n" +
                 "UNION ALL\n" +
                 "SELECT \n" +
                 "        at2.C_ID\n" +
@@ -191,8 +196,9 @@ public class CaduBaseInfo {
                 "LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = co.COUT_TODIVISION_ID \n" +
                 "LEFT JOIN S_DOCSTATUSES sd ON sd.SDSS_ID = co.DOC_STATUS \n" +
                 "                WHERE\n" +
-                "                        ((co.Cout_TRANSACTIONID = 'OUT_'||cod.CODV_CODEDEPNQ||'_'||'"+buf+"' OR co.COUT_TRANSACTIONID = '"+buf+"') \n" +
-                "                    AND cod.CODV_CODE = '"+sap+"')"+
+                "                        ((co.Cout_TRANSACTIONID = 'OUT_'||cod.CODV_CODEDEPNQ||'_'||'"+buf+"' OR co.COUT_TRANSACTIONID = '"+buf+
+                "' OR co.COUT_WAYBILLNUMBER ='"+buf+"')\n" +
+                "                    AND cod.CODV_CODE = '"+sap+"' AND co.COUT_WAYBILLDATE > SYSDATE-30)"+
                 " order by 2";
 
 
@@ -248,9 +254,10 @@ public class CaduBaseInfo {
                 "LEFT join m_vetdocumentstatus s on m.MVDC_VETDSTATUS = s.MVDS_ID\n" +
                 "LEFT join C_STOCKENTRIES cs on c.CIND_STOCKENTRY_ID = cs.csen_id"+
                 " WHERE\n" +
-                "        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+"') \n" +
+                "        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+
+                "' OR ci.CINC_WAYBILLNUMBER ='"+buf+"')\n" +
                 "            AND \n" +
-                "            cod2.CODV_CODE = '"+sap+"')" +
+                "            cod2.CODV_CODE = '"+sap+"' AND ci.CINC_WAYBILLDATE > SYSDATE-30)" +
                 "UNION ALL \n" +
                 "SELECT \n" +
                 "  sd.SDSS_NAME||'('||o.DOC_STATUS||')'\n" +
@@ -271,9 +278,10 @@ public class CaduBaseInfo {
                 "LEFT join m_vetdocumentstatus s on m.MVDC_VETDSTATUS = s.MVDS_ID\n" +
                 "LEFT join C_STOCKENTRIES cs on o.COUD_STOCKENTRY_ID = cs.csen_id"+
                 " WHERE\n" +
-                "        ((co.Cout_TRANSACTIONID = 'OUT_'||cod.CODV_CODEDEPNQ||'_'||'"+buf+"' OR co.COUT_TRANSACTIONID = '"+buf+"')\n" +
+                "        ((co.Cout_TRANSACTIONID = 'OUT_'||cod.CODV_CODEDEPNQ||'_'||'"+buf+"' OR co.COUT_TRANSACTIONID = '"+buf+
+                "' OR co.COUT_WAYBILLNUMBER ='"+buf+"')\n" +
                 "    AND \n" +
-                "   cod.CODV_CODE = '"+sap+"')" +
+                "   cod.CODV_CODE = '"+sap+"'  AND co.COUT_WAYBILLDATE > SYSDATE-30)" +
                 "ORDER BY 1";
 
 
@@ -307,8 +315,8 @@ public class CaduBaseInfo {
         Connection pullConnNq = ConnectionPool.getInstance().getConnectionNQ(sap);
         Statement stmtPullNq = pullConnNq.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-
-        String findNqStateInfo = "select * from alc.buferstatushistory where BUF_ID_HEADER = '"+buf+"'  order by 1 desc ";
+        String[] rcBuf = buf.split("_");
+        String findNqStateInfo = "select * from alc.buferstatushistory where BUF_ID_HEADER = '"+rcBuf[2]+"'  order by 1 desc ";
 
         ResultSet rs = stmtPullNq.executeQuery(findNqStateInfo);
 
@@ -321,7 +329,7 @@ public class CaduBaseInfo {
         pullConnNq.close();
         stmtPullNq.close();
 
-        response+="@"+getCadu_RC_ExcludeBufInfo(buf,sap);
+        response+="@"+getCadu_RC_ExcludeBufInfo(rcBuf[2],sap);
 
         return response;
     }
