@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+<div class="w3-container">
+
+    <h2>Accordions</h2>
+    <p>An accordion with lists:</p>
+    <table class="w3-table-all w3-small" style="margin-top: 5px">
+    <tr class = "w3-light-blue">
+        <th>Наименование</th>
+        <th>PLU</th>
+        <th>Алкокод</th>
+        <th>Справка Б</th>
+        <th>Кол-во</th>
+        <th>Дата розлива</th>
+        </tr>
+        <tr onclick="myFunction('trbtn')">
+            <td>Водка "Финляндия Водка" ("Finlandia Vodka")</td>
+            <td>1369</td>
+            <td>0350448000002750703</td>
+            <td>FB-000003762940352</td>
+            <td>3</td>
+            <td>2021-01-21 00:00:00</td>
+        </tr>
+        <tr id="trbtn" class="w3-hide">
+            <td>
+                <ul class="w3-ul">
+
+                    <!--Список содержимого-->
+                    <li> <!--Элемент позиции ттн егаис-->
+                        <button onclick="myFunction('Demo111')" class="w3-button w3-block  w3-left-align">beer</button>
+                        <!--начало Блок для содержимого коробки -->
+                        <div id="Demo111" class="w3-hide"> <!--Что он отображает дочерний блок с коробками-->
+                            <ul class="w3-ul">
+                                <li>
+                                    <button onclick="myFunction('Demo123')" class="w3-button w3-block  w3-left-align">beer_box_1</button>
+                                </li>
+                                <li>
+                                    <button onclick="myFunction('Demo133')" class="w3-button w3-block  w3-left-align">beer_box_1</button>
+                                </li>
+                                <li>
+                                    <button onclick="myFunction('Demo144')" class="w3-button w3-block  w3-left-align">beer_box_1</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--Блок для содержимого коробки-->
+                    </li>
+                    <!--конец списка содержимого-->
+                </ul>
+            </td>
+
+        </tr>
+    </table>
+    <!--Водка "Финляндия Водка" ("Finlandia Vodka")|1369|0350448000002750703|FB-000003762940352|3|2021-01-21 00:00:00-->
+
+
+
+
+
+
+
+</div>
+<script>
+    function myFunction(id) {
+        var x = document.getElementById(id);
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+</script>
+
+</body>
+</html>
