@@ -100,7 +100,7 @@ public class CaduBaseInfo {
                 "WHERE "+
                 "                        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+
                 "' OR ci.CINC_WAYBILLNUMBER ='"+buf+"')\n" +
-                "                    AND cod2.CODV_CODE = '"+sap+"' AND ci.CINC_WAYBILLDATE > SYSDATE-30)\n" +
+                "                    AND cod2.CODV_CODE = '"+sap+"' AND ci.DOC_ADDDATE > SYSDATE-15)\n" +
                 "                UNION ALL\n" +
                 "SELECT \n" +
                 "        co.COUT_TRANSACTIONID \"BUF\"\n" +
@@ -118,7 +118,7 @@ public class CaduBaseInfo {
                 "                WHERE\n" +
                 "                        ((co.Cout_TRANSACTIONID = 'OUT_'||cod.CODV_CODEDEPNQ||'_'||'"+buf+"' OR co.COUT_TRANSACTIONID = '"+buf+
                 "' OR co.COUT_WAYBILLNUMBER ='"+buf+"')\n" +
-                "                    AND cod.CODV_CODE = '"+sap+"' AND  co.COUT_WAYBILLDATE > SYSDATE-30)"
+                "                    AND cod.CODV_CODE = '"+sap+"' AND  co.DOC_ADDDATE > SYSDATE-15)"
                 ;
 
 
@@ -139,8 +139,8 @@ public class CaduBaseInfo {
         }
         pullConn.close();
         stmtPullM.close();
-
-        response+="@"+getCaduTaskInfo(bufNumber,sap);
+        response+="@"+getCadu_RC_StateBufInfo(bufNumber,sap);
+        //response+="@"+getCaduTaskInfo(bufNumber,sap);
 
         return response;
     }
@@ -225,7 +225,7 @@ public class CaduBaseInfo {
         pullConn.close();
         stmtPullM.close();
 
-        response+="@"+getCaduDetailsInfo(buf,sap);
+        //response+="@"+getCaduDetailsInfo(buf,sap);
 
         return response;
     }
@@ -398,7 +398,7 @@ WAYBILLNO =
         pullConnNq.close();
         stmtPullNq.close();
 
-        response+="@"+getCaduSert(buf,sap);
+        //response+="@"+getCaduSert(buf,sap);
 
         return response;
     }

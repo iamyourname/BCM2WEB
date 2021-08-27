@@ -1550,27 +1550,14 @@ function CaduS() {
         "  </div>\n" +
         "</div>";
     */
+
+    // Перенести вывод тасков в отдельную функцию
+    // Разобраться с буфером (айди или правильный номер)
     var printTaskInfo=
         "<div class=\"w3-light-blue\" style='overflow-x: scroll;  margin-top: 10px;margin-bottom: 0px;'>\n" +
-        "  <button id=\"btn_c_tasks\" onclick=\"myFunctionCadu('C_Tasks')\" class=\"w3-button w3-block\">Таски</button>\n" +
+        "  <button id=\"btn_c_tasks\" onclick=\"caduTaskInfoShow('C_Tasks')\" class=\"w3-button w3-block\">Таски</button>\n" +
         "  <div id=\"C_Tasks\" class=\"w3-hide w3-container w3-light-gray\">\n" +
-        "<br><table class=\"w3-table-all w3-small\">" +
-        "<tr class = \"w3-light-blue\">"+
-        "<th>C_ID</th>"+
-        "<th>C_CREATED</th>"+
-        "<th>C_DATE_DONE</th>"+
-        "<th>C_PROCESSING</th>"+
-        "<th>C_TASK_STATUS</th>"+
-        "<th>C_APPLICATION_STATUS</th>"+
-        "<th>C_TASK_TYPE</th>"+
-        "<th>C_ERROR_DETAILS</th>"+
-        "<th>C_TRACE_ID</th>"+
-        "<th>C_HOSTNAME</th>"+
-        "<th>C_STATUS_MSG</th>"+
-        "<th>C_TASK_SDSS</th>"+
-        "<th>C_PRIORITY</th>"+
-        "<th>C_TASK_DATA</th>"
-        "</tr>";
+        "<br>";
 
 
 
@@ -1636,23 +1623,16 @@ function CaduS() {
             var arrInfoMain=respInfo.split("@");
 
 
-            var arrInfo=arrInfoMain[0].split("&");
+            var arrInfo=arrInfoMain[0].split("&"); // base info
 
-            var arrInfoTask=arrInfoMain[1].split("&");
-
-            var arrInfoDetails=arrInfoMain[2].split("&");
-
-            var arrRCState=arrInfoMain[3].split("&");
-
-            var arrExclState=arrInfoMain[4].split("&");
-
-           var arrBufCarNumber=arrInfoMain[5].split("&");
-
-           var arrBufCertInfo=arrInfoMain[6].split("&");
-
-           var arrBufFlowInfo=arrInfoMain[7].split("&");
-
-           var arrBufFlowInfo=arrInfoMain[7].split("&");
+            //var arrInfoTask=arrInfoMain[1].split("&"); // таски
+            //var arrInfoDetails=arrInfoMain[2].split("&"); // детали
+            var arrRCState=arrInfoMain[1].split("&"); // статус РЦ
+            var arrExclState=arrInfoMain[2].split("&");
+            var arrBufCarNumber=arrInfoMain[3].split("&");
+            //var arrBufCertInfo=arrInfoMain[6].split("&");
+           // var arrBufFlowInfo=arrInfoMain[7].split("&");
+          // var arrBufFlowInfo=arrInfoMain[7].split("&");
 
 
 
@@ -1687,49 +1667,9 @@ function CaduS() {
                     }
             * */
 
-            for(var i=0;i<arrInfoTask.length-1;i++) {
-                var rowInfo = arrInfoTask[i].split("|");
-                printTaskInfo += "<tr>";
-                for (var l = 0; l < rowInfo.length - 1; l++) {
-                    if (rowInfo[l].length > 80) {
-                        printTaskInfo += "<td onclick=\"document.getElementById('idT" + l + "').style.display='block'\">" + rowInfo[l].substr(0, 80) +
-                            //"<span style=\"display:none\" id=\"fullvalueTask"+x+"\">" + tasks[x] + "</span>"+
-                            "...</td>";
-                        printTaskInfo += "  <div id='idT" + l + "' class=\"w3-modal\" style = \"z-index: 999\">\n" +
-                            "    <div class=\"w3-modal-content\">\n" +
-                            "      <div class=\"w3-container\" style=\"text-align: left\">\n" +
-                            "        <span onclick=\"document.getElementById('idT" + l + "').style.display='none'\" class=\"w3-button w3-display-topright\">&times;</span>\n" +
-                            "        <pre><code>" + rowInfo[l].replaceAll(/,/g,"\n") + "</pre></code>" +
-                            "      </div>\n" +
-                            "    </div>\n" +
-                            "  </div>";
-                    } else {
-                        printTaskInfo += "<td>" + rowInfo[l].replace('$$', '') + "</td>";
-                    }
-                    /*
-                    * printTaskInfo+="<tr>";
-                    printTaskInfo+="<td>"+rowInfo[0]+"</td>";
-                    printTaskInfo+="<td>"+rowInfo[1]+"</td>";
-                    printTaskInfo+="<td>"+rowInfo[2]+"</td>";
-                    printTaskInfo+="<td>"+rowInfo[3]+"</td>";
-                    printTaskInfo+="<td>"+rowInfo[4]+"</td>";
-                    printTaskInfo+="<td>"+rowInfo[5]+"</td>";
-                    printTaskInfo+="<td>"+rowInfo[6]+"</td>";
-                    printTaskInfo+="<td>"+rowInfo[7]+"</td>";
-                    printTaskInfo+="<td>"+rowInfo[8]+"</td>";
-                    printTaskInfo+="<td>"+rowInfo[9]+"</td>";
-                    printTaskInfo+="<td>"+rowInfo[10]+"</td>";
-                    printTaskInfo+="<td>"+rowInfo[11]+"</td>";
-                    printTaskInfo+="<td>"+rowInfo[12]+"</td>";
-                    printTaskInfo+="<td>"+rowInfo[13]+"</td>";
-                    * */
 
-
-                }
-                printTaskInfo += "</tr>";
-            }
-
-            for(var i=0;i<arrInfoDetails.length-1;i++){
+            /* детали буфера
+             for(var i=0;i<arrInfoDetails.length-1;i++){
                 var rowInfo = arrInfoDetails[i].split("|");
                 printBufDetails+="<tr>";
                 printBufDetails+="<td>"+rowInfo[0]+"</td>";
@@ -1742,8 +1682,10 @@ function CaduS() {
                 printBufDetails+="<td>"+rowInfo[7]+"</td>";
                 printBufDetails+="</tr>";
             }
+             */
 
-            for(var i=0;i<arrBufCertInfo.length-1;i++){
+            /* сертификаты старый блок
+              for(var i=0;i<arrBufCertInfo.length-1;i++){
                 var rowC= arrBufCertInfo[i].split("!");
                 for(var l=0;l<rowC.length-1;l++){
                     var rowInfo = rowC[l].split("|");
@@ -1754,8 +1696,10 @@ function CaduS() {
                 }
 
             }
+             */
 
-            for(var i=0;i<arrBufFlowInfo.length-1;i++){
+            /*  блок потоков V10 и V13
+             for(var i=0;i<arrBufFlowInfo.length-1;i++){
                 var rowC= arrBufFlowInfo[i].split("!");
                 for(var l=0;l<rowC.length-1;l++){
                     var rowInfo = rowC[l].split("|");
@@ -1767,6 +1711,8 @@ function CaduS() {
                 }
 
             }
+
+             */
 
 
             // need add block with inventarisation to UI
@@ -1789,9 +1735,12 @@ function CaduS() {
 
             printBaseInfo+="</tr>";
             printBaseInfo+="</table>";
-            printTaskInfo+="</table>"+
-                "  </div>" +
+            printTaskInfo+="</div>" +
                 "</div>";
+
+            /*
+
+             */
 
             printBufDetails+="</table>"+
                 "  </div>" +
@@ -1811,11 +1760,11 @@ function CaduS() {
                 "</div>";
 
             toPrintag.innerHTML+=printBaseInfo;
-            toPrintag_main.innerHTML+=printTaskInfo;
-            toPrintag_main.innerHTML+=printBufDetails;
-            //toPrintag_main.innerHTML+=printCertInfo;
-            toPrintag_main.innerHTML+=printVFlowInfo;
-            toPrintag_main.innerHTML+=printInventInfo;
+            //toPrintag_main.innerHTML+=printTaskInfo; печать тасков
+            //toPrintag_main.innerHTML+=printBufDetails; печать деталей
+            //toPrintag_main.innerHTML+=printCertInfo; печать сертификатов ? старое ?
+            //toPrintag_main.innerHTML+=printVFlowInfo; печать потоков 10 и 13
+            //toPrintag_main.innerHTML+=printInventInfo; печать инвентаризации
         }
         //return xhrB.responseText;
     }
@@ -2437,6 +2386,111 @@ function myFunctionCaduInvent(id){
                     rowsPrint+="<td>"+rowInfo[5]+"</td>";
                     rowsPrint+="<td>"+rowInfo[6]+"</td>";
 
+                }
+            }
+
+
+            blockPrint.innerHTML+=rowsPrint+"</table>";
+
+        }
+    }
+
+
+    var body = 'cadbuf='+cadbuf.replaceAll(/\s/g,"")+
+        '&cadsap='+cadsap.replaceAll(/\s/g,"")+
+        '&cadparam=invent';
+
+    xhrCadu.open('POST', '/test/cadusearch', true);
+    xhrCadu.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrCadu.send(body);
+
+
+
+}
+// функция для отображения тасков из каду
+function caduTaskInfoShow(id){
+
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+
+    var cadbuf = document.getElementById("CadBuf").value;
+    var cadsap = document.getElementById("CadSap").value;
+    var blockPrint = document.getElementById("C_Tasks");
+
+    var toBlockPrint = "<table class=\"w3-table-all w3-small\">" +
+    "<tr class = \"w3-light-blue\">"+
+    "<th>C_ID</th>"+
+    "<th>C_CREATED</th>"+
+    "<th>C_DATE_DONE</th>"+
+    "<th>C_PROCESSING</th>"+
+    "<th>C_TASK_STATUS</th>"+
+    "<th>C_APPLICATION_STATUS</th>"+
+    "<th>C_TASK_TYPE</th>"+
+    "<th>C_ERROR_DETAILS</th>"+
+    "<th>C_TRACE_ID</th>"+
+    "<th>C_HOSTNAME</th>"+
+    "<th>C_STATUS_MSG</th>"+
+    "<th>C_TASK_SDSS</th>"+
+    "<th>C_PRIORITY</th>"+
+    "<th>C_TASK_DATA</th>"
+    "</tr>";
+
+    var rowsPrint="";
+
+
+    blockPrint.innerHTML=toBlockPrint;
+
+    let xhrCadu = new XMLHttpRequest();
+    xhrCadu.onreadystatechange = function() {
+        if (xhrCadu.readyState !== 4) return;
+        if (xhrCadu.status == 200) {
+            var respInfo = xhrCadu.responseText;
+
+            var tasksRows = respInfo.split("&");
+
+            if(respInfo!="&"){
+                for(var i=0;i<arrInfoTask.length-1;i++) {
+                    var rowInfo = arrInfoTask[i].split("|");
+                    printTaskInfo += "<tr>";
+                    for (var l = 0; l < rowInfo.length - 1; l++) {
+                        if (rowInfo[l].length > 80) {
+                            printTaskInfo += "<td onclick=\"document.getElementById('idT" + l + "').style.display='block'\">" + rowInfo[l].substr(0, 80) +
+                                //"<span style=\"display:none\" id=\"fullvalueTask"+x+"\">" + tasks[x] + "</span>"+
+                                "...</td>";
+                            printTaskInfo += "  <div id='idT" + l + "' class=\"w3-modal\" style = \"z-index: 999\">\n" +
+                                "    <div class=\"w3-modal-content\">\n" +
+                                "      <div class=\"w3-container\" style=\"text-align: left\">\n" +
+                                "        <span onclick=\"document.getElementById('idT" + l + "').style.display='none'\" class=\"w3-button w3-display-topright\">&times;</span>\n" +
+                                "        <pre><code>" + rowInfo[l].replaceAll(/,/g,"\n") + "</pre></code>" +
+                                "      </div>\n" +
+                                "    </div>\n" +
+                                "  </div>";
+                        } else {
+                            printTaskInfo += "<td>" + rowInfo[l].replace('$$', '') + "</td>";
+                        }
+                        /*
+                        * printTaskInfo+="<tr>";
+                        printTaskInfo+="<td>"+rowInfo[0]+"</td>";
+                        printTaskInfo+="<td>"+rowInfo[1]+"</td>";
+                        printTaskInfo+="<td>"+rowInfo[2]+"</td>";
+                        printTaskInfo+="<td>"+rowInfo[3]+"</td>";
+                        printTaskInfo+="<td>"+rowInfo[4]+"</td>";
+                        printTaskInfo+="<td>"+rowInfo[5]+"</td>";
+                        printTaskInfo+="<td>"+rowInfo[6]+"</td>";
+                        printTaskInfo+="<td>"+rowInfo[7]+"</td>";
+                        printTaskInfo+="<td>"+rowInfo[8]+"</td>";
+                        printTaskInfo+="<td>"+rowInfo[9]+"</td>";
+                        printTaskInfo+="<td>"+rowInfo[10]+"</td>";
+                        printTaskInfo+="<td>"+rowInfo[11]+"</td>";
+                        printTaskInfo+="<td>"+rowInfo[12]+"</td>";
+                        printTaskInfo+="<td>"+rowInfo[13]+"</td>";
+                        * */
+                    }
+                    printTaskInfo += "</tr>";
                 }
             }
 
