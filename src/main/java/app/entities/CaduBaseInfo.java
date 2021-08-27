@@ -119,7 +119,7 @@ public class CaduBaseInfo {
                 "                        ((co.Cout_TRANSACTIONID = 'OUT_'||cod.CODV_CODEDEPNQ||'_'||'"+buf+"' OR co.COUT_TRANSACTIONID = '"+buf+
                 "' OR co.COUT_WAYBILLNUMBER ='"+buf+"')\n" +
                 "                    AND cod.CODV_CODE = '"+sap+"' AND  co.DOC_ADDDATE > SYSDATE-15)";
-
+                // сократилось до 10 сек.
 
 
         ResultSet rs = stmtPullM.executeQuery(findBaseInfo);
