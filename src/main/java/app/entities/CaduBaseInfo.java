@@ -257,7 +257,7 @@ public class CaduBaseInfo {
                 "        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+
                 "' OR ci.CINC_WAYBILLNUMBER ='"+buf+"')\n" +
                 "            AND \n" +
-                "            cod2.CODV_CODE = '"+sap+"' AND ci.CINC_WAYBILLDATE > SYSDATE-30)" +
+                "            cod2.CODV_CODE = '"+sap+"' AND ci.DOC_ADDDATE > SYSDATE-15)" +
                 "UNION ALL \n" +
                 "SELECT \n" +
                 "  sd.SDSS_NAME||'('||o.DOC_STATUS||')'\n" +
@@ -281,7 +281,7 @@ public class CaduBaseInfo {
                 "        ((co.Cout_TRANSACTIONID = 'OUT_'||cod.CODV_CODEDEPNQ||'_'||'"+buf+"' OR co.COUT_TRANSACTIONID = '"+buf+
                 "' OR co.COUT_WAYBILLNUMBER ='"+buf+"')\n" +
                 "    AND \n" +
-                "   cod.CODV_CODE = '"+sap+"'  AND co.COUT_WAYBILLDATE > SYSDATE-30)" +
+                "   cod.CODV_CODE = '"+sap+"'  AND co.DOC_ADDDATE > SYSDATE-15)" +
                 "ORDER BY 1";
 
 
@@ -302,7 +302,7 @@ public class CaduBaseInfo {
         pullConn.close();
         stmtPullM.close();
 
-        response+="@"+getCadu_RC_StateBufInfo(buf,sap);
+        //response+="@"+getCadu_RC_StateBufInfo(buf,sap);
 
 
         return response;

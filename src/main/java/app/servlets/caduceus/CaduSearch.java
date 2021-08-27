@@ -55,7 +55,13 @@ public class CaduSearch extends HttpServlet {
                     break;
                 case "tasks":
                     out.append(caduBaseInfo.getCaduTaskInfo(cadbuf,cadsap));
-                    break;
+                    break;//details
+                case "details":
+                    out.append(caduBaseInfo.getCaduDetailsInfo(cadbuf,cadsap));
+                    break;//flows
+                case "flows":
+                    out.append(caduBaseInfo.getCaduVFlow(cadbuf,cadsap));
+                    break;//
                 case "invent":
                     out.append(caduBaseInfo.getInventInfo(cadbuf,cadsap));
                     break;
