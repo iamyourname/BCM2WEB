@@ -139,7 +139,8 @@ public class CaduBaseInfo {
         }
         pullConn.close();
         stmtPullM.close();
-        response+="@"+getCadu_RC_StateBufInfo(bufNumber,sap);
+        //response+="@"+getCadu_RC_StateBufInfo(bufNumber,sap);
+        response+="@"+getCaduRcBaseInfo(bufNumber,sap);
         //response+="@"+getCaduTaskInfo(bufNumber,sap);
 
         return response;
@@ -371,6 +372,59 @@ public class CaduBaseInfo {
 WAYBILLNO =
 (select WAYBILLNUMBER from scm.vetshipmentheader v WHERE v.TRANSACTIONID like 'OUT_%_1376567')
 ; -- по ТТН 1376352*/
+
+    public String getCaduRcBaseInfo(String buf, String sap) throws SQLException {
+        String response="";
+
+        Connection pullConnNq = ConnectionPool.getInstance().getConnectionNQ(sap);
+        Statement stmtPullNq = pullConnNq.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String[] rcBuf = buf.split("_");
+        String sqlFindInfo = "select ab.DT_CREATED, ab.WHAT, m.ADDDATE, v.TRANSPORTNUMBER from alc.buferstatushistory ab\n" +
+                " LEFT JOIN sdd.MERCEXCLUDEBUFF m ON ab.BUF_ID_HEADER = m.ID_HEADER \n" +
+                " LEFT JOIN scm.vetshipmentheader v ON ab.WAYBILL_DOCNUMBER = v.WAYBILLNUMBER \n" +
+                " where ab.BUF_ID_HEADER = "+rcBuf[2]+" \n" +
+                "  AND ab.DT_CREATED > SYSDATE -15 " +
+                " order by 1 DESC";
+
+        ResultSet rsNq = stmtPullNq.executeQuery(sqlFindInfo);
+
+        rsNq.first();
+
+        response+=rsNq.getString(1)+"|";
+        response+=rsNq.getString(2)+"|"+"&@";
+
+        /*
+        select ab.DT_CREATED, ab.WHAT,
+NVL(m.ADDDATE,TO_DATE('01.01.1970')),
+NVL(v.TRANSPORTNUMBER,'0')
+from alc.buferstatushistory ab
+LEFT JOIN sdd.MERCEXCLUDEBUFF m ON ab.BUF_ID_HEADER = m.ID_HEADER
+LEFT JOIN scm.vetshipmentheader v ON ab.WAYBILL_DOCNUMBER = v.WAYBILLNUMBER
+where ab.BUF_ID_HEADER = 5468092
+AND ab.DT_CREATED > SYSDATE -15
+order by 1 DESC;
+
+         */
+
+        if(rsNq.getString(3).isEmpty())
+            response+="нет"+"|";
+        else
+            response+="Да "+rsNq.getString(3)+"|";
+        response+="&@";
+
+        if(rsNq.getString(4).isEmpty())
+            response+="нет"+"|";
+        else
+            response+=rsNq.getString(4)+"|";
+
+        response+="&";
+
+
+        return response;
+    }
+
+
     public String getCadu_RC_CarNumber(String buf, String sap) throws SQLException {
         String response="";
 
