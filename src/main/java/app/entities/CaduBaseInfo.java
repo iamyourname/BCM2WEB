@@ -173,7 +173,7 @@ public class CaduBaseInfo {
                 "WHERE "+
                 "                        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+
                 "'OR ci.CINC_WAYBILLNUMBER ='"+buf+"')\n" +
-                "                    AND cod2.CODV_CODE = '"+sap+"' AND ci.CINC_WAYBILLDATE > SYSDATE-30)\n" +
+                "                    AND cod2.CODV_CODE = '"+sap+"' AND ci.DOC_ADDDATE > SYSDATE-15)\n" +
                 "UNION ALL\n" +
                 "SELECT \n" +
                 "        at2.C_ID\n" +
@@ -198,7 +198,7 @@ public class CaduBaseInfo {
                 "                WHERE\n" +
                 "                        ((co.Cout_TRANSACTIONID = 'OUT_'||cod.CODV_CODEDEPNQ||'_'||'"+buf+"' OR co.COUT_TRANSACTIONID = '"+buf+
                 "' OR co.COUT_WAYBILLNUMBER ='"+buf+"')\n" +
-                "                    AND cod.CODV_CODE = '"+sap+"' AND co.COUT_WAYBILLDATE > SYSDATE-30)"+
+                "                    AND cod.CODV_CODE = '"+sap+"' AND co.DOC_ADDDATE > SYSDATE-15)"+
                 " order by 2";
 
 

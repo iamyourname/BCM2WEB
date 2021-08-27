@@ -1735,6 +1735,7 @@ function CaduS() {
 
             printBaseInfo+="</tr>";
             printBaseInfo+="</table>";
+
             printTaskInfo+="</div>" +
                 "</div>";
 
@@ -1760,7 +1761,7 @@ function CaduS() {
                 "</div>";
 
             toPrintag.innerHTML+=printBaseInfo;
-            //toPrintag_main.innerHTML+=printTaskInfo; печать тасков
+            toPrintag_main.innerHTML+=printTaskInfo; //печать тасков
             //toPrintag_main.innerHTML+=printBufDetails; печать деталей
             //toPrintag_main.innerHTML+=printCertInfo; печать сертификатов ? старое ?
             //toPrintag_main.innerHTML+=printVFlowInfo; печать потоков 10 и 13
@@ -2421,7 +2422,7 @@ function caduTaskInfoShow(id){
     var cadsap = document.getElementById("CadSap").value;
     var blockPrint = document.getElementById("C_Tasks");
 
-    var toBlockPrint = "<table class=\"w3-table-all w3-small\">" +
+    var printTaskInfo = "<table class=\"w3-table-all w3-small\">" +
     "<tr class = \"w3-light-blue\">"+
     "<th>C_ID</th>"+
     "<th>C_CREATED</th>"+
@@ -2442,7 +2443,7 @@ function caduTaskInfoShow(id){
     var rowsPrint="";
 
 
-    blockPrint.innerHTML=toBlockPrint;
+    blockPrint.innerHTML=printTaskInfo;
 
     let xhrCadu = new XMLHttpRequest();
     xhrCadu.onreadystatechange = function() {
@@ -2453,8 +2454,8 @@ function caduTaskInfoShow(id){
             var tasksRows = respInfo.split("&");
 
             if(respInfo!="&"){
-                for(var i=0;i<arrInfoTask.length-1;i++) {
-                    var rowInfo = arrInfoTask[i].split("|");
+                for(var i=0;i<tasksRows.length-1;i++) {
+                    var rowInfo = tasksRows[i].split("|");
                     printTaskInfo += "<tr>";
                     for (var l = 0; l < rowInfo.length - 1; l++) {
                         if (rowInfo[l].length > 80) {
@@ -2495,7 +2496,7 @@ function caduTaskInfoShow(id){
             }
 
 
-            blockPrint.innerHTML+=rowsPrint+"</table>";
+            blockPrint.innerHTML+=printTaskInfo+"</table>";
 
         }
     }
@@ -2503,7 +2504,7 @@ function caduTaskInfoShow(id){
 
     var body = 'cadbuf='+cadbuf.replaceAll(/\s/g,"")+
         '&cadsap='+cadsap.replaceAll(/\s/g,"")+
-        '&cadparam=invent';
+        '&cadparam=tasks';
 
     xhrCadu.open('POST', '/test/cadusearch', true);
     xhrCadu.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
