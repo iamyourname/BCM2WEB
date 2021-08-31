@@ -63,12 +63,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/web" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/out/artifacts/test/files_utm" />
       <excludeFolder url="file://$MODULE_DIR$/out/artifacts/BCM2WEBtest_jar" />
       <excludeFolder url="file://$MODULE_DIR$/out/artifacts/BCM2WEBtest_war" />
       <excludeFolder url="file://$MODULE_DIR$/out/artifacts/BCM2WEBtest_war_exploded" />
       <excludeFolder url="file://$MODULE_DIR$/out/artifacts/BCM_2_WEB_war" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
