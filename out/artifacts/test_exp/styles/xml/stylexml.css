@@ -1,0 +1,67 @@
+
+.meta{margin:1em 0 1.33em 1.33em; padding:0; color:#898e79}
+.meta a{color:inherit}
+.meta cite{color:black; font-style:normal}
+.note{background-color:#ffc; padding:0 1em; border:1px solid #eeb}
+.note blockquote{border-color:#eeb}
+.footnote{font-style:italic}
+.error{color:darkred}
+/* forms */
+fieldset{margin:0; padding:0; border:none}
+form.contact fieldset{background-color:#f2f3f8; border:1px solid #e6e9f9; padding:1em}
+form.contact fieldset p{margin:0; clear:left}
+form.contact p label{display:inline;  float:left;  width:6em;  padding:3px 0}
+form.contact p input{display:inline; float:left; width:34em; border:2px solid #e6e9f9}
+form.contact textarea{display:inline; float:left; width:40em; margin-top:1em; border:2px solid #e6e9f9}
+/* blog */
+#weblog-single header h2{color:black}
+#prev-next{font-size:smaller}
+#prev-next span,#comments .permalink span{display:none}
+#prev-next .prev{float:left}
+#prev-next .prev:before{content:"\2190"; margin-right:1ex}
+#prev-next .next{float:right}
+#prev-next .next:after{content:"\2192"; margin-left:1ex}
+#prev-next nav:after{content:"\A0"; clear:both}
+#comments article{padding:10px 0 20px 40px}
+#comments article:after{display:block; content:""; margin:0 auto; border-bottom:1px solid #e6e9f9}
+.trackback *{color:#898e79 !important; border-color:#898e79 !important}
+#comments .permalink{margin:0 0 -2.33em -40px}
+#comments .preview article{padding-top:0; border-left:20px solid #a66}
+/* WEBLOG EXTRAS */
+blockquote.verse{margin:auto;font-style:italic;font-size:1.1em;font-family:"Times New Roman", Times, serif; text-align:center;width:24em;background-color:ivory;border:1px solid black; color:#631919; padding:1em}
+blockquote.verse h4{margin-top:0;text-decoration:underline}
+blockquote.verse p{margin:0}
+blockquote.verse hr{width:25%;height:1px}
+/* syntax highlighting */
+.highlight{color:black}
+.highlight span{display:inline!important}
+.highlight .comment{color:green}
+.highlight .conditional{background:#ffffa0}
+.highlight .string,.highlight .regexp,.highlight .number{color:darkred}
+.highlight .keyword{color:blue}
+.highlight .special{color:red}
+.highlight .tag{color:purple;font-weight:bold}
+.highlight .attribute{font-weight:bold}
+.highlight .attribute.value{color:blue;font-weight:normal}
+.highlight .entity{color:orangered}
+.highlight .processing-instruction{color:orchid;font-style:italic}
+/* HTML */
+.html .doctype{color:steelblue;font-style:italic}
+/* CSS */
+.css .comment{color:gray}
+.css .selector{color:darkred;font-weight:bold}
+.css .at_rule{color:orangered}
+.css .property{font-weight:bold}
+.css .property.value{color:blue;font-weight:normal}
+/* JavaScript */
+.javascript .global{color:teal}
+.javascript .base2{color:purple}
+@media print{
+ html{background-color:white}
+ body{margin:0; width:auto; min-width:none; max-width:none; font-size:medium; border:none; background-color:white}
+ body > header, nav, form{display:none!important}
+ header, a{color:black !important}
+ a{border:none!important}
+ a[href]:after{content:" (" attr(href) ")"; font-size:smaller}
+ #home-page a[href]:after, #my-page a[href]:after, .meta a[href]:after, .permalink a[href]:after{content:""}
+}

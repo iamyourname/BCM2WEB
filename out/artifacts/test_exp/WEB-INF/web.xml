@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <servlet>
+        <servlet-name>BacchusConnect</servlet-name>
+        <servlet-class>app.servlets.Bcm2WebMain</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ReplyCheck</servlet-name>
+        <servlet-class>app.servlets.bacchus.ReplyCheck</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>MagOut</servlet-name>
+        <servlet-class>app.servlets.bacchus.MagOut</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>MagNQ</servlet-name>
+        <servlet-class>app.servlets.bacchus.MagNQ</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>APNB</servlet-name>
+        <servlet-class>app.servlets.bacchus.act</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>Markus</servlet-name>
+        <servlet-class>app.servlets.markus.MarkusSearch</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>GodBacchus</servlet-name>
+        <servlet-class>app.servlets.bacchus.GodClass</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>Transport</servlet-name>
+        <servlet-class>app.servlets.bacchus.Transport</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>InsertCerts</servlet-name>
+        <servlet-class>app.servlets.caduceus.CertsToInsert</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ProfileEdit</servlet-name>
+        <servlet-class>app.servlets.EditProfile</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ConfirmEdit</servlet-name>
+        <servlet-class>app.servlets.bacchus.confirmSend</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>UTM</servlet-name>
+        <servlet-class>app.servlets.bacchus.UTM</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>CaduSearch</servlet-name>
+        <servlet-class>app.servlets.caduceus.CaduSearch</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>checkcerts</servlet-name>
+        <servlet-class>app.servlets.caduceus.CheckCert</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SendUtm</servlet-name>
+        <servlet-class>app.servlets.bacchus.SendFile</servlet-class>
+        <multipart-config>
+            <!--location>E:\Progs\TomCat_9\files_utm</location-->
+            <max-file-size>20848820</max-file-size>
+            <max-request-size>418018841</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>CaduSearch</servlet-name>
+        <url-pattern>/cadusearch</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>checkcerts</servlet-name>
+        <url-pattern>/checkcerts</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>MagOut</servlet-name>
+        <url-pattern>/magout</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>APNB</servlet-name>
+        <url-pattern>/apnb</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>MagNQ</servlet-name>
+        <url-pattern>/magnq</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>BacchusConnect</servlet-name>
+        <url-pattern></url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Markus</servlet-name>
+        <url-pattern>/markus</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>GodBacchus</servlet-name>
+        <url-pattern>/togod</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ReplyCheck</servlet-name>
+        <url-pattern>/replycheck</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Transport</servlet-name>
+        <url-pattern>/transport</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ConfirmEdit</servlet-name>
+        <url-pattern>/csend</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>InsertCerts</servlet-name>
+        <url-pattern>/certs</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ProfileEdit</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>UTM</servlet-name>
+        <url-pattern>/UTM</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SendUtm</servlet-name>
+        <url-pattern>/sendutm</url-pattern>
+    </servlet-mapping>
+
+
+
+    <!--servlet-mapping>
+        <servlet-name>BacchusConnect</servlet-name>
+        <url-pattern>/bcm2web</url-pattern>
+    </servlet-mapping-->
+    <filter>
+        <filter-name>ntlmFilter</filter-name>
+        <filter-class>app.servlets.NTLMUserFilter</filter-class>
+    </filter>
+
+
+
+    <!-- Filter mapping configuration   -->
+
+    <filter-mapping>
+        <filter-name>ntlmFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+</web-app>
