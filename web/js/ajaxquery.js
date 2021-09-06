@@ -1553,11 +1553,40 @@ function CaduCh(){
             //printBaseInfo+="<tr>";
             for(var i=0;i<arrInfoMain.length-1;i++){
 
-                var rowInfo = arrInfo[i].split("|");
+
+
+                var rowInfo = arrInfoMain[i].split("|");
+                var intStatus = ""+parseInt(rowInfo[2].replace(/\D+/g,""));
+
                 printBaseInfo+="<tr>";
                 printBaseInfo+="<td>"+rowInfo[0]+"</td>";
                 printBaseInfo+="<td>"+rowInfo[1]+"</td>";
-                printBaseInfo+="<td>"+rowInfo[2]+"</td>";
+                printBaseInfo+="<td id=\"rowStatusCh\">"+
+                    "<select  id=\"listOfStatusesCadu\" class=\"w3-select w3-border\" name=\"option\">" +
+                    "<option value=\"125\">Приход аннулирован (125)</option>"+
+                    "<option value=\"126\">На сопоставлении (126)</option>"+
+                    "<option value=\"128\">В КИС (128)</option>"+
+                    "<option value=\"130\">Ждёт вет.контроля (только ветврач) (130)</option>"+
+                    "<option value=\"131\">На вет.контроле (только ветврач) (131)</option>"+
+                    "<option value=\"169\">Общий (169)</option>"+
+                    "<option value=\"185\">Ждёт сопоставления (185)</option>"+
+                    "<option value=\"186\">Отклонён (186)</option>"+
+                    "<option value=\"187\">На разборе (187)</option>"+
+                    "<option value=\"188\">Удалён (188)</option>"+
+                    "<option value=\"361\">Ждёт вет.контроля (361)</option>"+
+                    "<option value=\"362\">На вет.контроле (362)</option>"+
+                    "<option value=\"40\">Создан (40)</option>"+
+                    "<option value=\"41\">Автообработка (41)</option>"+
+                    "<option value=\"42\">Готов (42)</option>"+
+                    "<option value=\"43\">Ошибка (43)</option>"+
+                    "<option value=\"661\">Ждёт сопоставления ЭВСД (661)</option>"+
+                    "<option value=\"662\">На сопоставлении ЭВСД (662)</option>"+
+                    "<option value=\"663\">Ждёт автосопоставления ЭВСД (663)</option>"+
+                    "<option value=\"664\">Ждёт корректировки ЭВСД (664)</option>"+
+                    "<option value=\"665\">На корректировке ЭВСД (665)</option>"+
+                     "</select>";
+
+                printBaseInfo+="</td>";
                 printBaseInfo+="<td>"+rowInfo[3]+"</td>";
                 printBaseInfo+="<td>"+rowInfo[4]+"</td>";
                 printBaseInfo+="<td>"+rowInfo[5]+"</td>";
@@ -1569,6 +1598,8 @@ function CaduCh(){
             printBaseInfo+="</table>";
 
             toPrintag_main.innerHTML+=printBaseInfo;
+
+            document.getElementById("listOfStatusesCadu").value=intStatus;
 
         }
     }
