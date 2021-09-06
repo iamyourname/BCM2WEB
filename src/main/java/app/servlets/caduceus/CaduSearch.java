@@ -49,6 +49,8 @@ public class CaduSearch extends HttpServlet {
 
             //ConnectToMagNQ connectToMagNQ = new ConnectToMagNQ();
             CaduBaseInfo caduBaseInfo = new CaduBaseInfo();
+            CaduChangeInfo caduChangeInfo = new CaduChangeInfo();
+
             switch (cadparam){
                 case "base":
                         out.append(caduBaseInfo.getCaduBaseInfo(cadbuf,cadsap));
@@ -64,6 +66,9 @@ public class CaduSearch extends HttpServlet {
                     break;//
                 case "invent":
                     out.append(caduBaseInfo.getInventInfo(cadbuf,cadsap));
+                    break;
+                case "baseChange": // for show base info from cade, for change buf
+                    out.append(caduChangeInfo.getCaduInfoChange(cadbuf,cadsap));
                     break;
             }
 

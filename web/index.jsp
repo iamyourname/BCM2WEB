@@ -370,6 +370,8 @@ body {
             </li>
             <li ><a href='#' onClick="openSystem('CaduSearch')"><span>Поиск</span></a>
             </li>
+            <li ><a href='#' onClick="openSystem('CaduChange')"><span>Дейсвтия с буфером</span></a>
+            </li>
             <!--li class='has-sub'><a href='#'><span>Приемка</span></a>
                 <ul>
                     <li><a href='#' onClick="openSystem('BacchusIn')"><span>Переотправка 24 потока</span></a></li>
@@ -664,7 +666,7 @@ body {
                 <img onclick="clearCerts()"  src="img/gui_eraser_icon_157160_1.png" width="60" height="60"/>
 
             </label>
-            <label>Буфер\ТТН\Заказ:
+            <label>Буфер\ТТН:
                 <input  id="CadBuf" type="text"  class="w3-input w3-border w3-round-medium" style="width: 100%">
             </label>
             <label>Код SAP:
@@ -724,6 +726,86 @@ body {
                     </footer>
                 </div>
             </div>
+
+
+        </div>
+    </div>
+
+    <div id = "CaduChange" name = "mainIfo" class="SystemAction w3-panel w3-light-gray w3-display-container w3-card-4 " style = "display: none">
+        <div class=" w3-light-blue">
+            <h4 >Кадуцей</h4>
+        </div>
+        <!--method="GET" action="" target = "my_frame" -->
+        <form  class = "auth-info"  >
+            <label style="margin-right: 25px">
+
+                <img onclick="clearCerts()"  src="img/gui_eraser_icon_157160_1.png" width="60" height="60"/>
+
+            </label>
+            <label>Буфер\ТТН:
+                <input  id="CadBufCh" type="text"  class="w3-input w3-border w3-round-medium" style="width: 100%">
+            </label>
+            <label>Код SAP:
+                <input id="CadSapCh" type="text"  class="w3-input  w3-border w3-round-medium" style="width: 100%">
+            </label>
+            <!--
+            <label>
+                <select id="listNQInOut" class="w3-select w3-border" name="option">
+                    <option value="1" selected>Приемка</option>
+                    <option value="2">Отгрузка</option>
+                </select>
+            </label>
+            -->
+        </form>
+        <button id="CadSendCh"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="CaduCh()" >Отправить</button>
+
+        <div id="CadThreeqCh">
+            <%--
+            <div class="w3-row">
+                 Это общая инфа из nq
+            <div id="CadThreeq" class="w3-threequarter w3-container">
+
+                 id="MagNQoutput"
+                <h2>w3-threequarter</h2>
+                <p>The w3-threequarter class uses 75% of the parent container.</p>
+                <p>On screens smaller than 601 pixels it resizes to full screen.</p>
+
+
+            </div>
+            Это потоки из nq
+            <div id="CadQuart" class="w3-quarter w3-container">
+
+            </div>
+        </div>
+            --%>
+
+
+        </div>
+        <div id="CadTextAreaCh" style="overflow-x: scroll" >
+            <!-- Trigger/Open the Modal -->
+
+
+            <!-- The Modal
+
+            <input type="hidden" id="Cad_To_modal">
+            <div id="001idCad" class="w3-modal" style="z-index: 999">
+                <div class="w3-modal-content w3-card-4">
+                    <header class="w3-container w3-teal">
+                        <span onclick="document.getElementById('001idNQ').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                        <h2>Результат</h2>
+                    </header>
+                    <pre><code>
+                    <div class="w3-container" id="CadRespModalNQ" style="text-align: left">
+
+                    </div>
+                    </code></pre>
+                    <footer class="w3-container w3-teal">
+                        <p></p>
+                    </footer>
+                </div>
+            </div>
+
+            end modal code -->
 
 
         </div>

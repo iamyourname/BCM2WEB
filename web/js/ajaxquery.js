@@ -1514,6 +1514,75 @@ function markAndCash(){
 
 }
 
+function CaduCh(){
+
+    var btn_text = document.getElementById("CadSendCh");
+    //btn_text.innerText="Загружаю..";
+    btn_text.disabled = true;
+    //alert(lioMes);
+    var cadbuf = document.getElementById("CadBufCh").value;
+    var cadsap = document.getElementById("CadSapCh").value;
+
+    var toPrintag = document.getElementById("CadThreeqCh"); // 3/4
+    //var toPrintag_2 = document.getElementById("CadQuart"); // 1/4
+    var toPrintag_main = document.getElementById("CadTextAreaCh"); // main div to print
+
+    var printBaseInfo="<table class=\"w3-table-all w3-small\">" +
+        "<tr class = \"w3-light-blue\">"+
+        "<th>Буфер</th>"+
+        "<th>Тип буфера</th>"+
+        "<th>Статус</th>"+
+        "<th>ТТН</th>"+
+        "<th>Дата</th>"+
+        "<th>Отправитель</th>"+
+        "<th>Получатель</th>"+
+        "</tr>";
+
+
+    toPrintag_main.innerHTML="";
+
+    let xhrCadu = new XMLHttpRequest();
+    xhrCadu.onreadystatechange = function() {
+        if (xhrCadu.readyState !== 4) return;
+        if (xhrCadu.status == 200) {
+            btn_text.disabled = false;
+
+            var respInfo =  xhrCadu.responseText;
+
+            var arrInfoMain=respInfo.split("&");
+            //printBaseInfo+="<tr>";
+            for(var i=0;i<arrInfoMain.length-1;i++){
+
+                var rowInfo = arrInfo[i].split("|");
+                printBaseInfo+="<tr>";
+                printBaseInfo+="<td>"+rowInfo[0]+"</td>";
+                printBaseInfo+="<td>"+rowInfo[1]+"</td>";
+                printBaseInfo+="<td>"+rowInfo[2]+"</td>";
+                printBaseInfo+="<td>"+rowInfo[3]+"</td>";
+                printBaseInfo+="<td>"+rowInfo[4]+"</td>";
+                printBaseInfo+="<td>"+rowInfo[5]+"</td>";
+                printBaseInfo+="<td>"+rowInfo[6]+"</td>";
+
+            }
+
+            printBaseInfo+="</tr>";
+            printBaseInfo+="</table>";
+
+            toPrintag_main.innerHTML+=printBaseInfo;
+
+        }
+    }
+
+    var body = 'cadbuf='+cadbuf.replaceAll(/\s/g,"")+
+        '&cadsap='+cadsap.replaceAll(/\s/g,"")+
+        '&cadparam=baseChange';
+
+    xhrCadu.open('POST', '/test/cadusearch', true);
+    xhrCadu.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhrCadu.send(body);
+
+
+}
 
 function CaduS() {
 
