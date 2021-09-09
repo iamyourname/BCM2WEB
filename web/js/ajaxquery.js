@@ -672,9 +672,13 @@ function clearCerts(){
     var clearSap4 = document.getElementById("MagSAP"); //document.getElementById("certsToCheck").innerText;
     var clearSap5 = document.getElementById("MagNQbuff"); //document.getElementById("certsToCheck").innerText;
     var clearSap6 = document.getElementById("MagNQSAP"); //document.getElementById("certsToCheck").innerText;
+    var clearBufCadu = document.getElementById("CadBuf"); // bufer in block cadu
+    var clearSapCadu = document.getElementById("CadSap"); // sap in block cadu
     clearSap1.value="";    clearSap2.value="";
     clearSap3.value="";    clearSap4.value="";
     clearSap5.value="";    clearSap6.value="";
+
+    clearBufCadu.value="";clearSapCadu.value="";
 
 }
 
@@ -1654,9 +1658,9 @@ function CaduS() {
     // Перенести вывод тасков в отдельную функцию
     // Разобраться с буфером (айди или правильный номер)
     var printTaskInfo=
-        "<div class=\"w3-light-blue\" style='overflow-x: scroll;  margin-top: 10px;margin-bottom: 0px;'>\n" +
+        "<div class=\"w3-light-blue\" style='overflow-x: scroll; overflow-y: scroll;  margin-top: 10px;margin-bottom: 0px;'>\n" +
         "  <button id=\"btn_c_tasks\" onclick=\"caduTaskInfoShow('C_Tasks')\" class=\"w3-button w3-block\">Таски</button>\n" +
-        "  <div id=\"C_Tasks\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+        "  <div id=\"C_Tasks\" style=\"overflow-y: scroll; overflow-x: scroll; height: 400px;\" class=\"w3-hide w3-container w3-light-gray\">\n" +
         "<br>";
 
 

@@ -1667,7 +1667,7 @@ function CaduS() {
         "  <div id=\"C_Details\" class=\"w3-hide w3-container w3-light-gray\">\n" +
         "<br>";
 
-
+        // function is deprecated---!
     var printCertInfo=
         "<div class=\"w3-light-blue\" style='margin-top: 10px;margin-bottom: 0px;'>\n" +
         "  <button id=\"btn_c_tasks\" onclick=\"myFunctionCadu('C_Certs')\" class=\"w3-button w3-block\">Сертификаты</button>\n" +
@@ -2563,8 +2563,8 @@ function caduTaskInfoShow(id){
                 }
 
 
-                blockPrint.innerHTML+=printTaskInfo+"</table>";
-
+                blockPrint.innerHTML=printTaskInfo+"</table>";
+                printTaskInfo="";
             }
         }
 
@@ -2646,7 +2646,8 @@ function caduDetInfoShow(id){
                 }
 
 
-                blockPrint.innerHTML+=printBufDetails+"</table>";
+                blockPrint.innerHTML=printBufDetails+"</table>";  // исправление для корректного отображения блока детали
+                printBufDetails="";
 
             }
         }
@@ -2719,7 +2720,8 @@ function caduFlowInfoShow(id){
                 }
 
 
-                blockPrint.innerHTML+=printVFlowInfo+"</table>";
+                blockPrint.innerHTML=printVFlowInfo+"</table>";
+                printVFlowInfo="";
 
             }
         }
