@@ -1724,7 +1724,7 @@ function CaduS() {
           // var arrBufFlowInfo=arrInfoMain[7].split("&");
 
 
-
+            //yyyy.mm.dd
             for(var i=0;i<arrInfo.length-1;i++){
                 var rowInfo = arrInfo[i].split("|");
                     printBaseInfo+="<tr>";
@@ -1732,7 +1732,7 @@ function CaduS() {
                     printBaseInfo+="<td>"+rowInfo[1]+"</td>";
                     printBaseInfo+="<td>"+rowInfo[2]+"</td>";
                     printBaseInfo+="<td>"+rowInfo[3]+"</td>";
-                    printBaseInfo+="<td>"+rowInfo[4]+"</td>";
+                    printBaseInfo+="<td>"+rowInfo[4].substr(0,10)+"</td>";   // cut time date_time row ?
                     printBaseInfo+="<td>"+rowInfo[5]+"</td>";
                     printBaseInfo+="<td>"+rowInfo[6]+"</td>";
                    // printBaseInfo+="</tr>";
