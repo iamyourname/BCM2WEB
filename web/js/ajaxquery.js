@@ -2563,8 +2563,8 @@ function caduTaskInfoShow(id){
                 }
 
 
-                blockPrint.innerHTML+=printTaskInfo+"</table>";
-
+                blockPrint.innerHTML=printTaskInfo+"</table>";
+                printTaskInfo="";
             }
         }
 
