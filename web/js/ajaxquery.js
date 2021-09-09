@@ -2647,7 +2647,7 @@ function caduDetInfoShow(id){
 
 
                 blockPrint.innerHTML=printBufDetails+"</table>";  // исправление для корректного отображения блока детали
-
+                printBufDetails="";
 
             }
         }
