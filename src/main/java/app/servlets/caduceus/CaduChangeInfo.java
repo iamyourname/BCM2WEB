@@ -96,11 +96,11 @@ public class CaduChangeInfo {
                 " AND DOC_ADDDATE > SYSDATE -15";
 
         if(stmtPullM.execute(sqlUpdateState)){
-            pullConn.close();stmtPullM.close();
+            stmtPullM.close();pullConn.close();
             return "ok";
 
         }else{
-            pullConn.close();stmtPullM.close();
+            stmtPullM.close();pullConn.close();
             return "not_ok";
         }
 

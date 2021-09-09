@@ -63,12 +63,16 @@ public class CaduSearch extends HttpServlet {
                     break;//flows
                 case "flows":
                     out.append(caduBaseInfo.getCaduVFlow(cadbuf,cadsap));
-                    break;//
+                    break;
                 case "invent":
                     out.append(caduBaseInfo.getInventInfo(cadbuf,cadsap));
                     break;
                 case "baseChange": // for show base info from cade, for change buf
                     out.append(caduChangeInfo.getCaduInfoChange(cadbuf,cadsap));
+                    break;
+                case "inCaduChange": // for change state incoming buf cadu
+                    String status = req.getParameter("cadstatus");
+                    out.append(caduChangeInfo.updateIncBufHeader(cadbuf,cadsap,status));
                     break;
             }
 

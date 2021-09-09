@@ -974,7 +974,7 @@ function changeStateBacchus(oldS,buf,sap,inout){
         xhrCh.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
         xhrCh.send(body);
 
-        //MagOut();
+
     }
     else{
         alert('change status of outgoing buffer from'+oldS+'to - '+newSt+' buf - '+ buf.replaceAll(/\s/g,'') + ' sap - '+sap);
