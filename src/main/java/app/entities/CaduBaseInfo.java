@@ -84,6 +84,7 @@ public class CaduBaseInfo {
         Connection pullConn = ConnectionPool.getInstance().getConnectionMerc();
         Statement stmtPullM = pullConn.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
         String findBaseInfo = "SELECT \n" +
                 "        ci.CINC_TRANSACTIONID \"BUF\"\n" +
                 "    ,   'Приемка' \"DOC_TYPE\"\n" +
@@ -92,16 +93,15 @@ public class CaduBaseInfo {
                 "    ,  ci.CINC_WAYBILLDATE \n" +
                 "    ,   cod.CODV_NAME||' ('||cod.CODV_CODE||')' \"otpravitel\"\n" +
                 "    ,   cod2.codv_name||' ('||cod2.CODV_CODE||')' \"poluchatel\""+
-            //    "    --,   (SELECT CODV_NAME ||'('||CODV_CODE||')'  FROM C_ORG_DIVISIONS cod WHERE cod.CODV_ID=ci.CINC_FROMDIVISION_ID)\"Otpravitel\"\n" +
                 "FROM C_INCOMING ci \n" +
                 "LEFT JOIN C_ORG_DIVISIONS cod ON cod.codv_id = ci.CINC_FROMDIVISION_ID \n" +
                 "LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = ci.CINC_TODIVISION_ID \n" +
                 "LEFT JOIN S_DOCSTATUSES sd ON sd.SDSS_ID = ci.DOC_STATUS \n" +
                 "WHERE "+
-                "                        ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+
-                "' OR ci.CINC_WAYBILLNUMBER ='"+buf+"')\n" +
-                "                    AND cod2.CODV_CODE = '"+sap+"' AND ci.DOC_ADDDATE > SYSDATE-15)  \n" +
-                "                UNION ALL \n" +
+                " ((ci.CINC_TRANSACTIONID = 'BF_'||cod2.CODV_CODEDEPNQ||'_'||'"+buf+"' OR ci.CINC_TRANSACTIONID = '"+buf+"'"+
+                " OR ci.CINC_WAYBILLNUMBER ='"+buf+"') \n" +
+                " AND cod2.CODV_CODE = '"+sap+"' AND ci.DOC_ADDDATE > SYSDATE-15)  \n" +
+                " UNION ALL \n" +
                 "SELECT \n" +
                 "        co.COUT_TRANSACTIONID \"BUF\"\n" +
                 "    ,  'Отгрузка' \"DOC_TYPE\"\n" +
@@ -110,7 +110,6 @@ public class CaduBaseInfo {
                 "    ,   co.COUT_WAYBILLDATE \n" +
                 "    ,   cod.CODV_NAME||' ('||cod.CODV_CODE||')' \"otpravitel\"\n" +
                 "    ,   cod2.codv_name||' ('||cod2.CODV_CODE||')' \"poluchatel\" "+
-               // "    --,   (SELECT CODV_NAME ||'('||CODV_CODE||')'  FROM C_ORG_DIVISIONS cod WHERE cod.CODV_ID=ci.CINC_FROMDIVISION_ID)\"Otpravitel\"\n" +
                 "FROM C_OUTGOING co \n" +
                 "LEFT JOIN C_ORG_DIVISIONS cod ON cod.codv_id = co.COUT_FROMDIVISION_ID \n" +
                 "LEFT JOIN C_ORG_DIVISIONS cod2 ON cod2.codv_id = co.COUT_TODIVISION_ID \n" +
@@ -139,8 +138,11 @@ public class CaduBaseInfo {
             response+=rs.getString(7)+"|";
             response+="&";
        // }
-        pullConn.close();
+
         stmtPullM.close();
+        pullConn.close();
+        rs.close();
+
         response+="@"+getCadu_RC_StateBufInfo(bufNumber,sap);
         //response+="@"+getCaduRcBaseInfo(bufNumber,sap);
         //response+="@"+getCaduTaskInfo(bufNumber,sap);
@@ -318,6 +320,7 @@ public class CaduBaseInfo {
         Connection pullConnNq = ConnectionPool.getInstance().getConnectionNQ(sap);
         Statement stmtPullNq = pullConnNq.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
         String[] rcBuf = buf.split("_");
         String findNqStateInfo = "select * from alc.buferstatushistory where BUF_ID_HEADER = '"+rcBuf[2]+"'  order by 1 desc ";
 
@@ -329,9 +332,10 @@ public class CaduBaseInfo {
             response+=rs.getString(9)+"|";
             response+="&";
 
-            rs.close();
-        pullConnNq.close();
+        rs.close();
         stmtPullNq.close();
+        pullConnNq.close();
+
 
         response+="@"+getCadu_RC_ExcludeBufInfo(rcBuf[2],sap);
 
@@ -361,9 +365,11 @@ public class CaduBaseInfo {
             }
         }
         response+="&";
+
         rs.close();
-        pullConnNq.close();
         stmtPullNq.close();
+        pullConnNq.close();
+
 
         response+="@"+getCadu_RC_CarNumber(buf,sap);
 
@@ -460,9 +466,11 @@ order by 1 DESC;
         }
 
         response+="&";
+
         rs.close();
-        pullConnNq.close();
         stmtPullNq.close();
+        pullConnNq.close();
+
 
         //response+="@"+getCaduSert(buf,sap);
 
@@ -509,7 +517,7 @@ order by 1 DESC;
         Statement stmtPullNq = pullConnNq.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-        String findNqStateInfo = "select i.CHNG_TYPE, i.FILE_NUMBER , i.DT_EXPORTED from sap.exportlist i where id = "+buf;
+        String findNqStateInfo = "select i.CHNG_TYPE, i.FILE_NUMBER , i.DT_EXPORTED from sap.exportlist i where id ="+buf;
 
         ResultSet rs = stmtPullNq.executeQuery(findNqStateInfo);
 
@@ -525,8 +533,11 @@ order by 1 DESC;
 
 
         response+="&";
-        pullConnNq.close();
+
+        rs.close();
         stmtPullNq.close();
+        pullConnNq.close();
+
 
         return response;
     }
