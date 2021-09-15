@@ -126,7 +126,11 @@ public class CaduBaseInfo {
 
         String response="";
         String bufNumber="";
+        System.out.println(findBaseInfo);
         rs.first();
+
+
+
       //  while(rs.next()){
             bufNumber=rs.getString(1);
             response+=rs.getString(1)+"|";

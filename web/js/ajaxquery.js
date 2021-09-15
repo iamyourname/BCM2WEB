@@ -1660,7 +1660,7 @@ function CaduS() {
     var printTaskInfo=
         "<div class=\"w3-light-blue\" style='overflow-x: scroll; overflow-y: scroll;  margin-top: 10px;margin-bottom: 0px;'>\n" +
         "  <button id=\"btn_c_tasks\" onclick=\"caduTaskInfoShow('C_Tasks')\" class=\"w3-button w3-block\">Таски</button>\n" +
-        "  <div id=\"C_Tasks\" style=\"overflow-y: scroll; overflow-x: scroll; height: 400px;\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+        "  <div id=\"C_Tasks\" style=\"overflow-y: scroll; overflow-x: scroll; height: 600px;\" class=\"w3-hide w3-container w3-light-gray\">\n" +
         "<br>";
 
 

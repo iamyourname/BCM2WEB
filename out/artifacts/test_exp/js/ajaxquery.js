@@ -672,9 +672,13 @@ function clearCerts(){
     var clearSap4 = document.getElementById("MagSAP"); //document.getElementById("certsToCheck").innerText;
     var clearSap5 = document.getElementById("MagNQbuff"); //document.getElementById("certsToCheck").innerText;
     var clearSap6 = document.getElementById("MagNQSAP"); //document.getElementById("certsToCheck").innerText;
+    var clearBufCadu = document.getElementById("CadBuf"); // bufer in block cadu
+    var clearSapCadu = document.getElementById("CadSap"); // sap in block cadu
     clearSap1.value="";    clearSap2.value="";
     clearSap3.value="";    clearSap4.value="";
     clearSap5.value="";    clearSap6.value="";
+
+    clearBufCadu.value="";clearSapCadu.value="";
 
 }
 
@@ -970,7 +974,7 @@ function changeStateBacchus(oldS,buf,sap,inout){
         xhrCh.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
         xhrCh.send(body);
 
-        //MagOut();
+
     }
     else{
         alert('change status of outgoing buffer from'+oldS+'to - '+newSt+' buf - '+ buf.replaceAll(/\s/g,'') + ' sap - '+sap);
@@ -1654,9 +1658,9 @@ function CaduS() {
     // Перенести вывод тасков в отдельную функцию
     // Разобраться с буфером (айди или правильный номер)
     var printTaskInfo=
-        "<div class=\"w3-light-blue\" style='overflow-x: scroll;  margin-top: 10px;margin-bottom: 0px;'>\n" +
+        "<div class=\"w3-light-blue\" style='overflow-x: scroll; overflow-y: scroll;  margin-top: 10px;margin-bottom: 0px;'>\n" +
         "  <button id=\"btn_c_tasks\" onclick=\"caduTaskInfoShow('C_Tasks')\" class=\"w3-button w3-block\">Таски</button>\n" +
-        "  <div id=\"C_Tasks\" class=\"w3-hide w3-container w3-light-gray\">\n" +
+        "  <div id=\"C_Tasks\" style=\"overflow-y: scroll; overflow-x: scroll; height: 600px;\" class=\"w3-hide w3-container w3-light-gray\">\n" +
         "<br>";
 
 
@@ -1720,7 +1724,7 @@ function CaduS() {
           // var arrBufFlowInfo=arrInfoMain[7].split("&");
 
 
-
+            //yyyy.mm.dd
             for(var i=0;i<arrInfo.length-1;i++){
                 var rowInfo = arrInfo[i].split("|");
                     printBaseInfo+="<tr>";
@@ -1728,7 +1732,7 @@ function CaduS() {
                     printBaseInfo+="<td>"+rowInfo[1]+"</td>";
                     printBaseInfo+="<td>"+rowInfo[2]+"</td>";
                     printBaseInfo+="<td>"+rowInfo[3]+"</td>";
-                    printBaseInfo+="<td>"+rowInfo[4]+"</td>";
+                    printBaseInfo+="<td>"+rowInfo[4].substr(0,10)+"</td>";   // cut time date_time row ?
                     printBaseInfo+="<td>"+rowInfo[5]+"</td>";
                     printBaseInfo+="<td>"+rowInfo[6]+"</td>";
                    // printBaseInfo+="</tr>";

@@ -25,6 +25,10 @@ public class CaduSearch extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+
+        req.setCharacterEncoding("UTF-8");
+
+
         String cadbuf = req.getParameter("cadbuf");
         String cadsap = req.getParameter("cadsap");
         String cadparam = req.getParameter("cadparam");
