@@ -66,8 +66,11 @@ public class CaduBaseInfo {
             response+=rs.getString(9)+"|";
             response+="&";
         }
-        pullConn.close();
+
+        rs.close();
         stmtPullM.close();
+        pullConn.close();
+
 
         if(response.equals(""))
             return "&";
@@ -126,12 +129,12 @@ public class CaduBaseInfo {
 
         String response="";
         String bufNumber="";
-        System.out.println(findBaseInfo);
-        rs.first();
+        //System.out.println(findBaseInfo);
 
+        rs.last();int baseRows = rs.getRow();rs.beforeFirst();
 
-
-      //  while(rs.next()){
+        if(baseRows!=0){
+            rs.first();
             bufNumber=rs.getString(1);
             response+=rs.getString(1)+"|";
             response+=rs.getString(2)+"|";
@@ -141,13 +144,19 @@ public class CaduBaseInfo {
             response+=rs.getString(6)+"|";
             response+=rs.getString(7)+"|";
             response+="&";
-       // }
+            response+="@"+getCadu_RC_StateBufInfo(bufNumber,sap);
+        }else{
+            response+="Not_Found";
+        }
+
+
+
 
         stmtPullM.close();
         pullConn.close();
         rs.close();
 
-        response+="@"+getCadu_RC_StateBufInfo(bufNumber,sap);
+
         //response+="@"+getCaduRcBaseInfo(bufNumber,sap);
         //response+="@"+getCaduTaskInfo(bufNumber,sap);
 
@@ -231,8 +240,11 @@ public class CaduBaseInfo {
             response+=rs.getString(14)+"|";
             response+="&";
         }
-        pullConn.close();
+
+
+        rs.close();
         stmtPullM.close();
+        pullConn.close();
 
         //response+="@"+getCaduDetailsInfo(buf,sap);
 
@@ -308,9 +320,10 @@ public class CaduBaseInfo {
             response+=rs.getString(8)+"|";
             response+="&";
         }
-        pullConn.close();
-        stmtPullM.close();
 
+        rs.close();
+        stmtPullM.close();
+        pullConn.close();
         //response+="@"+getCadu_RC_StateBufInfo(buf,sap);
 
 
@@ -505,8 +518,10 @@ order by 1 DESC;
 
 
         response+="&";
-        pullConnNq.close();
+            rs.close();
         stmtPullNq.close();
+        pullConnNq.close();
+
 
         response+="@"+getCaduVFlow(buf,sap);
 
