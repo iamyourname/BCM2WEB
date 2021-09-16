@@ -1726,7 +1726,7 @@ function CaduS() {
           // var arrBufFlowInfo=arrInfoMain[7].split("&");
 
 
-            //yyyy.mm.dd
+            //yyyy.mm.ddd
             for(var i=0;i<arrInfo.length-1;i++){
                 var rowInfo = arrInfo[i].split("|");
                     if(rowInfo[0].contains("not_found"))
