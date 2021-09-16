@@ -682,7 +682,7 @@ body {
             -->
         </form>
         <button id="CadSend"  class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="CaduS()" >Отправить</button>
-
+        <div id="alertMes"></div>
         <div id="CadThreeq">
             <%--
             <div class="w3-row">

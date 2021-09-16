@@ -146,7 +146,16 @@ public class CaduBaseInfo {
             response+="&";
             response+="@"+getCadu_RC_StateBufInfo(bufNumber,sap);
         }else{
-            response+="Not_Found";
+            response+="not_found"+"|";
+            response+="not_found"+"|";
+            response+="not_found"+"|";
+            response+="not_found"+"|";
+            response+="not_found"+"|";
+            response+="not_found"+"|";
+            response+="not_found"+"|";
+            response+="&";
+            response+="@"+getCadu_RC_StateBufInfo(buf,sap);
+            //response+="Not_Found";
         }
 
 
@@ -338,8 +347,17 @@ public class CaduBaseInfo {
         Statement stmtPullNq = pullConnNq.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-        String[] rcBuf = buf.split("_");
-        String findNqStateInfo = "select * from alc.buferstatushistory where BUF_ID_HEADER = '"+rcBuf[2]+"'  order by 1 desc ";
+        String findNqStateInfo ="";
+        String bufToGo="";
+        if(buf.contains("_")){
+            String[] rcBuf = buf.split("_");
+            bufToGo=rcBuf[2];
+            findNqStateInfo = "select * from alc.buferstatushistory where BUF_ID_HEADER = '"+rcBuf[2]+"'  order by 1 desc ";
+        }else{
+            findNqStateInfo = "select * from alc.buferstatushistory where BUF_ID_HEADER = '"+buf+"'  order by 1 desc ";
+            bufToGo=buf;
+        }
+
 
         ResultSet rs = stmtPullNq.executeQuery(findNqStateInfo);
 
@@ -354,7 +372,7 @@ public class CaduBaseInfo {
         pullConnNq.close();
 
 
-        response+="@"+getCadu_RC_ExcludeBufInfo(rcBuf[2],sap);
+        response+="@"+getCadu_RC_ExcludeBufInfo(bufToGo,sap);
 
         return response;
     }

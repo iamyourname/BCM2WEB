@@ -1632,6 +1632,8 @@ function CaduS() {
     //var toPrintag_2 = document.getElementById("CadQuart"); // 1/4
     var toPrintag_main = document.getElementById("CadTextArea"); // main div to print
 
+    var alertMes = document.getElementById("alertMes");
+
     var printBaseInfo="<table class=\"w3-table-all w3-small\">" +
         "<tr class = \"w3-light-blue\">"+
         "<th>Буфер</th>"+
@@ -1727,6 +1729,9 @@ function CaduS() {
             //yyyy.mm.dd
             for(var i=0;i<arrInfo.length-1;i++){
                 var rowInfo = arrInfo[i].split("|");
+                    if(rowInfo[0].contains("not_found"))
+                        alertMes.innerText="Буфер не найден в БД Кадуцей. Поиск возможен только по номеру буфера!!!"
+
                     printBaseInfo+="<tr>";
                     printBaseInfo+="<td>"+rowInfo[0]+"</td>";
                     printBaseInfo+="<td>"+rowInfo[1]+"</td>";
