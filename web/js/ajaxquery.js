@@ -1729,7 +1729,7 @@ function CaduS() {
             //yyyy.mm.ddd
             for(var i=0;i<arrInfo.length-1;i++){
                 var rowInfo = arrInfo[i].split("|");
-                    if(rowInfo[0].contains("not_found"))
+                    if(rowInfo[0].includes("not_found"))
                         alertMes.innerText="Буфер не найден в БД Кадуцей. Поиск возможен только по номеру буфера!!!"
 
                     printBaseInfo+="<tr>";
